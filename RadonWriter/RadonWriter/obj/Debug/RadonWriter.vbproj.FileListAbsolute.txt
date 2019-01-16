@@ -10,3 +10,16 @@ c:\users\evelynvose\source\repos\RadonWriter\RadonWriter\obj\Debug\RadonWriter.v
 c:\users\evelynvose\source\repos\RadonWriter\RadonWriter\obj\Debug\RadonWriter.exe
 c:\users\evelynvose\source\repos\RadonWriter\RadonWriter\obj\Debug\RadonWriter.xml
 c:\users\evelynvose\source\repos\RadonWriter\RadonWriter\obj\Debug\RadonWriter.pdb
+C:\Users\Evelyn\source\repos\VoseHomeInspections\VoseHomeInspections\RadonWriter\RadonWriter\bin\Debug\RadonWriter.exe.config
+C:\Users\Evelyn\source\repos\VoseHomeInspections\VoseHomeInspections\RadonWriter\RadonWriter\bin\Debug\RadonWriter.exe
+C:\Users\Evelyn\source\repos\VoseHomeInspections\VoseHomeInspections\RadonWriter\RadonWriter\bin\Debug\RadonWriter.pdb
+C:\Users\Evelyn\source\repos\VoseHomeInspections\VoseHomeInspections\RadonWriter\RadonWriter\bin\Debug\RadonWriter.xml
+C:\Users\Evelyn\source\repos\VoseHomeInspections\VoseHomeInspections\RadonWriter\RadonWriter\obj\Debug\RadonWriter.vbprojAssemblyReference.cache
+C:\Users\Evelyn\source\repos\VoseHomeInspections\VoseHomeInspections\RadonWriter\RadonWriter\obj\Debug\RadonWriter.Resources.resources
+C:\Users\Evelyn\source\repos\VoseHomeInspections\VoseHomeInspections\RadonWriter\RadonWriter\obj\Debug\RadonWriter.vbproj.GenerateResource.cache
+C:\Users\Evelyn\source\repos\VoseHomeInspections\VoseHomeInspections\RadonWriter\RadonWriter\obj\Debug\RadonWriter.vbproj.CoreCompileInputs.cache
+C:\Users\Evelyn\source\repos\VoseHomeInspections\VoseHomeInspections\RadonWriter\RadonWriter\obj\Debug\RadonWriter.exe
+C:\Users\Evelyn\source\repos\VoseHomeInspections\VoseHomeInspections\RadonWriter\RadonWriter\obj\Debug\RadonWriter.xml
+C:\Users\Evelyn\source\repos\VoseHomeInspections\VoseHomeInspections\RadonWriter\RadonWriter\obj\Debug\RadonWriter.pdb
+C:\Users\Evelyn\source\repos\VoseHomeInspections\VoseHomeInspections\RadonWriter\RadonWriter\obj\Debug\RadonWriter.frmMain.resources
+C:\Users\Evelyn\source\repos\VoseHomeInspections\VoseHomeInspections\RadonWriter\RadonWriter\obj\Debug\RadonWriter.frmProperties.resources
