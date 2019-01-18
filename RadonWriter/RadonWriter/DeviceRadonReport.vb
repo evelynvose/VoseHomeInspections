@@ -1,6 +1,7 @@
 ﻿Imports System.IO
+Imports RadonWriter
 
-Public Class RadonReport
+Public Class DeviceRadonReport
 
     ' The heart of this class is the stream reader
     Private oReader As StreamReader
@@ -30,15 +31,20 @@ Public Class RadonReport
     Private sCustomerZipCode As String
     Private sCustomerPhone As String
 
-    ' Inspector Information
-    ' Private sInspectorName As String          Not part of a radon file!
-    ' Private sInspectorPhone As String
-    ' Private sInspectorLicense As String
-
     ' Inspection Property Information
     Private sInspectionAddress1 As String
     Private sInspectionAddress2 As String
     Private sInspectionCity As String
+
+    ' Radon Data Days 
+    Private m_RadDate1 As String
+    Private m_RadDate2 As String
+    Private m_RadDate3 As String
+
+    ' Radon data points by day
+    Private m_RadonDataPointsDay1 As IList
+    Private m_RadonDataPointsDay2 As IList
+    Private m_RadonDataPointsDay3 As IList
 
 
     Public Sub New()
@@ -108,9 +114,74 @@ Public Class RadonReport
         sInspectionAddress2 = ReadToValue("Address 2:")
         sInspectionCity = ReadToValue("City:")
 
+        ' Radon Day data. Should be 3-days under normal circumstances, but could be a few as two days.
+        SetRadonDataPoints()
+
+
     End Sub
 
-    Private Function ReadToValue(sValue As String)
+    Private Sub SetRadonDataPoints()
+        Dim sTestLine As String
+
+
+        m_RadDate1 = ReadToValue("Date:").Trim()
+        sTestLine = oReader.ReadLine
+        sTestLine = oReader.ReadLine
+
+        ' Day 1
+        'sTestLine = oReader.ReadLine
+        m_RadonDataPointsDay1 = New List(Of RadonDataPoints)()
+        sTestLine = oReader.ReadLine
+        Do
+            m_RadonDataPointsDay1.Add(New RadonDataPoints(Mid(sTestLine, 1, 5).Trim(), Mid(sTestLine, 7, 3).Trim(), Mid(sTestLine, 11).Trim()))
+            sTestLine = oReader.ReadLine
+
+        Loop Until oReader.EndOfStream Or sTestLine.StartsWith("Date:")
+
+        ' When we break out of the loop sTestLine should contain "Date" unless it is end of file
+        If sTestLine.StartsWith("Date:") Then
+            m_RadDate2 = sTestLine.Substring("Date:".Length() + 1).Trim()
+            sTestLine = oReader.ReadLine
+            sTestLine = oReader.ReadLine
+
+        Else
+            Exit Sub
+
+        End If
+
+        ' Day 2
+        m_RadonDataPointsDay2 = New List(Of RadonDataPoints)()
+        sTestLine = oReader.ReadLine
+        Do
+            m_RadonDataPointsDay2.Add(New RadonDataPoints(Mid(sTestLine, 1, 5).Trim(), Mid(sTestLine, 7, 3).Trim(), Mid(sTestLine, 11).Trim()))
+            sTestLine = oReader.ReadLine
+
+        Loop Until oReader.EndOfStream Or sTestLine.StartsWith("Date:")
+
+
+        ' When we break out of the loop sTestLine should contain "Date" unless it is end of file
+        If sTestLine.StartsWith("Date:") Then
+            m_RadDate3 = sTestLine.Substring("Date:".Length() + 1).Trim()
+            sTestLine = oReader.ReadLine
+            sTestLine = oReader.ReadLine
+
+        Else
+            Exit Sub
+
+        End If
+
+        ' Day 3
+        m_RadonDataPointsDay3 = New List(Of RadonDataPoints)()
+        sTestLine = oReader.ReadLine
+        Do
+            m_RadonDataPointsDay3.Add(New RadonDataPoints(Mid(sTestLine, 1, 5).Trim(), Mid(sTestLine, 7, 3).Trim(), Mid(sTestLine, 11).Trim()))
+            sTestLine = oReader.ReadLine
+
+        Loop Until oReader.EndOfStream Or sTestLine.StartsWith("Date:")
+
+    End Sub
+
+    Private Function ReadToValue(sValue As String) As String
         Dim sTestLine As String
 
         While Not oReader.EndOfStream
@@ -323,4 +394,60 @@ Public Class RadonReport
         End Set
     End Property
 
+
+    ' Radon Data Points
+    Public ReadOnly Property RadonDataPointsDay1 As List(Of RadonDataPoints)
+        Get
+            Return m_RadonDataPointsDay1
+        End Get
+    End Property
+
+    Public ReadOnly Property RadonDataPointsDay2 As List(Of RadonDataPoints)
+        Get
+            Return m_RadonDataPointsDay2
+        End Get
+    End Property
+
+    Public ReadOnly Property RadonDataPointsDay3 As List(Of RadonDataPoints)
+        Get
+            Return m_RadonDataPointsDay3
+        End Get
+    End Property
+
+    ' dates
+    Public Property TestStartDate As String
+        Get
+            Return RadDate1
+        End Get
+        Set(value As String)
+            RadDate1 = value
+        End Set
+    End Property
+
+    Public Property RadDate1 As String
+        Get
+            Return m_RadDate1
+        End Get
+        Set(value As String)
+            m_RadDate1 = value
+        End Set
+    End Property
+
+    Public Property RadDate2 As String
+        Get
+            Return m_RadDate2
+        End Get
+        Set(value As String)
+            m_RadDate2 = value
+        End Set
+    End Property
+
+    Public Property RadDate3 As String
+        Get
+            Return m_RadDate3
+        End Get
+        Set(value As String)
+            m_RadDate3 = value
+        End Set
+    End Property
 End Class

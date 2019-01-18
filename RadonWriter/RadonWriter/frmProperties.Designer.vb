@@ -33,21 +33,28 @@ Partial Class frmProperties
         Me.lblInspectorsPhone = New System.Windows.Forms.Label()
         Me.gbInspector = New System.Windows.Forms.GroupBox()
         Me.gbCompany = New System.Windows.Forms.GroupBox()
-        Me.lblCompanyName = New System.Windows.Forms.Label()
-        Me.lblCompanyAddress1 = New System.Windows.Forms.Label()
-        Me.lblCompanyAddress2 = New System.Windows.Forms.Label()
-        Me.lblCompanyCity = New System.Windows.Forms.Label()
-        Me.lblCompanyState = New System.Windows.Forms.Label()
-        Me.lblCompanyZipCode = New System.Windows.Forms.Label()
-        Me.tbCompanyName = New System.Windows.Forms.TextBox()
-        Me.tbCompanyAddress1 = New System.Windows.Forms.TextBox()
-        Me.tbCompanyCity = New System.Windows.Forms.TextBox()
-        Me.tbCompanyState = New System.Windows.Forms.TextBox()
-        Me.tbCompanyZipCode = New System.Windows.Forms.TextBox()
         Me.tbCompanyAddress2 = New System.Windows.Forms.TextBox()
+        Me.tbCompanyZipCode = New System.Windows.Forms.TextBox()
+        Me.tbCompanyState = New System.Windows.Forms.TextBox()
+        Me.tbCompanyCity = New System.Windows.Forms.TextBox()
+        Me.tbCompanyAddress1 = New System.Windows.Forms.TextBox()
+        Me.tbCompanyName = New System.Windows.Forms.TextBox()
+        Me.lblCompanyZipCode = New System.Windows.Forms.Label()
+        Me.lblCompanyState = New System.Windows.Forms.Label()
+        Me.lblCompanyCity = New System.Windows.Forms.Label()
+        Me.lblCompanyAddress2 = New System.Windows.Forms.Label()
+        Me.lblCompanyAddress1 = New System.Windows.Forms.Label()
+        Me.lblCompanyName = New System.Windows.Forms.Label()
+        Me.gbReportTemplate = New System.Windows.Forms.GroupBox()
+        Me.lblTemplateName = New System.Windows.Forms.Label()
+        Me.lblTemplatePath = New System.Windows.Forms.Label()
+        Me.tbTemplateName = New System.Windows.Forms.TextBox()
+        Me.tbTemplatePath = New System.Windows.Forms.TextBox()
+        Me.btnBrowseTemplateFile = New System.Windows.Forms.Button()
         CType(Me.pbCompanyLogo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbInspector.SuspendLayout()
         Me.gbCompany.SuspendLayout()
+        Me.gbReportTemplate.SuspendLayout()
         Me.SuspendLayout()
         '
         'lblLogoFilePath
@@ -161,50 +168,47 @@ Partial Class frmProperties
         Me.gbCompany.TabStop = False
         Me.gbCompany.Text = "Company Information"
         '
-        'lblCompanyName
+        'tbCompanyAddress2
         '
-        Me.lblCompanyName.AutoSize = True
-        Me.lblCompanyName.Location = New System.Drawing.Point(12, 32)
-        Me.lblCompanyName.Name = "lblCompanyName"
-        Me.lblCompanyName.Size = New System.Drawing.Size(38, 13)
-        Me.lblCompanyName.TabIndex = 0
-        Me.lblCompanyName.Text = "Name:"
+        Me.tbCompanyAddress2.Location = New System.Drawing.Point(86, 83)
+        Me.tbCompanyAddress2.Name = "tbCompanyAddress2"
+        Me.tbCompanyAddress2.Size = New System.Drawing.Size(139, 20)
+        Me.tbCompanyAddress2.TabIndex = 8
         '
-        'lblCompanyAddress1
+        'tbCompanyZipCode
         '
-        Me.lblCompanyAddress1.AutoSize = True
-        Me.lblCompanyAddress1.Location = New System.Drawing.Point(12, 59)
-        Me.lblCompanyAddress1.Name = "lblCompanyAddress1"
-        Me.lblCompanyAddress1.Size = New System.Drawing.Size(57, 13)
-        Me.lblCompanyAddress1.TabIndex = 1
-        Me.lblCompanyAddress1.Text = "Address 1:"
+        Me.tbCompanyZipCode.Location = New System.Drawing.Point(86, 164)
+        Me.tbCompanyZipCode.Name = "tbCompanyZipCode"
+        Me.tbCompanyZipCode.Size = New System.Drawing.Size(66, 20)
+        Me.tbCompanyZipCode.TabIndex = 11
         '
-        'lblCompanyAddress2
+        'tbCompanyState
         '
-        Me.lblCompanyAddress2.AutoSize = True
-        Me.lblCompanyAddress2.Location = New System.Drawing.Point(12, 86)
-        Me.lblCompanyAddress2.Name = "lblCompanyAddress2"
-        Me.lblCompanyAddress2.Size = New System.Drawing.Size(57, 13)
-        Me.lblCompanyAddress2.TabIndex = 2
-        Me.lblCompanyAddress2.Text = "Address 2:"
+        Me.tbCompanyState.Location = New System.Drawing.Point(86, 138)
+        Me.tbCompanyState.Name = "tbCompanyState"
+        Me.tbCompanyState.Size = New System.Drawing.Size(35, 20)
+        Me.tbCompanyState.TabIndex = 10
         '
-        'lblCompanyCity
+        'tbCompanyCity
         '
-        Me.lblCompanyCity.AutoSize = True
-        Me.lblCompanyCity.Location = New System.Drawing.Point(12, 115)
-        Me.lblCompanyCity.Name = "lblCompanyCity"
-        Me.lblCompanyCity.Size = New System.Drawing.Size(27, 13)
-        Me.lblCompanyCity.TabIndex = 3
-        Me.lblCompanyCity.Text = "City:"
+        Me.tbCompanyCity.Location = New System.Drawing.Point(86, 112)
+        Me.tbCompanyCity.Name = "tbCompanyCity"
+        Me.tbCompanyCity.Size = New System.Drawing.Size(83, 20)
+        Me.tbCompanyCity.TabIndex = 9
         '
-        'lblCompanyState
+        'tbCompanyAddress1
         '
-        Me.lblCompanyState.AutoSize = True
-        Me.lblCompanyState.Location = New System.Drawing.Point(12, 142)
-        Me.lblCompanyState.Name = "lblCompanyState"
-        Me.lblCompanyState.Size = New System.Drawing.Size(35, 13)
-        Me.lblCompanyState.TabIndex = 4
-        Me.lblCompanyState.Text = "State:"
+        Me.tbCompanyAddress1.Location = New System.Drawing.Point(86, 56)
+        Me.tbCompanyAddress1.Name = "tbCompanyAddress1"
+        Me.tbCompanyAddress1.Size = New System.Drawing.Size(139, 20)
+        Me.tbCompanyAddress1.TabIndex = 7
+        '
+        'tbCompanyName
+        '
+        Me.tbCompanyName.Location = New System.Drawing.Point(86, 30)
+        Me.tbCompanyName.Name = "tbCompanyName"
+        Me.tbCompanyName.Size = New System.Drawing.Size(139, 20)
+        Me.tbCompanyName.TabIndex = 6
         '
         'lblCompanyZipCode
         '
@@ -215,53 +219,113 @@ Partial Class frmProperties
         Me.lblCompanyZipCode.TabIndex = 5
         Me.lblCompanyZipCode.Text = "Zip Code:"
         '
-        'tbCompanyName
+        'lblCompanyState
         '
-        Me.tbCompanyName.Location = New System.Drawing.Point(86, 30)
-        Me.tbCompanyName.Name = "tbCompanyName"
-        Me.tbCompanyName.Size = New System.Drawing.Size(139, 20)
-        Me.tbCompanyName.TabIndex = 6
+        Me.lblCompanyState.AutoSize = True
+        Me.lblCompanyState.Location = New System.Drawing.Point(12, 142)
+        Me.lblCompanyState.Name = "lblCompanyState"
+        Me.lblCompanyState.Size = New System.Drawing.Size(35, 13)
+        Me.lblCompanyState.TabIndex = 4
+        Me.lblCompanyState.Text = "State:"
         '
-        'tbCompanyAddress1
+        'lblCompanyCity
         '
-        Me.tbCompanyAddress1.Location = New System.Drawing.Point(86, 56)
-        Me.tbCompanyAddress1.Name = "tbCompanyAddress1"
-        Me.tbCompanyAddress1.Size = New System.Drawing.Size(139, 20)
-        Me.tbCompanyAddress1.TabIndex = 7
+        Me.lblCompanyCity.AutoSize = True
+        Me.lblCompanyCity.Location = New System.Drawing.Point(12, 115)
+        Me.lblCompanyCity.Name = "lblCompanyCity"
+        Me.lblCompanyCity.Size = New System.Drawing.Size(27, 13)
+        Me.lblCompanyCity.TabIndex = 3
+        Me.lblCompanyCity.Text = "City:"
         '
-        'tbCompanyCity
+        'lblCompanyAddress2
         '
-        Me.tbCompanyCity.Location = New System.Drawing.Point(86, 112)
-        Me.tbCompanyCity.Name = "tbCompanyCity"
-        Me.tbCompanyCity.Size = New System.Drawing.Size(83, 20)
-        Me.tbCompanyCity.TabIndex = 9
+        Me.lblCompanyAddress2.AutoSize = True
+        Me.lblCompanyAddress2.Location = New System.Drawing.Point(12, 86)
+        Me.lblCompanyAddress2.Name = "lblCompanyAddress2"
+        Me.lblCompanyAddress2.Size = New System.Drawing.Size(57, 13)
+        Me.lblCompanyAddress2.TabIndex = 2
+        Me.lblCompanyAddress2.Text = "Address 2:"
         '
-        'tbCompanyState
+        'lblCompanyAddress1
         '
-        Me.tbCompanyState.Location = New System.Drawing.Point(86, 138)
-        Me.tbCompanyState.Name = "tbCompanyState"
-        Me.tbCompanyState.Size = New System.Drawing.Size(35, 20)
-        Me.tbCompanyState.TabIndex = 10
+        Me.lblCompanyAddress1.AutoSize = True
+        Me.lblCompanyAddress1.Location = New System.Drawing.Point(12, 59)
+        Me.lblCompanyAddress1.Name = "lblCompanyAddress1"
+        Me.lblCompanyAddress1.Size = New System.Drawing.Size(57, 13)
+        Me.lblCompanyAddress1.TabIndex = 1
+        Me.lblCompanyAddress1.Text = "Address 1:"
         '
-        'tbCompanyZipCode
+        'lblCompanyName
         '
-        Me.tbCompanyZipCode.Location = New System.Drawing.Point(86, 164)
-        Me.tbCompanyZipCode.Name = "tbCompanyZipCode"
-        Me.tbCompanyZipCode.Size = New System.Drawing.Size(66, 20)
-        Me.tbCompanyZipCode.TabIndex = 11
+        Me.lblCompanyName.AutoSize = True
+        Me.lblCompanyName.Location = New System.Drawing.Point(12, 32)
+        Me.lblCompanyName.Name = "lblCompanyName"
+        Me.lblCompanyName.Size = New System.Drawing.Size(38, 13)
+        Me.lblCompanyName.TabIndex = 0
+        Me.lblCompanyName.Text = "Name:"
         '
-        'tbCompanyAddress2
+        'gbReportTemplate
         '
-        Me.tbCompanyAddress2.Location = New System.Drawing.Point(86, 83)
-        Me.tbCompanyAddress2.Name = "tbCompanyAddress2"
-        Me.tbCompanyAddress2.Size = New System.Drawing.Size(139, 20)
-        Me.tbCompanyAddress2.TabIndex = 8
+        Me.gbReportTemplate.Controls.Add(Me.btnBrowseTemplateFile)
+        Me.gbReportTemplate.Controls.Add(Me.tbTemplatePath)
+        Me.gbReportTemplate.Controls.Add(Me.tbTemplateName)
+        Me.gbReportTemplate.Controls.Add(Me.lblTemplatePath)
+        Me.gbReportTemplate.Controls.Add(Me.lblTemplateName)
+        Me.gbReportTemplate.Location = New System.Drawing.Point(301, 132)
+        Me.gbReportTemplate.Name = "gbReportTemplate"
+        Me.gbReportTemplate.Size = New System.Drawing.Size(238, 100)
+        Me.gbReportTemplate.TabIndex = 12
+        Me.gbReportTemplate.TabStop = False
+        Me.gbReportTemplate.Text = "Report Template"
+        '
+        'lblTemplateName
+        '
+        Me.lblTemplateName.AutoSize = True
+        Me.lblTemplateName.Location = New System.Drawing.Point(7, 23)
+        Me.lblTemplateName.Name = "lblTemplateName"
+        Me.lblTemplateName.Size = New System.Drawing.Size(38, 13)
+        Me.lblTemplateName.TabIndex = 0
+        Me.lblTemplateName.Text = "Name:"
+        '
+        'lblTemplatePath
+        '
+        Me.lblTemplatePath.AutoSize = True
+        Me.lblTemplatePath.Location = New System.Drawing.Point(7, 49)
+        Me.lblTemplatePath.Name = "lblTemplatePath"
+        Me.lblTemplatePath.Size = New System.Drawing.Size(51, 13)
+        Me.lblTemplatePath.TabIndex = 1
+        Me.lblTemplatePath.Text = "File Path:"
+        '
+        'tbTemplateName
+        '
+        Me.tbTemplateName.Location = New System.Drawing.Point(64, 19)
+        Me.tbTemplateName.Name = "tbTemplateName"
+        Me.tbTemplateName.ReadOnly = True
+        Me.tbTemplateName.Size = New System.Drawing.Size(139, 20)
+        Me.tbTemplateName.TabIndex = 2
+        '
+        'tbTemplatePath
+        '
+        Me.tbTemplatePath.Location = New System.Drawing.Point(64, 45)
+        Me.tbTemplatePath.Name = "tbTemplatePath"
+        Me.tbTemplatePath.Size = New System.Drawing.Size(161, 20)
+        Me.tbTemplatePath.TabIndex = 3
+        '
+        'btnBrowseTemplateFile
+        '
+        Me.btnBrowseTemplateFile.Location = New System.Drawing.Point(64, 71)
+        Me.btnBrowseTemplateFile.Name = "btnBrowseTemplateFile"
+        Me.btnBrowseTemplateFile.Size = New System.Drawing.Size(75, 23)
+        Me.btnBrowseTemplateFile.TabIndex = 4
+        Me.btnBrowseTemplateFile.Text = "Browse"
+        Me.btnBrowseTemplateFile.UseVisualStyleBackColor = True
         '
         'frmProperties
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(307, 497)
+        Me.ClientSize = New System.Drawing.Size(574, 497)
+        Me.Controls.Add(Me.gbReportTemplate)
         Me.Controls.Add(Me.gbCompany)
         Me.Controls.Add(Me.gbInspector)
         Me.Controls.Add(Me.pbCompanyLogo)
@@ -278,6 +342,8 @@ Partial Class frmProperties
         Me.gbInspector.PerformLayout()
         Me.gbCompany.ResumeLayout(False)
         Me.gbCompany.PerformLayout()
+        Me.gbReportTemplate.ResumeLayout(False)
+        Me.gbReportTemplate.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -306,4 +372,10 @@ Partial Class frmProperties
     Friend WithEvents lblCompanyAddress2 As Label
     Friend WithEvents lblCompanyAddress1 As Label
     Friend WithEvents lblCompanyName As Label
+    Friend WithEvents gbReportTemplate As GroupBox
+    Friend WithEvents lblTemplatePath As Label
+    Friend WithEvents lblTemplateName As Label
+    Friend WithEvents btnBrowseTemplateFile As Button
+    Friend WithEvents tbTemplatePath As TextBox
+    Friend WithEvents tbTemplateName As TextBox
 End Class

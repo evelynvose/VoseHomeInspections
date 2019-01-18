@@ -5,8 +5,14 @@
 Public Class frmMain
 
     ' The radon report is the heart of this application!
-    Private theRadonReport As RadonReport
+    Private m_DeviceRadonReport As DeviceRadonReport
 
+    ' **********************************************
+    ' ****
+    ' ******    LOAD
+    ' ****
+    ' **********************************************
+    ' 
     ' Initialize the form's variables
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Load User Settings
@@ -20,40 +26,17 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub FillCompanyInformation()
 
-        rtCompanyInformation.Text = My.Settings.CompanyName
-        rtCompanyInformation.Text = rtCompanyInformation.Text + vbCrLf
-        If My.Settings.CompanyAddress1 <> "" Then
-            rtCompanyInformation.Text = rtCompanyInformation.Text + My.Settings.CompanyAddress1
-            rtCompanyInformation.Text = rtCompanyInformation.Text + vbCrLf
-
-        End If
-        If My.Settings.CompanyAddress2 <> "" Then
-            rtCompanyInformation.Text = rtCompanyInformation.Text + My.Settings.CompanyAddress2
-            rtCompanyInformation.Text = rtCompanyInformation.Text + vbCrLf
-
-        End If
-        If My.Settings.CompanyCity <> "" Then
-            rtCompanyInformation.Text = rtCompanyInformation.Text + My.Settings.CompanyCity
-
-
-        End If
-        If My.Settings.CompanyState <> "" Then
-            rtCompanyInformation.Text = rtCompanyInformation.Text + ", " + My.Settings.CompanyState
-
-        End If
-        If My.Settings.CompanyZipCode <> "" Then
-            rtCompanyInformation.Text = rtCompanyInformation.Text + " " + My.Settings.CompanyZipCode
-
-        End If
-    End Sub
-
-    ' Event Handler
+    ' **********************************************
+    ' ****
+    ' ******    OPEN FILE Event
+    ' ****
+    ' **********************************************
+    ' 
     Private Sub OpenFile()
 
         ' The heart of this app is the radon report
-        theRadonReport = New RadonReport
+        m_DeviceRadonReport = New DeviceRadonReport
 
         Dim OpenFileDialog1 = New OpenFileDialog With {
             .CheckFileExists = True,
@@ -65,8 +48,8 @@ Public Class frmMain
         }
 
         If OpenFileDialog1.ShowDialog = Windows.Forms.DialogResult.OK Then
-            RichTextBox1.Text = ""
-            If theRadonReport.OpenReport(OpenFileDialog1.FileName) Then
+
+            If m_DeviceRadonReport.OpenReport(OpenFileDialog1.FileName) Then
 
                 FillTheForm()
 
@@ -76,73 +59,13 @@ Public Class frmMain
 
     End Sub
 
-    ' Fill the form from the decomosed radon file
-    Private Sub FillTheForm()
 
-        ' Put up the logo
-        pbCompanyLogo.Load(My.Settings.CompanyLogoPath)
-
-        With theRadonReport
-
-            ' the heart of this app is the radon report
-            RichTextBox1.Text = theRadonReport.ReportBody
-
-            ' Machine Information
-            tbModel.Text = .Model
-            tbSerialNo.Text = .SerialNumber
-
-            ' Inspection Company Information
-            'tbCompanyName.Text = .CompanyName
-            'tbCompanyAddress1.Text = .CompanyAddress1
-            'tbCompanyAddress2.Text = .CompanyAddress2
-            'tbCompanyCity.Text = .CompanyCity
-            'tbCompanyState.Text = .CompanyState
-            'tbCompanyZipcode.Text = .CompanyZipCode
-
-            ' Inspector Information
-            ' tbInspectorLicense.Text = .InspectorLicense
-            ' tbInspectorPhone.Text = .InspectorPhone
-
-            ' Customer Information
-            tbCustomerName.Text = .CustomerName
-            tbCustomerAddress1.Text = .CustomerAddress1
-            tbCustomerAddress2.Text = .CustomerAddress2
-            tbCustomerCity.Text = .CustomerCity
-            tbCustomerState.Text = .CustomerState
-            tbCustomerZipcode.Text = .CustomerZipCode
-            tbCustomerPhone.Text = .CustomerPhone
-
-            ' Inspection Property Information
-            tbPropertyAddress1.Text = .InspectionAddess1
-            tbPropertyAddress2.Text = .InspectionAddess2
-            tbPropertyCity.Text = .InspectionCity
-
-            ' Radon Data
-
-
-        End With
-    End Sub
-
-    Private Sub WriteSpreadsheet()
-        'Dim xlsWorkBook As Microsoft.Office.Interop.Excel.Workbook
-        'Dim xlsWorkSheet As Microsoft.Office.Interop.Excel.Worksheet
-        'Dim xls As New Microsoft.Office.Interop.Excel.Application
-
-        'Dim resourcesFolder = IO.Path.GetFullPath(Application.StartupPath & "\..\..\Resources\")
-        'Dim fileName = "book1.xlsx"
-
-        'xlsWorkBook = xls.Workbooks.Open(resourcesFolder & fileName)
-        'xlsWorkSheet = xlsWorkBook.Sheets("Sheet1")
-
-        'xlsWorkSheet.Cells(1, 1) = TextBox1.Text
-
-        'xlsWorkBook.Close()
-        'xls.Quit()
-
-        'MsgBox("file saved to " & resourcesFolder)
-    End Sub
-
-
+    ' **********************************************
+    ' ****
+    ' ******    MAIN FILE PROPERTIES Event
+    ' ****
+    ' **********************************************
+    '  
     Private Sub msMainFileProperties_Click(sender As Object, e As EventArgs) Handles msMainFileProperties.Click
         Dim fProperties As New frmProperties
 
@@ -159,18 +82,58 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub msMainFileOpen_Click(sender As Object, e As EventArgs) Handles msMainFileOpen.Click
-        OpenFile()
 
-    End Sub
-
-    Private Sub msMainFileExit_Click(sender As Object, e As EventArgs) Handles msMainFileExit.Click
-        Application.Exit()
-
-    End Sub
-
+    ' **********************************************
+    ' ****
+    ' ******    MAIN FILE SAVE Event
+    ' ****
+    ' **********************************************
+    ' 
     Private Sub msMainFileSave_Click(sender As Object, e As EventArgs) Handles msMainFileSave.Click
-        WriteSpreadsheet()
+
+        ' Create a new Excel report using a template, but first let's make sure we have what we need!
+        If String.IsNullOrEmpty(My.Settings.ReportTemplate) OrElse String.IsNullOrWhiteSpace(My.Settings.ReportTemplate) Then
+            MsgBox("Template path is empty. Use Properties to set a template!")
+            Exit Sub
+
+        End If
+
+        If IsNothing(m_DeviceRadonReport) Then
+            MsgBox("DeviceRadonReport is null reference. Open a Device first!")
+            Exit Sub
+
+        End If
+
+        Dim oExcelRadonReport As New ExcelRadonReport(m_DeviceRadonReport, My.Settings.ReportTemplate)
+
+
+
+
 
     End Sub
+
+
+    ' **********************************************
+    ' ****
+    ' ******    MAIN FILE OPEN Event
+    ' ****
+    ' **********************************************
+    ' 
+    Private Sub msMainFileOpen_Click_1(sender As Object, e As EventArgs) Handles msMainFileOpen.Click
+        OpenFile()
+    End Sub
+
+
+    ' **********************************************
+    ' ****
+    ' ******    MAIN FILE EXIT Event
+    ' ****
+    ' **********************************************
+    ' 
+    Private Sub msMainFileExit_Click_1(sender As Object, e As EventArgs) Handles msMainFileExit.Click
+
+        Application.Exit()
+    End Sub
+
+
 End Class

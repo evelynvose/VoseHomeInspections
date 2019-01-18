@@ -173,6 +173,27 @@ Namespace My
                 Me("CompanyZipCode") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property ReportTemplate() As String
+            Get
+                Return CType(Me("ReportTemplate"),String)
+            End Get
+            Set
+                Me("ReportTemplate") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Manual")>  _
+        Public ReadOnly Property ScreenStartPosition() As Global.System.Windows.Forms.FormStartPosition
+            Get
+                Return CType(Me("ScreenStartPosition"),Global.System.Windows.Forms.FormStartPosition)
+            End Get
+        End Property
     End Class
 End Namespace
 

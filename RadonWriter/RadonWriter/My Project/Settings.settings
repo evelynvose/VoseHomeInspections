@@ -32,5 +32,11 @@
     <Setting Name="CompanyZipCode" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="ReportTemplate" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ScreenStartPosition" Type="System.Windows.Forms.FormStartPosition" Scope="Application">
+      <Value Profile="(Default)">Manual</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -23,7 +23,7 @@ Public Class frmProperties
         Dim OpenFileDialog1 = New OpenFileDialog With {
             .CheckFileExists = True,
             .CheckPathExists = True,
-            .DefaultExt = "txt",
+            .DefaultExt = "jpg",
             .FileName = "",
             .Filter = "Image Files (*.jpg, *.jpeg, *.png)|*.jpg; *.jpeg; *.png",
             .Multiselect = False
@@ -51,6 +51,28 @@ Public Class frmProperties
 
         My.Settings.Save()
 
+
+    End Sub
+
+    Private Sub btnBrowseTemplateFile_Click(sender As Object, e As EventArgs) Handles btnBrowseTemplateFile.Click
+        ' Browse for the template file
+        Dim OpenFileDialog1 = New OpenFileDialog With {
+            .CheckFileExists = True,
+            .CheckPathExists = True,
+            .DefaultExt = "xlsx",
+            .FileName = "",
+            .Filter = "Template Files (*.xlsx)|*.xlsx",
+            .Multiselect = False
+        }
+
+        If OpenFileDialog1.ShowDialog = Windows.Forms.DialogResult.OK Then
+            My.Settings.ReportTemplate = OpenFileDialog1.FileName
+            tbTemplateName.Text = OpenFileDialog1.SafeFileName.TrimEnd("." & OpenFileDialog1.DefaultExt)
+            tbTemplatePath.Text = OpenFileDialog1.FileName
+
+        End If
+
+        My.Settings.Save()
 
     End Sub
 End Class
