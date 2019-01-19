@@ -1,61 +1,26 @@
 ﻿Imports System.IO
-Imports RadonWriter
 
 Public Class DeviceRadonReport
 
-    ' The heart of this class is the stream reader
-    Private oReader As StreamReader
-
-    ' Machine Information
-    Private sSerialNumber As String
-    Private sMonitorModel As String
-    Private iCalibrationFactor1 As Integer
-    Private iCalibrationFactor2 As Integer
-    Private dCalibrationDate As Date
-
-    ' Inspection Company Information
-    Private sCompanyName As String
-    Private sCompanyAddress1 As String
-    Private sCompanyAddress2 As String
-    Private sCompanyCity As String
-    Private sCompanyState As String
-    Private sCompanyPostalCode As String
-    Private sCompanyLogoPath As String
-
-    ' Customer Information
-    Private sCustomerName As String
-    Private sCustomerAddress1 As String
-    Private sCustomerAddress2 As String
-    Private sCustomerCity As String
-    Private sCustomerState As String
-    Private sCustomerZipCode As String
-    Private sCustomerPhone As String
-
-    ' Inspection Property Information
-    Private sInspectionAddress1 As String
-    Private sInspectionAddress2 As String
-    Private sInspectionCity As String
-
-    ' Radon Data Days 
-    Private m_RadDate1 As String
-    Private m_RadDate2 As String
-    Private m_RadDate3 As String
-
-    ' Radon data points by day
-    Private m_RadonDataPointsDay1 As IList
-    Private m_RadonDataPointsDay2 As IList
-    Private m_RadonDataPointsDay3 As IList
+    ' **********************************************
+    ' ****
+    ' ******    Members
+    ' ****
+    ' **********************************************
+    ' 
 
 
-    Public Sub New()
 
-
-    End Sub
-
+    ' **********************************************
+    ' ****
+    ' ******    Open the Report
+    ' ****
+    ' **********************************************
+    ' 
     Public Function OpenReport(ByVal theFileName As String) As Boolean
         If theFileName <> "" Then
-            oReader = New StreamReader(theFileName, True)
-            ProcessRadonFile()
+            m_Reader = New StreamReader(theFileName, True)
+            ProcessDeviceFile()
             Return True
 
         End If
@@ -64,10 +29,17 @@ Public Class DeviceRadonReport
 
     End Function
 
-    Private Sub ProcessRadonFile()
+
+    ' **********************************************
+    ' ****
+    ' ******    Process Device File
+    ' ****
+    ' **********************************************
+    ' 
+    Private Sub ProcessDeviceFile()
         ' Set to the beginning of the file
-        If oReader.BaseStream.Position > 0 Then
-            oReader.BaseStream.Position = 0
+        If m_Reader.BaseStream.Position > 0 Then
+            m_Reader.BaseStream.Position = 0
 
         End If
 
@@ -76,116 +48,157 @@ Public Class DeviceRadonReport
         ' A failure to fine a value is a catastrophic failure!
 
         ' Read Machine Information
-        sMonitorModel = ReadToValue("Continuous Radon Monitor:")
-        sSerialNumber = ReadToValue("Serial Number:")
-        iCalibrationFactor1 = ReadToValue("Calibration Factor 1:")
-        iCalibrationFactor2 = ReadToValue("Calibration Factor 2:")
-        dCalibrationDate = ReadToValue("Calibration Date:")
+        SetDeviceModel(ReadToValue("Continuous Radon Monitor:"))
+        SetDeviceSerialNumber(ReadToValue("Serial Number:"))
+        CalibrationFactor1 = ReadToValue("Calibration Factor 1:")
+        CalibrationFactor2 = ReadToValue("Calibration Factor 2:")
+        CalibrationDate = ReadToValue("Calibration Date:")
 
         ' Read Inspection Company Information
-        sCompanyName = ReadToValue("Company Name:")
-        sCompanyAddress1 = ReadToValue("Address 1:")
-        sCompanyAddress2 = ReadToValue("Address 2:")
-        sCompanyCity = ReadToValue("City:")
-        sCompanyState = ReadToValue("State:")
-        sCompanyPostalCode = ReadToValue("Zip:")
-        sCompanyLogoPath = "ThePath"
-
-        ' Read Inspector Information
-        ' Note that this model does not store inspector information so we're going to take a liberty here!
-        ' sInspectorPhone = ReadToValue("Phone:")
-        ' sInspectorLicense = ReadToValue("License Number:")
+        ReadToValue("Company Name:")
+        ReadToValue("Address 1:")
+        ReadToValue("Address 2:")
+        ReadToValue("City:")
+        ReadToValue("State:")
+        ReadToValue("Zip:")
 
 
         ' Read Customer Information
         ' This model's format is to treat the customer has having both a billing address and an inspection address
         ' Each block of information acts on its own to include customer name and phone number and inspection name and phone number
         ' We will just keep the customer billing information and the inspection address for our purposes
-        sCustomerName = ReadToValue("Name:")
-        sCustomerAddress1 = ReadToValue("Address 1:")
-        sCustomerAddress2 = ReadToValue("Address 2:")
-        sCustomerCity = ReadToValue("City:")
-        sCustomerState = ReadToValue("State:")
-        sCustomerZipCode = ReadToValue("Zip:")
-        sCustomerPhone = ReadToValue("Phone :")
+        Customer.Name = ReadToValue("Name:")
+        Customer.Address1 = ReadToValue("Address 1:")
+        Customer.Address2 = ReadToValue("Address 2:")
+        Customer.City = ReadToValue("City:")
+        Customer.State = ReadToValue("State:")
+        Customer.PostalCode = ReadToValue("Zip:")
+        Customer.Phone = ReadToValue("Phone :")
 
         ' Inspection Property Information
-        sInspectionAddress1 = ReadToValue("Address 1:")
-        sInspectionAddress2 = ReadToValue("Address 2:")
-        sInspectionCity = ReadToValue("City:")
+        SubjectProperty.Address1 = ReadToValue("Address 1:")
+        SubjectProperty.Address2 = ReadToValue("Address 2:")
+        SubjectProperty.City = ReadToValue("City:")
 
         ' Radon Day data. Should be 3-days under normal circumstances, but could be a few as two days.
-        SetRadonDataPoints()
+        ProcessRadonPoints()
 
 
     End Sub
 
-    Private Sub SetRadonDataPoints()
-        Dim sTestLine As String
 
 
-        m_RadDate1 = ReadToValue("Date:").Trim()
-        sTestLine = oReader.ReadLine
-        sTestLine = oReader.ReadLine
 
+
+    ' **********************************************
+    ' ****
+    ' ******    ProcessRadonPoints
+    ' ****
+    ' **********************************************
+    ' 
+    Private Sub ProcessRadonPoints()
+        Dim theRawPoints As IList = New List(Of String)()
+
+        ' Read the file into the list
+        While Not m_Reader.EndOfStream
+            theRawPoints.Add(m_Reader.ReadLine)
+
+        End While
+
+
+        ' Remove column headers and white lines
+        For x As Integer = theRawPoints.Count - 1 To 0 Step -1
+            Dim RawPoints = theRawPoints(x)
+
+            If Not IsNumeric(Left(RawPoints, 1)) And Not Left(RawPoints, Len("Date:")) = "Date:" Then
+                theRawPoints.RemoveAt(x)
+
+            End If
+        Next
+
+        ' Pass through the list, extract the dates
         ' Day 1
-        'sTestLine = oReader.ReadLine
-        m_RadonDataPointsDay1 = New List(Of RadonDataPoints)()
-        sTestLine = oReader.ReadLine
-        Do
-            m_RadonDataPointsDay1.Add(New RadonDataPoints(Mid(sTestLine, 1, 5).Trim(), Mid(sTestLine, 7, 3).Trim(), Mid(sTestLine, 11).Trim()))
-            sTestLine = oReader.ReadLine
+        For Each s As String In theRawPoints
+            If s.IndexOf("Date:") > -1 Then
+                If RadDate1 = "" Then
+                    RadDate1 = Mid(s, Len("Date:") + 1)
 
-        Loop Until oReader.EndOfStream Or sTestLine.StartsWith("Date:")
+                ElseIf RadDate2 = "" Then
+                    RadDate2 = Mid(s, Len("Date:") + 1)
 
-        ' When we break out of the loop sTestLine should contain "Date" unless it is end of file
-        If sTestLine.StartsWith("Date:") Then
-            m_RadDate2 = sTestLine.Substring("Date:".Length() + 1).Trim()
-            sTestLine = oReader.ReadLine
-            sTestLine = oReader.ReadLine
+                Else
+                    RadDate3 = Mid(s, Len("Date:") + 1)
 
-        Else
-            Exit Sub
+                End If
+            End If
+        Next
 
-        End If
+        ' Insert the dates at the beginning of each line, and remove the date lines
+        Dim WorkingDate As String = RadDate3
+        Dim BlockCount As Integer = 3
+        For x As Integer = theRawPoints.Count - 1 To 0 Step -1
+            Dim RawPoints = theRawPoints(x)
 
-        ' Day 2
-        m_RadonDataPointsDay2 = New List(Of RadonDataPoints)()
-        sTestLine = oReader.ReadLine
-        Do
-            m_RadonDataPointsDay2.Add(New RadonDataPoints(Mid(sTestLine, 1, 5).Trim(), Mid(sTestLine, 7, 3).Trim(), Mid(sTestLine, 11).Trim()))
-            sTestLine = oReader.ReadLine
+            If RawPoints.IndexOf("Date:") > -1 Then
+                theRawPoints.RemoveAt(x)
 
-        Loop Until oReader.EndOfStream Or sTestLine.StartsWith("Date:")
+                If BlockCount = 3 Then
+                    BlockCount = 2
+                    WorkingDate = RadDate2
+                    Continue For
 
+                ElseIf BlockCount = 2 Then
+                    BlockCount = 1
+                    WorkingDate = RadDate1
+                    Continue For
+                ElseIf BlockCount = 1 Then
+                    Continue For
 
-        ' When we break out of the loop sTestLine should contain "Date" unless it is end of file
-        If sTestLine.StartsWith("Date:") Then
-            m_RadDate3 = sTestLine.Substring("Date:".Length() + 1).Trim()
-            sTestLine = oReader.ReadLine
-            sTestLine = oReader.ReadLine
+                End If
+            End If
 
-        Else
-            Exit Sub
+            ' Insert the date
+            theRawPoints(x) = WorkingDate & vbTab & RawPoints
+        Next
 
-        End If
+        ' Now that we have the perfect list let's make the list of RadonDataPoints
+        Dim PCIL As Double
+        Dim Splits() As String
+        For Each s In theRawPoints
+            Splits = s.Split(New String() {ControlChars.Tab}, StringSplitOptions.None)
 
-        ' Day 3
-        m_RadonDataPointsDay3 = New List(Of RadonDataPoints)()
-        sTestLine = oReader.ReadLine
-        Do
-            m_RadonDataPointsDay3.Add(New RadonDataPoints(Mid(sTestLine, 1, 5).Trim(), Mid(sTestLine, 7, 3).Trim(), Mid(sTestLine, 11).Trim()))
-            sTestLine = oReader.ReadLine
+            ' Calculate the PCIL
+            PCIL = 0
+            If Double.TryParse(Splits(2), PCIL) Then
+                PCIL = PCIL * (1 / CalibrationFactor1)
 
-        Loop Until oReader.EndOfStream Or sTestLine.StartsWith("Date:")
+            End If
+
+            RadonDataPoints.Add(New RadonDataPoint(Splits(0), Splits(1), Splits(2), Splits(3), PCIL))
+
+        Next
+
 
     End Sub
 
+
+
+
+
+
+
+
+    ' **********************************************
+    ' ****
+    ' ******    Read To Value
+    ' ****
+    ' **********************************************
+    ' 
     Private Function ReadToValue(sValue As String) As String
         Dim sTestLine As String
 
-        While Not oReader.EndOfStream
-            sTestLine = oReader.ReadLine
+        While Not m_Reader.EndOfStream
+            sTestLine = m_Reader.ReadLine
             If sTestLine.StartsWith(sValue) Then
                 sTestLine = sTestLine.Substring(sValue.Length() + 1)
                 sTestLine.TrimEnd()
@@ -202,217 +215,80 @@ Public Class DeviceRadonReport
     End Function
 
 
+
+    ' **********************************************
+    ' ****
+    ' ******    Properties
+    ' ****
+    ' **********************************************
+    ' 
     ' The heart of this class is its radon report
     Public ReadOnly Property ReportBody As String
         Get
-            If oReader.BaseStream.Position > 0 Then
-                oReader.BaseStream.Position = 0
+            If m_Reader.BaseStream.Position > 0 Then
+                m_Reader.BaseStream.Position = 0
 
             End If
-            Return oReader.ReadToEnd
+            Return m_Reader.ReadToEnd
 
         End Get
     End Property
+    Private m_Reader As StreamReader
 
     ' Equipment Information
-    Public ReadOnly Property Model As String
+    Public ReadOnly Property DeviceModel As String
         Get
-            Return sMonitorModel
+            Return m_DeviceModel
         End Get
     End Property
-    Public ReadOnly Property SerialNumber As String
+    Private Sub SetDeviceModel(ByVal value As String)
+        m_DeviceModel = value
+    End Sub
+    Private m_DeviceModel As String = ""
+
+
+    Public ReadOnly Property DeviceSerialNumber As String
         Get
-            Return sSerialNumber
+            Return m_DeviceSerialNumber
 
         End Get
     End Property
+    Private Sub SetDeviceSerialNumber(ByVal value As String)
+        m_DeviceSerialNumber = value
+    End Sub
+    Private m_DeviceSerialNumber As String = ""
 
-    ' Inspection Company Information
-    Public Property CompanyName() As String
-        Get
-            Return sCompanyName
 
-        End Get
-        Set(ByVal value As String)
-            sCompanyName = value
-
-        End Set
-    End Property
-    Public Property CompanyAddress1() As String
-        Get
-            Return sCompanyAddress1
-
-        End Get
-        Set(value As String)
-            sCompanyAddress1 = value
-
-        End Set
-    End Property
-    Public Property CompanyAddress2() As String
-        Get
-            Return sCompanyAddress2
-
-        End Get
-        Set(value As String)
-            sCompanyAddress2 = value
-
-        End Set
-    End Property
-    Public Property CompanyCity() As String
-        Get
-            Return sCompanyCity
-
-        End Get
-        Set(value As String)
-            sCompanyCity = value
-
-        End Set
-    End Property
-    Public Property CompanyState() As String
-        Get
-            Return sCompanyState
-
-        End Get
-        Set(value As String)
-            sCompanyState = value.Substring(0, 2)
-
-        End Set
-    End Property
-    Public Property CompanyZipCode() As String
-        Get
-            Return sCompanyPostalCode
-
-        End Get
-        Set(value As String)
-            sCompanyPostalCode = value.Substring(0, 10)
-
-        End Set
-    End Property
 
     ' Customer Information
-    Public Property CustomerName() As String
+    Public Property Customer() As Customer
         Get
-            Return sCustomerName
+            Return m_Customer
 
         End Get
-        Set(value As String)
-            sCustomerName = value
+        Set(value As Customer)
+            m_Customer = value
 
         End Set
     End Property
-    Public Property CustomerAddress1() As String
+    Private m_Customer As New Customer
+
+
+    ' Subject Property Infomation
+    Public Property SubjectProperty() As SubjectProperty
         Get
-            Return sCustomerAddress1
+            Return m_SubjectProperty
 
         End Get
-        Set(value As String)
-            sCustomerAddress1 = value
+        Set(value As SubjectProperty)
+            m_SubjectProperty = value
 
         End Set
     End Property
-    Public Property CustomerAddress2() As String
-        Get
-            Return sCustomerAddress2
-
-        End Get
-        Set(value As String)
-            sCustomerAddress2 = value
-
-        End Set
-    End Property
-    Public Property CustomerCity() As String
-        Get
-            Return sCustomerCity
-
-        End Get
-        Set(value As String)
-            sCustomerCity = value
-
-        End Set
-    End Property
-    Public Property CustomerState() As String
-        Get
-            Return sCustomerState
-
-        End Get
-        Set(value As String)
-            sCustomerState = value.Substring(0, 2)
-
-        End Set
-    End Property
-    Public Property CustomerZipCode() As String
-        Get
-            Return sCustomerZipCode
-
-        End Get
-        Set(value As String)
-            sCustomerZipCode = value.Substring(0, 10)
-
-        End Set
-    End Property
-    Public Property CustomerPhone() As String
-        Get
-            Return sCustomerPhone
-
-        End Get
-        Set(value As String)
-            sCustomerPhone = value
-
-        End Set
-    End Property
+    Private m_SubjectProperty As SubjectProperty = New SubjectProperty
 
 
-    ' Inspection Site Infomation
-    Public Property InspectionAddess1() As String
-        Get
-            Return sInspectionAddress1
 
-        End Get
-        Set(value As String)
-            sInspectionAddress1 = value
-
-        End Set
-    End Property
-    Public Property InspectionAddess2() As String
-        Get
-            Return sInspectionAddress2
-
-        End Get
-        Set(value As String)
-            sInspectionAddress2 = value
-
-        End Set
-    End Property
-    Public Property InspectionCity() As String
-        Get
-            Return sInspectionCity
-
-        End Get
-        Set(value As String)
-            sInspectionCity = value
-
-        End Set
-    End Property
-
-
-    ' Radon Data Points
-    Public ReadOnly Property RadonDataPointsDay1 As List(Of RadonDataPoints)
-        Get
-            Return m_RadonDataPointsDay1
-        End Get
-    End Property
-
-    Public ReadOnly Property RadonDataPointsDay2 As List(Of RadonDataPoints)
-        Get
-            Return m_RadonDataPointsDay2
-        End Get
-    End Property
-
-    Public ReadOnly Property RadonDataPointsDay3 As List(Of RadonDataPoints)
-        Get
-            Return m_RadonDataPointsDay3
-        End Get
-    End Property
 
     ' dates
     Public Property TestStartDate As String
@@ -429,25 +305,83 @@ Public Class DeviceRadonReport
             Return m_RadDate1
         End Get
         Set(value As String)
-            m_RadDate1 = value
+            m_RadDate1 = value.Trim
         End Set
     End Property
+    Private m_RadDate1 As String = ""
 
     Public Property RadDate2 As String
         Get
+            If IsNothing(m_RadDate2) Then
+                m_RadDate2 = ""
+            End If
             Return m_RadDate2
         End Get
         Set(value As String)
-            m_RadDate2 = value
+            m_RadDate2 = value.Trim
         End Set
     End Property
+    Private m_RadDate2 As String = ""
 
     Public Property RadDate3 As String
         Get
+            If IsNothing(m_RadDate3) Then
+                m_RadDate3 = ""
+            End If
             Return m_RadDate3
         End Get
         Set(value As String)
-            m_RadDate3 = value
+            m_RadDate3 = value.Trim
         End Set
     End Property
+    Private m_RadDate3 As String = ""
+
+    Public Property RadonDataPoints As IList
+        Get
+            Return m_RadonDataPoints
+        End Get
+        Set(value As IList)
+            m_RadonDataPoints = value
+        End Set
+    End Property
+    Private m_RadonDataPoints As IList = New List(Of RadonDataPoint)
+
+    Public Property CalibrationFactor1 As Double
+        Get
+            Return m_CalibrationFactor1
+        End Get
+        Set(value As Double)
+            m_CalibrationFactor1 = value
+        End Set
+    End Property
+    Private m_CalibrationFactor1 As Double
+
+
+    Public Property CalibrationFactor2 As Double
+        Get
+            Return m_CalibrationFactor2
+        End Get
+        Set(value As Double)
+            m_CalibrationFactor2 = value
+        End Set
+    End Property
+    Private m_CalibrationFactor2 As Double
+
+    Public Property CalibrationDate As Date
+        Get
+            Return m_CalibrationDate
+        End Get
+        Set(value As Date)
+            m_CalibrationDate = value
+        End Set
+    End Property
+    Private m_CalibrationDate As Date = #04/18/1959#
+
+
+
+
+
+
+
+
 End Class

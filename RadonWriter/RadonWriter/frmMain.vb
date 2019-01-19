@@ -16,9 +16,12 @@ Public Class frmMain
     ' Initialize the form's variables
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Load User Settings
-        tbInspectorName.Text = My.Settings.InspectorName
-        tbInspectorLicense.Text = My.Settings.InspectorLicense
-        tbInspectorPhone.Text = My.Settings.InspectorPhone
+        Inspector.Name = My.Settings.InspectorName
+        Inspector.License = My.Settings.InspectorLicense
+        Inspector.Phone = My.Settings.InspectorPhone
+        tbInspectorName.Text = Inspector.Name
+        tbInspectorLicense.Text = Inspector.License
+        tbInspectorPhone.Text = Inspector.Phone
 
         FillCompanyInformation()
 
@@ -72,9 +75,12 @@ Public Class frmMain
         fProperties.ShowDialog()
 
         ' Load the new values
-        tbInspectorName.Text = My.Settings.InspectorName
-        tbInspectorLicense.Text = My.Settings.InspectorLicense
-        tbInspectorPhone.Text = My.Settings.InspectorPhone
+        Inspector.Name = My.Settings.InspectorName
+        Inspector.License = My.Settings.InspectorLicense
+        Inspector.Phone = My.Settings.InspectorPhone
+        tbInspectorName.Text = Inspector.Name
+        tbInspectorLicense.Text = Inspector.License
+        tbInspectorPhone.Text = Inspector.Phone
 
         FillCompanyInformation()
 
@@ -104,7 +110,7 @@ Public Class frmMain
 
         End If
 
-        Dim oExcelRadonReport As New ExcelRadonReport(m_DeviceRadonReport, My.Settings.ReportTemplate)
+        Dim oExcelRadonReport As New ExcelRadonReport(m_DeviceRadonReport, My.Settings.ReportTemplate, Inspector)
 
 
 
@@ -135,5 +141,24 @@ Public Class frmMain
         Application.Exit()
     End Sub
 
+
+
+    ' **********************************************
+    ' ****
+    ' ******    Properties
+    ' ****
+    ' **********************************************
+    ' 
+    Public Property Inspector As Inspector
+        Get
+            Return m_Inspector
+
+        End Get
+        Set(value As Inspector)
+            m_Inspector = value
+
+        End Set
+    End Property
+    Private m_Inspector As Inspector = New Inspector
 
 End Class
