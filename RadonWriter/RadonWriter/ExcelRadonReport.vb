@@ -93,15 +93,20 @@ Public Class ExcelRadonReport
     Private Sub FillTheTemplate()
         Using excelEngine As ExcelEngine = New ExcelEngine()
 
+            ' Make the sheets visible
+            Dim sheetCert As IWorksheet = m_ExcelWorkbook.Worksheets(0)
+            Dim sheetData As IWorksheet = m_ExcelWorkbook.Worksheets(0)
+
             ' Create Template Marker Processor
             Dim marker As ITemplateMarkersProcessor = m_ExcelWorkbook.CreateTemplateMarkersProcessor()
+
 
             With m_DeviceRadonReport
 
 
                 ' Add the radon points to the template
-                Dim points As IList(Of RadonDataPoint) = .RadonDataPoints
-                marker.AddVariable("Radon", points)
+                'Dim points As IList(Of RadonDataPoint) = .RadonDataPoints
+                marker.AddVariable("Radon", .RadonDataPoints)
 
                 ' Add Customer Information
                 marker.AddVariable("Customer", .Customer)
@@ -112,9 +117,34 @@ Public Class ExcelRadonReport
                 ' Add Inspector Information
                 marker.AddVariable("Inspector", Inspector)
 
+                ' Add Company Information
+                marker.AddVariable("Company", .Company)
+
+                ' Add Device Informationa
+                marker.AddVariable("Device", .Device)
+
+                ' Add Averages Information
+                marker.AddVariable("EPAAverage", .EpaAverage)
+                marker.AddVariable("OverallAverage", .OverallAverage)
+
+                ' Add the Stamp Text
+                marker.AddVariable("CertificationStamp", .CertificationStamp)
+
+                ' Add EPA Recommendations
+                marker.AddVariable("Recommendations", .Recommendations)
+
             End With
+
+
             'Process the markers in the template
-            marker.ApplyMarkers(UnknownVariableAction.Skip)
+            Try
+                marker.ApplyMarkers(UnknownVariableAction.Skip)
+
+            Catch ex As Exception
+                MsgBox(ex.Message)
+
+            End Try
+
 
             ' Set the version and save the workbook
             m_ExcelWorkbook.Version = ExcelVersion.Excel2013

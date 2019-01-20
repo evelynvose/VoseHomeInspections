@@ -100,6 +100,8 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Company.vb" />
+    <Compile Include="Device.vb" />
     <Compile Include="Inspector.vb" />
     <Compile Include="SubjectProperty.vb" />
     <Compile Include="Customer.vb" />

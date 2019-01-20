@@ -16,12 +16,9 @@ Partial Class frmMain
 
         With m_DeviceRadonReport
 
-            ' the heart of this app is the radon report
-
-
-            ' Machine Information
-            tbModel.Text = .DeviceModel
-            tbSerialNo.Text = .DeviceSerialNumber
+            ' Device Information
+            tbModel.Text = .Device.Model
+            tbSerialNo.Text = .Device.SerialNumber
 
             ' Customer Information
             tbCustomerName.Text = .Customer.Name
@@ -37,7 +34,13 @@ Partial Class frmMain
             tbPropertyAddress2.Text = .SubjectProperty.Address2
             tbPropertyCity.Text = .SubjectProperty.City
 
+
             ' Radon Data
+            ' Averages
+            tbEpaAverage.Text = .EpaAverage
+            tbOverallAverage.Text = .OverallAverage
+
+            ' Do the points
             'Specifying row count
             gcDay1.RowCount = 26
 

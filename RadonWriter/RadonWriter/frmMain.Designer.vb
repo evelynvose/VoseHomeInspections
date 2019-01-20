@@ -100,6 +100,10 @@ Partial Class frmMain
         Me.gcDay2 = New Syncfusion.Windows.Forms.Grid.GridControl()
         Me.tabDay3 = New Syncfusion.Windows.Forms.Tools.TabPageAdv()
         Me.gcDay3 = New Syncfusion.Windows.Forms.Grid.GridControl()
+        Me.glEpaAverage = New Syncfusion.Windows.Forms.Tools.GradientLabel()
+        Me.tbEpaAverage = New Syncfusion.Windows.Forms.Tools.DoubleTextBox()
+        Me.tbOverallAverage = New Syncfusion.Windows.Forms.Tools.DoubleTextBox()
+        Me.glOverallAverage = New Syncfusion.Windows.Forms.Tools.GradientLabel()
         CType(Me.glRadonData, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.oSplitCon, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.oSplitCon.Panel1.SuspendLayout()
@@ -118,6 +122,8 @@ Partial Class frmMain
         CType(Me.gcDay2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabDay3.SuspendLayout()
         CType(Me.gcDay3, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tbEpaAverage, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tbOverallAverage, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'glRadonData
@@ -180,6 +186,10 @@ Partial Class frmMain
         'oSplitCon.Panel1
         '
         Me.oSplitCon.Panel1.BackgroundColor = New Syncfusion.Drawing.BrushInfo(System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer)))
+        Me.oSplitCon.Panel1.Controls.Add(Me.glOverallAverage)
+        Me.oSplitCon.Panel1.Controls.Add(Me.tbOverallAverage)
+        Me.oSplitCon.Panel1.Controls.Add(Me.tbEpaAverage)
+        Me.oSplitCon.Panel1.Controls.Add(Me.glEpaAverage)
         Me.oSplitCon.Panel1.Controls.Add(Me.rtCompanyInformation)
         Me.oSplitCon.Panel1.Controls.Add(Me.pbCompanyLogo)
         Me.oSplitCon.Panel1.Controls.Add(Me.GroupBox1)
@@ -779,6 +789,58 @@ Partial Class frmMain
         Me.gcDay3.TabIndex = 0
         Me.gcDay3.UseRightToLeftCompatibleTextBox = True
         '
+        'glEpaAverage
+        '
+        Me.glEpaAverage.BackgroundColor = New Syncfusion.Drawing.BrushInfo(Syncfusion.Drawing.GradientStyle.Vertical, System.Drawing.Color.FromArgb(CType(CType(237, Byte), Integer), CType(CType(240, Byte), Integer), CType(CType(247, Byte), Integer)), System.Drawing.Color.LightCyan)
+        Me.glEpaAverage.BeforeTouchSize = New System.Drawing.Size(79, 23)
+        Me.glEpaAverage.BorderSides = CType((((System.Windows.Forms.Border3DSide.Left Or System.Windows.Forms.Border3DSide.Top) _
+            Or System.Windows.Forms.Border3DSide.Right) _
+            Or System.Windows.Forms.Border3DSide.Bottom), System.Windows.Forms.Border3DSide)
+        Me.glEpaAverage.Location = New System.Drawing.Point(382, 197)
+        Me.glEpaAverage.Name = "glEpaAverage"
+        Me.glEpaAverage.Size = New System.Drawing.Size(79, 23)
+        Me.glEpaAverage.TabIndex = 27
+        Me.glEpaAverage.Text = "EPA Average:"
+        Me.glEpaAverage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'tbEpaAverage
+        '
+        Me.tbEpaAverage.BeforeTouchSize = New System.Drawing.Size(38, 20)
+        Me.tbEpaAverage.DoubleValue = 1.0R
+        Me.tbEpaAverage.Location = New System.Drawing.Point(466, 198)
+        Me.tbEpaAverage.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
+        Me.tbEpaAverage.Name = "tbEpaAverage"
+        Me.tbEpaAverage.NullString = ""
+        Me.tbEpaAverage.Size = New System.Drawing.Size(39, 20)
+        Me.tbEpaAverage.TabIndex = 28
+        Me.tbEpaAverage.Text = "1.00"
+        '
+        'tbOverallAverage
+        '
+        Me.tbOverallAverage.BeforeTouchSize = New System.Drawing.Size(38, 20)
+        Me.tbOverallAverage.DoubleValue = 1.0R
+        Me.tbOverallAverage.Location = New System.Drawing.Point(623, 198)
+        Me.tbOverallAverage.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
+        Me.tbOverallAverage.Name = "tbOverallAverage"
+        Me.tbOverallAverage.NullString = ""
+        Me.tbOverallAverage.Size = New System.Drawing.Size(38, 20)
+        Me.tbOverallAverage.TabIndex = 29
+        Me.tbOverallAverage.Text = "1.00"
+        '
+        'glOverallAverage
+        '
+        Me.glOverallAverage.BackgroundColor = New Syncfusion.Drawing.BrushInfo(Syncfusion.Drawing.GradientStyle.Vertical, System.Drawing.Color.FromArgb(CType(CType(237, Byte), Integer), CType(CType(240, Byte), Integer), CType(CType(247, Byte), Integer)), System.Drawing.Color.LightCyan)
+        Me.glOverallAverage.BeforeTouchSize = New System.Drawing.Size(91, 23)
+        Me.glOverallAverage.BorderSides = CType((((System.Windows.Forms.Border3DSide.Left Or System.Windows.Forms.Border3DSide.Top) _
+            Or System.Windows.Forms.Border3DSide.Right) _
+            Or System.Windows.Forms.Border3DSide.Bottom), System.Windows.Forms.Border3DSide)
+        Me.glOverallAverage.Location = New System.Drawing.Point(527, 197)
+        Me.glOverallAverage.Name = "glOverallAverage"
+        Me.glOverallAverage.Size = New System.Drawing.Size(91, 23)
+        Me.glOverallAverage.TabIndex = 30
+        Me.glOverallAverage.Text = "Overall Average:"
+        Me.glOverallAverage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -812,6 +874,8 @@ Partial Class frmMain
         CType(Me.gcDay2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabDay3.ResumeLayout(False)
         CType(Me.gcDay3, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tbEpaAverage, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tbOverallAverage, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -868,4 +932,8 @@ Partial Class frmMain
     Friend WithEvents tabDay3 As Syncfusion.Windows.Forms.Tools.TabPageAdv
     Friend WithEvents gcDay2 As Syncfusion.Windows.Forms.Grid.GridControl
     Friend WithEvents gcDay3 As Syncfusion.Windows.Forms.Grid.GridControl
+    Friend WithEvents glOverallAverage As Syncfusion.Windows.Forms.Tools.GradientLabel
+    Friend WithEvents tbOverallAverage As Syncfusion.Windows.Forms.Tools.DoubleTextBox
+    Friend WithEvents tbEpaAverage As Syncfusion.Windows.Forms.Tools.DoubleTextBox
+    Friend WithEvents glEpaAverage As Syncfusion.Windows.Forms.Tools.GradientLabel
 End Class

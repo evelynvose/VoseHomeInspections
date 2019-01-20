@@ -53,7 +53,7 @@
     ' ****
     ' **********************************************
     ' 
-    Public Property Name As String
+    Public Overridable Property Name As String
         Get
             Return m_Name
         End Get

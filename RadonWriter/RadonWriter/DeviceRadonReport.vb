@@ -47,20 +47,20 @@ Public Class DeviceRadonReport
         ' It is okay to bypass a line although you'll never fetch that line again without resetting the position of the stream.
         ' A failure to fine a value is a catastrophic failure!
 
-        ' Read Machine Information
-        SetDeviceModel(ReadToValue("Continuous Radon Monitor:"))
-        SetDeviceSerialNumber(ReadToValue("Serial Number:"))
-        CalibrationFactor1 = ReadToValue("Calibration Factor 1:")
-        CalibrationFactor2 = ReadToValue("Calibration Factor 2:")
-        CalibrationDate = ReadToValue("Calibration Date:")
+        ' Read Device Information
+        Device.Model = (ReadToValue("Continuous Radon Monitor:"))
+        Device.SerialNumber = (ReadToValue("Serial Number:"))
+        Device.CalibrationFactor1 = ReadToValue("Calibration Factor 1:")
+        Device.CalibrationFactor2 = ReadToValue("Calibration Factor 2:")
+        Device.CalibrationDate = ReadToValue("Calibration Date:")
 
-        ' Read Inspection Company Information
-        ReadToValue("Company Name:")
-        ReadToValue("Address 1:")
-        ReadToValue("Address 2:")
-        ReadToValue("City:")
-        ReadToValue("State:")
-        ReadToValue("Zip:")
+        ' Read Inspection Company Information 
+        Company.Name = ReadToValue("Company Name:")
+        Company.Address1 = ReadToValue("Address 1:")
+        Company.Address2 = ReadToValue("Address 2:")
+        Company.City = ReadToValue("City:")
+        Company.State = ReadToValue("State:")
+        Company.PostalCode = ReadToValue("Zip:")
 
 
         ' Read Customer Information
@@ -170,7 +170,7 @@ Public Class DeviceRadonReport
             ' Calculate the PCIL
             PCIL = 0
             If Double.TryParse(Splits(2), PCIL) Then
-                PCIL = PCIL * (1 / CalibrationFactor1)
+                PCIL = PCIL * (1 / Device.CalibrationFactor1)
 
             End If
 
@@ -182,6 +182,61 @@ Public Class DeviceRadonReport
     End Sub
 
 
+
+
+    ' **********************************************
+    ' ****
+    ' ******    Overall Average
+    ' ****
+    ' **********************************************
+    ' 
+    Private Function CalcOverallAverage() As Double
+        Dim Total As Double
+
+        For Each point As RadonDataPoint In RadonDataPoints
+            Total += point.PCIL
+
+        Next
+
+        If Total = 0 Then Return Total
+
+        ' Catch that pesky divide by zero!
+        If RadonDataPoints.Count <= 0 Then Return 0
+        Return Total / RadonDataPoints.Count
+
+    End Function
+
+
+
+
+    ' **********************************************
+    ' ****
+    ' ******    EPA Average
+    ' ****
+    ' **********************************************
+    ' 
+    Private Function CalcEpaAverage() As Double
+
+        Dim Total As Double
+        Dim i As Integer
+
+        For Each point As RadonDataPoint In RadonDataPoints
+            If i > 3 Then
+                Total += point.PCIL
+
+            End If
+
+            i += 1
+
+        Next
+
+        ' Catch that pesky divide by zero!
+        If RadonDataPoints.Count - 4 <= 0 Then Return 0
+
+        Return Total / (RadonDataPoints.Count - 4)
+
+
+    End Function
 
 
 
@@ -235,28 +290,15 @@ Public Class DeviceRadonReport
     End Property
     Private m_Reader As StreamReader
 
-    ' Equipment Information
-    Public ReadOnly Property DeviceModel As String
+
+
+    ' Device Information
+    Public ReadOnly Property Device As Device
         Get
-            Return m_DeviceModel
+            Return m_Device
         End Get
     End Property
-    Private Sub SetDeviceModel(ByVal value As String)
-        m_DeviceModel = value
-    End Sub
-    Private m_DeviceModel As String = ""
-
-
-    Public ReadOnly Property DeviceSerialNumber As String
-        Get
-            Return m_DeviceSerialNumber
-
-        End Get
-    End Property
-    Private Sub SetDeviceSerialNumber(ByVal value As String)
-        m_DeviceSerialNumber = value
-    End Sub
-    Private m_DeviceSerialNumber As String = ""
+    Private m_Device As Device = New Device
 
 
 
@@ -288,9 +330,17 @@ Public Class DeviceRadonReport
     Private m_SubjectProperty As SubjectProperty = New SubjectProperty
 
 
+    ' Company Information
+    Public ReadOnly Property Company As Company
+        Get
+            Return m_Company
+        End Get
+    End Property
+    Private m_Company As New Company
 
 
-    ' dates
+
+    ' Dates
     Public Property TestStartDate As String
         Get
             Return RadDate1
@@ -346,42 +396,47 @@ Public Class DeviceRadonReport
     End Property
     Private m_RadonDataPoints As IList = New List(Of RadonDataPoint)
 
-    Public Property CalibrationFactor1 As Double
+    Public ReadOnly Property OverallAverage As Double
         Get
-            Return m_CalibrationFactor1
+            Return CalcOverallAverage()
         End Get
-        Set(value As Double)
-            m_CalibrationFactor1 = value
-        End Set
     End Property
-    Private m_CalibrationFactor1 As Double
 
-
-    Public Property CalibrationFactor2 As Double
+    Public ReadOnly Property EpaAverage As Double
         Get
-            Return m_CalibrationFactor2
+            Return CalcEpaAverage()
         End Get
-        Set(value As Double)
-            m_CalibrationFactor2 = value
-        End Set
     End Property
-    Private m_CalibrationFactor2 As Double
 
-    Public Property CalibrationDate As Date
+    Public ReadOnly Property CertificationStamp As String
         Get
-            Return m_CalibrationDate
+            If CalcEpaAverage() > 4 Then
+                Return "FAIL"
+
+            End If
+            If CalcEpaAverage() >= 2 And CalcEpaAverage() <= 4 Then
+                Return "Pass" & vbCrLf & "With Caution"
+            End If
+
+            Return "PASS"
+
         End Get
-        Set(value As Date)
-            m_CalibrationDate = value
-        End Set
     End Property
-    Private m_CalibrationDate As Date = #04/18/1959#
 
+    Public ReadOnly Property Recommendations As String
+        Get
+            Select Case CertificationStamp
+                Case "FAIL"
+                    Return "Radon is the second leading cause of lung cancer, after smoking. The US EPA and Surgeon General strongly recommend taking further action when a homes radon test results are 4.0 pCi/l or greater."
 
+                Case "PASS"
+                    Return "Radon is the second leading cause of lung cancer, after smoking. The average indoor radon level is estimated to be about 1.3 pCi/l; roughly 0.4 pCi/l of radon is normally found in the outside air. Consider having your home tested one more time in a different season than when this test was done."
 
+            End Select
 
+            Return "Radon is the second leading cause of lung cancer, after smoking. Radon levels less than 4.0 pCi/l still pose some risk and in many cases may be reduced. If the radon level in the home is between 2.0 and 4.0  pCi/l, the EPA still recommends that you consider fixing the home."
 
-
-
+        End Get
+    End Property
 
 End Class
