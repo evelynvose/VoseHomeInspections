@@ -21,16 +21,19 @@ Public Class SubjectProperty
 
     End Sub
 
-    Public Sub New(ByVal name As String, ByVal address1 As String, ByVal address2 As String, ByVal city As String, ByVal state As String, ByVal postalcode As String, ByVal phone As String)
-        MyBase.Name = name
-        MyBase.Address1 = address1
-        MyBase.Address2 = address2
-        MyBase.City = city
-        MyBase.State = "NC"
-        MyBase.PostalCode = postalcode
-        MyBase.Phone = phone
+    'Public Sub New(ByVal name As String, ByVal address1 As String, ByVal address2 As String, ByVal city As String, ByVal state As String, ByVal postalcode As String, ByVal phone As String)
+    'MyBase.New(name, address1, address2, city, state, postalcode, phone)
+
+    'End Sub
+
+    Public Sub New(ByVal name As String, ByVal address1 As String, ByVal address2 As String, ByVal city As String, ByVal state As String, ByVal postalcode As String, ByVal phone As String, ByVal theOrderID As String)
+        MyBase.New(name, address1, address2, city, state, postalcode, phone)
+
+        OrderID = theOrderID
+
 
     End Sub
+
 
 
 
@@ -100,4 +103,17 @@ Public Class SubjectProperty
         End Set
     End Property
     Private m_Weather As String = ""
+
+    Public Property OrderID As String
+        Get
+            Return m_OrderID
+        End Get
+        Set(value As String)
+            m_OrderID = value
+        End Set
+    End Property
+    Private m_OrderID As String = ""
+
+
+
 End Class

@@ -8,6 +8,7 @@ Imports System.IO
 
 
 
+
 Public Class frmMain
 
     ' **********************************************
@@ -53,8 +54,8 @@ Public Class frmMain
             .Add(New FoundationType("4", "Open Crawl Space"))
             .Add(New FoundationType("5", "Slab On Grade"))
         End With
-        cbFoundation.DataSource = foundationTypes
-        cbFoundation.DisplayMember = "Type"
+        cbSubjectPropertyFoundation.DataSource = foundationTypes
+        cbSubjectPropertyFoundation.DisplayMember = "Type"
 
         Dim weatherConditions As IList = New List(Of WeatherCondition)()
         With weatherConditions
@@ -65,15 +66,16 @@ Public Class frmMain
             .Add(New WeatherCondition("5", "Mix"))
         End With
 
-        cbWeather.DataSource = weatherConditions
-        cbWeather.DisplayMember = "Condition"
+        cbSubjectPropertyWeather.DataSource = weatherConditions
+        cbSubjectPropertyWeather.DisplayMember = "Condition"
 
         ' For debugging
-        tbYearBuilt.Text = "1989"
-        tbSqFt.Text = "2025"
-        tbLocation.Text = "Living Room"
-        cbFoundation.SelectedIndex = 1
-        cbWeather.SelectedIndex = 1
+        'tbSubjectPropertyYearBuilt.Text = "1989"
+        'tbSubjectPropertySqFt.Text = "2025"
+        'tbSubjectPropertyLocation.Text = "Living Room"
+        'cbSubjectPropertyFoundation.SelectedIndex = 1
+        'cbSubjectPropertyWeather.SelectedIndex = 1
+        'tbSubjectPropertyOrderID.Text = "123456"
 
     End Sub
 
@@ -139,7 +141,20 @@ Public Class frmMain
     ' ****
     ' **********************************************
     ' 
-    Private Sub msMainFileSave_Click(sender As Object, e As EventArgs) Handles msMainFileSave.Click
+    Private Const constExcel = 0    ' Excel Spreadsheet 
+    Private Const constPDF = 1      ' PDF rendition of the Excel spreadsheet
+
+    Private Sub ExcelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExcelToolStripMenuItem.Click
+        SaveAs(constExcel)
+
+    End Sub
+
+    Private Sub PDFToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PDFToolStripMenuItem.Click
+        SaveAs(constPDF)
+    End Sub
+
+
+    Private Sub SaveAs(ByVal saveId As Integer)
 
         ' Create a new Excel report using a template, but first let's make sure we have what we need!
         If String.IsNullOrEmpty(My.Settings.ReportTemplate) OrElse String.IsNullOrWhiteSpace(My.Settings.ReportTemplate) Then
@@ -155,7 +170,7 @@ Public Class frmMain
         End If
 
         ' Set up the site conditions
-        If tbSqFt.Text = "" Or tbYearBuilt.Text = "" Or tbLocation.Text = "" Or cbWeather.Text = "" Or cbFoundation.Text = "" Then
+        If tbSubjectPropertySqFt.Text = "" Or tbSubjectPropertyYearBuilt.Text = "" Or tbSubjectPropertyLocation.Text = "" Or cbSubjectPropertyWeather.Text = "" Or cbSubjectPropertyFoundation.Text = "" Then
             MsgBox("One or more of the site conditions is not set.")
             Return
 
@@ -163,11 +178,13 @@ Public Class frmMain
 
         ' Add the user supplied subject property information
         With m_DeviceRadonReport.SubjectProperty
-            .YearBuilt = tbYearBuilt.Text
-            .Location = tbLocation.Text
-            .SqFt = Convert.ToInt32(tbSqFt.Text)
-            .Foundation = cbFoundation.Text
-            .Weather = cbWeather.Text
+            .YearBuilt = tbSubjectPropertyYearBuilt.Text
+            .Location = tbSubjectPropertyLocation.Text
+            .SqFt = Convert.ToInt32(tbSubjectPropertySqFt.Text)
+            .Foundation = cbSubjectPropertyFoundation.Text
+            .Weather = cbSubjectPropertyWeather.Text
+            .OrderID = tbSubjectPropertyOrderID.Text
+
         End With
 
         Dim excelRadonReport As New ExcelRadonReport(m_DeviceRadonReport, My.Settings.ReportTemplate, Inspector, Company)
@@ -175,12 +192,20 @@ Public Class frmMain
         Dim FileDialog As FolderBrowserDialog = New FolderBrowserDialog()
 
         FileDialog.ShowNewFolderButton = True
-        ' FileDialog.RootFolder = My.Application.Info.DirectoryPath
         If FileDialog.ShowDialog = Windows.Forms.DialogResult.OK Then
-            If Not excelRadonReport.SaveAs(FileDialog.SelectedPath & "\" & excelRadonReport.SubjectProperty.Address1 & ", " & excelRadonReport.SubjectProperty.City & ".xlsx") Then
-                MsgBox("Not Saved!")
+            Dim filePath As String = FileDialog.SelectedPath & "\" & excelRadonReport.SubjectProperty.Address1 & ", " & excelRadonReport.SubjectProperty.City
+            If Not excelRadonReport.SaveAsExcel(filePath) Then
+                MsgBox("Excel Not Saved!")
 
+            Else
+                If saveId = constPDF Then
+                    If Not excelRadonReport.SaveAsPDF(filePath) Then
+                        MsgBox("PDF Not Saved!")
+
+                    End If
+                End If
             End If
+
             MsgBox("Saved!")
 
         Else

@@ -22,8 +22,8 @@ Partial Class frmMain
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim SpreadsheetCopyPaste1 As Syncfusion.Windows.Forms.Spreadsheet.SpreadsheetCopyPaste = New Syncfusion.Windows.Forms.Spreadsheet.SpreadsheetCopyPaste()
-        Dim FormulaRangeSelectionController1 As Syncfusion.Windows.Forms.Spreadsheet.FormulaRangeSelectionController = New Syncfusion.Windows.Forms.Spreadsheet.FormulaRangeSelectionController()
+        Dim SpreadsheetCopyPaste2 As Syncfusion.Windows.Forms.Spreadsheet.SpreadsheetCopyPaste = New Syncfusion.Windows.Forms.Spreadsheet.SpreadsheetCopyPaste()
+        Dim FormulaRangeSelectionController2 As Syncfusion.Windows.Forms.Spreadsheet.FormulaRangeSelectionController = New Syncfusion.Windows.Forms.Spreadsheet.FormulaRangeSelectionController()
         Me.glRadonData = New Syncfusion.Windows.Forms.Grid.GridListControl()
         Me.xGraph = New Syncfusion.Windows.Forms.Spreadsheet.Spreadsheet()
         Me.scTopBottom = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
@@ -75,6 +75,8 @@ Partial Class frmMain
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.msMainFileOpen = New System.Windows.Forms.ToolStripMenuItem()
         Me.msMainFileSave = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ExcelToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.PDFToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripSeparator()
         Me.msMainFileProperties = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripSeparator()
@@ -88,16 +90,18 @@ Partial Class frmMain
         Me.tabDay3 = New Syncfusion.Windows.Forms.Tools.TabPageAdv()
         Me.gcDay3 = New Syncfusion.Windows.Forms.Grid.GridControl()
         Me.gbSiteData = New System.Windows.Forms.GroupBox()
+        Me.tbSubjectPropertyOrderID = New System.Windows.Forms.TextBox()
+        Me.lblOrderID = New System.Windows.Forms.Label()
+        Me.cbSubjectPropertyWeather = New System.Windows.Forms.ComboBox()
+        Me.cbSubjectPropertyFoundation = New System.Windows.Forms.ComboBox()
         Me.lblLocation = New System.Windows.Forms.Label()
-        Me.tbLocation = New System.Windows.Forms.TextBox()
-        Me.tbYearBuilt = New System.Windows.Forms.TextBox()
-        Me.tbSqFt = New System.Windows.Forms.TextBox()
+        Me.tbSubjectPropertyLocation = New System.Windows.Forms.TextBox()
+        Me.tbSubjectPropertyYearBuilt = New System.Windows.Forms.TextBox()
+        Me.tbSubjectPropertySqFt = New System.Windows.Forms.TextBox()
         Me.lblWeather = New System.Windows.Forms.Label()
         Me.lblFoundation = New System.Windows.Forms.Label()
         Me.lblSqFt = New System.Windows.Forms.Label()
         Me.lblYearBuilt = New System.Windows.Forms.Label()
-        Me.cbFoundation = New System.Windows.Forms.ComboBox()
-        Me.cbWeather = New System.Windows.Forms.ComboBox()
         CType(Me.glRadonData, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.scTopBottom, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.scTopBottom.Panel1.SuspendLayout()
@@ -145,22 +149,23 @@ Partial Class frmMain
         '
         'xGraph
         '
+        Me.xGraph.ActiveSheet = Nothing
         Me.xGraph.AllowCellContextMenu = True
         Me.xGraph.AllowExtendRowColumnCount = True
         Me.xGraph.AllowFormulaRangeSelection = True
         Me.xGraph.AllowTabItemContextMenu = True
         Me.xGraph.AllowZooming = True
-        SpreadsheetCopyPaste1.AllowPasteOptionPopup = True
-        SpreadsheetCopyPaste1.DefaultPasteOption = Syncfusion.Windows.Forms.Spreadsheet.PasteOptions.Paste
-        Me.xGraph.CopyPaste = SpreadsheetCopyPaste1
+        SpreadsheetCopyPaste2.AllowPasteOptionPopup = True
+        SpreadsheetCopyPaste2.DefaultPasteOption = Syncfusion.Windows.Forms.Spreadsheet.PasteOptions.Paste
+        Me.xGraph.CopyPaste = SpreadsheetCopyPaste2
         Me.xGraph.DefaultColumnCount = 101
         Me.xGraph.DefaultRowCount = 101
         Me.xGraph.DisplayAlerts = True
         Me.xGraph.FileName = "Book1"
         Me.xGraph.FormulaBarVisibility = True
-        FormulaRangeSelectionController1.AllowMouseSelection = True
-        FormulaRangeSelectionController1.AllowSelectionOnEditing = True
-        Me.xGraph.FormulaRangeSelectionController = FormulaRangeSelectionController1
+        FormulaRangeSelectionController2.AllowMouseSelection = True
+        FormulaRangeSelectionController2.AllowSelectionOnEditing = True
+        Me.xGraph.FormulaRangeSelectionController = FormulaRangeSelectionController2
         Me.xGraph.IsCustomTabItemContextMenuEnabled = False
         Me.xGraph.Location = New System.Drawing.Point(0, 0)
         Me.xGraph.Name = "xGraph"
@@ -654,35 +659,48 @@ Partial Class frmMain
         'msMainFileOpen
         '
         Me.msMainFileOpen.Name = "msMainFileOpen"
-        Me.msMainFileOpen.Size = New System.Drawing.Size(127, 22)
+        Me.msMainFileOpen.Size = New System.Drawing.Size(180, 22)
         Me.msMainFileOpen.Text = "Open"
         '
         'msMainFileSave
         '
+        Me.msMainFileSave.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ExcelToolStripMenuItem, Me.PDFToolStripMenuItem})
         Me.msMainFileSave.Name = "msMainFileSave"
-        Me.msMainFileSave.Size = New System.Drawing.Size(127, 22)
+        Me.msMainFileSave.Size = New System.Drawing.Size(180, 22)
         Me.msMainFileSave.Text = "Save"
+        '
+        'ExcelToolStripMenuItem
+        '
+        Me.ExcelToolStripMenuItem.Name = "ExcelToolStripMenuItem"
+        Me.ExcelToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ExcelToolStripMenuItem.Text = "Excel"
+        '
+        'PDFToolStripMenuItem
+        '
+        Me.PDFToolStripMenuItem.Name = "PDFToolStripMenuItem"
+        Me.PDFToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.PDFToolStripMenuItem.Text = "PDF"
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(124, 6)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(177, 6)
         '
         'msMainFileProperties
         '
         Me.msMainFileProperties.Name = "msMainFileProperties"
-        Me.msMainFileProperties.Size = New System.Drawing.Size(127, 22)
+        Me.msMainFileProperties.Size = New System.Drawing.Size(180, 22)
         Me.msMainFileProperties.Text = "Properties"
         '
         'ToolStripMenuItem2
         '
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(124, 6)
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(177, 6)
         '
         'msMainFileExit
         '
         Me.msMainFileExit.Name = "msMainFileExit"
-        Me.msMainFileExit.Size = New System.Drawing.Size(127, 22)
+        Me.msMainFileExit.Size = New System.Drawing.Size(180, 22)
         Me.msMainFileExit.Text = "Exit"
         '
         'scSiteData
@@ -803,12 +821,14 @@ Partial Class frmMain
         '
         'gbSiteData
         '
-        Me.gbSiteData.Controls.Add(Me.cbWeather)
-        Me.gbSiteData.Controls.Add(Me.cbFoundation)
+        Me.gbSiteData.Controls.Add(Me.tbSubjectPropertyOrderID)
+        Me.gbSiteData.Controls.Add(Me.lblOrderID)
+        Me.gbSiteData.Controls.Add(Me.cbSubjectPropertyWeather)
+        Me.gbSiteData.Controls.Add(Me.cbSubjectPropertyFoundation)
         Me.gbSiteData.Controls.Add(Me.lblLocation)
-        Me.gbSiteData.Controls.Add(Me.tbLocation)
-        Me.gbSiteData.Controls.Add(Me.tbYearBuilt)
-        Me.gbSiteData.Controls.Add(Me.tbSqFt)
+        Me.gbSiteData.Controls.Add(Me.tbSubjectPropertyLocation)
+        Me.gbSiteData.Controls.Add(Me.tbSubjectPropertyYearBuilt)
+        Me.gbSiteData.Controls.Add(Me.tbSubjectPropertySqFt)
         Me.gbSiteData.Controls.Add(Me.lblWeather)
         Me.gbSiteData.Controls.Add(Me.lblFoundation)
         Me.gbSiteData.Controls.Add(Me.lblSqFt)
@@ -821,6 +841,38 @@ Partial Class frmMain
         Me.gbSiteData.TabStop = False
         Me.gbSiteData.Text = "Site Data"
         '
+        'tbSubjectPropertyOrderID
+        '
+        Me.tbSubjectPropertyOrderID.Location = New System.Drawing.Point(89, 175)
+        Me.tbSubjectPropertyOrderID.Name = "tbSubjectPropertyOrderID"
+        Me.tbSubjectPropertyOrderID.Size = New System.Drawing.Size(100, 20)
+        Me.tbSubjectPropertyOrderID.TabIndex = 18
+        '
+        'lblOrderID
+        '
+        Me.lblOrderID.AutoSize = True
+        Me.lblOrderID.Location = New System.Drawing.Point(17, 179)
+        Me.lblOrderID.Name = "lblOrderID"
+        Me.lblOrderID.Size = New System.Drawing.Size(50, 13)
+        Me.lblOrderID.TabIndex = 17
+        Me.lblOrderID.Text = "Order ID:"
+        '
+        'cbSubjectPropertyWeather
+        '
+        Me.cbSubjectPropertyWeather.FormattingEnabled = True
+        Me.cbSubjectPropertyWeather.Location = New System.Drawing.Point(89, 143)
+        Me.cbSubjectPropertyWeather.Name = "cbSubjectPropertyWeather"
+        Me.cbSubjectPropertyWeather.Size = New System.Drawing.Size(121, 21)
+        Me.cbSubjectPropertyWeather.TabIndex = 16
+        '
+        'cbSubjectPropertyFoundation
+        '
+        Me.cbSubjectPropertyFoundation.FormattingEnabled = True
+        Me.cbSubjectPropertyFoundation.Location = New System.Drawing.Point(89, 87)
+        Me.cbSubjectPropertyFoundation.Name = "cbSubjectPropertyFoundation"
+        Me.cbSubjectPropertyFoundation.Size = New System.Drawing.Size(121, 21)
+        Me.cbSubjectPropertyFoundation.TabIndex = 15
+        '
         'lblLocation
         '
         Me.lblLocation.AutoSize = True
@@ -830,31 +882,31 @@ Partial Class frmMain
         Me.lblLocation.TabIndex = 14
         Me.lblLocation.Text = "Location:"
         '
-        'tbLocation
+        'tbSubjectPropertyLocation
         '
-        Me.tbLocation.Location = New System.Drawing.Point(89, 113)
-        Me.tbLocation.Name = "tbLocation"
-        Me.tbLocation.Size = New System.Drawing.Size(100, 20)
-        Me.tbLocation.TabIndex = 13
+        Me.tbSubjectPropertyLocation.Location = New System.Drawing.Point(89, 113)
+        Me.tbSubjectPropertyLocation.Name = "tbSubjectPropertyLocation"
+        Me.tbSubjectPropertyLocation.Size = New System.Drawing.Size(121, 20)
+        Me.tbSubjectPropertyLocation.TabIndex = 13
         '
-        'tbYearBuilt
+        'tbSubjectPropertyYearBuilt
         '
-        Me.tbYearBuilt.Location = New System.Drawing.Point(89, 34)
-        Me.tbYearBuilt.Name = "tbYearBuilt"
-        Me.tbYearBuilt.Size = New System.Drawing.Size(100, 20)
-        Me.tbYearBuilt.TabIndex = 12
+        Me.tbSubjectPropertyYearBuilt.Location = New System.Drawing.Point(89, 34)
+        Me.tbSubjectPropertyYearBuilt.Name = "tbSubjectPropertyYearBuilt"
+        Me.tbSubjectPropertyYearBuilt.Size = New System.Drawing.Size(41, 20)
+        Me.tbSubjectPropertyYearBuilt.TabIndex = 12
         '
-        'tbSqFt
+        'tbSubjectPropertySqFt
         '
-        Me.tbSqFt.Location = New System.Drawing.Point(89, 60)
-        Me.tbSqFt.Name = "tbSqFt"
-        Me.tbSqFt.Size = New System.Drawing.Size(100, 20)
-        Me.tbSqFt.TabIndex = 9
+        Me.tbSubjectPropertySqFt.Location = New System.Drawing.Point(89, 60)
+        Me.tbSubjectPropertySqFt.Name = "tbSubjectPropertySqFt"
+        Me.tbSubjectPropertySqFt.Size = New System.Drawing.Size(41, 20)
+        Me.tbSubjectPropertySqFt.TabIndex = 9
         '
         'lblWeather
         '
         Me.lblWeather.AutoSize = True
-        Me.lblWeather.Location = New System.Drawing.Point(12, 143)
+        Me.lblWeather.Location = New System.Drawing.Point(12, 147)
         Me.lblWeather.Name = "lblWeather"
         Me.lblWeather.Size = New System.Drawing.Size(51, 13)
         Me.lblWeather.TabIndex = 7
@@ -886,22 +938,6 @@ Partial Class frmMain
         Me.lblYearBuilt.Size = New System.Drawing.Size(55, 13)
         Me.lblYearBuilt.TabIndex = 4
         Me.lblYearBuilt.Text = "Year Built:"
-        '
-        'cbFoundation
-        '
-        Me.cbFoundation.FormattingEnabled = True
-        Me.cbFoundation.Location = New System.Drawing.Point(89, 87)
-        Me.cbFoundation.Name = "cbFoundation"
-        Me.cbFoundation.Size = New System.Drawing.Size(121, 21)
-        Me.cbFoundation.TabIndex = 15
-        '
-        'cbWeather
-        '
-        Me.cbWeather.FormattingEnabled = True
-        Me.cbWeather.Location = New System.Drawing.Point(89, 143)
-        Me.cbWeather.Name = "cbWeather"
-        Me.cbWeather.Size = New System.Drawing.Size(121, 21)
-        Me.cbWeather.TabIndex = 16
         '
         'frmMain
         '
@@ -1015,14 +1051,18 @@ Partial Class frmMain
     Friend WithEvents lblCalDate As Label
     Friend WithEvents TextBox1 As TextBox
     Friend WithEvents gbSiteData As GroupBox
-    Friend WithEvents tbSqFt As TextBox
+    Friend WithEvents tbSubjectPropertySqFt As TextBox
     Friend WithEvents lblWeather As Label
     Friend WithEvents lblFoundation As Label
     Friend WithEvents lblSqFt As Label
     Friend WithEvents lblYearBuilt As Label
     Friend WithEvents lblLocation As Label
-    Friend WithEvents tbLocation As TextBox
-    Friend WithEvents tbYearBuilt As TextBox
-    Friend WithEvents cbWeather As ComboBox
-    Friend WithEvents cbFoundation As ComboBox
+    Friend WithEvents tbSubjectPropertyLocation As TextBox
+    Friend WithEvents tbSubjectPropertyYearBuilt As TextBox
+    Friend WithEvents cbSubjectPropertyWeather As ComboBox
+    Friend WithEvents cbSubjectPropertyFoundation As ComboBox
+    Friend WithEvents tbSubjectPropertyOrderID As TextBox
+    Friend WithEvents lblOrderID As Label
+    Friend WithEvents ExcelToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents PDFToolStripMenuItem As ToolStripMenuItem
 End Class

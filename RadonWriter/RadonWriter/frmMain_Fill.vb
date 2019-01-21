@@ -43,11 +43,11 @@ Partial Class frmMain
             tbCustomerZipcode.Text = .Customer.PostalCode
             tbCustomerPhone.Text = .Customer.Phone
 
+
             ' Inspection Property Information
             tbPropertyAddress1.Text = .SubjectProperty.Address1
             tbPropertyAddress2.Text = .SubjectProperty.Address2
             tbPropertyCity.Text = .SubjectProperty.City
-
 
             ' Radon Data
             ' Averages

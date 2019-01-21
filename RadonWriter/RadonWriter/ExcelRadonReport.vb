@@ -9,8 +9,11 @@
 ' ****
 ' **********************************************
 ' 
-
+Imports Syncfusion
 Imports Syncfusion.XlsIO
+
+
+
 
 Public Class ExcelRadonReport
 
@@ -27,7 +30,6 @@ Public Class ExcelRadonReport
     Private m_SheetCertificate As IWorksheet
     Private m_SheetData As IWorksheet
     Private m_RadonChart As IChartShape
-
 
 
     ' **********************************************
@@ -186,7 +188,7 @@ Public Class ExcelRadonReport
     ' ****
     ' **********************************************
     ' 
-    Public Function SaveAs(ByVal filePath As String) As Boolean
+    Public Function SaveAsExcel(ByVal filePath As String) As Boolean
         Dim docPath As String
 
         docPath = filePath
@@ -203,7 +205,7 @@ Public Class ExcelRadonReport
 
         Try
             ' m_ExcelWorkbook.SaveAs(docPath)
-            m_ExcelWorkbook.Close(True, docPath)
+            m_ExcelWorkbook.Close(True, docPath & ".xlsx")
 
 
         Catch ex As Exception
@@ -214,6 +216,15 @@ Public Class ExcelRadonReport
         Return True
 
     End Function
+
+
+
+    Public Function SaveAsPDF(ByVal filePath As String) As Boolean
+
+        Return True
+    End Function
+
+
 
     ' **********************************************
     ' ****
