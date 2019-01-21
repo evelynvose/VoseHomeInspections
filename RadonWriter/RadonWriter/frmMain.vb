@@ -1,12 +1,34 @@
-﻿Imports System.IO
+﻿' **********************************************
+' ****
+' ******    Class
+' ****
+' **********************************************
+'
+Imports System.IO
 
 
 
 Public Class frmMain
 
+    ' **********************************************
+    ' ****
+    ' ******    Members
+    ' ****
+    ' **********************************************
+    '
     ' The radon report is the heart of this application!
     Private m_DeviceRadonReport As DeviceRadonReport
 
+
+
+
+
+    ' **********************************************
+    ' ****
+    ' ******    Methods
+    ' ****
+    ' **********************************************
+    '
     ' **********************************************
     ' ****
     ' ******    LOAD
@@ -91,7 +113,7 @@ Public Class frmMain
 
     ' **********************************************
     ' ****
-    ' ******    MAIN FILE PROPERTIES Event
+    ' ******    PROPERTIES Event
     ' ****
     ' **********************************************
     '  
@@ -113,7 +135,7 @@ Public Class frmMain
 
     ' **********************************************
     ' ****
-    ' ******    MAIN FILE SAVE Event
+    ' ******     FILE SAVE Event
     ' ****
     ' **********************************************
     ' 
@@ -157,11 +179,15 @@ Public Class frmMain
         If FileDialog.ShowDialog = Windows.Forms.DialogResult.OK Then
             If Not excelRadonReport.SaveAs(FileDialog.SelectedPath & "\" & excelRadonReport.SubjectProperty.Address1 & ", " & excelRadonReport.SubjectProperty.City & ".xlsx") Then
                 MsgBox("Not Saved!")
-                Exit Sub
 
             End If
+            MsgBox("Saved!")
+
+        Else
+            MsgBox("File save operation canceled.")
+
         End If
-        MsgBox("Saved!")
+
 
     End Sub
 
@@ -190,4 +216,12 @@ Public Class frmMain
 
 
 
+
+
+    ' **********************************************
+    ' ****
+    ' ******    Properties
+    ' ****
+    ' **********************************************
+    '
 End Class

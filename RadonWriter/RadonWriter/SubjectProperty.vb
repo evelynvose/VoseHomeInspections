@@ -1,14 +1,12 @@
-﻿Public Class SubjectProperty
+﻿
+' **********************************************
+' ****
+' ******    Class
+' ****
+' **********************************************
+' 
+Public Class SubjectProperty
     Inherits Customer
-
-    ' **********************************************
-    ' ****
-    ' ******    Class
-    ' ****
-    ' **********************************************
-    ' 
-
-
 
     ' **********************************************
     ' ****
@@ -19,18 +17,18 @@
     Public Sub New()
         MyBase.New()
 
-        State = "NC"
+        MyBase.State = "NC"
 
     End Sub
 
     Public Sub New(ByVal name As String, ByVal address1 As String, ByVal address2 As String, ByVal city As String, ByVal state As String, ByVal postalcode As String, ByVal phone As String)
-        name = name
-        address1 = address1
-        address2 = address2
-        city = city
-        state = "NC"
-        postalcode = postalcode
-        phone = phone
+        MyBase.Name = name
+        MyBase.Address1 = address1
+        MyBase.Address2 = address2
+        MyBase.City = city
+        MyBase.State = "NC"
+        MyBase.PostalCode = postalcode
+        MyBase.Phone = phone
 
     End Sub
 

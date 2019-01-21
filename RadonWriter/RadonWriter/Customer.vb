@@ -1,4 +1,12 @@
-﻿Public Class Customer
+﻿
+' **********************************************
+' ****
+' ******    Class
+' ****
+' **********************************************
+'
+
+Public Class Customer
 
 
     ' **********************************************
@@ -10,14 +18,16 @@
     Public Sub New()
 
     End Sub
+
+
     Public Sub New(ByVal name As String, ByVal address1 As String, ByVal address2 As String, ByVal city As String, ByVal state As String, ByVal postalcode As String, ByVal phone As String)
-        Me.Name = name
-        Me.Address1 = address1
-        Me.Address2 = address2
-        Me.City = city
-        Me.State = state
-        Me.PostalCode = postalcode
-        Me.Phone = phone
+        name = name
+        address1 = address1
+        address2 = address2
+        city = city
+        state = state
+        postalcode = postalcode
+        phone = phone
 
     End Sub
 

@@ -1,5 +1,6 @@
 ﻿
 
+
 ' **********************************************
 ' ****
 ' ******    This class takes in an Excel template,
@@ -10,7 +11,6 @@
 ' 
 
 Imports Syncfusion.XlsIO
-
 
 Public Class ExcelRadonReport
 
@@ -26,6 +26,7 @@ Public Class ExcelRadonReport
     Private WithEvents m_ExcelWorkbook As IWorkbook
     Private m_SheetCertificate As IWorksheet
     Private m_SheetData As IWorksheet
+    Private m_RadonChart As IChartShape
 
 
 
@@ -77,8 +78,10 @@ Public Class ExcelRadonReport
 
         If bErrorFlag Then Return
 
+        ' Save the sheet and radon chart for future ref
         m_SheetCertificate = m_ExcelWorkbook.Worksheets(0)
         m_SheetData = m_ExcelWorkbook.Worksheets(1)
+        m_RadonChart = m_SheetCertificate.Charts(0)
 
         ' This is where all of the work gets done!
         FillTheTemplate()
@@ -99,6 +102,29 @@ Public Class ExcelRadonReport
 
             ' Create Template Marker Processor
             Dim marker As ITemplateMarkersProcessor = m_ExcelWorkbook.CreateTemplateMarkersProcessor()
+
+            ' Set the radon chart's Y axis to contain the maximum plot area
+            Dim axis As IChartValueAxis = m_RadonChart.PrimaryValueAxis
+            Dim maxPCil As Double
+            For Each radonPoint As RadonDataPoint In m_DeviceRadonReport.RadonDataPoints
+                If radonPoint.PCIL > maxPCil Then
+                    maxPCil = radonPoint.PCIL
+
+                End If
+            Next
+            ' Set the minimum (of the max) or round up to nearest 10
+            If maxPCil <= 10 Then axis.MaximumValue = 10
+            If maxPCil > 10 And maxPCil <= 15 Then axis.MaximumValue = 15
+            If maxPCil > 15 And maxPCil <= 20 Then axis.MaximumValue = 20
+            If maxPCil > 20 And maxPCil <= 30 Then axis.MaximumValue = 30
+            If maxPCil > 30 And maxPCil <= 40 Then axis.MaximumValue = 40
+            If maxPCil > 40 And maxPCil <= 50 Then axis.MaximumValue = 50
+            If maxPCil > 50 And maxPCil <= 60 Then axis.MaximumValue = 60
+            If maxPCil > 60 And maxPCil <= 70 Then axis.MaximumValue = 70
+            If maxPCil > 70 And maxPCil <= 80 Then axis.MaximumValue = 80
+            If maxPCil > 80 And maxPCil <= 90 Then axis.MaximumValue = 90
+            If maxPCil > 90 And maxPCil <= 100 Then axis.MaximumValue = 100
+            If maxPCil > 100 Then axis.MaximumValue = 200
 
 
             With m_DeviceRadonReport

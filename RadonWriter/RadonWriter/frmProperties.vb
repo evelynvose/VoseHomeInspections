@@ -1,6 +1,29 @@
-﻿Imports System.ComponentModel
+﻿' **********************************************
+' ****
+' ******    Class
+' ****
+' **********************************************
+' 
+Imports System.ComponentModel
 
 Public Class frmProperties
+
+    ' **********************************************
+    ' ****
+    ' ******    Constructor
+    ' ****
+    ' **********************************************
+    ' 
+
+
+
+
+    ' **********************************************
+    ' ****
+    ' ******    Methods
+    ' ****
+    ' **********************************************
+    ' 
     Private Sub frmProperties_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         pbCompanyLogo.SizeMode = PictureBoxSizeMode.StretchImage
         pbCompanyLogo.Load(My.Settings.CompanyLogoPath)
@@ -77,4 +100,16 @@ Public Class frmProperties
         My.Settings.Save()
 
     End Sub
+
+
+
+
+    ' **********************************************
+    ' ****
+    ' ******    Properties
+    ' ****
+    ' **********************************************
+    '
+
+
 End Class
