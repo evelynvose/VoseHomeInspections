@@ -24,32 +24,21 @@ Partial Class frmMain
     Private Sub InitializeComponent()
         Dim SpreadsheetCopyPaste1 As Syncfusion.Windows.Forms.Spreadsheet.SpreadsheetCopyPaste = New Syncfusion.Windows.Forms.Spreadsheet.SpreadsheetCopyPaste()
         Dim FormulaRangeSelectionController1 As Syncfusion.Windows.Forms.Spreadsheet.FormulaRangeSelectionController = New Syncfusion.Windows.Forms.Spreadsheet.FormulaRangeSelectionController()
-        Dim GridBaseStyle1 As Syncfusion.Windows.Forms.Grid.GridBaseStyle = New Syncfusion.Windows.Forms.Grid.GridBaseStyle()
-        Dim GridBaseStyle2 As Syncfusion.Windows.Forms.Grid.GridBaseStyle = New Syncfusion.Windows.Forms.Grid.GridBaseStyle()
-        Dim GridBaseStyle3 As Syncfusion.Windows.Forms.Grid.GridBaseStyle = New Syncfusion.Windows.Forms.Grid.GridBaseStyle()
-        Dim GridBaseStyle4 As Syncfusion.Windows.Forms.Grid.GridBaseStyle = New Syncfusion.Windows.Forms.Grid.GridBaseStyle()
-        Dim GridCellInfo1 As Syncfusion.Windows.Forms.Grid.GridCellInfo = New Syncfusion.Windows.Forms.Grid.GridCellInfo()
-        Dim GridCellInfo2 As Syncfusion.Windows.Forms.Grid.GridCellInfo = New Syncfusion.Windows.Forms.Grid.GridCellInfo()
-        Dim GridCellInfo3 As Syncfusion.Windows.Forms.Grid.GridCellInfo = New Syncfusion.Windows.Forms.Grid.GridCellInfo()
-        Dim GridCellInfo4 As Syncfusion.Windows.Forms.Grid.GridCellInfo = New Syncfusion.Windows.Forms.Grid.GridCellInfo()
-        Dim GridBaseStyle5 As Syncfusion.Windows.Forms.Grid.GridBaseStyle = New Syncfusion.Windows.Forms.Grid.GridBaseStyle()
-        Dim GridBaseStyle6 As Syncfusion.Windows.Forms.Grid.GridBaseStyle = New Syncfusion.Windows.Forms.Grid.GridBaseStyle()
-        Dim GridBaseStyle7 As Syncfusion.Windows.Forms.Grid.GridBaseStyle = New Syncfusion.Windows.Forms.Grid.GridBaseStyle()
-        Dim GridBaseStyle8 As Syncfusion.Windows.Forms.Grid.GridBaseStyle = New Syncfusion.Windows.Forms.Grid.GridBaseStyle()
-        Dim GridCellInfo5 As Syncfusion.Windows.Forms.Grid.GridCellInfo = New Syncfusion.Windows.Forms.Grid.GridCellInfo()
-        Dim GridCellInfo6 As Syncfusion.Windows.Forms.Grid.GridCellInfo = New Syncfusion.Windows.Forms.Grid.GridCellInfo()
-        Dim GridCellInfo7 As Syncfusion.Windows.Forms.Grid.GridCellInfo = New Syncfusion.Windows.Forms.Grid.GridCellInfo()
-        Dim GridBaseStyle9 As Syncfusion.Windows.Forms.Grid.GridBaseStyle = New Syncfusion.Windows.Forms.Grid.GridBaseStyle()
-        Dim GridBaseStyle10 As Syncfusion.Windows.Forms.Grid.GridBaseStyle = New Syncfusion.Windows.Forms.Grid.GridBaseStyle()
-        Dim GridBaseStyle11 As Syncfusion.Windows.Forms.Grid.GridBaseStyle = New Syncfusion.Windows.Forms.Grid.GridBaseStyle()
-        Dim GridBaseStyle12 As Syncfusion.Windows.Forms.Grid.GridBaseStyle = New Syncfusion.Windows.Forms.Grid.GridBaseStyle()
-        Dim GridCellInfo8 As Syncfusion.Windows.Forms.Grid.GridCellInfo = New Syncfusion.Windows.Forms.Grid.GridCellInfo()
-        Dim GridCellInfo9 As Syncfusion.Windows.Forms.Grid.GridCellInfo = New Syncfusion.Windows.Forms.Grid.GridCellInfo()
-        Dim GridCellInfo10 As Syncfusion.Windows.Forms.Grid.GridCellInfo = New Syncfusion.Windows.Forms.Grid.GridCellInfo()
-        Dim GridCellInfo11 As Syncfusion.Windows.Forms.Grid.GridCellInfo = New Syncfusion.Windows.Forms.Grid.GridCellInfo()
         Me.glRadonData = New Syncfusion.Windows.Forms.Grid.GridListControl()
         Me.xGraph = New Syncfusion.Windows.Forms.Spreadsheet.Spreadsheet()
-        Me.oSplitCon = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
+        Me.scTopBottom = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
+        Me.gbAverages = New System.Windows.Forms.GroupBox()
+        Me.glOverallAverage = New Syncfusion.Windows.Forms.Tools.GradientLabel()
+        Me.tbOverallAverage = New Syncfusion.Windows.Forms.Tools.DoubleTextBox()
+        Me.tbEpaAverage = New Syncfusion.Windows.Forms.Tools.DoubleTextBox()
+        Me.glEpaAverage = New Syncfusion.Windows.Forms.Tools.GradientLabel()
+        Me.gbDevice = New System.Windows.Forms.GroupBox()
+        Me.tbDeviceCalibrationDate = New System.Windows.Forms.TextBox()
+        Me.lblCalDate = New System.Windows.Forms.Label()
+        Me.tbSerialNo = New System.Windows.Forms.TextBox()
+        Me.tbModel = New System.Windows.Forms.TextBox()
+        Me.lblSerialNumber = New System.Windows.Forms.Label()
+        Me.lblModel = New System.Windows.Forms.Label()
         Me.rtCompanyInformation = New System.Windows.Forms.RichTextBox()
         Me.pbCompanyLogo = New System.Windows.Forms.PictureBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
@@ -60,6 +49,7 @@ Partial Class frmMain
         Me.lblInspectorLicenseNumber = New System.Windows.Forms.Label()
         Me.lblInspectorName = New System.Windows.Forms.Label()
         Me.gbProperty = New System.Windows.Forms.GroupBox()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.tbPropertyCity = New System.Windows.Forms.TextBox()
         Me.lblPropertyCity = New System.Windows.Forms.Label()
         Me.tbPropertyAddress2 = New System.Windows.Forms.TextBox()
@@ -81,10 +71,6 @@ Partial Class frmMain
         Me.lblCustomerAddress1 = New System.Windows.Forms.Label()
         Me.tbCustomerName = New System.Windows.Forms.TextBox()
         Me.lblCustomerName = New System.Windows.Forms.Label()
-        Me.lblModel = New System.Windows.Forms.Label()
-        Me.tbModel = New System.Windows.Forms.TextBox()
-        Me.lblSerialNumber = New System.Windows.Forms.Label()
-        Me.tbSerialNo = New System.Windows.Forms.TextBox()
         Me.MenuStrip2 = New System.Windows.Forms.MenuStrip()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.msMainFileOpen = New System.Windows.Forms.ToolStripMenuItem()
@@ -93,37 +79,52 @@ Partial Class frmMain
         Me.msMainFileProperties = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripSeparator()
         Me.msMainFileExit = New System.Windows.Forms.ToolStripMenuItem()
-        Me.TabControlAdv1 = New Syncfusion.Windows.Forms.Tools.TabControlAdv()
+        Me.scSiteData = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
+        Me.tcSiteData = New Syncfusion.Windows.Forms.Tools.TabControlAdv()
         Me.tabDay1 = New Syncfusion.Windows.Forms.Tools.TabPageAdv()
         Me.gcDay1 = New Syncfusion.Windows.Forms.Grid.GridControl()
         Me.tabDay2 = New Syncfusion.Windows.Forms.Tools.TabPageAdv()
         Me.gcDay2 = New Syncfusion.Windows.Forms.Grid.GridControl()
         Me.tabDay3 = New Syncfusion.Windows.Forms.Tools.TabPageAdv()
         Me.gcDay3 = New Syncfusion.Windows.Forms.Grid.GridControl()
-        Me.glEpaAverage = New Syncfusion.Windows.Forms.Tools.GradientLabel()
-        Me.tbEpaAverage = New Syncfusion.Windows.Forms.Tools.DoubleTextBox()
-        Me.tbOverallAverage = New Syncfusion.Windows.Forms.Tools.DoubleTextBox()
-        Me.glOverallAverage = New Syncfusion.Windows.Forms.Tools.GradientLabel()
+        Me.gbSiteData = New System.Windows.Forms.GroupBox()
+        Me.lblLocation = New System.Windows.Forms.Label()
+        Me.tbLocation = New System.Windows.Forms.TextBox()
+        Me.tbYearBuilt = New System.Windows.Forms.TextBox()
+        Me.tbSqFt = New System.Windows.Forms.TextBox()
+        Me.lblWeather = New System.Windows.Forms.Label()
+        Me.lblFoundation = New System.Windows.Forms.Label()
+        Me.lblSqFt = New System.Windows.Forms.Label()
+        Me.lblYearBuilt = New System.Windows.Forms.Label()
+        Me.cbFoundation = New System.Windows.Forms.ComboBox()
+        Me.cbWeather = New System.Windows.Forms.ComboBox()
         CType(Me.glRadonData, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.oSplitCon, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.oSplitCon.Panel1.SuspendLayout()
-        Me.oSplitCon.Panel2.SuspendLayout()
-        Me.oSplitCon.SuspendLayout()
+        CType(Me.scTopBottom, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.scTopBottom.Panel1.SuspendLayout()
+        Me.scTopBottom.Panel2.SuspendLayout()
+        Me.scTopBottom.SuspendLayout()
+        Me.gbAverages.SuspendLayout()
+        CType(Me.tbOverallAverage, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tbEpaAverage, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.gbDevice.SuspendLayout()
         CType(Me.pbCompanyLogo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.gbProperty.SuspendLayout()
         Me.gbCustomerInfo.SuspendLayout()
         Me.MenuStrip2.SuspendLayout()
-        CType(Me.TabControlAdv1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TabControlAdv1.SuspendLayout()
+        CType(Me.scSiteData, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.scSiteData.Panel1.SuspendLayout()
+        Me.scSiteData.Panel2.SuspendLayout()
+        Me.scSiteData.SuspendLayout()
+        CType(Me.tcSiteData, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tcSiteData.SuspendLayout()
         Me.tabDay1.SuspendLayout()
         CType(Me.gcDay1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabDay2.SuspendLayout()
         CType(Me.gcDay2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabDay3.SuspendLayout()
         CType(Me.gcDay3, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.tbEpaAverage, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.tbOverallAverage, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.gbSiteData.SuspendLayout()
         Me.SuspendLayout()
         '
         'glRadonData
@@ -144,7 +145,6 @@ Partial Class frmMain
         '
         'xGraph
         '
-        Me.xGraph.ActiveSheet = Nothing
         Me.xGraph.AllowCellContextMenu = True
         Me.xGraph.AllowExtendRowColumnCount = True
         Me.xGraph.AllowFormulaRangeSelection = True
@@ -156,7 +156,7 @@ Partial Class frmMain
         Me.xGraph.DefaultColumnCount = 101
         Me.xGraph.DefaultRowCount = 101
         Me.xGraph.DisplayAlerts = True
-        Me.xGraph.FileName = "Book4"
+        Me.xGraph.FileName = "Book1"
         Me.xGraph.FormulaBarVisibility = True
         FormulaRangeSelectionController1.AllowMouseSelection = True
         FormulaRangeSelectionController1.AllowSelectionOnEditing = True
@@ -173,45 +173,174 @@ Partial Class frmMain
         Me.xGraph.Text = "Spreadsheet1"
         Me.xGraph.ThemeName = "Default"
         '
-        'oSplitCon
+        'scTopBottom
         '
-        Me.oSplitCon.BeforeTouchSize = 13
-        Me.oSplitCon.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.oSplitCon.FixedPanel = Syncfusion.Windows.Forms.Tools.Enums.FixedPanel.Panel1
-        Me.oSplitCon.HotExpandLine = System.Drawing.Color.FromArgb(CType(CType(150, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(150, Byte), Integer))
-        Me.oSplitCon.Location = New System.Drawing.Point(0, 0)
-        Me.oSplitCon.Name = "oSplitCon"
-        Me.oSplitCon.Orientation = System.Windows.Forms.Orientation.Vertical
+        Me.scTopBottom.BeforeTouchSize = 13
+        Me.scTopBottom.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.scTopBottom.FixedPanel = Syncfusion.Windows.Forms.Tools.Enums.FixedPanel.Panel1
+        Me.scTopBottom.HotExpandLine = System.Drawing.Color.FromArgb(CType(CType(150, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(150, Byte), Integer))
+        Me.scTopBottom.Location = New System.Drawing.Point(0, 0)
+        Me.scTopBottom.Name = "scTopBottom"
+        Me.scTopBottom.Orientation = System.Windows.Forms.Orientation.Vertical
         '
-        'oSplitCon.Panel1
+        'scTopBottom.Panel1
         '
-        Me.oSplitCon.Panel1.BackgroundColor = New Syncfusion.Drawing.BrushInfo(System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer)))
-        Me.oSplitCon.Panel1.Controls.Add(Me.glOverallAverage)
-        Me.oSplitCon.Panel1.Controls.Add(Me.tbOverallAverage)
-        Me.oSplitCon.Panel1.Controls.Add(Me.tbEpaAverage)
-        Me.oSplitCon.Panel1.Controls.Add(Me.glEpaAverage)
-        Me.oSplitCon.Panel1.Controls.Add(Me.rtCompanyInformation)
-        Me.oSplitCon.Panel1.Controls.Add(Me.pbCompanyLogo)
-        Me.oSplitCon.Panel1.Controls.Add(Me.GroupBox1)
-        Me.oSplitCon.Panel1.Controls.Add(Me.gbProperty)
-        Me.oSplitCon.Panel1.Controls.Add(Me.gbCustomerInfo)
-        Me.oSplitCon.Panel1.Controls.Add(Me.lblModel)
-        Me.oSplitCon.Panel1.Controls.Add(Me.tbModel)
-        Me.oSplitCon.Panel1.Controls.Add(Me.lblSerialNumber)
-        Me.oSplitCon.Panel1.Controls.Add(Me.tbSerialNo)
-        Me.oSplitCon.Panel1.Controls.Add(Me.MenuStrip2)
-        Me.oSplitCon.Panel1MinSize = 225
+        Me.scTopBottom.Panel1.BackgroundColor = New Syncfusion.Drawing.BrushInfo(System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer)))
+        Me.scTopBottom.Panel1.Controls.Add(Me.gbAverages)
+        Me.scTopBottom.Panel1.Controls.Add(Me.gbDevice)
+        Me.scTopBottom.Panel1.Controls.Add(Me.rtCompanyInformation)
+        Me.scTopBottom.Panel1.Controls.Add(Me.pbCompanyLogo)
+        Me.scTopBottom.Panel1.Controls.Add(Me.GroupBox1)
+        Me.scTopBottom.Panel1.Controls.Add(Me.gbProperty)
+        Me.scTopBottom.Panel1.Controls.Add(Me.gbCustomerInfo)
+        Me.scTopBottom.Panel1.Controls.Add(Me.MenuStrip2)
+        Me.scTopBottom.Panel1MinSize = 225
         '
-        'oSplitCon.Panel2
+        'scTopBottom.Panel2
         '
-        Me.oSplitCon.Panel2.BackgroundColor = New Syncfusion.Drawing.BrushInfo(System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer)))
-        Me.oSplitCon.Panel2.Controls.Add(Me.TabControlAdv1)
-        Me.oSplitCon.Size = New System.Drawing.Size(784, 576)
-        Me.oSplitCon.SplitterDistance = 225
-        Me.oSplitCon.SplitterWidth = 13
-        Me.oSplitCon.Style = Syncfusion.Windows.Forms.Tools.Enums.Style.Office2016Colorful
-        Me.oSplitCon.TabIndex = 17
-        Me.oSplitCon.Text = "oSplitCon"
+        Me.scTopBottom.Panel2.BackgroundColor = New Syncfusion.Drawing.BrushInfo(System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer)))
+        Me.scTopBottom.Panel2.Controls.Add(Me.scSiteData)
+        Me.scTopBottom.Size = New System.Drawing.Size(784, 576)
+        Me.scTopBottom.SplitterDistance = 225
+        Me.scTopBottom.SplitterWidth = 13
+        Me.scTopBottom.Style = Syncfusion.Windows.Forms.Tools.Enums.Style.Office2016Colorful
+        Me.scTopBottom.TabIndex = 17
+        Me.scTopBottom.Text = "oSplitCon"
+        '
+        'gbAverages
+        '
+        Me.gbAverages.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.gbAverages.Controls.Add(Me.glOverallAverage)
+        Me.gbAverages.Controls.Add(Me.tbOverallAverage)
+        Me.gbAverages.Controls.Add(Me.tbEpaAverage)
+        Me.gbAverages.Controls.Add(Me.glEpaAverage)
+        Me.gbAverages.Location = New System.Drawing.Point(382, 137)
+        Me.gbAverages.Name = "gbAverages"
+        Me.gbAverages.Size = New System.Drawing.Size(200, 85)
+        Me.gbAverages.TabIndex = 32
+        Me.gbAverages.TabStop = False
+        Me.gbAverages.Text = "Averages"
+        '
+        'glOverallAverage
+        '
+        Me.glOverallAverage.BackgroundColor = New Syncfusion.Drawing.BrushInfo(Syncfusion.Drawing.GradientStyle.Vertical, System.Drawing.Color.FromArgb(CType(CType(237, Byte), Integer), CType(CType(240, Byte), Integer), CType(CType(247, Byte), Integer)), System.Drawing.Color.LightCyan)
+        Me.glOverallAverage.BeforeTouchSize = New System.Drawing.Size(91, 23)
+        Me.glOverallAverage.BorderSides = CType((((System.Windows.Forms.Border3DSide.Left Or System.Windows.Forms.Border3DSide.Top) _
+            Or System.Windows.Forms.Border3DSide.Right) _
+            Or System.Windows.Forms.Border3DSide.Bottom), System.Windows.Forms.Border3DSide)
+        Me.glOverallAverage.Location = New System.Drawing.Point(10, 51)
+        Me.glOverallAverage.Name = "glOverallAverage"
+        Me.glOverallAverage.Size = New System.Drawing.Size(91, 23)
+        Me.glOverallAverage.TabIndex = 34
+        Me.glOverallAverage.Text = "Overall Average:"
+        Me.glOverallAverage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        '
+        'tbOverallAverage
+        '
+        Me.tbOverallAverage.BeforeTouchSize = New System.Drawing.Size(39, 20)
+        Me.tbOverallAverage.DoubleValue = 1.0R
+        Me.tbOverallAverage.Location = New System.Drawing.Point(107, 52)
+        Me.tbOverallAverage.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
+        Me.tbOverallAverage.Name = "tbOverallAverage"
+        Me.tbOverallAverage.NullString = ""
+        Me.tbOverallAverage.Size = New System.Drawing.Size(38, 20)
+        Me.tbOverallAverage.TabIndex = 33
+        Me.tbOverallAverage.Text = "1.00"
+        '
+        'tbEpaAverage
+        '
+        Me.tbEpaAverage.BeforeTouchSize = New System.Drawing.Size(39, 20)
+        Me.tbEpaAverage.DoubleValue = 1.0R
+        Me.tbEpaAverage.Location = New System.Drawing.Point(107, 19)
+        Me.tbEpaAverage.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
+        Me.tbEpaAverage.Name = "tbEpaAverage"
+        Me.tbEpaAverage.NullString = ""
+        Me.tbEpaAverage.Size = New System.Drawing.Size(39, 20)
+        Me.tbEpaAverage.TabIndex = 32
+        Me.tbEpaAverage.Text = "1.00"
+        '
+        'glEpaAverage
+        '
+        Me.glEpaAverage.BackgroundColor = New Syncfusion.Drawing.BrushInfo(Syncfusion.Drawing.GradientStyle.Vertical, System.Drawing.Color.FromArgb(CType(CType(237, Byte), Integer), CType(CType(240, Byte), Integer), CType(CType(247, Byte), Integer)), System.Drawing.Color.LightCyan)
+        Me.glEpaAverage.BeforeTouchSize = New System.Drawing.Size(79, 23)
+        Me.glEpaAverage.BorderSides = CType((((System.Windows.Forms.Border3DSide.Left Or System.Windows.Forms.Border3DSide.Top) _
+            Or System.Windows.Forms.Border3DSide.Right) _
+            Or System.Windows.Forms.Border3DSide.Bottom), System.Windows.Forms.Border3DSide)
+        Me.glEpaAverage.Location = New System.Drawing.Point(10, 17)
+        Me.glEpaAverage.Name = "glEpaAverage"
+        Me.glEpaAverage.Size = New System.Drawing.Size(79, 23)
+        Me.glEpaAverage.TabIndex = 31
+        Me.glEpaAverage.Text = "EPA Average:"
+        Me.glEpaAverage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'gbDevice
+        '
+        Me.gbDevice.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.gbDevice.Controls.Add(Me.tbDeviceCalibrationDate)
+        Me.gbDevice.Controls.Add(Me.lblCalDate)
+        Me.gbDevice.Controls.Add(Me.tbSerialNo)
+        Me.gbDevice.Controls.Add(Me.tbModel)
+        Me.gbDevice.Controls.Add(Me.lblSerialNumber)
+        Me.gbDevice.Controls.Add(Me.lblModel)
+        Me.gbDevice.Location = New System.Drawing.Point(595, 133)
+        Me.gbDevice.Name = "gbDevice"
+        Me.gbDevice.Size = New System.Drawing.Size(177, 89)
+        Me.gbDevice.TabIndex = 31
+        Me.gbDevice.TabStop = False
+        Me.gbDevice.Text = "Device"
+        '
+        'tbDeviceCalibrationDate
+        '
+        Me.tbDeviceCalibrationDate.Location = New System.Drawing.Point(67, 63)
+        Me.tbDeviceCalibrationDate.Name = "tbDeviceCalibrationDate"
+        Me.tbDeviceCalibrationDate.ReadOnly = True
+        Me.tbDeviceCalibrationDate.Size = New System.Drawing.Size(100, 20)
+        Me.tbDeviceCalibrationDate.TabIndex = 22
+        '
+        'lblCalDate
+        '
+        Me.lblCalDate.AutoSize = True
+        Me.lblCalDate.Location = New System.Drawing.Point(8, 67)
+        Me.lblCalDate.Name = "lblCalDate"
+        Me.lblCalDate.Size = New System.Drawing.Size(51, 13)
+        Me.lblCalDate.TabIndex = 21
+        Me.lblCalDate.Text = "Cal Date:"
+        '
+        'tbSerialNo
+        '
+        Me.tbSerialNo.Location = New System.Drawing.Point(67, 17)
+        Me.tbSerialNo.Name = "tbSerialNo"
+        Me.tbSerialNo.ReadOnly = True
+        Me.tbSerialNo.Size = New System.Drawing.Size(61, 20)
+        Me.tbSerialNo.TabIndex = 17
+        '
+        'tbModel
+        '
+        Me.tbModel.Location = New System.Drawing.Point(67, 40)
+        Me.tbModel.Name = "tbModel"
+        Me.tbModel.ReadOnly = True
+        Me.tbModel.Size = New System.Drawing.Size(61, 20)
+        Me.tbModel.TabIndex = 19
+        '
+        'lblSerialNumber
+        '
+        Me.lblSerialNumber.AutoSize = True
+        Me.lblSerialNumber.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.lblSerialNumber.Location = New System.Drawing.Point(5, 21)
+        Me.lblSerialNumber.Name = "lblSerialNumber"
+        Me.lblSerialNumber.Size = New System.Drawing.Size(56, 13)
+        Me.lblSerialNumber.TabIndex = 18
+        Me.lblSerialNumber.Text = "Serial No.:"
+        '
+        'lblModel
+        '
+        Me.lblModel.AutoSize = True
+        Me.lblModel.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.lblModel.Location = New System.Drawing.Point(8, 44)
+        Me.lblModel.Name = "lblModel"
+        Me.lblModel.Size = New System.Drawing.Size(39, 13)
+        Me.lblModel.TabIndex = 20
+        Me.lblModel.Text = "Model:"
         '
         'rtCompanyInformation
         '
@@ -243,7 +372,7 @@ Partial Class frmMain
         Me.GroupBox1.Controls.Add(Me.lblInspectorPhone)
         Me.GroupBox1.Controls.Add(Me.lblInspectorLicenseNumber)
         Me.GroupBox1.Controls.Add(Me.lblInspectorName)
-        Me.GroupBox1.Location = New System.Drawing.Point(595, 94)
+        Me.GroupBox1.Location = New System.Drawing.Point(595, 27)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(178, 100)
         Me.GroupBox1.TabIndex = 23
@@ -301,6 +430,7 @@ Partial Class frmMain
         'gbProperty
         '
         Me.gbProperty.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.gbProperty.Controls.Add(Me.TextBox1)
         Me.gbProperty.Controls.Add(Me.tbPropertyCity)
         Me.gbProperty.Controls.Add(Me.lblPropertyCity)
         Me.gbProperty.Controls.Add(Me.tbPropertyAddress2)
@@ -309,14 +439,21 @@ Partial Class frmMain
         Me.gbProperty.Controls.Add(Me.lblPropertyAddress1)
         Me.gbProperty.Location = New System.Drawing.Point(382, 27)
         Me.gbProperty.Name = "gbProperty"
-        Me.gbProperty.Size = New System.Drawing.Size(207, 167)
+        Me.gbProperty.Size = New System.Drawing.Size(207, 104)
         Me.gbProperty.TabIndex = 22
         Me.gbProperty.TabStop = False
         Me.gbProperty.Text = "Property"
         '
+        'TextBox1
+        '
+        Me.TextBox1.Location = New System.Drawing.Point(66, 120)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(100, 20)
+        Me.TextBox1.TabIndex = 20
+        '
         'tbPropertyCity
         '
-        Me.tbPropertyCity.Location = New System.Drawing.Point(66, 92)
+        Me.tbPropertyCity.Location = New System.Drawing.Point(66, 67)
         Me.tbPropertyCity.Name = "tbPropertyCity"
         Me.tbPropertyCity.Size = New System.Drawing.Size(60, 20)
         Me.tbPropertyCity.TabIndex = 19
@@ -324,7 +461,7 @@ Partial Class frmMain
         'lblPropertyCity
         '
         Me.lblPropertyCity.AutoSize = True
-        Me.lblPropertyCity.Location = New System.Drawing.Point(7, 96)
+        Me.lblPropertyCity.Location = New System.Drawing.Point(7, 71)
         Me.lblPropertyCity.Name = "lblPropertyCity"
         Me.lblPropertyCity.Size = New System.Drawing.Size(27, 13)
         Me.lblPropertyCity.TabIndex = 18
@@ -332,7 +469,7 @@ Partial Class frmMain
         '
         'tbPropertyAddress2
         '
-        Me.tbPropertyAddress2.Location = New System.Drawing.Point(66, 67)
+        Me.tbPropertyAddress2.Location = New System.Drawing.Point(66, 42)
         Me.tbPropertyAddress2.Name = "tbPropertyAddress2"
         Me.tbPropertyAddress2.Size = New System.Drawing.Size(130, 20)
         Me.tbPropertyAddress2.TabIndex = 17
@@ -340,7 +477,7 @@ Partial Class frmMain
         'lblPropertyAddress2
         '
         Me.lblPropertyAddress2.AutoSize = True
-        Me.lblPropertyAddress2.Location = New System.Drawing.Point(7, 71)
+        Me.lblPropertyAddress2.Location = New System.Drawing.Point(7, 46)
         Me.lblPropertyAddress2.Name = "lblPropertyAddress2"
         Me.lblPropertyAddress2.Size = New System.Drawing.Size(57, 13)
         Me.lblPropertyAddress2.TabIndex = 16
@@ -348,7 +485,7 @@ Partial Class frmMain
         '
         'tbPropertyAddress1
         '
-        Me.tbPropertyAddress1.Location = New System.Drawing.Point(66, 41)
+        Me.tbPropertyAddress1.Location = New System.Drawing.Point(66, 16)
         Me.tbPropertyAddress1.Name = "tbPropertyAddress1"
         Me.tbPropertyAddress1.Size = New System.Drawing.Size(130, 20)
         Me.tbPropertyAddress1.TabIndex = 15
@@ -356,7 +493,7 @@ Partial Class frmMain
         'lblPropertyAddress1
         '
         Me.lblPropertyAddress1.AutoSize = True
-        Me.lblPropertyAddress1.Location = New System.Drawing.Point(7, 45)
+        Me.lblPropertyAddress1.Location = New System.Drawing.Point(7, 20)
         Me.lblPropertyAddress1.Name = "lblPropertyAddress1"
         Me.lblPropertyAddress1.Size = New System.Drawing.Size(57, 13)
         Me.lblPropertyAddress1.TabIndex = 14
@@ -388,7 +525,7 @@ Partial Class frmMain
         '
         'tbCustomerAddress2
         '
-        Me.tbCustomerAddress2.Location = New System.Drawing.Point(70, 68)
+        Me.tbCustomerAddress2.Location = New System.Drawing.Point(66, 68)
         Me.tbCustomerAddress2.Name = "tbCustomerAddress2"
         Me.tbCustomerAddress2.Size = New System.Drawing.Size(126, 20)
         Me.tbCustomerAddress2.TabIndex = 14
@@ -498,42 +635,6 @@ Partial Class frmMain
         Me.lblCustomerName.TabIndex = 0
         Me.lblCustomerName.Text = "Name:"
         '
-        'lblModel
-        '
-        Me.lblModel.AutoSize = True
-        Me.lblModel.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.lblModel.Location = New System.Drawing.Point(601, 72)
-        Me.lblModel.Name = "lblModel"
-        Me.lblModel.Size = New System.Drawing.Size(39, 13)
-        Me.lblModel.TabIndex = 20
-        Me.lblModel.Text = "Model:"
-        '
-        'tbModel
-        '
-        Me.tbModel.Location = New System.Drawing.Point(663, 68)
-        Me.tbModel.Name = "tbModel"
-        Me.tbModel.ReadOnly = True
-        Me.tbModel.Size = New System.Drawing.Size(61, 20)
-        Me.tbModel.TabIndex = 19
-        '
-        'lblSerialNumber
-        '
-        Me.lblSerialNumber.AutoSize = True
-        Me.lblSerialNumber.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.lblSerialNumber.Location = New System.Drawing.Point(601, 46)
-        Me.lblSerialNumber.Name = "lblSerialNumber"
-        Me.lblSerialNumber.Size = New System.Drawing.Size(56, 13)
-        Me.lblSerialNumber.TabIndex = 18
-        Me.lblSerialNumber.Text = "Serial No.:"
-        '
-        'tbSerialNo
-        '
-        Me.tbSerialNo.Location = New System.Drawing.Point(663, 42)
-        Me.tbSerialNo.Name = "tbSerialNo"
-        Me.tbSerialNo.ReadOnly = True
-        Me.tbSerialNo.Size = New System.Drawing.Size(61, 20)
-        Me.tbSerialNo.TabIndex = 17
-        '
         'MenuStrip2
         '
         Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem})
@@ -584,26 +685,46 @@ Partial Class frmMain
         Me.msMainFileExit.Size = New System.Drawing.Size(127, 22)
         Me.msMainFileExit.Text = "Exit"
         '
-        'TabControlAdv1
+        'scSiteData
         '
-        Me.TabControlAdv1.ActiveTabColor = System.Drawing.SystemColors.ControlLightLight
-        Me.TabControlAdv1.ActiveTabForeColor = System.Drawing.Color.Empty
-        Me.TabControlAdv1.BeforeTouchSize = New System.Drawing.Size(784, 338)
-        Me.TabControlAdv1.CloseButtonForeColor = System.Drawing.Color.Empty
-        Me.TabControlAdv1.CloseButtonHoverForeColor = System.Drawing.Color.Empty
-        Me.TabControlAdv1.CloseButtonPressedForeColor = System.Drawing.Color.Empty
-        Me.TabControlAdv1.Controls.Add(Me.tabDay1)
-        Me.TabControlAdv1.Controls.Add(Me.tabDay2)
-        Me.TabControlAdv1.Controls.Add(Me.tabDay3)
-        Me.TabControlAdv1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TabControlAdv1.InActiveTabForeColor = System.Drawing.Color.Empty
-        Me.TabControlAdv1.Location = New System.Drawing.Point(0, 0)
-        Me.TabControlAdv1.Name = "TabControlAdv1"
-        Me.TabControlAdv1.SeparatorColor = System.Drawing.SystemColors.ControlDark
-        Me.TabControlAdv1.ShowSeparator = False
-        Me.TabControlAdv1.Size = New System.Drawing.Size(784, 338)
-        Me.TabControlAdv1.TabIndex = 0
-        Me.TabControlAdv1.TabPanelBackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.scSiteData.BeforeTouchSize = 7
+        Me.scSiteData.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.scSiteData.Location = New System.Drawing.Point(0, 0)
+        Me.scSiteData.Name = "scSiteData"
+        '
+        'scSiteData.Panel1
+        '
+        Me.scSiteData.Panel1.Controls.Add(Me.tcSiteData)
+        '
+        'scSiteData.Panel2
+        '
+        Me.scSiteData.Panel2.Controls.Add(Me.gbSiteData)
+        Me.scSiteData.Panel2MinSize = 250
+        Me.scSiteData.Size = New System.Drawing.Size(784, 338)
+        Me.scSiteData.SplitterDistance = 527
+        Me.scSiteData.TabIndex = 0
+        Me.scSiteData.Text = "scSiteData"
+        '
+        'tcSiteData
+        '
+        Me.tcSiteData.ActiveTabColor = System.Drawing.SystemColors.ControlLightLight
+        Me.tcSiteData.ActiveTabForeColor = System.Drawing.Color.Empty
+        Me.tcSiteData.BeforeTouchSize = New System.Drawing.Size(527, 338)
+        Me.tcSiteData.CloseButtonForeColor = System.Drawing.Color.Empty
+        Me.tcSiteData.CloseButtonHoverForeColor = System.Drawing.Color.Empty
+        Me.tcSiteData.CloseButtonPressedForeColor = System.Drawing.Color.Empty
+        Me.tcSiteData.Controls.Add(Me.tabDay1)
+        Me.tcSiteData.Controls.Add(Me.tabDay2)
+        Me.tcSiteData.Controls.Add(Me.tabDay3)
+        Me.tcSiteData.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tcSiteData.InActiveTabForeColor = System.Drawing.Color.Empty
+        Me.tcSiteData.Location = New System.Drawing.Point(0, 0)
+        Me.tcSiteData.Name = "tcSiteData"
+        Me.tcSiteData.SeparatorColor = System.Drawing.SystemColors.ControlDark
+        Me.tcSiteData.ShowSeparator = False
+        Me.tcSiteData.Size = New System.Drawing.Size(527, 338)
+        Me.tcSiteData.TabIndex = 1
+        Me.tcSiteData.TabPanelBackColor = System.Drawing.SystemColors.ControlLightLight
         '
         'tabDay1
         '
@@ -613,58 +734,21 @@ Partial Class frmMain
         Me.tabDay1.Location = New System.Drawing.Point(1, 25)
         Me.tabDay1.Name = "tabDay1"
         Me.tabDay1.ShowCloseButton = True
-        Me.tabDay1.Size = New System.Drawing.Size(781, 311)
+        Me.tabDay1.Size = New System.Drawing.Size(524, 311)
         Me.tabDay1.TabIndex = 1
         Me.tabDay1.Text = "Day 1"
         Me.tabDay1.ThemesEnabled = False
         '
         'gcDay1
         '
-        GridBaseStyle1.Name = "Header"
-        GridBaseStyle1.StyleInfo.Borders.Bottom = New Syncfusion.Windows.Forms.Grid.GridBorder(Syncfusion.Windows.Forms.Grid.GridBorderStyle.None)
-        GridBaseStyle1.StyleInfo.Borders.Left = New Syncfusion.Windows.Forms.Grid.GridBorder(Syncfusion.Windows.Forms.Grid.GridBorderStyle.None)
-        GridBaseStyle1.StyleInfo.Borders.Right = New Syncfusion.Windows.Forms.Grid.GridBorder(Syncfusion.Windows.Forms.Grid.GridBorderStyle.None)
-        GridBaseStyle1.StyleInfo.Borders.Top = New Syncfusion.Windows.Forms.Grid.GridBorder(Syncfusion.Windows.Forms.Grid.GridBorderStyle.None)
-        GridBaseStyle1.StyleInfo.CellType = "Header"
-        GridBaseStyle1.StyleInfo.Font.Bold = True
-        GridBaseStyle1.StyleInfo.Interior = New Syncfusion.Drawing.BrushInfo(Syncfusion.Drawing.GradientStyle.Vertical, System.Drawing.Color.FromArgb(CType(CType(203, Byte), Integer), CType(CType(199, Byte), Integer), CType(CType(184, Byte), Integer)), System.Drawing.Color.FromArgb(CType(CType(238, Byte), Integer), CType(CType(234, Byte), Integer), CType(CType(216, Byte), Integer)))
-        GridBaseStyle1.StyleInfo.VerticalAlignment = Syncfusion.Windows.Forms.Grid.GridVerticalAlignment.Middle
-        GridBaseStyle2.Name = "Standard"
-        GridBaseStyle2.StyleInfo.Font.Facename = "Tahoma"
-        GridBaseStyle2.StyleInfo.Interior = New Syncfusion.Drawing.BrushInfo(System.Drawing.SystemColors.Window)
-        GridBaseStyle3.Name = "Column Header"
-        GridBaseStyle3.StyleInfo.BaseStyle = "Header"
-        GridBaseStyle3.StyleInfo.HorizontalAlignment = Syncfusion.Windows.Forms.Grid.GridHorizontalAlignment.Center
-        GridBaseStyle4.Name = "Row Header"
-        GridBaseStyle4.StyleInfo.BaseStyle = "Header"
-        GridBaseStyle4.StyleInfo.HorizontalAlignment = Syncfusion.Windows.Forms.Grid.GridHorizontalAlignment.Left
-        GridBaseStyle4.StyleInfo.Interior = New Syncfusion.Drawing.BrushInfo(Syncfusion.Drawing.GradientStyle.Horizontal, System.Drawing.Color.FromArgb(CType(CType(203, Byte), Integer), CType(CType(199, Byte), Integer), CType(CType(184, Byte), Integer)), System.Drawing.Color.FromArgb(CType(CType(238, Byte), Integer), CType(CType(234, Byte), Integer), CType(CType(216, Byte), Integer)))
-        Me.gcDay1.BaseStylesMap.AddRange(New Syncfusion.Windows.Forms.Grid.GridBaseStyle() {GridBaseStyle1, GridBaseStyle2, GridBaseStyle3, GridBaseStyle4})
-        Me.gcDay1.ColCount = 3
-        Me.gcDay1.ColWidthEntries.AddRange(New Syncfusion.Windows.Forms.Grid.GridColWidth() {New Syncfusion.Windows.Forms.Grid.GridColWidth(0, 35), New Syncfusion.Windows.Forms.Grid.GridColWidth(1, 160), New Syncfusion.Windows.Forms.Grid.GridColWidth(2, 251)})
         Me.gcDay1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.gcDay1.ForeColor = System.Drawing.SystemColors.ControlText
-        GridCellInfo1.Col = -1
-        GridCellInfo1.Row = -1
-        GridCellInfo2.Col = 1
-        GridCellInfo2.Row = 1
-        GridCellInfo2.StyleInfo.Text = "Day One"
-        GridCellInfo3.Col = 1
-        GridCellInfo3.Row = 2
-        GridCellInfo3.StyleInfo.Text = "Time"
-        GridCellInfo4.Col = 2
-        GridCellInfo4.Row = 2
-        GridCellInfo4.StyleInfo.Text = "Value"
-        Me.gcDay1.GridCells.AddRange(New Syncfusion.Windows.Forms.Grid.GridCellInfo() {GridCellInfo1, GridCellInfo2, GridCellInfo3, GridCellInfo4})
         Me.gcDay1.Location = New System.Drawing.Point(0, 0)
         Me.gcDay1.Name = "gcDay1"
-        Me.gcDay1.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.gcDay1.RowCount = 26
-        Me.gcDay1.RowHeightEntries.AddRange(New Syncfusion.Windows.Forms.Grid.GridRowHeight() {New Syncfusion.Windows.Forms.Grid.GridRowHeight(0, 25)})
         Me.gcDay1.SerializeCellsBehavior = Syncfusion.Windows.Forms.Grid.GridSerializeCellsBehavior.SerializeIntoCode
-        Me.gcDay1.Size = New System.Drawing.Size(781, 311)
+        Me.gcDay1.Size = New System.Drawing.Size(524, 311)
         Me.gcDay1.SmartSizeBox = False
         Me.gcDay1.TabIndex = 0
+        Me.gcDay1.Text = "gcDay1"
         Me.gcDay1.UseRightToLeftCompatibleTextBox = True
         '
         'tabDay2
@@ -675,56 +759,21 @@ Partial Class frmMain
         Me.tabDay2.Location = New System.Drawing.Point(1, 25)
         Me.tabDay2.Name = "tabDay2"
         Me.tabDay2.ShowCloseButton = True
-        Me.tabDay2.Size = New System.Drawing.Size(781, 311)
+        Me.tabDay2.Size = New System.Drawing.Size(524, 311)
         Me.tabDay2.TabIndex = 2
         Me.tabDay2.Text = "Day 2"
         Me.tabDay2.ThemesEnabled = False
         '
         'gcDay2
         '
-        GridBaseStyle5.Name = "Header"
-        GridBaseStyle5.StyleInfo.Borders.Bottom = New Syncfusion.Windows.Forms.Grid.GridBorder(Syncfusion.Windows.Forms.Grid.GridBorderStyle.None)
-        GridBaseStyle5.StyleInfo.Borders.Left = New Syncfusion.Windows.Forms.Grid.GridBorder(Syncfusion.Windows.Forms.Grid.GridBorderStyle.None)
-        GridBaseStyle5.StyleInfo.Borders.Right = New Syncfusion.Windows.Forms.Grid.GridBorder(Syncfusion.Windows.Forms.Grid.GridBorderStyle.None)
-        GridBaseStyle5.StyleInfo.Borders.Top = New Syncfusion.Windows.Forms.Grid.GridBorder(Syncfusion.Windows.Forms.Grid.GridBorderStyle.None)
-        GridBaseStyle5.StyleInfo.CellType = "Header"
-        GridBaseStyle5.StyleInfo.Font.Bold = True
-        GridBaseStyle5.StyleInfo.Interior = New Syncfusion.Drawing.BrushInfo(Syncfusion.Drawing.GradientStyle.Vertical, System.Drawing.Color.FromArgb(CType(CType(203, Byte), Integer), CType(CType(199, Byte), Integer), CType(CType(184, Byte), Integer)), System.Drawing.Color.FromArgb(CType(CType(238, Byte), Integer), CType(CType(234, Byte), Integer), CType(CType(216, Byte), Integer)))
-        GridBaseStyle5.StyleInfo.VerticalAlignment = Syncfusion.Windows.Forms.Grid.GridVerticalAlignment.Middle
-        GridBaseStyle6.Name = "Standard"
-        GridBaseStyle6.StyleInfo.Font.Facename = "Tahoma"
-        GridBaseStyle6.StyleInfo.Interior = New Syncfusion.Drawing.BrushInfo(System.Drawing.SystemColors.Window)
-        GridBaseStyle7.Name = "Column Header"
-        GridBaseStyle7.StyleInfo.BaseStyle = "Header"
-        GridBaseStyle7.StyleInfo.HorizontalAlignment = Syncfusion.Windows.Forms.Grid.GridHorizontalAlignment.Center
-        GridBaseStyle8.Name = "Row Header"
-        GridBaseStyle8.StyleInfo.BaseStyle = "Header"
-        GridBaseStyle8.StyleInfo.HorizontalAlignment = Syncfusion.Windows.Forms.Grid.GridHorizontalAlignment.Left
-        GridBaseStyle8.StyleInfo.Interior = New Syncfusion.Drawing.BrushInfo(Syncfusion.Drawing.GradientStyle.Horizontal, System.Drawing.Color.FromArgb(CType(CType(203, Byte), Integer), CType(CType(199, Byte), Integer), CType(CType(184, Byte), Integer)), System.Drawing.Color.FromArgb(CType(CType(238, Byte), Integer), CType(CType(234, Byte), Integer), CType(CType(216, Byte), Integer)))
-        Me.gcDay2.BaseStylesMap.AddRange(New Syncfusion.Windows.Forms.Grid.GridBaseStyle() {GridBaseStyle5, GridBaseStyle6, GridBaseStyle7, GridBaseStyle8})
-        Me.gcDay2.ColCount = 3
-        Me.gcDay2.ColWidthEntries.AddRange(New Syncfusion.Windows.Forms.Grid.GridColWidth() {New Syncfusion.Windows.Forms.Grid.GridColWidth(0, 35), New Syncfusion.Windows.Forms.Grid.GridColWidth(1, 169), New Syncfusion.Windows.Forms.Grid.GridColWidth(2, 310)})
         Me.gcDay2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.gcDay2.ForeColor = System.Drawing.SystemColors.ControlText
-        GridCellInfo5.Col = 1
-        GridCellInfo5.Row = 1
-        GridCellInfo5.StyleInfo.Text = "Day 2"
-        GridCellInfo6.Col = 1
-        GridCellInfo6.Row = 2
-        GridCellInfo6.StyleInfo.Text = "Time"
-        GridCellInfo7.Col = 2
-        GridCellInfo7.Row = 2
-        GridCellInfo7.StyleInfo.Text = "Value"
-        Me.gcDay2.GridCells.AddRange(New Syncfusion.Windows.Forms.Grid.GridCellInfo() {GridCellInfo5, GridCellInfo6, GridCellInfo7})
         Me.gcDay2.Location = New System.Drawing.Point(0, 0)
         Me.gcDay2.Name = "gcDay2"
-        Me.gcDay2.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.gcDay2.RowCount = 26
-        Me.gcDay2.RowHeightEntries.AddRange(New Syncfusion.Windows.Forms.Grid.GridRowHeight() {New Syncfusion.Windows.Forms.Grid.GridRowHeight(0, 25)})
         Me.gcDay2.SerializeCellsBehavior = Syncfusion.Windows.Forms.Grid.GridSerializeCellsBehavior.SerializeIntoCode
-        Me.gcDay2.Size = New System.Drawing.Size(781, 311)
+        Me.gcDay2.Size = New System.Drawing.Size(524, 311)
         Me.gcDay2.SmartSizeBox = False
         Me.gcDay2.TabIndex = 0
+        Me.gcDay2.Text = "gcDay2"
         Me.gcDay2.UseRightToLeftCompatibleTextBox = True
         '
         'tabDay3
@@ -735,128 +784,147 @@ Partial Class frmMain
         Me.tabDay3.Location = New System.Drawing.Point(1, 25)
         Me.tabDay3.Name = "tabDay3"
         Me.tabDay3.ShowCloseButton = True
-        Me.tabDay3.Size = New System.Drawing.Size(781, 311)
+        Me.tabDay3.Size = New System.Drawing.Size(524, 311)
         Me.tabDay3.TabIndex = 3
         Me.tabDay3.Text = "Day 3"
         Me.tabDay3.ThemesEnabled = False
         '
         'gcDay3
         '
-        GridBaseStyle9.Name = "Header"
-        GridBaseStyle9.StyleInfo.Borders.Bottom = New Syncfusion.Windows.Forms.Grid.GridBorder(Syncfusion.Windows.Forms.Grid.GridBorderStyle.None)
-        GridBaseStyle9.StyleInfo.Borders.Left = New Syncfusion.Windows.Forms.Grid.GridBorder(Syncfusion.Windows.Forms.Grid.GridBorderStyle.None)
-        GridBaseStyle9.StyleInfo.Borders.Right = New Syncfusion.Windows.Forms.Grid.GridBorder(Syncfusion.Windows.Forms.Grid.GridBorderStyle.None)
-        GridBaseStyle9.StyleInfo.Borders.Top = New Syncfusion.Windows.Forms.Grid.GridBorder(Syncfusion.Windows.Forms.Grid.GridBorderStyle.None)
-        GridBaseStyle9.StyleInfo.CellType = "Header"
-        GridBaseStyle9.StyleInfo.Font.Bold = True
-        GridBaseStyle9.StyleInfo.Interior = New Syncfusion.Drawing.BrushInfo(Syncfusion.Drawing.GradientStyle.Vertical, System.Drawing.Color.FromArgb(CType(CType(203, Byte), Integer), CType(CType(199, Byte), Integer), CType(CType(184, Byte), Integer)), System.Drawing.Color.FromArgb(CType(CType(238, Byte), Integer), CType(CType(234, Byte), Integer), CType(CType(216, Byte), Integer)))
-        GridBaseStyle9.StyleInfo.VerticalAlignment = Syncfusion.Windows.Forms.Grid.GridVerticalAlignment.Middle
-        GridBaseStyle10.Name = "Standard"
-        GridBaseStyle10.StyleInfo.Font.Facename = "Tahoma"
-        GridBaseStyle10.StyleInfo.Interior = New Syncfusion.Drawing.BrushInfo(System.Drawing.SystemColors.Window)
-        GridBaseStyle11.Name = "Column Header"
-        GridBaseStyle11.StyleInfo.BaseStyle = "Header"
-        GridBaseStyle11.StyleInfo.HorizontalAlignment = Syncfusion.Windows.Forms.Grid.GridHorizontalAlignment.Center
-        GridBaseStyle12.Name = "Row Header"
-        GridBaseStyle12.StyleInfo.BaseStyle = "Header"
-        GridBaseStyle12.StyleInfo.HorizontalAlignment = Syncfusion.Windows.Forms.Grid.GridHorizontalAlignment.Left
-        GridBaseStyle12.StyleInfo.Interior = New Syncfusion.Drawing.BrushInfo(Syncfusion.Drawing.GradientStyle.Horizontal, System.Drawing.Color.FromArgb(CType(CType(203, Byte), Integer), CType(CType(199, Byte), Integer), CType(CType(184, Byte), Integer)), System.Drawing.Color.FromArgb(CType(CType(238, Byte), Integer), CType(CType(234, Byte), Integer), CType(CType(216, Byte), Integer)))
-        Me.gcDay3.BaseStylesMap.AddRange(New Syncfusion.Windows.Forms.Grid.GridBaseStyle() {GridBaseStyle9, GridBaseStyle10, GridBaseStyle11, GridBaseStyle12})
-        Me.gcDay3.ColCount = 3
-        Me.gcDay3.ColWidthEntries.AddRange(New Syncfusion.Windows.Forms.Grid.GridColWidth() {New Syncfusion.Windows.Forms.Grid.GridColWidth(0, 35), New Syncfusion.Windows.Forms.Grid.GridColWidth(1, 170), New Syncfusion.Windows.Forms.Grid.GridColWidth(2, 278)})
         Me.gcDay3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.gcDay3.ForeColor = System.Drawing.SystemColors.ControlText
-        GridCellInfo8.Col = -1
-        GridCellInfo8.Row = -1
-        GridCellInfo9.Col = 1
-        GridCellInfo9.Row = 1
-        GridCellInfo9.StyleInfo.Text = "Day 3"
-        GridCellInfo10.Col = 1
-        GridCellInfo10.Row = 2
-        GridCellInfo10.StyleInfo.Text = "Time"
-        GridCellInfo11.Col = 2
-        GridCellInfo11.Row = 2
-        GridCellInfo11.StyleInfo.Text = "Value"
-        Me.gcDay3.GridCells.AddRange(New Syncfusion.Windows.Forms.Grid.GridCellInfo() {GridCellInfo8, GridCellInfo9, GridCellInfo10, GridCellInfo11})
         Me.gcDay3.Location = New System.Drawing.Point(0, 0)
         Me.gcDay3.Name = "gcDay3"
-        Me.gcDay3.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.gcDay3.RowCount = 26
-        Me.gcDay3.RowHeightEntries.AddRange(New Syncfusion.Windows.Forms.Grid.GridRowHeight() {New Syncfusion.Windows.Forms.Grid.GridRowHeight(0, 25)})
         Me.gcDay3.SerializeCellsBehavior = Syncfusion.Windows.Forms.Grid.GridSerializeCellsBehavior.SerializeIntoCode
-        Me.gcDay3.Size = New System.Drawing.Size(781, 311)
+        Me.gcDay3.Size = New System.Drawing.Size(524, 311)
         Me.gcDay3.SmartSizeBox = False
         Me.gcDay3.TabIndex = 0
+        Me.gcDay3.Text = "gcDay3"
         Me.gcDay3.UseRightToLeftCompatibleTextBox = True
         '
-        'glEpaAverage
+        'gbSiteData
         '
-        Me.glEpaAverage.BackgroundColor = New Syncfusion.Drawing.BrushInfo(Syncfusion.Drawing.GradientStyle.Vertical, System.Drawing.Color.FromArgb(CType(CType(237, Byte), Integer), CType(CType(240, Byte), Integer), CType(CType(247, Byte), Integer)), System.Drawing.Color.LightCyan)
-        Me.glEpaAverage.BeforeTouchSize = New System.Drawing.Size(79, 23)
-        Me.glEpaAverage.BorderSides = CType((((System.Windows.Forms.Border3DSide.Left Or System.Windows.Forms.Border3DSide.Top) _
-            Or System.Windows.Forms.Border3DSide.Right) _
-            Or System.Windows.Forms.Border3DSide.Bottom), System.Windows.Forms.Border3DSide)
-        Me.glEpaAverage.Location = New System.Drawing.Point(382, 197)
-        Me.glEpaAverage.Name = "glEpaAverage"
-        Me.glEpaAverage.Size = New System.Drawing.Size(79, 23)
-        Me.glEpaAverage.TabIndex = 27
-        Me.glEpaAverage.Text = "EPA Average:"
-        Me.glEpaAverage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.gbSiteData.Controls.Add(Me.cbWeather)
+        Me.gbSiteData.Controls.Add(Me.cbFoundation)
+        Me.gbSiteData.Controls.Add(Me.lblLocation)
+        Me.gbSiteData.Controls.Add(Me.tbLocation)
+        Me.gbSiteData.Controls.Add(Me.tbYearBuilt)
+        Me.gbSiteData.Controls.Add(Me.tbSqFt)
+        Me.gbSiteData.Controls.Add(Me.lblWeather)
+        Me.gbSiteData.Controls.Add(Me.lblFoundation)
+        Me.gbSiteData.Controls.Add(Me.lblSqFt)
+        Me.gbSiteData.Controls.Add(Me.lblYearBuilt)
+        Me.gbSiteData.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.gbSiteData.Location = New System.Drawing.Point(0, 0)
+        Me.gbSiteData.Name = "gbSiteData"
+        Me.gbSiteData.Size = New System.Drawing.Size(250, 338)
+        Me.gbSiteData.TabIndex = 0
+        Me.gbSiteData.TabStop = False
+        Me.gbSiteData.Text = "Site Data"
         '
-        'tbEpaAverage
+        'lblLocation
         '
-        Me.tbEpaAverage.BeforeTouchSize = New System.Drawing.Size(38, 20)
-        Me.tbEpaAverage.DoubleValue = 1.0R
-        Me.tbEpaAverage.Location = New System.Drawing.Point(466, 198)
-        Me.tbEpaAverage.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
-        Me.tbEpaAverage.Name = "tbEpaAverage"
-        Me.tbEpaAverage.NullString = ""
-        Me.tbEpaAverage.Size = New System.Drawing.Size(39, 20)
-        Me.tbEpaAverage.TabIndex = 28
-        Me.tbEpaAverage.Text = "1.00"
+        Me.lblLocation.AutoSize = True
+        Me.lblLocation.Location = New System.Drawing.Point(12, 117)
+        Me.lblLocation.Name = "lblLocation"
+        Me.lblLocation.Size = New System.Drawing.Size(51, 13)
+        Me.lblLocation.TabIndex = 14
+        Me.lblLocation.Text = "Location:"
         '
-        'tbOverallAverage
+        'tbLocation
         '
-        Me.tbOverallAverage.BeforeTouchSize = New System.Drawing.Size(38, 20)
-        Me.tbOverallAverage.DoubleValue = 1.0R
-        Me.tbOverallAverage.Location = New System.Drawing.Point(623, 198)
-        Me.tbOverallAverage.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
-        Me.tbOverallAverage.Name = "tbOverallAverage"
-        Me.tbOverallAverage.NullString = ""
-        Me.tbOverallAverage.Size = New System.Drawing.Size(38, 20)
-        Me.tbOverallAverage.TabIndex = 29
-        Me.tbOverallAverage.Text = "1.00"
+        Me.tbLocation.Location = New System.Drawing.Point(89, 113)
+        Me.tbLocation.Name = "tbLocation"
+        Me.tbLocation.Size = New System.Drawing.Size(100, 20)
+        Me.tbLocation.TabIndex = 13
         '
-        'glOverallAverage
+        'tbYearBuilt
         '
-        Me.glOverallAverage.BackgroundColor = New Syncfusion.Drawing.BrushInfo(Syncfusion.Drawing.GradientStyle.Vertical, System.Drawing.Color.FromArgb(CType(CType(237, Byte), Integer), CType(CType(240, Byte), Integer), CType(CType(247, Byte), Integer)), System.Drawing.Color.LightCyan)
-        Me.glOverallAverage.BeforeTouchSize = New System.Drawing.Size(91, 23)
-        Me.glOverallAverage.BorderSides = CType((((System.Windows.Forms.Border3DSide.Left Or System.Windows.Forms.Border3DSide.Top) _
-            Or System.Windows.Forms.Border3DSide.Right) _
-            Or System.Windows.Forms.Border3DSide.Bottom), System.Windows.Forms.Border3DSide)
-        Me.glOverallAverage.Location = New System.Drawing.Point(527, 197)
-        Me.glOverallAverage.Name = "glOverallAverage"
-        Me.glOverallAverage.Size = New System.Drawing.Size(91, 23)
-        Me.glOverallAverage.TabIndex = 30
-        Me.glOverallAverage.Text = "Overall Average:"
-        Me.glOverallAverage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.tbYearBuilt.Location = New System.Drawing.Point(89, 34)
+        Me.tbYearBuilt.Name = "tbYearBuilt"
+        Me.tbYearBuilt.Size = New System.Drawing.Size(100, 20)
+        Me.tbYearBuilt.TabIndex = 12
+        '
+        'tbSqFt
+        '
+        Me.tbSqFt.Location = New System.Drawing.Point(89, 60)
+        Me.tbSqFt.Name = "tbSqFt"
+        Me.tbSqFt.Size = New System.Drawing.Size(100, 20)
+        Me.tbSqFt.TabIndex = 9
+        '
+        'lblWeather
+        '
+        Me.lblWeather.AutoSize = True
+        Me.lblWeather.Location = New System.Drawing.Point(12, 143)
+        Me.lblWeather.Name = "lblWeather"
+        Me.lblWeather.Size = New System.Drawing.Size(51, 13)
+        Me.lblWeather.TabIndex = 7
+        Me.lblWeather.Text = "Weather:"
+        '
+        'lblFoundation
+        '
+        Me.lblFoundation.AutoSize = True
+        Me.lblFoundation.Location = New System.Drawing.Point(12, 90)
+        Me.lblFoundation.Name = "lblFoundation"
+        Me.lblFoundation.Size = New System.Drawing.Size(63, 13)
+        Me.lblFoundation.TabIndex = 6
+        Me.lblFoundation.Text = "Foundation:"
+        '
+        'lblSqFt
+        '
+        Me.lblSqFt.AutoSize = True
+        Me.lblSqFt.Location = New System.Drawing.Point(12, 64)
+        Me.lblSqFt.Name = "lblSqFt"
+        Me.lblSqFt.Size = New System.Drawing.Size(35, 13)
+        Me.lblSqFt.TabIndex = 5
+        Me.lblSqFt.Text = "Sq Ft:"
+        '
+        'lblYearBuilt
+        '
+        Me.lblYearBuilt.AutoSize = True
+        Me.lblYearBuilt.Location = New System.Drawing.Point(12, 38)
+        Me.lblYearBuilt.Name = "lblYearBuilt"
+        Me.lblYearBuilt.Size = New System.Drawing.Size(55, 13)
+        Me.lblYearBuilt.TabIndex = 4
+        Me.lblYearBuilt.Text = "Year Built:"
+        '
+        'cbFoundation
+        '
+        Me.cbFoundation.FormattingEnabled = True
+        Me.cbFoundation.Location = New System.Drawing.Point(89, 87)
+        Me.cbFoundation.Name = "cbFoundation"
+        Me.cbFoundation.Size = New System.Drawing.Size(121, 21)
+        Me.cbFoundation.TabIndex = 15
+        '
+        'cbWeather
+        '
+        Me.cbWeather.FormattingEnabled = True
+        Me.cbWeather.Location = New System.Drawing.Point(89, 143)
+        Me.cbWeather.Name = "cbWeather"
+        Me.cbWeather.Size = New System.Drawing.Size(121, 21)
+        Me.cbWeather.TabIndex = 16
         '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(784, 576)
-        Me.Controls.Add(Me.oSplitCon)
+        Me.Controls.Add(Me.scTopBottom)
         Me.MinimumSize = New System.Drawing.Size(800, 490)
         Me.Name = "frmMain"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Radon Report Writer"
         CType(Me.glRadonData, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.oSplitCon.Panel1.ResumeLayout(False)
-        Me.oSplitCon.Panel1.PerformLayout()
-        Me.oSplitCon.Panel2.ResumeLayout(False)
-        CType(Me.oSplitCon, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.oSplitCon.ResumeLayout(False)
+        Me.scTopBottom.Panel1.ResumeLayout(False)
+        Me.scTopBottom.Panel1.PerformLayout()
+        Me.scTopBottom.Panel2.ResumeLayout(False)
+        CType(Me.scTopBottom, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.scTopBottom.ResumeLayout(False)
+        Me.gbAverages.ResumeLayout(False)
+        Me.gbAverages.PerformLayout()
+        CType(Me.tbOverallAverage, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tbEpaAverage, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.gbDevice.ResumeLayout(False)
+        Me.gbDevice.PerformLayout()
         CType(Me.pbCompanyLogo, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
@@ -866,22 +934,26 @@ Partial Class frmMain
         Me.gbCustomerInfo.PerformLayout()
         Me.MenuStrip2.ResumeLayout(False)
         Me.MenuStrip2.PerformLayout()
-        CType(Me.TabControlAdv1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TabControlAdv1.ResumeLayout(False)
+        Me.scSiteData.Panel1.ResumeLayout(False)
+        Me.scSiteData.Panel2.ResumeLayout(False)
+        CType(Me.scSiteData, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.scSiteData.ResumeLayout(False)
+        CType(Me.tcSiteData, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tcSiteData.ResumeLayout(False)
         Me.tabDay1.ResumeLayout(False)
         CType(Me.gcDay1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabDay2.ResumeLayout(False)
         CType(Me.gcDay2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabDay3.ResumeLayout(False)
         CType(Me.gcDay3, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.tbEpaAverage, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.tbOverallAverage, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.gbSiteData.ResumeLayout(False)
+        Me.gbSiteData.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents glRadonData As Syncfusion.Windows.Forms.Grid.GridListControl
     Friend WithEvents xGraph As Syncfusion.Windows.Forms.Spreadsheet.Spreadsheet
-    Friend WithEvents oSplitCon As Syncfusion.Windows.Forms.Tools.SplitContainerAdv
+    Friend WithEvents scTopBottom As Syncfusion.Windows.Forms.Tools.SplitContainerAdv
     Friend WithEvents rtCompanyInformation As RichTextBox
     Private WithEvents pbCompanyLogo As PictureBox
     Private WithEvents GroupBox1 As GroupBox
@@ -925,15 +997,32 @@ Partial Class frmMain
     Private WithEvents ToolStripMenuItem2 As ToolStripSeparator
     Private WithEvents msMainFileExit As ToolStripMenuItem
     Friend WithEvents tbCustomerAddress2 As TextBox
-    Friend WithEvents TabControlAdv1 As Syncfusion.Windows.Forms.Tools.TabControlAdv
+    Friend WithEvents scSiteData As Syncfusion.Windows.Forms.Tools.SplitContainerAdv
+    Friend WithEvents tcSiteData As Syncfusion.Windows.Forms.Tools.TabControlAdv
     Friend WithEvents tabDay1 As Syncfusion.Windows.Forms.Tools.TabPageAdv
-    Friend WithEvents gcDay1 As Syncfusion.Windows.Forms.Grid.GridControl
     Friend WithEvents tabDay2 As Syncfusion.Windows.Forms.Tools.TabPageAdv
     Friend WithEvents tabDay3 As Syncfusion.Windows.Forms.Tools.TabPageAdv
+    Friend WithEvents gcDay1 As Syncfusion.Windows.Forms.Grid.GridControl
     Friend WithEvents gcDay2 As Syncfusion.Windows.Forms.Grid.GridControl
     Friend WithEvents gcDay3 As Syncfusion.Windows.Forms.Grid.GridControl
+    Friend WithEvents gbAverages As GroupBox
     Friend WithEvents glOverallAverage As Syncfusion.Windows.Forms.Tools.GradientLabel
     Friend WithEvents tbOverallAverage As Syncfusion.Windows.Forms.Tools.DoubleTextBox
     Friend WithEvents tbEpaAverage As Syncfusion.Windows.Forms.Tools.DoubleTextBox
     Friend WithEvents glEpaAverage As Syncfusion.Windows.Forms.Tools.GradientLabel
+    Friend WithEvents gbDevice As GroupBox
+    Friend WithEvents tbDeviceCalibrationDate As TextBox
+    Friend WithEvents lblCalDate As Label
+    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents gbSiteData As GroupBox
+    Friend WithEvents tbSqFt As TextBox
+    Friend WithEvents lblWeather As Label
+    Friend WithEvents lblFoundation As Label
+    Friend WithEvents lblSqFt As Label
+    Friend WithEvents lblYearBuilt As Label
+    Friend WithEvents lblLocation As Label
+    Friend WithEvents tbLocation As TextBox
+    Friend WithEvents tbYearBuilt As TextBox
+    Friend WithEvents cbWeather As ComboBox
+    Friend WithEvents cbFoundation As ComboBox
 End Class

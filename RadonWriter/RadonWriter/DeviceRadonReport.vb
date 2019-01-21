@@ -48,37 +48,48 @@ Public Class DeviceRadonReport
         ' A failure to fine a value is a catastrophic failure!
 
         ' Read Device Information
-        Device.Model = (ReadToValue("Continuous Radon Monitor:"))
-        Device.SerialNumber = (ReadToValue("Serial Number:"))
-        Device.CalibrationFactor1 = ReadToValue("Calibration Factor 1:")
-        Device.CalibrationFactor2 = ReadToValue("Calibration Factor 2:")
-        Device.CalibrationDate = ReadToValue("Calibration Date:")
+        With Device
+            .Model = (ReadToValue("Continuous Radon Monitor:"))
+            .SerialNumber = (ReadToValue("Serial Number:"))
+            Double.TryParse(ReadToValue("Calibration Factor 1:"), .CalibrationFactor1)
+            Double.TryParse(ReadToValue("Calibration Factor 2:"), .CalibrationFactor2)
+            Date.TryParse(ReadToValue("Calibration Date:"), .CalibrationDate)
+
+        End With
+
 
         ' Read Inspection Company Information 
-        Company.Name = ReadToValue("Company Name:")
-        Company.Address1 = ReadToValue("Address 1:")
-        Company.Address2 = ReadToValue("Address 2:")
-        Company.City = ReadToValue("City:")
-        Company.State = ReadToValue("State:")
-        Company.PostalCode = ReadToValue("Zip:")
-
+        With Company
+            .Name = ReadToValue("Company Name:")
+            .Address1 = ReadToValue("Address 1:")
+            .Address2 = ReadToValue("Address 2:")
+            .City = ReadToValue("City:")
+            .State = ReadToValue("State:")
+            .PostalCode = ReadToValue("Zip:")
+        End With
 
         ' Read Customer Information
         ' This model's format is to treat the customer has having both a billing address and an inspection address
         ' Each block of information acts on its own to include customer name and phone number and inspection name and phone number
         ' We will just keep the customer billing information and the inspection address for our purposes
-        Customer.Name = ReadToValue("Name:")
-        Customer.Address1 = ReadToValue("Address 1:")
-        Customer.Address2 = ReadToValue("Address 2:")
-        Customer.City = ReadToValue("City:")
-        Customer.State = ReadToValue("State:")
-        Customer.PostalCode = ReadToValue("Zip:")
-        Customer.Phone = ReadToValue("Phone :")
+        With Customer
+            .Name = ReadToValue("Name:")
+            .Address1 = ReadToValue("Address 1:")
+            .Address2 = ReadToValue("Address 2:")
+            .City = ReadToValue("City:")
+            .State = ReadToValue("State:")
+            .PostalCode = ReadToValue("Zip:")
+            .Phone = ReadToValue("Phone :")
+        End With
 
         ' Inspection Property Information
-        SubjectProperty.Address1 = ReadToValue("Address 1:")
-        SubjectProperty.Address2 = ReadToValue("Address 2:")
-        SubjectProperty.City = ReadToValue("City:")
+        With SubjectProperty
+            .Address1 = ReadToValue("Address 1:")
+            .Address2 = ReadToValue("Address 2:")
+            .City = ReadToValue("City:")
+            .State = "NC"
+        End With
+
 
         ' Radon Day data. Should be 3-days under normal circumstances, but could be a few as two days.
         ProcessRadonPoints()
@@ -170,7 +181,10 @@ Public Class DeviceRadonReport
             ' Calculate the PCIL
             PCIL = 0
             If Double.TryParse(Splits(2), PCIL) Then
-                PCIL = PCIL * (1 / Device.CalibrationFactor1)
+                ' Watch out for that pesky divide by zero thing! :0)
+                If Device.CalibrationFactor1 > 0 Then
+                    PCIL = PCIL * (1 / Device.CalibrationFactor1)
+                End If
 
             End If
 
@@ -341,7 +355,7 @@ Public Class DeviceRadonReport
 
 
     ' Dates
-    Public Property TestStartDate As String
+    Public Property StartDate As String
         Get
             Return RadDate1
         End Get
@@ -386,6 +400,7 @@ Public Class DeviceRadonReport
     End Property
     Private m_RadDate3 As String = ""
 
+
     Public Property RadonDataPoints As IList
         Get
             Return m_RadonDataPoints
@@ -395,6 +410,7 @@ Public Class DeviceRadonReport
         End Set
     End Property
     Private m_RadonDataPoints As IList = New List(Of RadonDataPoint)
+
 
     Public ReadOnly Property OverallAverage As Double
         Get

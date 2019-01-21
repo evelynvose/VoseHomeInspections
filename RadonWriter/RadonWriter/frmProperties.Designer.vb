@@ -46,11 +46,13 @@ Partial Class frmProperties
         Me.lblCompanyAddress1 = New System.Windows.Forms.Label()
         Me.lblCompanyName = New System.Windows.Forms.Label()
         Me.gbReportTemplate = New System.Windows.Forms.GroupBox()
-        Me.lblTemplateName = New System.Windows.Forms.Label()
-        Me.lblTemplatePath = New System.Windows.Forms.Label()
-        Me.tbTemplateName = New System.Windows.Forms.TextBox()
-        Me.tbTemplatePath = New System.Windows.Forms.TextBox()
         Me.btnBrowseTemplateFile = New System.Windows.Forms.Button()
+        Me.tbTemplatePath = New System.Windows.Forms.TextBox()
+        Me.tbTemplateName = New System.Windows.Forms.TextBox()
+        Me.lblTemplatePath = New System.Windows.Forms.Label()
+        Me.lblTemplateName = New System.Windows.Forms.Label()
+        Me.lblCompanyPhone = New System.Windows.Forms.Label()
+        Me.tbCompanyPhone = New System.Windows.Forms.TextBox()
         CType(Me.pbCompanyLogo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.gbInspector.SuspendLayout()
         Me.gbCompany.SuspendLayout()
@@ -149,6 +151,8 @@ Partial Class frmProperties
         '
         'gbCompany
         '
+        Me.gbCompany.Controls.Add(Me.tbCompanyPhone)
+        Me.gbCompany.Controls.Add(Me.lblCompanyPhone)
         Me.gbCompany.Controls.Add(Me.tbCompanyAddress2)
         Me.gbCompany.Controls.Add(Me.tbCompanyZipCode)
         Me.gbCompany.Controls.Add(Me.tbCompanyState)
@@ -163,7 +167,7 @@ Partial Class frmProperties
         Me.gbCompany.Controls.Add(Me.lblCompanyName)
         Me.gbCompany.Location = New System.Drawing.Point(33, 252)
         Me.gbCompany.Name = "gbCompany"
-        Me.gbCompany.Size = New System.Drawing.Size(249, 213)
+        Me.gbCompany.Size = New System.Drawing.Size(249, 224)
         Me.gbCompany.TabIndex = 11
         Me.gbCompany.TabStop = False
         Me.gbCompany.Text = "Company Information"
@@ -278,14 +282,29 @@ Partial Class frmProperties
         Me.gbReportTemplate.TabStop = False
         Me.gbReportTemplate.Text = "Report Template"
         '
-        'lblTemplateName
+        'btnBrowseTemplateFile
         '
-        Me.lblTemplateName.AutoSize = True
-        Me.lblTemplateName.Location = New System.Drawing.Point(7, 23)
-        Me.lblTemplateName.Name = "lblTemplateName"
-        Me.lblTemplateName.Size = New System.Drawing.Size(38, 13)
-        Me.lblTemplateName.TabIndex = 0
-        Me.lblTemplateName.Text = "Name:"
+        Me.btnBrowseTemplateFile.Location = New System.Drawing.Point(64, 71)
+        Me.btnBrowseTemplateFile.Name = "btnBrowseTemplateFile"
+        Me.btnBrowseTemplateFile.Size = New System.Drawing.Size(75, 23)
+        Me.btnBrowseTemplateFile.TabIndex = 4
+        Me.btnBrowseTemplateFile.Text = "Browse"
+        Me.btnBrowseTemplateFile.UseVisualStyleBackColor = True
+        '
+        'tbTemplatePath
+        '
+        Me.tbTemplatePath.Location = New System.Drawing.Point(64, 45)
+        Me.tbTemplatePath.Name = "tbTemplatePath"
+        Me.tbTemplatePath.Size = New System.Drawing.Size(161, 20)
+        Me.tbTemplatePath.TabIndex = 3
+        '
+        'tbTemplateName
+        '
+        Me.tbTemplateName.Location = New System.Drawing.Point(64, 19)
+        Me.tbTemplateName.Name = "tbTemplateName"
+        Me.tbTemplateName.ReadOnly = True
+        Me.tbTemplateName.Size = New System.Drawing.Size(139, 20)
+        Me.tbTemplateName.TabIndex = 2
         '
         'lblTemplatePath
         '
@@ -296,29 +315,30 @@ Partial Class frmProperties
         Me.lblTemplatePath.TabIndex = 1
         Me.lblTemplatePath.Text = "File Path:"
         '
-        'tbTemplateName
+        'lblTemplateName
         '
-        Me.tbTemplateName.Location = New System.Drawing.Point(64, 19)
-        Me.tbTemplateName.Name = "tbTemplateName"
-        Me.tbTemplateName.ReadOnly = True
-        Me.tbTemplateName.Size = New System.Drawing.Size(139, 20)
-        Me.tbTemplateName.TabIndex = 2
+        Me.lblTemplateName.AutoSize = True
+        Me.lblTemplateName.Location = New System.Drawing.Point(7, 23)
+        Me.lblTemplateName.Name = "lblTemplateName"
+        Me.lblTemplateName.Size = New System.Drawing.Size(38, 13)
+        Me.lblTemplateName.TabIndex = 0
+        Me.lblTemplateName.Text = "Name:"
         '
-        'tbTemplatePath
+        'lblCompanyPhone
         '
-        Me.tbTemplatePath.Location = New System.Drawing.Point(64, 45)
-        Me.tbTemplatePath.Name = "tbTemplatePath"
-        Me.tbTemplatePath.Size = New System.Drawing.Size(161, 20)
-        Me.tbTemplatePath.TabIndex = 3
+        Me.lblCompanyPhone.AutoSize = True
+        Me.lblCompanyPhone.Location = New System.Drawing.Point(12, 195)
+        Me.lblCompanyPhone.Name = "lblCompanyPhone"
+        Me.lblCompanyPhone.Size = New System.Drawing.Size(41, 13)
+        Me.lblCompanyPhone.TabIndex = 12
+        Me.lblCompanyPhone.Text = "Phone:"
         '
-        'btnBrowseTemplateFile
+        'tbCompanyPhone
         '
-        Me.btnBrowseTemplateFile.Location = New System.Drawing.Point(64, 71)
-        Me.btnBrowseTemplateFile.Name = "btnBrowseTemplateFile"
-        Me.btnBrowseTemplateFile.Size = New System.Drawing.Size(75, 23)
-        Me.btnBrowseTemplateFile.TabIndex = 4
-        Me.btnBrowseTemplateFile.Text = "Browse"
-        Me.btnBrowseTemplateFile.UseVisualStyleBackColor = True
+        Me.tbCompanyPhone.Location = New System.Drawing.Point(86, 191)
+        Me.tbCompanyPhone.Name = "tbCompanyPhone"
+        Me.tbCompanyPhone.Size = New System.Drawing.Size(100, 20)
+        Me.tbCompanyPhone.TabIndex = 13
         '
         'frmProperties
         '
@@ -378,4 +398,6 @@ Partial Class frmProperties
     Friend WithEvents btnBrowseTemplateFile As Button
     Friend WithEvents tbTemplatePath As TextBox
     Friend WithEvents tbTemplateName As TextBox
+    Friend WithEvents tbCompanyPhone As TextBox
+    Friend WithEvents lblCompanyPhone As Label
 End Class

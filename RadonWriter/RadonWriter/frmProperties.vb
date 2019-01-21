@@ -13,6 +13,7 @@ Public Class frmProperties
         tbCompanyCity.Text = My.Settings.CompanyCity
         tbCompanyState.Text = My.Settings.CompanyState
         tbCompanyZipCode.Text = My.Settings.CompanyZipCode
+        tbCompanyPhone.Text = My.Settings.CompanyPhone
 
     End Sub
 
@@ -47,6 +48,7 @@ Public Class frmProperties
         My.Settings.CompanyCity = tbCompanyCity.Text
         My.Settings.CompanyState = tbCompanyState.Text
         My.Settings.CompanyZipCode = tbCompanyZipCode.Text
+        My.Settings.CompanyPhone = tbCompanyPhone.Text
 
 
         My.Settings.Save()

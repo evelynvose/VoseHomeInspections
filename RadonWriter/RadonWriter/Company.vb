@@ -51,7 +51,7 @@
             Return m_CompanyName
         End Get
         Set(value As String)
-            m_CompanyName = ""
+            m_CompanyName = value
 
         End Set
     End Property
@@ -67,5 +67,11 @@
         End Set
     End Property
 
+    Public ReadOnly Property FullAddress As String
+        Get
+            Return CompanyName & vbCrLf & Address
+        End Get
+
+    End Property
 
 End Class

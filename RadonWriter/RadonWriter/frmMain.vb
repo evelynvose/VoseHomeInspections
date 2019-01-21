@@ -16,16 +16,42 @@ Public Class frmMain
     ' Initialize the form's variables
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Load User Settings
-        Inspector.Name = My.Settings.InspectorName
-        Inspector.License = My.Settings.InspectorLicense
-        Inspector.Phone = My.Settings.InspectorPhone
-        tbInspectorName.Text = Inspector.Name
-        tbInspectorLicense.Text = Inspector.License
-        tbInspectorPhone.Text = Inspector.Phone
+
+        FillInspectorInformation()
 
         FillCompanyInformation()
 
         pbCompanyLogo.Load(My.Settings.CompanyLogoPath)
+
+        Dim foundationTypes As IList = New List(Of FoundationType)()
+        With foundationTypes
+            .Add(New FoundationType("1", ""))
+            .Add(New FoundationType("2", "Basement"))
+            .Add(New FoundationType("3", "Closed Crawl Space"))
+            .Add(New FoundationType("4", "Open Crawl Space"))
+            .Add(New FoundationType("5", "Slab On Grade"))
+        End With
+        cbFoundation.DataSource = foundationTypes
+        cbFoundation.DisplayMember = "Type"
+
+        Dim weatherConditions As IList = New List(Of WeatherCondition)()
+        With weatherConditions
+            .Add(New WeatherCondition("1", ""))
+            .Add(New WeatherCondition("2", "Clear"))
+            .Add(New WeatherCondition("3", "Rain"))
+            .Add(New WeatherCondition("4", "Snow"))
+            .Add(New WeatherCondition("5", "Mix"))
+        End With
+
+        cbWeather.DataSource = weatherConditions
+        cbWeather.DisplayMember = "Condition"
+
+        ' For debugging
+        tbYearBuilt.Text = "1989"
+        tbSqFt.Text = "2025"
+        tbLocation.Text = "Living Room"
+        cbFoundation.SelectedIndex = 1
+        cbWeather.SelectedIndex = 1
 
     End Sub
 
@@ -75,14 +101,10 @@ Public Class frmMain
         fProperties.ShowDialog()
 
         ' Load the new values
-        Inspector.Name = My.Settings.InspectorName
-        Inspector.License = My.Settings.InspectorLicense
-        Inspector.Phone = My.Settings.InspectorPhone
-        tbInspectorName.Text = Inspector.Name
-        tbInspectorLicense.Text = Inspector.License
-        tbInspectorPhone.Text = Inspector.Phone
 
         FillCompanyInformation()
+
+        FillInspectorInformation()
 
         pbCompanyLogo.Load(My.Settings.CompanyLogoPath)
 
@@ -110,11 +132,36 @@ Public Class frmMain
 
         End If
 
-        Dim oExcelRadonReport As New ExcelRadonReport(m_DeviceRadonReport, My.Settings.ReportTemplate, Inspector)
+        ' Set up the site conditions
+        If tbSqFt.Text = "" Or tbYearBuilt.Text = "" Or tbLocation.Text = "" Or cbWeather.Text = "" Or cbFoundation.Text = "" Then
+            MsgBox("One or more of the site conditions is not set.")
+            Return
 
+        End If
 
+        ' Add the user supplied subject property information
+        With m_DeviceRadonReport.SubjectProperty
+            .YearBuilt = tbYearBuilt.Text
+            .Location = tbLocation.Text
+            .SqFt = Convert.ToInt32(tbSqFt.Text)
+            .Foundation = cbFoundation.Text
+            .Weather = cbWeather.Text
+        End With
 
+        Dim excelRadonReport As New ExcelRadonReport(m_DeviceRadonReport, My.Settings.ReportTemplate, Inspector, Company)
 
+        Dim FileDialog As FolderBrowserDialog = New FolderBrowserDialog()
+
+        FileDialog.ShowNewFolderButton = True
+        ' FileDialog.RootFolder = My.Application.Info.DirectoryPath
+        If FileDialog.ShowDialog = Windows.Forms.DialogResult.OK Then
+            If Not excelRadonReport.SaveAs(FileDialog.SelectedPath & "\" & excelRadonReport.SubjectProperty.Address1 & ", " & excelRadonReport.SubjectProperty.City & ".xlsx") Then
+                MsgBox("Not Saved!")
+                Exit Sub
+
+            End If
+        End If
+        MsgBox("Saved!")
 
     End Sub
 
@@ -142,23 +189,5 @@ Public Class frmMain
     End Sub
 
 
-
-    ' **********************************************
-    ' ****
-    ' ******    Properties
-    ' ****
-    ' **********************************************
-    ' 
-    Public Property Inspector As Inspector
-        Get
-            Return m_Inspector
-
-        End Get
-        Set(value As Inspector)
-            m_Inspector = value
-
-        End Set
-    End Property
-    Private m_Inspector As Inspector = New Inspector
 
 End Class

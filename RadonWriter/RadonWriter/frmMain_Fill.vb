@@ -19,6 +19,7 @@ Partial Class frmMain
             ' Device Information
             tbModel.Text = .Device.Model
             tbSerialNo.Text = .Device.SerialNumber
+            tbDeviceCalibrationDate.Text = .Device.CalibrationDate
 
             ' Customer Information
             tbCustomerName.Text = .Customer.Name
@@ -51,7 +52,7 @@ Partial Class frmMain
             gcDay1.Cols.RemoveRange(1, gcDay1.ColCount)
 
             ' Put in 4 columns
-            gcDay1.Cols.InsertRange(1, 4)
+            gcDay1.Cols.InsertRange(1, 6)
 
             ' Loop, match date, add row, set data into cells
             Dim row As Integer = 1
@@ -62,6 +63,8 @@ Partial Class frmMain
                     gcDay1.Model(row, 2).CellValue = DataPoint.Count
                     gcDay1.Model(row, 3).CellValue = DataPoint.PCIL
                     gcDay1.Model(row, 4).CellValue = DataPoint.Flag
+                    gcDay1.Model(row, 5).CellValue = DataPoint.Temperature
+                    gcDay1.Model(row, 6).CellValue = DataPoint.Humidity
                     row += 1
 
                 End If
@@ -74,7 +77,7 @@ Partial Class frmMain
             gcDay2.Cols.RemoveRange(1, gcDay2.ColCount)
 
             ' Put in 4 columns
-            gcDay2.Cols.InsertRange(1, 4)
+            gcDay2.Cols.InsertRange(1, 6)
 
             ' Loop, match date, add row, set data into cells
             row = 1
@@ -85,6 +88,9 @@ Partial Class frmMain
                     gcDay2.Model(row, 2).CellValue = DataPoint.Count
                     gcDay2.Model(row, 3).CellValue = DataPoint.PCIL
                     gcDay2.Model(row, 4).CellValue = DataPoint.Flag
+                    gcDay2.Model(row, 5).CellValue = DataPoint.Temperature
+                    gcDay2.Model(row, 6).CellValue = DataPoint.Humidity
+
                     row += 1
 
                 End If
@@ -98,7 +104,7 @@ Partial Class frmMain
             gcDay3.Cols.RemoveRange(1, gcDay3.ColCount)
 
             ' Put in 4 columns
-            gcDay3.Cols.InsertRange(1, 4)
+            gcDay3.Cols.InsertRange(1, 6)
 
             ' Loop, match date, add row, set data into cells
             row = 1
@@ -109,6 +115,9 @@ Partial Class frmMain
                     gcDay3.Model(row, 2).CellValue = DataPoint.Count
                     gcDay3.Model(row, 3).CellValue = DataPoint.PCIL
                     gcDay3.Model(row, 4).CellValue = DataPoint.Flag
+                    gcDay3.Model(row, 5).CellValue = DataPoint.Temperature
+                    gcDay3.Model(row, 6).CellValue = DataPoint.Humidity
+
                     row += 1
 
                 End If
@@ -128,30 +137,96 @@ Partial Class frmMain
     ' 
     Private Sub FillCompanyInformation()
 
-        rtCompanyInformation.Text = My.Settings.CompanyName
-        rtCompanyInformation.Text = rtCompanyInformation.Text + vbCrLf
-        If My.Settings.CompanyAddress1 <> "" Then
-            rtCompanyInformation.Text = rtCompanyInformation.Text + My.Settings.CompanyAddress1
+        Company = New Company
+        With Company
+            .Phone = My.Settings.CompanyPhone
+            .CompanyName = My.Settings.CompanyName
+            .Address1 = My.Settings.CompanyAddress1
+            .Address2 = My.Settings.CompanyAddress2
+            .City = My.Settings.CompanyCity
+            .State = My.Settings.CompanyState
+            .PostalCode = My.Settings.CompanyZipCode
+
+            rtCompanyInformation.Text = .Phone
+            rtCompanyInformation.Text = .Name
             rtCompanyInformation.Text = rtCompanyInformation.Text + vbCrLf
 
-        End If
-        If My.Settings.CompanyAddress2 <> "" Then
-            rtCompanyInformation.Text = rtCompanyInformation.Text + My.Settings.CompanyAddress2
-            rtCompanyInformation.Text = rtCompanyInformation.Text + vbCrLf
+            If .Address1 <> "" Then
+                rtCompanyInformation.Text = rtCompanyInformation.Text + .Address1
+                rtCompanyInformation.Text = rtCompanyInformation.Text + vbCrLf
 
-        End If
-        If My.Settings.CompanyCity <> "" Then
-            rtCompanyInformation.Text = rtCompanyInformation.Text + My.Settings.CompanyCity
+            End If
+            If .Address2 <> "" Then
+                rtCompanyInformation.Text = rtCompanyInformation.Text + .Address2
+                rtCompanyInformation.Text = rtCompanyInformation.Text + vbCrLf
+
+            End If
+            If .City <> "" Then
+                rtCompanyInformation.Text = rtCompanyInformation.Text + .City
 
 
-        End If
-        If My.Settings.CompanyState <> "" Then
-            rtCompanyInformation.Text = rtCompanyInformation.Text + ", " + My.Settings.CompanyState
+            End If
+            If .State <> "" Then
+                rtCompanyInformation.Text = rtCompanyInformation.Text + ", " + .State
 
-        End If
-        If My.Settings.CompanyZipCode <> "" Then
-            rtCompanyInformation.Text = rtCompanyInformation.Text + " " + My.Settings.CompanyZipCode
+            End If
+            If .PostalCode <> "" Then
+                rtCompanyInformation.Text = rtCompanyInformation.Text + " " + .PostalCode
 
-        End If
+            End If
+        End With
+
+
     End Sub
+
+
+    ' **********************************************
+    ' ****
+    ' ******    FILL Inspector INFORMATION
+    ' ****
+    ' **********************************************
+    ' 
+    Private Sub FillInspectorInformation()
+        Inspector = New Inspector
+        With Inspector
+            .Name = My.Settings.InspectorName
+            .License = My.Settings.InspectorLicense
+            .Phone = My.Settings.InspectorPhone
+            tbInspectorName.Text = .Name
+            tbInspectorLicense.Text = .License
+            tbInspectorPhone.Text = .Phone
+        End With
+    End Sub
+
+
+
+    ' **********************************************
+    ' ****
+    ' ******    Properties
+    ' ****
+    ' **********************************************
+    ' 
+    Public Property Inspector As Inspector
+        Get
+            Return m_Inspector
+
+        End Get
+        Set(value As Inspector)
+            m_Inspector = value
+
+        End Set
+    End Property
+    Private m_Inspector As Inspector
+
+    Public Property Company As Company
+        Get
+            Return m_Company
+
+        End Get
+        Set(value As Company)
+            m_Company = value
+
+        End Set
+    End Property
+    Private m_Company As Company
 End Class

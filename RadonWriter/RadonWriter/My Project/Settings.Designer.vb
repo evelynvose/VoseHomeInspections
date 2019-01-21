@@ -194,6 +194,18 @@ Namespace My
                 Return CType(Me("ScreenStartPosition"),Global.System.Windows.Forms.FormStartPosition)
             End Get
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property CompanyPhone() As String
+            Get
+                Return CType(Me("CompanyPhone"),String)
+            End Get
+            Set
+                Me("CompanyPhone") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

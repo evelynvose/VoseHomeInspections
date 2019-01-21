@@ -24,8 +24,9 @@ Public Class ExcelRadonReport
     Private m_TemplatePath As String
     Private m_ExcelEngine As ExcelEngine
     Private WithEvents m_ExcelWorkbook As IWorkbook
-    ' Private m_SheetCertificate As IWorksheet
-    ' Private m_SheetData As IWorksheet
+    Private m_SheetCertificate As IWorksheet
+    Private m_SheetData As IWorksheet
+
 
 
     ' **********************************************
@@ -34,7 +35,7 @@ Public Class ExcelRadonReport
     ' ****
     ' **********************************************
     ' 
-    Public Sub New(ByRef theRadonReport As DeviceRadonReport, ByVal TemplatePath As String, inspector As Inspector)
+    Public Sub New(ByRef theRadonReport As DeviceRadonReport, ByVal TemplatePath As String, ByRef inspector As Inspector, ByRef company As Company)
 
         ' Make sure that theRadonReport is valid!
 
@@ -48,6 +49,9 @@ Public Class ExcelRadonReport
 
         ' Set the Inspector
         m_Inspector = inspector
+
+        ' Set the Company
+        m_Company = company
 
         ' Make sure that the template path is valid!
         If TypeOf TemplatePath Is String AndAlso String.IsNullOrEmpty(TemplatePath) OrElse String.IsNullOrWhiteSpace(TemplatePath) Then
@@ -73,8 +77,8 @@ Public Class ExcelRadonReport
 
         If bErrorFlag Then Return
 
-        ' m_SheetCertificate = m_ExcelWorkbook.Worksheets(0)
-        ' m_SheetData = m_ExcelWorkbook.Worksheets(1)
+        m_SheetCertificate = m_ExcelWorkbook.Worksheets(0)
+        m_SheetData = m_ExcelWorkbook.Worksheets(1)
 
         ' This is where all of the work gets done!
         FillTheTemplate()
@@ -93,16 +97,11 @@ Public Class ExcelRadonReport
     Private Sub FillTheTemplate()
         Using excelEngine As ExcelEngine = New ExcelEngine()
 
-            ' Make the sheets visible
-            Dim sheetCert As IWorksheet = m_ExcelWorkbook.Worksheets(0)
-            Dim sheetData As IWorksheet = m_ExcelWorkbook.Worksheets(0)
-
             ' Create Template Marker Processor
             Dim marker As ITemplateMarkersProcessor = m_ExcelWorkbook.CreateTemplateMarkersProcessor()
 
 
             With m_DeviceRadonReport
-
 
                 ' Add the radon points to the template
                 'Dim points As IList(Of RadonDataPoint) = .RadonDataPoints
@@ -118,7 +117,7 @@ Public Class ExcelRadonReport
                 marker.AddVariable("Inspector", Inspector)
 
                 ' Add Company Information
-                marker.AddVariable("Company", .Company)
+                marker.AddVariable("Company", Company)
 
                 ' Add Device Informationa
                 marker.AddVariable("Device", .Device)
@@ -133,6 +132,9 @@ Public Class ExcelRadonReport
                 ' Add EPA Recommendations
                 marker.AddVariable("Recommendations", .Recommendations)
 
+                ' Add Start Date
+                marker.AddVariable("StartDate", .StartDate)
+
             End With
 
 
@@ -145,22 +147,47 @@ Public Class ExcelRadonReport
 
             End Try
 
-
-            ' Set the version and save the workbook
-            m_ExcelWorkbook.Version = ExcelVersion.Excel2013
-
-            Try
-                m_ExcelWorkbook.SaveAs("C:\Users\Evelyn\Documents\Test_TemplateMarker.xlsx")
-
-            Catch ex As Exception
-                MsgBox(ex.Message)
-
-            End Try
-
         End Using
+
     End Sub
 
 
+
+
+    ' **********************************************
+    ' ****
+    ' ******    Methods
+    ' ****
+    ' **********************************************
+    ' 
+    Public Function SaveAs(ByVal filePath As String) As Boolean
+        Dim docPath As String
+
+        docPath = filePath
+
+        If filePath = "" Then
+            Return False
+
+            ' docPath = My.Application.Info.DirectoryPath & m_DeviceRadonReport.SubjectProperty.Address1 & ".xlsx"
+
+        End If
+
+        ' Set the version and save the workbook
+        m_ExcelWorkbook.Version = ExcelVersion.Excel2016
+
+        Try
+            ' m_ExcelWorkbook.SaveAs(docPath)
+            m_ExcelWorkbook.Close(True, docPath)
+
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+
+        End Try
+
+        Return True
+
+    End Function
 
     ' **********************************************
     ' ****
@@ -174,7 +201,21 @@ Public Class ExcelRadonReport
         End Get
 
     End Property
-    Private m_Inspector As Inspector = New Inspector
+    Private m_Inspector As Inspector
+
+    Public ReadOnly Property SubjectProperty As SubjectProperty
+        Get
+            Return m_DeviceRadonReport.SubjectProperty
+
+        End Get
+    End Property
+
+    Public ReadOnly Property Company As Company
+        Get
+            Return m_Company
+        End Get
+    End Property
+    Private m_Company As Company
 
 
 
@@ -186,10 +227,10 @@ Public Class ExcelRadonReport
     ' **********************************************
     ' 
     ' Catch the Workbook File Saved Exception
-    Private Sub Workbook_OnFileSaved(sender As Object, e As EventArgs) Handles m_ExcelWorkbook.OnFileSaved
-        MsgBox("Saved!")
+    'Private Sub Workbook_OnFileSaved(sender As Object, e As EventArgs) Handles m_ExcelWorkbook.OnFileSaved
+    ' MsgBox("Saved!")
 
-    End Sub
+    'End Sub
 
 End Class
 
