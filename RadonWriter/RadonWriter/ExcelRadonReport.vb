@@ -9,7 +9,9 @@
 ' ****
 ' **********************************************
 ' 
-Imports Syncfusion
+Imports Syncfusion.ExcelChartToImageConverter
+Imports Syncfusion.ExcelToPdfConverter
+Imports Syncfusion.Pdf
 Imports Syncfusion.XlsIO
 
 
@@ -49,6 +51,9 @@ Public Class ExcelRadonReport
 
         ' Set the radon report pointer
         m_DeviceRadonReport = theRadonReport
+
+        ' Set the temperatures and humidity data points
+        Dim temp As New DataLogger("01/16/2019 15:00")
 
         ' Set the Inspector
         m_Inspector = inspector
@@ -219,10 +224,31 @@ Public Class ExcelRadonReport
 
 
 
-    Public Function SaveAsPDF(ByVal filePath As String) As Boolean
 
+    Public Function SaveAsPDF(ByVal filePath As String) As Boolean
+        Using m_ExcelEngine ' excelEngine As ExcelEngine = New ExcelEngine()
+            Dim application As IApplication = m_ExcelEngine.Excel ' ExcelEngine.Excel
+            application.DefaultVersion = ExcelVersion.Excel2016
+
+            'Instantiating the ChartToImageConverter and assigning the ChartToImageConverter instance of XlsIO application
+            application.ChartToImageConverter = New ChartToImageConverter()
+
+            'Tuning chart image quality
+            application.ChartToImageConverter.ScalingMode = ScalingMode.Best
+
+            Dim workBook As IWorkbook = application.Workbooks.Open(filePath & ".xlsx")
+            Dim workSheet As IWorksheet = workBook.Worksheets(0)
+
+            Dim converter As New ExcelToPdfConverter(workSheet)
+
+            Dim pdfDocument As New PdfDocument()
+            pdfDocument = converter.Convert()
+            pdfDocument.Save(filePath & ".pdf")
+
+        End Using
         Return True
     End Function
+
 
 
 

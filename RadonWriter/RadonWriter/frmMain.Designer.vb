@@ -22,8 +22,8 @@ Partial Class frmMain
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim SpreadsheetCopyPaste2 As Syncfusion.Windows.Forms.Spreadsheet.SpreadsheetCopyPaste = New Syncfusion.Windows.Forms.Spreadsheet.SpreadsheetCopyPaste()
-        Dim FormulaRangeSelectionController2 As Syncfusion.Windows.Forms.Spreadsheet.FormulaRangeSelectionController = New Syncfusion.Windows.Forms.Spreadsheet.FormulaRangeSelectionController()
+        Dim SpreadsheetCopyPaste1 As Syncfusion.Windows.Forms.Spreadsheet.SpreadsheetCopyPaste = New Syncfusion.Windows.Forms.Spreadsheet.SpreadsheetCopyPaste()
+        Dim FormulaRangeSelectionController1 As Syncfusion.Windows.Forms.Spreadsheet.FormulaRangeSelectionController = New Syncfusion.Windows.Forms.Spreadsheet.FormulaRangeSelectionController()
         Me.glRadonData = New Syncfusion.Windows.Forms.Grid.GridListControl()
         Me.xGraph = New Syncfusion.Windows.Forms.Spreadsheet.Spreadsheet()
         Me.scTopBottom = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
@@ -102,6 +102,7 @@ Partial Class frmMain
         Me.lblFoundation = New System.Windows.Forms.Label()
         Me.lblSqFt = New System.Windows.Forms.Label()
         Me.lblYearBuilt = New System.Windows.Forms.Label()
+        Me.btnClear = New System.Windows.Forms.Button()
         CType(Me.glRadonData, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.scTopBottom, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.scTopBottom.Panel1.SuspendLayout()
@@ -155,17 +156,17 @@ Partial Class frmMain
         Me.xGraph.AllowFormulaRangeSelection = True
         Me.xGraph.AllowTabItemContextMenu = True
         Me.xGraph.AllowZooming = True
-        SpreadsheetCopyPaste2.AllowPasteOptionPopup = True
-        SpreadsheetCopyPaste2.DefaultPasteOption = Syncfusion.Windows.Forms.Spreadsheet.PasteOptions.Paste
-        Me.xGraph.CopyPaste = SpreadsheetCopyPaste2
+        SpreadsheetCopyPaste1.AllowPasteOptionPopup = True
+        SpreadsheetCopyPaste1.DefaultPasteOption = Syncfusion.Windows.Forms.Spreadsheet.PasteOptions.Paste
+        Me.xGraph.CopyPaste = SpreadsheetCopyPaste1
         Me.xGraph.DefaultColumnCount = 101
         Me.xGraph.DefaultRowCount = 101
         Me.xGraph.DisplayAlerts = True
         Me.xGraph.FileName = "Book1"
         Me.xGraph.FormulaBarVisibility = True
-        FormulaRangeSelectionController2.AllowMouseSelection = True
-        FormulaRangeSelectionController2.AllowSelectionOnEditing = True
-        Me.xGraph.FormulaRangeSelectionController = FormulaRangeSelectionController2
+        FormulaRangeSelectionController1.AllowMouseSelection = True
+        FormulaRangeSelectionController1.AllowSelectionOnEditing = True
+        Me.xGraph.FormulaRangeSelectionController = FormulaRangeSelectionController1
         Me.xGraph.IsCustomTabItemContextMenuEnabled = False
         Me.xGraph.Location = New System.Drawing.Point(0, 0)
         Me.xGraph.Name = "xGraph"
@@ -642,6 +643,7 @@ Partial Class frmMain
         '
         'MenuStrip2
         '
+        Me.MenuStrip2.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.MenuStrip2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem})
         Me.MenuStrip2.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip2.Name = "MenuStrip2"
@@ -659,48 +661,48 @@ Partial Class frmMain
         'msMainFileOpen
         '
         Me.msMainFileOpen.Name = "msMainFileOpen"
-        Me.msMainFileOpen.Size = New System.Drawing.Size(180, 22)
+        Me.msMainFileOpen.Size = New System.Drawing.Size(127, 22)
         Me.msMainFileOpen.Text = "Open"
         '
         'msMainFileSave
         '
         Me.msMainFileSave.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ExcelToolStripMenuItem, Me.PDFToolStripMenuItem})
         Me.msMainFileSave.Name = "msMainFileSave"
-        Me.msMainFileSave.Size = New System.Drawing.Size(180, 22)
+        Me.msMainFileSave.Size = New System.Drawing.Size(127, 22)
         Me.msMainFileSave.Text = "Save"
         '
         'ExcelToolStripMenuItem
         '
         Me.ExcelToolStripMenuItem.Name = "ExcelToolStripMenuItem"
-        Me.ExcelToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ExcelToolStripMenuItem.Size = New System.Drawing.Size(100, 22)
         Me.ExcelToolStripMenuItem.Text = "Excel"
         '
         'PDFToolStripMenuItem
         '
         Me.PDFToolStripMenuItem.Name = "PDFToolStripMenuItem"
-        Me.PDFToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.PDFToolStripMenuItem.Size = New System.Drawing.Size(100, 22)
         Me.PDFToolStripMenuItem.Text = "PDF"
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(124, 6)
         '
         'msMainFileProperties
         '
         Me.msMainFileProperties.Name = "msMainFileProperties"
-        Me.msMainFileProperties.Size = New System.Drawing.Size(180, 22)
+        Me.msMainFileProperties.Size = New System.Drawing.Size(127, 22)
         Me.msMainFileProperties.Text = "Properties"
         '
         'ToolStripMenuItem2
         '
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(124, 6)
         '
         'msMainFileExit
         '
         Me.msMainFileExit.Name = "msMainFileExit"
-        Me.msMainFileExit.Size = New System.Drawing.Size(180, 22)
+        Me.msMainFileExit.Size = New System.Drawing.Size(127, 22)
         Me.msMainFileExit.Text = "Exit"
         '
         'scSiteData
@@ -821,6 +823,7 @@ Partial Class frmMain
         '
         'gbSiteData
         '
+        Me.gbSiteData.Controls.Add(Me.btnClear)
         Me.gbSiteData.Controls.Add(Me.tbSubjectPropertyOrderID)
         Me.gbSiteData.Controls.Add(Me.lblOrderID)
         Me.gbSiteData.Controls.Add(Me.cbSubjectPropertyWeather)
@@ -939,13 +942,22 @@ Partial Class frmMain
         Me.lblYearBuilt.TabIndex = 4
         Me.lblYearBuilt.Text = "Year Built:"
         '
+        'btnClear
+        '
+        Me.btnClear.Location = New System.Drawing.Point(89, 224)
+        Me.btnClear.Name = "btnClear"
+        Me.btnClear.Size = New System.Drawing.Size(75, 23)
+        Me.btnClear.TabIndex = 19
+        Me.btnClear.Text = "Clear"
+        Me.btnClear.UseVisualStyleBackColor = True
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(784, 576)
         Me.Controls.Add(Me.scTopBottom)
-        Me.MinimumSize = New System.Drawing.Size(800, 490)
+        Me.MinimumSize = New System.Drawing.Size(798, 484)
         Me.Name = "frmMain"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Radon Report Writer"
@@ -1065,4 +1077,5 @@ Partial Class frmMain
     Friend WithEvents lblOrderID As Label
     Friend WithEvents ExcelToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents PDFToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents btnClear As Button
 End Class

@@ -7,8 +7,6 @@
 Imports System.IO
 
 
-
-
 Public Class frmMain
 
     ' **********************************************
@@ -70,12 +68,12 @@ Public Class frmMain
         cbSubjectPropertyWeather.DisplayMember = "Condition"
 
         ' For debugging
-        'tbSubjectPropertyYearBuilt.Text = "1989"
-        'tbSubjectPropertySqFt.Text = "2025"
-        'tbSubjectPropertyLocation.Text = "Living Room"
-        'cbSubjectPropertyFoundation.SelectedIndex = 1
-        'cbSubjectPropertyWeather.SelectedIndex = 1
-        'tbSubjectPropertyOrderID.Text = "123456"
+        tbSubjectPropertyYearBuilt.Text = "1989"
+        tbSubjectPropertySqFt.Text = "2025"
+        tbSubjectPropertyLocation.Text = "Living Room"
+        cbSubjectPropertyFoundation.SelectedIndex = 1
+        cbSubjectPropertyWeather.SelectedIndex = 1
+        tbSubjectPropertyOrderID.Text = "123456"
 
     End Sub
 
@@ -217,6 +215,7 @@ Public Class frmMain
     End Sub
 
 
+
     ' **********************************************
     ' ****
     ' ******    MAIN FILE OPEN Event
@@ -239,6 +238,18 @@ Public Class frmMain
         Application.Exit()
     End Sub
 
+
+    Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
+        tbSubjectPropertyLocation.Text = ""
+        tbSubjectPropertyOrderID.Text = ""
+        tbSubjectPropertySqFt.Text = ""
+        tbSubjectPropertyYearBuilt.Text = ""
+        cbSubjectPropertyFoundation.Text = ""
+        cbSubjectPropertyWeather.Text = ""
+
+
+
+    End Sub
 
 
 

@@ -75,11 +75,11 @@ C:\Users\Evelyn\source\repos\VoseHomeInspections\VoseHomeInspections\RadonWriter
 C:\Users\Evelyn\source\repos\VoseHomeInspections\VoseHomeInspections\RadonWriter\RadonWriter\bin\Debug\Syncfusion.Scripting.Base.xml
 C:\Users\Evelyn\source\repos\VoseHomeInspections\VoseHomeInspections\RadonWriter\RadonWriter\bin\Debug\Syncfusion.MIME.Base.xml
 C:\Users\Evelyn\source\repos\VoseHomeInspections\VoseHomeInspections\RadonWriter\RadonWriter\obj\Debug\RadonWriter.exe.config
-C:\Users\Evelyn\source\repos\VoseHomeInspections\VoseHomeInspections\RadonWriter\RadonWriter\bin\Debug\Syncfusion.ExcelToPDFConverter.ClientProfile.dll
 C:\Users\Evelyn\source\repos\VoseHomeInspections\VoseHomeInspections\RadonWriter\RadonWriter\bin\Debug\Syncfusion.Pdf.Base.dll
-C:\Users\Evelyn\source\repos\VoseHomeInspections\VoseHomeInspections\RadonWriter\RadonWriter\bin\Debug\Syncfusion.XlsIO.ClientProfile.dll
-C:\Users\Evelyn\source\repos\VoseHomeInspections\VoseHomeInspections\RadonWriter\RadonWriter\bin\Debug\Syncfusion.Pdf.ClientProfile.dll
-C:\Users\Evelyn\source\repos\VoseHomeInspections\VoseHomeInspections\RadonWriter\RadonWriter\bin\Debug\Syncfusion.ExcelToPDFConverter.ClientProfile.xml
 C:\Users\Evelyn\source\repos\VoseHomeInspections\VoseHomeInspections\RadonWriter\RadonWriter\bin\Debug\Syncfusion.Pdf.Base.xml
-C:\Users\Evelyn\source\repos\VoseHomeInspections\VoseHomeInspections\RadonWriter\RadonWriter\bin\Debug\Syncfusion.XlsIO.ClientProfile.xml
-C:\Users\Evelyn\source\repos\VoseHomeInspections\VoseHomeInspections\RadonWriter\RadonWriter\bin\Debug\Syncfusion.Pdf.ClientProfile.xml
+C:\Users\Evelyn\source\repos\VoseHomeInspections\VoseHomeInspections\RadonWriter\RadonWriter\bin\Debug\Syncfusion.ExcelChartToImageConverter.WPF.dll
+C:\Users\Evelyn\source\repos\VoseHomeInspections\VoseHomeInspections\RadonWriter\RadonWriter\bin\Debug\Syncfusion.ExcelToPDFConverter.Base.dll
+C:\Users\Evelyn\source\repos\VoseHomeInspections\VoseHomeInspections\RadonWriter\RadonWriter\bin\Debug\Syncfusion.SfChart.WPF.dll
+C:\Users\Evelyn\source\repos\VoseHomeInspections\VoseHomeInspections\RadonWriter\RadonWriter\bin\Debug\Syncfusion.ExcelChartToImageConverter.WPF.xml
+C:\Users\Evelyn\source\repos\VoseHomeInspections\VoseHomeInspections\RadonWriter\RadonWriter\bin\Debug\Syncfusion.ExcelToPDFConverter.Base.xml
+C:\Users\Evelyn\source\repos\VoseHomeInspections\VoseHomeInspections\RadonWriter\RadonWriter\bin\Debug\Syncfusion.SfChart.WPF.xml
