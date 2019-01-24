@@ -120,9 +120,9 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DeviceDataLogger.vb" />
     <Compile Include="DataLogger.vb" />
     <Compile Include="TemperaturePoint.vb" />
-    <Compile Include="TemperaturePoints.vb" />
     <Compile Include="WeatherCondition.vb" />
     <Compile Include="FoundationType.vb" />
     <Compile Include="Company.vb" />
@@ -141,7 +141,7 @@
     <Compile Include="frmProperties.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DeviceRadonReport.vb" />
+    <Compile Include="DeviceRadonMonitor.vb" />
     <Compile Include="frmMain.vb">
       <SubType>Form</SubType>
     </Compile>

@@ -90,6 +90,7 @@ Partial Class frmMain
         Me.tabDay3 = New Syncfusion.Windows.Forms.Tools.TabPageAdv()
         Me.gcDay3 = New Syncfusion.Windows.Forms.Grid.GridControl()
         Me.gbSiteData = New System.Windows.Forms.GroupBox()
+        Me.btnClear = New System.Windows.Forms.Button()
         Me.tbSubjectPropertyOrderID = New System.Windows.Forms.TextBox()
         Me.lblOrderID = New System.Windows.Forms.Label()
         Me.cbSubjectPropertyWeather = New System.Windows.Forms.ComboBox()
@@ -102,7 +103,8 @@ Partial Class frmMain
         Me.lblFoundation = New System.Windows.Forms.Label()
         Me.lblSqFt = New System.Windows.Forms.Label()
         Me.lblYearBuilt = New System.Windows.Forms.Label()
-        Me.btnClear = New System.Windows.Forms.Button()
+        Me.RadonDataToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.TemperatureDataToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.glRadonData, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.scTopBottom, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.scTopBottom.Panel1.SuspendLayout()
@@ -660,15 +662,16 @@ Partial Class frmMain
         '
         'msMainFileOpen
         '
+        Me.msMainFileOpen.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.RadonDataToolStripMenuItem, Me.TemperatureDataToolStripMenuItem})
         Me.msMainFileOpen.Name = "msMainFileOpen"
-        Me.msMainFileOpen.Size = New System.Drawing.Size(127, 22)
+        Me.msMainFileOpen.Size = New System.Drawing.Size(180, 22)
         Me.msMainFileOpen.Text = "Open"
         '
         'msMainFileSave
         '
         Me.msMainFileSave.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ExcelToolStripMenuItem, Me.PDFToolStripMenuItem})
         Me.msMainFileSave.Name = "msMainFileSave"
-        Me.msMainFileSave.Size = New System.Drawing.Size(127, 22)
+        Me.msMainFileSave.Size = New System.Drawing.Size(180, 22)
         Me.msMainFileSave.Text = "Save"
         '
         'ExcelToolStripMenuItem
@@ -686,23 +689,23 @@ Partial Class frmMain
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(124, 6)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(177, 6)
         '
         'msMainFileProperties
         '
         Me.msMainFileProperties.Name = "msMainFileProperties"
-        Me.msMainFileProperties.Size = New System.Drawing.Size(127, 22)
+        Me.msMainFileProperties.Size = New System.Drawing.Size(180, 22)
         Me.msMainFileProperties.Text = "Properties"
         '
         'ToolStripMenuItem2
         '
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(124, 6)
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(177, 6)
         '
         'msMainFileExit
         '
         Me.msMainFileExit.Name = "msMainFileExit"
-        Me.msMainFileExit.Size = New System.Drawing.Size(127, 22)
+        Me.msMainFileExit.Size = New System.Drawing.Size(180, 22)
         Me.msMainFileExit.Text = "Exit"
         '
         'scSiteData
@@ -844,6 +847,15 @@ Partial Class frmMain
         Me.gbSiteData.TabStop = False
         Me.gbSiteData.Text = "Site Data"
         '
+        'btnClear
+        '
+        Me.btnClear.Location = New System.Drawing.Point(89, 224)
+        Me.btnClear.Name = "btnClear"
+        Me.btnClear.Size = New System.Drawing.Size(75, 23)
+        Me.btnClear.TabIndex = 19
+        Me.btnClear.Text = "Clear"
+        Me.btnClear.UseVisualStyleBackColor = True
+        '
         'tbSubjectPropertyOrderID
         '
         Me.tbSubjectPropertyOrderID.Location = New System.Drawing.Point(89, 175)
@@ -942,14 +954,17 @@ Partial Class frmMain
         Me.lblYearBuilt.TabIndex = 4
         Me.lblYearBuilt.Text = "Year Built:"
         '
-        'btnClear
+        'RadonDataToolStripMenuItem
         '
-        Me.btnClear.Location = New System.Drawing.Point(89, 224)
-        Me.btnClear.Name = "btnClear"
-        Me.btnClear.Size = New System.Drawing.Size(75, 23)
-        Me.btnClear.TabIndex = 19
-        Me.btnClear.Text = "Clear"
-        Me.btnClear.UseVisualStyleBackColor = True
+        Me.RadonDataToolStripMenuItem.Name = "RadonDataToolStripMenuItem"
+        Me.RadonDataToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.RadonDataToolStripMenuItem.Text = "Radon Data"
+        '
+        'TemperatureDataToolStripMenuItem
+        '
+        Me.TemperatureDataToolStripMenuItem.Name = "TemperatureDataToolStripMenuItem"
+        Me.TemperatureDataToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.TemperatureDataToolStripMenuItem.Text = "Temperature Data"
         '
         'frmMain
         '
@@ -1078,4 +1093,6 @@ Partial Class frmMain
     Friend WithEvents ExcelToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents PDFToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents btnClear As Button
+    Friend WithEvents RadonDataToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents TemperatureDataToolStripMenuItem As ToolStripMenuItem
 End Class

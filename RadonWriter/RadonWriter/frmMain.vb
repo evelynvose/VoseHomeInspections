@@ -16,7 +16,7 @@ Public Class frmMain
     ' **********************************************
     '
     ' The radon report is the heart of this application!
-    Private m_DeviceRadonReport As DeviceRadonReport
+    Private m_DeviceRadonReport As DeviceRadonMonitor
 
 
 
@@ -80,14 +80,14 @@ Public Class frmMain
 
     ' **********************************************
     ' ****
-    ' ******    OPEN FILE Event
+    ' ******    OPEN FILE Methods
     ' ****
     ' **********************************************
     ' 
-    Private Sub OpenFile()
+    Private Sub OpenRadonFile()
 
         ' The heart of this app is the radon report
-        m_DeviceRadonReport = New DeviceRadonReport
+        m_DeviceRadonReport = New DeviceRadonMonitor
 
         Dim OpenFileDialog1 = New OpenFileDialog With {
             .CheckFileExists = True,
@@ -100,7 +100,7 @@ Public Class frmMain
 
         If OpenFileDialog1.ShowDialog = Windows.Forms.DialogResult.OK Then
 
-            If m_DeviceRadonReport.OpenReport(OpenFileDialog1.FileName) Then
+            If m_DeviceRadonReport.Open(OpenFileDialog1.FileName) Then
 
                 FillTheForm()
 
@@ -110,6 +110,33 @@ Public Class frmMain
 
     End Sub
 
+    Private Sub OpenTemperatureFile()
+
+        ' The heart of this app is the radon report
+        m_DeviceRadonReport = New DeviceRadonMonitor
+
+        Dim OpenFileDialog1 = New OpenFileDialog With {
+            .CheckFileExists = True,
+            .CheckPathExists = True,
+            .DefaultExt = "csv",
+            .FileName = "",
+            .Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*",
+            .Multiselect = False
+        }
+
+        If OpenFileDialog1.ShowDialog = Windows.Forms.DialogResult.OK Then
+
+            Dim deviceTemps As New DeviceDataLogger
+
+            If deviceTemps.Open(OpenFileDialog1.FileName) Then
+
+
+
+            End If
+
+        End If
+
+    End Sub
 
     ' **********************************************
     ' ****
@@ -222,10 +249,15 @@ Public Class frmMain
     ' ****
     ' **********************************************
     ' 
-    Private Sub msMainFileOpen_Click_1(sender As Object, e As EventArgs) Handles msMainFileOpen.Click
-        OpenFile()
+    Private Sub RadonDataToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RadonDataToolStripMenuItem.Click
+        OpenRadonFile()
+
     End Sub
 
+    Private Sub TemperatureDataToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TemperatureDataToolStripMenuItem.Click
+        OpenTemperatureFile()
+
+    End Sub
 
     ' **********************************************
     ' ****
@@ -250,6 +282,8 @@ Public Class frmMain
 
 
     End Sub
+
+
 
 
 

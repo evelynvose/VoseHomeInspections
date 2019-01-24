@@ -7,7 +7,7 @@
 ' 
 Imports System.IO
 
-Public Class DeviceRadonReport
+Public Class DeviceRadonMonitor
 
     ' **********************************************
     ' ****
@@ -30,7 +30,7 @@ Public Class DeviceRadonReport
     ' ****
     ' **********************************************
     ' 
-    Public Function OpenReport(ByVal theFileName As String) As Boolean
+    Public Function Open(ByVal theFileName As String) As Boolean
         If theFileName <> "" Then
             m_Reader = New StreamReader(theFileName, True)
             ProcessDeviceFile()
