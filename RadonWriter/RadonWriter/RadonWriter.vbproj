@@ -140,7 +140,7 @@
     <Compile Include="frmProperties.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DeviceRadonMonitor.vb" />
+    <Compile Include="DeviceRadonReport.vb" />
     <Compile Include="frmMain.vb">
       <SubType>Form</SubType>
     </Compile>

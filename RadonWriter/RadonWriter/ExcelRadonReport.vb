@@ -25,7 +25,7 @@ Public Class ExcelRadonReport
     ' ****
     ' **********************************************
     ' 
-    Private m_DeviceRadonReport As DeviceRadonMonitor
+    Private m_DeviceRadonReport As DeviceRadonReport
     Private m_TemplatePath As String
     Private m_ExcelEngine As ExcelEngine
     Private WithEvents m_ExcelWorkbook As IWorkbook
@@ -40,11 +40,11 @@ Public Class ExcelRadonReport
     ' ****
     ' **********************************************
     ' 
-    Public Sub New(ByRef theRadonReport As DeviceRadonMonitor, ByVal TemplatePath As String, ByRef inspector As Inspector, ByRef company As Company)
+    Public Sub New(ByRef theRadonReport As DeviceRadonReport, ByVal TemplatePath As String, ByRef inspector As Inspector, ByRef company As Company)
 
         ' Make sure that theRadonReport is valid!
 
-        If TypeOf theRadonReport Is DeviceRadonMonitor AndAlso IsNothing(theRadonReport) Then
+        If TypeOf theRadonReport Is DeviceRadonReport AndAlso IsNothing(theRadonReport) Then
             Throw New SystemException("RadonReport is null reference. Can't instantiate ExcelRadonReport class.")
 
         End If

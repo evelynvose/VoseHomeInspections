@@ -16,10 +16,8 @@ Public Class frmMain
     ' **********************************************
     '
     ' The radon report is the heart of this application!
-    Private m_DeviceRadonReport As DeviceRadonMonitor
-
-
-
+    Private m_DeviceRadonReport As DeviceRadonReport
+    Private m_DeviceTemperatureReport As DeviceDataLogger
 
 
     ' **********************************************
@@ -90,7 +88,7 @@ Public Class frmMain
     Private Sub OpenRadonFile()
 
         ' The heart of this app is the radon report
-        m_DeviceRadonReport = New DeviceRadonMonitor
+        m_DeviceRadonReport = New DeviceRadonReport
 
         Dim OpenFileDialog1 = New OpenFileDialog With {
             .CheckFileExists = True,
@@ -115,8 +113,8 @@ Public Class frmMain
 
     Private Sub OpenTemperatureFile()
 
-        ' The heart of this app is the radon report
-        m_DeviceRadonReport = New DeviceRadonMonitor
+        ' The heart of this app is the radon report and sometimes the temperature report
+        m_DeviceTemperatureReport = New DeviceDataLogger
 
         Dim OpenFileDialog1 = New OpenFileDialog With {
             .CheckFileExists = True,

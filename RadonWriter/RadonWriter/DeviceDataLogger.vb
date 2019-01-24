@@ -80,23 +80,27 @@ Public Class DeviceDataLogger
 
     End Sub
 
-    Public Function AlignToRadonTime(ByRef deviceradonmonitor As DeviceRadonMonitor) As Boolean
+    Public Function AlignToRadonTime(ByRef deviceradonmonitor As DeviceRadonReport) As Boolean
 
         If IsNothing(deviceradonmonitor) Then Return False
 
         ' Make a new list of temperature point sets that are within 2.5-minutes of a radon sample
         ' and set the time of the temperature point equal to the radon point
         Dim newTemperaturePoints As IList(Of TemperaturePoint) = New List(Of TemperaturePoint)
+        Dim timeDiff As Double
         For Each radonDataPoint As RadonDataPoint In deviceradonmonitor.RadonDataPoints
-            ' Dim radonTime As New Date = radondatapoint.readDate & " " & Radondatapoint.time
             For Each temperatureDataPoint As TemperaturePoint In m_TemperaturePoints
-                If (radonDataPoint.TimeStamp - temperatureDataPoint.Time).TotalMinutes <= 2.5 Then
+                timeDiff = (temperatureDataPoint.Time - radonDataPoint.TimeStamp).TotalMinutes
+                If timeDiff >= 0 And timeDiff <= 2.5 Then
                     newTemperaturePoints.Add(temperatureDataPoint)
                 End If
 
             Next
         Next
+        If newTemperaturePoints.Count > 0 Then
+            m_TemperaturePoints = newTemperaturePoints
 
+        End If
         Return True
 
     End Function

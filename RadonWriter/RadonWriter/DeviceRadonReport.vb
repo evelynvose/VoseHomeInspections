@@ -7,7 +7,7 @@
 ' 
 Imports System.IO
 
-Public Class DeviceRadonMonitor
+Public Class DeviceRadonReport
 
     ' **********************************************
     ' ****

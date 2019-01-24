@@ -84,7 +84,8 @@ Public Class RadonDataPoint
 
     Public ReadOnly Property TimeStamp As Date
         Get
-            Dim newDate As New Date(m_ReadingDate & " " & m_Time)
+            Dim newDate As New Date
+            newDate = (m_ReadingDate & " " & m_Time)
             Return newDate
 
         End Get
