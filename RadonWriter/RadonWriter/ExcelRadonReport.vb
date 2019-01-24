@@ -52,9 +52,6 @@ Public Class ExcelRadonReport
         ' Set the radon report pointer
         m_DeviceRadonReport = theRadonReport
 
-        ' Set the temperatures and humidity data points
-        Dim temp As New DataLogger("01/16/2019 15:00")
-
         ' Set the Inspector
         m_Inspector = inspector
 

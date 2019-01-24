@@ -82,6 +82,13 @@ Public Class RadonDataPoint
     End Property
     Private m_ReadingDate As String
 
+    Public ReadOnly Property TimeStamp As Date
+        Get
+            Dim newDate As New Date(m_ReadingDate & " " & m_Time)
+            Return newDate
+
+        End Get
+    End Property
     Public Property Temperature As Double
         Get
             Return m_Temperature

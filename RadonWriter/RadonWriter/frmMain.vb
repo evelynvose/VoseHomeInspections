@@ -42,7 +42,10 @@ Public Class frmMain
 
         FillCompanyInformation()
 
-        pbCompanyLogo.Load(My.Settings.CompanyLogoPath)
+        If Not IsNothing(My.Settings.CompanyLogoPath) And My.Settings.CompanyLogoPath <> "" Then
+            pbCompanyLogo.Load(My.Settings.CompanyLogoPath)
+
+        End If
 
         Dim foundationTypes As IList = New List(Of FoundationType)()
         With foundationTypes
@@ -129,9 +132,10 @@ Public Class frmMain
             Dim deviceTemps As New DeviceDataLogger
 
             If deviceTemps.Open(OpenFileDialog1.FileName) Then
+                If Not IsNothing(m_DeviceRadonReport) Then
+                    deviceTemps.AlignToRadonTime(m_DeviceRadonReport)
 
-
-
+                End If
             End If
 
         End If

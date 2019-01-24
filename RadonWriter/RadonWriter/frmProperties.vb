@@ -26,7 +26,9 @@ Public Class frmProperties
     ' 
     Private Sub frmProperties_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         pbCompanyLogo.SizeMode = PictureBoxSizeMode.StretchImage
-        pbCompanyLogo.Load(My.Settings.CompanyLogoPath)
+        If Not IsNothing(My.Settings.CompanyLogoPath) And My.Settings.CompanyLogoPath <> "" Then
+            pbCompanyLogo.Load(My.Settings.CompanyLogoPath)
+        End If
         tbInspectorsName.Text = My.Settings.InspectorName
         tbInspectorsLicense.Text = My.Settings.InspectorLicense
         tbInspectorsPhone.Text = My.Settings.InspectorPhone

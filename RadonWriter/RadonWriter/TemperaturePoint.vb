@@ -59,8 +59,8 @@ Public Class TemperaturePoint
     Private m_LowAlarm As Double
     Private m_RH As Double
     Private m_DewPoint As Double
-    Private m_Comment As String
-    Private m_SerialNumber As String
+    Private m_Comment As String = ""
+    Private m_SerialNumber As String = ""
 
     Public Property DataID As Integer
         Get

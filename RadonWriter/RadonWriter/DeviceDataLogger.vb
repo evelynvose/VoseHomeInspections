@@ -26,7 +26,7 @@ Public Class DeviceDataLogger
     ' 
     Public Function Open(ByVal theFileName As String) As Boolean
         If theFileName <> "" Then
-            Reader = New StreamReader(theFileName, True)
+            m_reader = New StreamReader(theFileName, True)
             ProcessDeviceFile()
             Return True
 
@@ -52,21 +52,54 @@ Public Class DeviceDataLogger
 
         While Not Reader.EndOfStream
             Dim splitArray() As String = Reader.ReadLine.Split(",")
-            If splitArray(0).StartsWith("EasyLog") Then
-                m_SerialNumber = splitArray(8)
-            Else
+            If Not splitArray(0).StartsWith("EasyLog") Then
                 Dim theTemperaturePoint As New TemperaturePoint
-                With theTemperaturePoint
-                    .DataID = splitArray(0)
+                If splitArray(8) <> "" Then
+                    m_SerialNumber = splitArray(8)
 
-                End With
+                End If
+                Try
+                    With theTemperaturePoint
+                        .DataID = CType(splitArray(0), Integer)     ' The row number or ID number of the set of data from the logger
+                        .Time = CType(splitArray(1), Date)
+                        .Temperature = CType(splitArray(2), Double)
+                        .HighAlarm = CType(splitArray(3), Double)
+                        .LowAlarm = CType(splitArray(4), Double)
+                        .RH = CType(splitArray(5), Double)
+                        .DewPoint = CType(splitArray(6), Double)
+                        .Comment = splitArray(7)
+
+                    End With
+                    m_TemperaturePoints.Add(theTemperaturePoint)
+
+                Catch ex As Exception
+                    MsgBox(ex.Message)
+                End Try
             End If
-
         End While
 
     End Sub
 
+    Public Function AlignToRadonTime(ByRef deviceradonmonitor As DeviceRadonMonitor) As Boolean
 
+        If IsNothing(deviceradonmonitor) Then Return False
+
+        ' Make a new list of temperature point sets that are within 2.5-minutes of a radon sample
+        ' and set the time of the temperature point equal to the radon point
+        Dim newTemperaturePoints As IList(Of TemperaturePoint) = New List(Of TemperaturePoint)
+        For Each radonDataPoint As RadonDataPoint In deviceradonmonitor.RadonDataPoints
+            ' Dim radonTime As New Date = radondatapoint.readDate & " " & Radondatapoint.time
+            For Each temperatureDataPoint As TemperaturePoint In m_TemperaturePoints
+                If (radonDataPoint.TimeStamp - temperatureDataPoint.Time).TotalMinutes <= 2.5 Then
+                    newTemperaturePoints.Add(temperatureDataPoint)
+                End If
+
+            Next
+        Next
+
+        Return True
+
+    End Function
 
 
 
@@ -84,6 +117,7 @@ Public Class DeviceDataLogger
     Private m_reader As StreamReader
     Private m_TemperaturePoints As IList(Of TemperaturePoint) = New List(Of TemperaturePoint)
     Private m_SerialNumber As String = ""
+
 
     Public ReadOnly Property Reader As StreamReader
         Get
