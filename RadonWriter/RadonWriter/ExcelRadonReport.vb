@@ -9,6 +9,7 @@
 ' ****
 ' **********************************************
 ' 
+Imports RadonWriter
 Imports Syncfusion.ExcelChartToImageConverter
 Imports Syncfusion.ExcelToPdfConverter
 Imports Syncfusion.Pdf
@@ -34,13 +35,14 @@ Public Class ExcelRadonReport
     Private m_RadonChart As IChartShape
 
 
+
     ' **********************************************
     ' ****
     ' ******    Constructor
     ' ****
     ' **********************************************
     ' 
-    Public Sub New(ByRef theRadonReport As DeviceRadonReport, ByVal TemplatePath As String, ByRef inspector As Inspector, ByRef company As Company)
+    Public Sub New(ByRef theRadonReport As DeviceRadonReport, ByRef theDataLogger As DeviceDataLogger, ByVal TemplatePath As String, ByRef inspector As Inspector, ByRef company As Company)
 
         ' Make sure that theRadonReport is valid!
 
@@ -51,6 +53,9 @@ Public Class ExcelRadonReport
 
         ' Set the radon report pointer
         m_DeviceRadonReport = theRadonReport
+
+        ' Set the data logger
+        m_DeviceDataLogger = theDataLogger
 
         ' Set the Inspector
         m_Inspector = inspector
@@ -133,10 +138,6 @@ Public Class ExcelRadonReport
 
             With m_DeviceRadonReport
 
-                ' Add the radon points to the template
-                'Dim points As IList(Of RadonDataPoint) = .RadonDataPoints
-                marker.AddVariable("Radon", .RadonDataPoints)
-
                 ' Add Customer Information
                 marker.AddVariable("Customer", .Customer)
 
@@ -165,8 +166,16 @@ Public Class ExcelRadonReport
                 ' Add Start Date
                 marker.AddVariable("StartDate", .StartDate)
 
+                ' Add the radon points to the template
+                marker.AddVariable("Radon", .RadonDataPoints)
+
             End With
 
+            ' Add temperature and humidity
+            If Not IsNothing(DeviceDataLogger.TemperaturePoints) And DeviceDataLogger.TemperaturePoints.Count > 0 Then
+                marker.AddVariable("DataLogger", DeviceDataLogger.TemperaturePoints)
+
+            End If
 
             'Process the markers in the template
             Try
@@ -254,6 +263,10 @@ Public Class ExcelRadonReport
     ' ******    Properties
     ' ****
     ' **********************************************
+    Private m_Inspector As Inspector
+    Private m_Company As Company
+    Private m_DeviceDataLogger As DeviceDataLogger
+
     ' 
     Public ReadOnly Property Inspector As Inspector
         Get
@@ -261,7 +274,6 @@ Public Class ExcelRadonReport
         End Get
 
     End Property
-    Private m_Inspector As Inspector
 
     Public ReadOnly Property SubjectProperty As SubjectProperty
         Get
@@ -275,7 +287,14 @@ Public Class ExcelRadonReport
             Return m_Company
         End Get
     End Property
-    Private m_Company As Company
+
+    Public ReadOnly Property DeviceDataLogger As DeviceDataLogger
+        Get
+            Return m_DeviceDataLogger
+        End Get
+
+    End Property
+
 
 
 

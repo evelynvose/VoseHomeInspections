@@ -61,7 +61,7 @@ Public Class DeviceDataLogger
                 Try
                     With theTemperaturePoint
                         .DataID = CType(splitArray(0), Integer)     ' The row number or ID number of the set of data from the logger
-                        .Time = CType(splitArray(1), Date)
+                        .TimeStamp = CType(splitArray(1), Date)
                         .Temperature = CType(splitArray(2), Double)
                         .HighAlarm = CType(splitArray(3), Double)
                         .LowAlarm = CType(splitArray(4), Double)
@@ -90,9 +90,11 @@ Public Class DeviceDataLogger
         Dim timeDiff As Double
         For Each radonDataPoint As RadonDataPoint In deviceradonmonitor.RadonDataPoints
             For Each temperatureDataPoint As TemperaturePoint In m_TemperaturePoints
-                timeDiff = (temperatureDataPoint.Time - radonDataPoint.TimeStamp).TotalMinutes
+                timeDiff = (temperatureDataPoint.TimeStamp - radonDataPoint.TimeStamp).TotalMinutes
                 If timeDiff >= 0 And timeDiff <= 2.5 Then
+                    temperatureDataPoint.TimeStamp = radonDataPoint.TimeStamp
                     newTemperaturePoints.Add(temperatureDataPoint)
+
                 End If
 
             Next

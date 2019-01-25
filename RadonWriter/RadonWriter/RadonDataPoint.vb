@@ -90,26 +90,7 @@ Public Class RadonDataPoint
 
         End Get
     End Property
-    Public Property Temperature As Double
-        Get
-            Return m_Temperature
-        End Get
-        Set(value As Double)
-            m_Temperature = value
-        End Set
-    End Property
-    Private m_Temperature As String
 
-
-    Public Property Humidity As Double
-        Get
-            Return m_Humidity
-        End Get
-        Set(value As Double)
-            m_Humidity = value
-        End Set
-    End Property
-    Private m_Humidity As String
 
     Public Sub New(readingDate As String, time As String, count As String, flag As String, PCIL As Double)
         Me.ReadingDate = readingDate

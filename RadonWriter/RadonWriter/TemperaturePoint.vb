@@ -22,9 +22,9 @@ Public Class TemperaturePoint
     End Sub
 
 
-    Public Sub New(ByVal dataID As Integer, ByVal time As Date, ByVal temperature As Double, ByVal highalarm As Double, ByVal lowalarm As Double, ByVal rh As Double, ByVal dewpoint As Double, ByVal comment As String, ByVal serialnumber As String)
+    Public Sub New(ByVal dataID As Integer, ByVal TimeStamp As Date, ByVal temperature As Double, ByVal highalarm As Double, ByVal lowalarm As Double, ByVal rh As Double, ByVal dewpoint As Double, ByVal comment As String, ByVal serialnumber As String)
         Me.DataID = dataID
-        Me.Time = time
+        Me.TimeStamp = TimeStamp
         Me.Temperature = temperature
         Me.HighAlarm = highalarm
         Me.LowAlarm = lowalarm
@@ -53,7 +53,7 @@ Public Class TemperaturePoint
     ' **********************************************
     '
     Private m_DataID As Integer
-    Private m_Time As Date
+    Private m_TimeStamp As Date
     Private m_Temperature As Double
     Private m_HighAlarm As Double
     Private m_LowAlarm As Double
@@ -71,12 +71,12 @@ Public Class TemperaturePoint
         End Set
     End Property
 
-    Public Property Time As Date
+    Public Property TimeStamp As Date
         Get
-            Return m_Time
+            Return m_TimeStamp
         End Get
         Set(value As Date)
-            m_Time = value
+            m_TimeStamp = value
         End Set
     End Property
 

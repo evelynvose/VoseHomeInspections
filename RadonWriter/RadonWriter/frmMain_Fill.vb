@@ -59,87 +59,166 @@ Partial Class frmMain
             gcDay1.RowCount = 26
 
             ' Day 1
-            Me.tabDay1.Text = .RadDate1
+            Me.tabDay1.Text = "Day 1"
 
             ' Remove existing columns
             gcDay1.Cols.RemoveRange(1, gcDay1.ColCount)
 
-            ' Put in 4 columns
-            gcDay1.Cols.InsertRange(1, 6)
+            ' Put in 6 columns and label them
+            With gcDay1
+                .Cols.InsertRange(1, 6)
+                .Model(0, 1).CellValue = "Date"
+                .Model(0, 2).CellValue = "Count"
+                .Model(0, 3).CellValue = "pCi/l"
+                .Model(0, 4).CellValue = "Flag"
+                .Model(0, 5).CellValue = "T"
+                .Model(0, 6).CellValue = "RH"
+            End With
 
             ' Loop, match date, add row, set data into cells
             Dim row As Integer = 1
-            For Each DataPoint As RadonDataPoint In m_DeviceRadonReport.RadonDataPoints
-                If DataPoint.ReadingDate = .RadDate1 Then
-                    gcDay1.Rows.InsertRange(row, 1)
-                    gcDay1.Model(row, 1).CellValue = DataPoint.Time
-                    gcDay1.Model(row, 2).CellValue = DataPoint.Count
-                    gcDay1.Model(row, 3).CellValue = DataPoint.PCIL
-                    gcDay1.Model(row, 4).CellValue = DataPoint.Flag
-                    gcDay1.Model(row, 5).CellValue = DataPoint.Temperature
-                    gcDay1.Model(row, 6).CellValue = DataPoint.Humidity
-                    row += 1
+                For Each DataPoint As RadonDataPoint In m_DeviceRadonReport.RadonDataPoints
+                    If DataPoint.ReadingDate = .RadDate1 Then
+                        gcDay1.Rows.InsertRange(row, 1)
+                        gcDay1.Model(row, 1).CellValue = DataPoint.TimeStamp
+                        gcDay1.Model(row, 2).CellValue = DataPoint.Count
+                        gcDay1.Model(row, 3).CellValue = DataPoint.PCIL
+                        gcDay1.Model(row, 4).CellValue = DataPoint.Flag
+                        row += 1
 
-                End If
-            Next
+                    End If
+                Next
 
             ' Day 2
-            Me.tabDay2.Text = .RadDate2
+            Me.tabDay2.Text = "Day 2"
 
             ' Remove existing columns
             gcDay2.Cols.RemoveRange(1, gcDay2.ColCount)
 
-            ' Put in 4 columns
-            gcDay2.Cols.InsertRange(1, 6)
+            ' Put in 6 columns and label them
+            With gcDay2
+                .Cols.InsertRange(1, 6)
+                .Model(0, 1).CellValue = "Date"
+                .Model(0, 2).CellValue = "Count"
+                .Model(0, 3).CellValue = "pCi/l"
+                .Model(0, 4).CellValue = "Flag"
+                .Model(0, 5).CellValue = "T"
+                .Model(0, 6).CellValue = "RH"
+            End With
+
 
             ' Loop, match date, add row, set data into cells
             row = 1
-            For Each DataPoint As RadonDataPoint In m_DeviceRadonReport.RadonDataPoints
-                If DataPoint.ReadingDate = .RadDate2 Then
-                    gcDay2.Rows.InsertRange(row, 1)
-                    gcDay2.Model(row, 1).CellValue = DataPoint.Time
-                    gcDay2.Model(row, 2).CellValue = DataPoint.Count
-                    gcDay2.Model(row, 3).CellValue = DataPoint.PCIL
-                    gcDay2.Model(row, 4).CellValue = DataPoint.Flag
-                    gcDay2.Model(row, 5).CellValue = DataPoint.Temperature
-                    gcDay2.Model(row, 6).CellValue = DataPoint.Humidity
+                For Each DataPoint As RadonDataPoint In m_DeviceRadonReport.RadonDataPoints
+                    If DataPoint.ReadingDate = .RadDate2 Then
+                        gcDay2.Rows.InsertRange(row, 1)
+                        gcDay2.Model(row, 1).CellValue = DataPoint.TimeStamp
+                        gcDay2.Model(row, 2).CellValue = DataPoint.Count
+                        gcDay2.Model(row, 3).CellValue = DataPoint.PCIL
+                        gcDay2.Model(row, 4).CellValue = DataPoint.Flag
+                        row += 1
 
-                    row += 1
-
-                End If
-            Next
+                    End If
+                Next
 
 
             ' Day 3
-            Me.tabDay3.Text = .RadDate3
+            Me.tabDay3.Text = "Day 3"
 
             ' Remove existing columns
             gcDay3.Cols.RemoveRange(1, gcDay3.ColCount)
 
-            ' Put in 4 columns
-            gcDay3.Cols.InsertRange(1, 6)
+            ' Put in 6 columns and label them
+            With gcDay3
+                .Cols.InsertRange(1, 6)
+                .Model(0, 1).CellValue = "Date"
+                .Model(0, 2).CellValue = "Count"
+                .Model(0, 3).CellValue = "pCi/l"
+                .Model(0, 4).CellValue = "Flag"
+                .Model(0, 5).CellValue = "T"
+                .Model(0, 6).CellValue = "RH"
+            End With
 
             ' Loop, match date, add row, set data into cells
             row = 1
-            For Each DataPoint As RadonDataPoint In m_DeviceRadonReport.RadonDataPoints
-                If DataPoint.ReadingDate = .RadDate3 Then
-                    gcDay3.Rows.InsertRange(row, 1)
-                    gcDay3.Model(row, 1).CellValue = DataPoint.Time
-                    gcDay3.Model(row, 2).CellValue = DataPoint.Count
-                    gcDay3.Model(row, 3).CellValue = DataPoint.PCIL
-                    gcDay3.Model(row, 4).CellValue = DataPoint.Flag
-                    gcDay3.Model(row, 5).CellValue = DataPoint.Temperature
-                    gcDay3.Model(row, 6).CellValue = DataPoint.Humidity
+                For Each DataPoint As RadonDataPoint In m_DeviceRadonReport.RadonDataPoints
+                    If DataPoint.ReadingDate = .RadDate3 Then
+                        gcDay3.Rows.InsertRange(row, 1)
+                        gcDay3.Model(row, 1).CellValue = DataPoint.TimeStamp
+                        gcDay3.Model(row, 2).CellValue = DataPoint.Count
+                        gcDay3.Model(row, 3).CellValue = DataPoint.PCIL
+                        gcDay3.Model(row, 4).CellValue = DataPoint.Flag
+                        row += 1
 
-                    row += 1
-
-                End If
-            Next
-
-
+                    End If
+                Next
 
         End With
     End Sub
+
+    ' *********************************************
+    ' ****
+    ' ******    FILL from temperature data logger file
+    ' ****
+    ' **********************************************
+    ' 
+    Private Sub FillTheTemperatures()
+
+        ' Loop, match date, add row, set data into cells
+        Dim theTime As Date = m_DeviceDataLogger.TemperaturePoints(0).TimeStamp
+        Dim row As Integer = 1
+        For Each DataPoint As TemperaturePoint In m_DeviceDataLogger.TemperaturePoints
+            With DataPoint
+                Dim theDate As New Date
+                If TypeOf (gcDay1.Model(row, 1).CellValue) Is Date Then
+                    theDate = gcDay1.Model(row, 1).CellValue
+                    If theDate = DataPoint.TimeStamp Then
+                        gcDay1.Model(row, 5).CellValue = DataPoint.Temperature
+                        gcDay1.Model(row, 6).CellValue = DataPoint.RH
+                        row += 1
+                    End If
+                End If
+            End With
+        Next
+
+        ' Day 2
+
+        row = 1
+        For Each DataPoint As TemperaturePoint In m_DeviceDataLogger.TemperaturePoints
+            With DataPoint
+                Dim theDate As New Date
+                If TypeOf (gcDay2.Model(row, 1).CellValue) Is Date Then
+                    theDate = gcDay2.Model(row, 1).CellValue
+                    If theDate = DataPoint.TimeStamp Then
+                        gcDay2.Model(row, 5).CellValue = DataPoint.Temperature
+                        gcDay2.Model(row, 6).CellValue = DataPoint.RH
+                        row += 1
+                    End If
+                End If
+            End With
+        Next
+
+
+        ' Day 3
+
+        row = 1
+        For Each DataPoint As TemperaturePoint In m_DeviceDataLogger.TemperaturePoints
+            With DataPoint
+                Dim theDate As New Date
+                If TypeOf (gcDay3.Model(row, 1).CellValue) Is Date Then
+                    theDate = gcDay3.Model(row, 1).CellValue
+                    If theDate = DataPoint.TimeStamp Then
+                        gcDay3.Model(row, 5).CellValue = DataPoint.Temperature
+                        gcDay3.Model(row, 6).CellValue = DataPoint.RH
+                        row += 1
+                    End If
+                End If
+            End With
+        Next
+
+    End Sub
+
+
 
 
     ' **********************************************

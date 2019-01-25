@@ -17,7 +17,7 @@ Public Class frmMain
     '
     ' The radon report is the heart of this application!
     Private m_DeviceRadonReport As DeviceRadonReport
-    Private m_DeviceTemperatureReport As DeviceDataLogger
+    Private m_DeviceDataLogger As DeviceDataLogger
 
 
     ' **********************************************
@@ -114,7 +114,7 @@ Public Class frmMain
     Private Sub OpenTemperatureFile()
 
         ' The heart of this app is the radon report and sometimes the temperature report
-        m_DeviceTemperatureReport = New DeviceDataLogger
+        m_DeviceDataLogger = New DeviceDataLogger
 
         Dim OpenFileDialog1 = New OpenFileDialog With {
             .CheckFileExists = True,
@@ -135,6 +135,9 @@ Public Class frmMain
 
                 End If
             End If
+            m_DeviceDataLogger = deviceTemps
+
+            FillTheTemperatures()
 
         End If
 
@@ -214,7 +217,8 @@ Public Class frmMain
 
         End With
 
-        Dim excelRadonReport As New ExcelRadonReport(m_DeviceRadonReport, My.Settings.ReportTemplate, Inspector, Company)
+        Dim excelRadonReport As New ExcelRadonReport(m_DeviceRadonReport, m_DeviceDataLogger, My.Settings.ReportTemplate, Inspector, Company)
+
 
         Dim FileDialog As FolderBrowserDialog = New FolderBrowserDialog()
 
