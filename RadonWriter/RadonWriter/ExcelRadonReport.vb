@@ -171,8 +171,47 @@ Public Class ExcelRadonReport
 
             End With
 
+            ' Let's assume that there isn't any temperature data and turn off the secondary category axis
+            ' and hide its label
+            m_RadonChart.SecondaryValueAxis.Visible = False
+            m_RadonChart.SecondaryValueAxis.Title = ""
+
             ' Add temperature and humidity
-            If Not IsNothing(DeviceDataLogger.TemperaturePoints) And DeviceDataLogger.TemperaturePoints.Count > 0 Then
+            If Not IsNothing(DeviceDataLogger) AndAlso Not IsNothing(DeviceDataLogger.TemperaturePoints) AndAlso DeviceDataLogger.TemperaturePoints.Count > 0 Then
+
+                ' Since there is temperature data, we need to turn the secondary category axis on and set its label text
+                m_RadonChart.SecondaryValueAxis.Visible = True
+                ' Set up the secondary value axis (vertical on the right side)
+                m_RadonChart.SecondaryValueAxis.Title = "Temperature, deg.F"
+                m_RadonChart.SecondaryValueAxis.TitleArea.TextRotationAngle = 90
+
+
+                ' Set the serie type
+                For Each serie As IChartSerie In m_RadonChart.Series
+                    serie.SerieType = ExcelChartType.Line
+                    serie.UsePrimaryAxis = True
+
+                    Select Case serie.Name
+                        Case "Temperature"
+                            serie.UsePrimaryAxis = False
+                            serie.SerieFormat.LineProperties.LineColor = Color.Blue
+
+                        Case "Radon"
+                            serie.SerieFormat.LineProperties.LineColor = Color.Black
+
+                        Case "Humidity"
+                            serie.SerieFormat.LineProperties.LineColor = Color.DarkGreen
+
+                        Case "Pass Line"
+                            serie.SerieFormat.LineProperties.LineColor = Color.Yellow
+
+                        Case "Fail Line"
+                            serie.SerieFormat.LineProperties.LineColor = Color.Red
+
+
+                    End Select
+                Next
+
                 marker.AddVariable("DataLogger", DeviceDataLogger.TemperaturePoints)
 
             End If
