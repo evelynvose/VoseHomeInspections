@@ -120,7 +120,14 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PrintPreferences.vb" />
     <Compile Include="DeviceDataLogger.vb" />
+    <Compile Include="frmPrintPreferences.Designer.vb">
+      <DependentUpon>frmPrintPreferences.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmPrintPreferences.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="TemperaturePoint.vb" />
     <Compile Include="WeatherCondition.vb" />
     <Compile Include="FoundationType.vb" />
@@ -165,6 +172,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="frmPrintPreferences.resx">
+      <DependentUpon>frmPrintPreferences.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.vb</DependentUpon>
     </EmbeddedResource>

@@ -229,3 +229,4 @@ C:\Users\Evie.4HI-VM3\source\repos\VoseHomeInspections\RadonWriter\RadonWriter\o
 C:\Users\Evie.4HI-VM3\source\repos\VoseHomeInspections\RadonWriter\RadonWriter\obj\Debug\RadonWriter.exe
 C:\Users\Evie.4HI-VM3\source\repos\VoseHomeInspections\RadonWriter\RadonWriter\obj\Debug\RadonWriter.xml
 C:\Users\Evie.4HI-VM3\source\repos\VoseHomeInspections\RadonWriter\RadonWriter\obj\Debug\RadonWriter.pdb
+C:\Users\Evie.4HI-VM3\source\repos\VoseHomeInspections\RadonWriter\RadonWriter\obj\Debug\RadonWriter.frmPrintPreferences.resources

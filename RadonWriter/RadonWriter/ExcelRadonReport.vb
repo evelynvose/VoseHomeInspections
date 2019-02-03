@@ -93,148 +93,233 @@ Public Class ExcelRadonReport
         m_RadonChart = m_SheetCertificate.Charts(0)
 
         ' This is where all of the work gets done!
-        FillTheTemplate()
+        FillTheExcelTemplate()
 
 
     End Sub
-
-
-
-    ' **********************************************
-    ' ****
-    ' ******    FILL The Template
-    ' ****
-    ' **********************************************
-    ' 
-    Private Sub FillTheTemplate()
-        Using excelEngine As ExcelEngine = New ExcelEngine()
-
-            ' Create Template Marker Processor
-            Dim marker As ITemplateMarkersProcessor = m_ExcelWorkbook.CreateTemplateMarkersProcessor()
-
-            ' Set the radon chart's Y axis to contain the maximum plot area
-            Dim axis As IChartValueAxis = m_RadonChart.PrimaryValueAxis
-            Dim maxPCil As Double
-            For Each radonPoint As RadonDataPoint In m_DeviceRadonReport.RadonDataPoints
-                If radonPoint.PCIL > maxPCil Then
-                    maxPCil = radonPoint.PCIL
-
-                End If
-            Next
-            ' Set the minimum (of the max) or round up to nearest 10
-            If maxPCil <= 10 Then axis.MaximumValue = 10
-            If maxPCil > 10 And maxPCil <= 15 Then axis.MaximumValue = 15
-            If maxPCil > 15 And maxPCil <= 20 Then axis.MaximumValue = 20
-            If maxPCil > 20 And maxPCil <= 30 Then axis.MaximumValue = 30
-            If maxPCil > 30 And maxPCil <= 40 Then axis.MaximumValue = 40
-            If maxPCil > 40 And maxPCil <= 50 Then axis.MaximumValue = 50
-            If maxPCil > 50 And maxPCil <= 60 Then axis.MaximumValue = 60
-            If maxPCil > 60 And maxPCil <= 70 Then axis.MaximumValue = 70
-            If maxPCil > 70 And maxPCil <= 80 Then axis.MaximumValue = 80
-            If maxPCil > 80 And maxPCil <= 90 Then axis.MaximumValue = 90
-            If maxPCil > 90 And maxPCil <= 100 Then axis.MaximumValue = 100
-            If maxPCil > 100 Then axis.MaximumValue = 200
-
-
-            With m_DeviceRadonReport
-
-                ' Add Customer Information
-                marker.AddVariable("Customer", .Customer)
-
-                ' Add subject property information
-                marker.AddVariable("SubjectProperty", .SubjectProperty)
-
-                ' Add Inspector Information
-                marker.AddVariable("Inspector", Inspector)
-
-                ' Add Company Information
-                marker.AddVariable("Company", Company)
-
-                ' Add Device Informationa
-                marker.AddVariable("Device", .Device)
-
-                ' Add Averages Information
-                marker.AddVariable("EPAAverage", .EpaAverage)
-                marker.AddVariable("OverallAverage", .OverallAverage)
-
-                ' Add the Stamp Text
-                marker.AddVariable("CertificationStamp", .CertificationStamp)
-
-                ' Add EPA Recommendations
-                marker.AddVariable("Recommendations", .Recommendations)
-
-                ' Add Start Date
-                marker.AddVariable("StartDate", .StartDate)
-
-                ' Add the radon points to the template
-                marker.AddVariable("Radon", .RadonDataPoints)
-
-            End With
-
-            ' Let's assume that there isn't any temperature data and turn off the secondary category axis
-            ' and hide its label
-            m_RadonChart.SecondaryValueAxis.Visible = False
-            m_RadonChart.SecondaryValueAxis.Title = ""
-
-            ' Add temperature and humidity
-            If Not IsNothing(DeviceDataLogger) AndAlso Not IsNothing(DeviceDataLogger.TemperaturePoints) AndAlso DeviceDataLogger.TemperaturePoints.Count > 0 Then
-
-                ' Since there is temperature data, we need to turn the secondary category axis on and set its label text
-                m_RadonChart.SecondaryValueAxis.Visible = True
-                ' Set up the secondary value axis (vertical on the right side)
-                m_RadonChart.SecondaryValueAxis.Title = "Temperature, deg.F"
-                m_RadonChart.SecondaryValueAxis.TitleArea.TextRotationAngle = 90
-
-
-                ' Set the serie type
-                For Each serie As IChartSerie In m_RadonChart.Series
-                    serie.SerieType = ExcelChartType.Line
-                    serie.UsePrimaryAxis = True
-
-                    Select Case serie.Name
-                        Case "Temperature"
-                            serie.UsePrimaryAxis = False
-                            serie.SerieFormat.LineProperties.LineColor = Color.Blue
-
-                        Case "Radon"
-                            serie.SerieFormat.LineProperties.LineColor = Color.Black
-
-                        Case "Humidity"
-                            serie.SerieFormat.LineProperties.LineColor = Color.DarkGreen
-
-                        Case "Pass Line"
-                            serie.SerieFormat.LineProperties.LineColor = Color.Yellow
-
-                        Case "Fail Line"
-                            serie.SerieFormat.LineProperties.LineColor = Color.Red
-
-
-                    End Select
-                Next
-
-                marker.AddVariable("DataLogger", DeviceDataLogger.TemperaturePoints)
-
-            End If
-
-            'Process the markers in the template
-            Try
-                marker.ApplyMarkers(UnknownVariableAction.Skip)
-
-            Catch ex As Exception
-                MsgBox(ex.Message)
-
-            End Try
-
-        End Using
-
-    End Sub
-
 
 
 
     ' **********************************************
     ' ****
     ' ******    Methods
+    ' ****
+    ' **********************************************
+    '     
+    ' **********************************************
+    ' ****
+    ' ******    FILL The Template
+    ' ****
+    ' **********************************************
+    ' 
+    Private Sub FillTheExcelTemplate()
+        '
+        ' Stabilize the Radon Chart (overrides some UI settings)
+        SetUpRadonChart()
+
+        ' Create Template Marker Processor and fill the Workbook
+        ' Assumes that there are "markers" in the template and that they are formatted and spelled correctly
+        Dim marker As ITemplateMarkersProcessor = m_ExcelWorkbook.CreateTemplateMarkersProcessor()
+
+        With m_DeviceRadonReport
+
+            ' Add Customer Information
+            marker.AddVariable("Customer", .Customer)
+
+            ' Add subject property information
+            marker.AddVariable("SubjectProperty", .SubjectProperty)
+
+            ' Add Inspector Information
+            marker.AddVariable("Inspector", Inspector)
+
+            ' Add Company Information
+            marker.AddVariable("Company", Company)
+
+            ' Add Device Informationa
+            marker.AddVariable("Device", .Device)
+
+            ' Add Averages Information
+            marker.AddVariable("EPAAverage", .EpaAverage)
+            marker.AddVariable("OverallAverage", .OverallAverage)
+
+            ' Add the Stamp Text
+            marker.AddVariable("CertificationStamp", .CertificationStamp)
+
+            ' Add EPA Recommendations
+            marker.AddVariable("Recommendations", .Recommendations)
+
+            ' Add Start Date
+            marker.AddVariable("StartDate", .StartDate)
+
+            ' Add the radon points to the template
+            marker.AddVariable("Radon", .RadonDataPoints)
+
+        End With
+
+        If Not IsNothing(DeviceDataLogger) AndAlso Not IsNothing(DeviceDataLogger.TemperaturePoints) _
+            AndAlso DeviceDataLogger.TemperaturePoints.Count <= m_DeviceRadonReport.RadonDataPoints.Count Then
+            '
+            SetUpTemperatureChart()
+            marker.AddVariable("DataLogger", DeviceDataLogger.TemperaturePoints)
+
+        End If
+
+        ' Process the markers in the template. Note that the "Skip" option is supposed to prevent this
+        ' function from throwing an exception, but it doesn't where an IList is concerned, so we catch it ourselves
+        Try
+            marker.ApplyMarkers(UnknownVariableAction.Skip)
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+
+        End Try
+
+
+    End Sub
+
+
+    ' **********************************************
+    ' ****
+    ' ******    Set up Radon Chart
+    ' ****
+    ' **********************************************
+    ' 
+    Public Sub SetUpRadonChart()
+
+        ' No legend, too confusing with the pass lines
+        m_RadonChart.HasLegend = False
+
+        ' Set the radon chart's primary value axis (left side) to contain the maximum plot area
+        Dim maxPCil As Double
+        For Each radonPoint As RadonDataPoint In m_DeviceRadonReport.RadonDataPoints
+            If radonPoint.PCIL > maxPCil Then
+                maxPCil = radonPoint.PCIL
+
+            End If
+        Next
+
+        ' Set the minimum (of the max) or round up to nearest 10
+        Dim pvAxis As IChartValueAxis = m_RadonChart.PrimaryValueAxis
+        With pvAxis
+            If maxPCil <= 10 Then .MaximumValue = 10
+            If maxPCil > 10 AndAlso maxPCil <= 15 Then .MaximumValue = 15
+            If maxPCil > 15 AndAlso maxPCil <= 20 Then .MaximumValue = 20
+            If maxPCil > 20 AndAlso maxPCil <= 30 Then .MaximumValue = 30
+            If maxPCil > 30 AndAlso maxPCil <= 40 Then .MaximumValue = 40
+            If maxPCil > 40 AndAlso maxPCil <= 50 Then .MaximumValue = 50
+            If maxPCil > 50 AndAlso maxPCil <= 60 Then .MaximumValue = 60
+            If maxPCil > 60 AndAlso maxPCil <= 70 Then .MaximumValue = 70
+            If maxPCil > 70 AndAlso maxPCil <= 80 Then .MaximumValue = 80
+            If maxPCil > 80 AndAlso maxPCil <= 90 Then .MaximumValue = 90
+            If maxPCil > 90 AndAlso maxPCil <= 100 Then .MaximumValue = 100
+            If maxPCil > 100 Then .MaximumValue = 200
+
+        End With
+
+        ' Set the primary category axis to the number of samples
+        Try
+            m_RadonChart.PrimaryCategoryAxis.MinimumValue = 0
+            m_RadonChart.PrimaryCategoryAxis.MaximumValue = m_DeviceRadonReport.RadonDataPoints.Count
+
+            ' Default to 100 hour test
+            m_RadonChart.PrimaryCategoryAxis.MinorUnit = 1
+            m_RadonChart.PrimaryCategoryAxis.MajorUnit = 5
+
+            ' Readjust if 48 hour test
+            If m_DeviceRadonReport.RadonDataPoints.Count <= 48 Then
+                m_RadonChart.PrimaryCategoryAxis.MinorUnit = 0.4
+                m_RadonChart.PrimaryCategoryAxis.MajorUnit = 2
+
+            End If
+
+        Catch ex As Exception
+
+        End Try
+
+
+
+
+    End Sub
+
+
+
+
+    ' **********************************************
+    ' ****
+    ' ******    Set up Temperature Chart
+    ' ******    (as secondary value axis on the right side)
+    ' ****
+    ' **********************************************
+    ' 
+    ' Set the chart type to show two lines with a right side value axis
+    ' Find the Temperature serie and put it into the Secondary Value Axis (right side)
+    '
+    Private Sub SetUpTemperatureChart()
+
+        With m_RadonChart
+
+            ' Turn the user's template chart into a combination chart type
+            If .ChartType <> ExcelChartType.Combination_Chart Then
+                .ChartType = ExcelChartType.Combination_Chart
+
+            End If
+
+            ' I stuck this in here as an experiment to see why I can't control this
+            ' feature reliable in the loop below.  The theory is that deselecting the prinary axis
+            ' kicks off a process that enables a secondary axis, and so this needs to be done before 
+            ' the series colors are set.
+            For Each serie As IChartSerie In .Series
+                If serie.Name = "Temperature" Then
+                    serie.UsePrimaryAxis = False
+
+                End If
+            Next
+
+            For Each serie As IChartSerie In .Series
+                ' serie.SerieType = ExcelChartType.Line
+                ' serie.UsePrimaryAxis = True
+
+                Select Case serie.Name
+                    Case "Temperature"
+                        serie.SerieFormat.LineProperties.LineColor = Color.Blue
+                        serie.SerieType = ExcelChartType.Scatter_Line
+                        ' serie.UsePrimaryAxis = False
+
+                    Case "Radon"
+                        serie.SerieFormat.LineProperties.LineColor = Color.Black
+                        serie.SerieType = ExcelChartType.Scatter_Line
+
+                    Case "Humidity"
+                        serie.SerieType = ExcelChartType.Scatter_Line
+                        serie.SerieFormat.LineProperties.LineColor = Color.DarkGreen
+
+                    Case "Pass Line"
+                        serie.SerieFormat.LineProperties.LineColor = Color.Yellow
+                        serie.SerieType = ExcelChartType.Line
+
+                    Case "Fail Line"
+                        serie.SerieFormat.LineProperties.LineColor = Color.Red
+                        serie.SerieType = ExcelChartType.Line
+
+                End Select
+            Next
+
+            ' Since there is temperature data, we need to turn on the secondary category axis 
+            ' and set its label text amd orientation.
+            If Not IsNothing(.SecondaryCategoryAxis) Then
+                .SecondaryValueAxis.Visible = True
+                .SecondaryValueAxis.Title = "Temperature, deg.F"
+                .SecondaryValueAxis.TitleArea.TextRotationAngle = 90
+
+            End If
+
+        End With
+    End Sub
+
+
+    ' **********************************************
+    ' ****
+    ' ******    Save As Excel
     ' ****
     ' **********************************************
     ' 
@@ -269,7 +354,12 @@ Public Class ExcelRadonReport
 
 
 
-
+    ' **********************************************
+    ' ****
+    ' ******    Save As PDF
+    ' ****
+    ' **********************************************
+    ' 
     Public Function SaveAsPDF(ByVal filePath As String) As Boolean
         Using m_ExcelEngine ' excelEngine As ExcelEngine = New ExcelEngine()
             Dim application As IApplication = m_ExcelEngine.Excel ' ExcelEngine.Excel

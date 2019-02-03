@@ -206,6 +206,30 @@ Namespace My
                 Me("CompanyPhone") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property IncludeTemperature() As Boolean
+            Get
+                Return CType(Me("IncludeTemperature"),Boolean)
+            End Get
+            Set
+                Me("IncludeTemperature") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property IncludeHumidity() As Boolean
+            Get
+                Return CType(Me("IncludeHumidity"),Boolean)
+            End Get
+            Set
+                Me("IncludeHumidity") = value
+            End Set
+        End Property
     End Class
 End Namespace
 
