@@ -38,6 +38,8 @@ Partial Class Main
         Dim TreeNodeAdv10 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
         Dim TreeNodeAdv11 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
         Dim TreeNodeAdv12 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
+        Dim GridImageColumn1 As Syncfusion.WinForms.DataGrid.GridImageColumn = New Syncfusion.WinForms.DataGrid.GridImageColumn()
+        Dim GridTextColumn1 As Syncfusion.WinForms.DataGrid.GridTextColumn = New Syncfusion.WinForms.DataGrid.GridTextColumn()
         Me.sbStatusBar = New Syncfusion.Windows.Forms.Tools.StatusBarAdv()
         Me.sbPanTemplatePath = New Syncfusion.Windows.Forms.Tools.StatusBarAdvPanel()
         Me.sbPanReportPath = New Syncfusion.Windows.Forms.Tools.StatusBarAdvPanel()
@@ -51,12 +53,15 @@ Partial Class Main
         Me.btnReportInfo = New Syncfusion.Windows.Forms.ButtonAdv()
         Me.btnCustomer = New Syncfusion.Windows.Forms.ButtonAdv()
         Me.tvAreaNavigator = New Syncfusion.Windows.Forms.Tools.TreeViewAdv()
+        Me.scTabs = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
+        Me.Lists = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
+        Me.SfDataGrid1 = New Syncfusion.WinForms.DataGrid.SfDataGrid()
         Me.RibbonControlAdv1 = New Syncfusion.Windows.Forms.Tools.RibbonControlAdv()
         Me.ToolStripTabItem1 = New Syncfusion.Windows.Forms.Tools.ToolStripTabItem()
         Me.ToolStripTabItem2 = New Syncfusion.Windows.Forms.Tools.ToolStripTabItem()
-        Me.scTabs = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
-        Me.Lists = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
-        Me.SfListView1 = New Syncfusion.WinForms.ListView.SfListView()
+        Me.HIPicturesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.ListBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.ListBindingSource1 = New System.Windows.Forms.BindingSource(Me.components)
         CType(Me.sbStatusBar, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.sbStatusBar.SuspendLayout()
         CType(Me.sbPanTemplatePath, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -72,14 +77,18 @@ Partial Class Main
         Me.scNavigate.Panel2.SuspendLayout()
         Me.scNavigate.SuspendLayout()
         CType(Me.tvAreaNavigator, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.RibbonControlAdv1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.RibbonControlAdv1.SuspendLayout()
         CType(Me.scTabs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.scTabs.Panel2.SuspendLayout()
         Me.scTabs.SuspendLayout()
         CType(Me.Lists, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Lists.Panel2.SuspendLayout()
         Me.Lists.SuspendLayout()
+        CType(Me.SfDataGrid1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.RibbonControlAdv1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.RibbonControlAdv1.SuspendLayout()
+        CType(Me.HIPicturesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ListBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ListBindingSource1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'sbStatusBar
@@ -412,8 +421,59 @@ Partial Class Main
         Me.tvAreaNavigator.ToolTipControl.TabIndex = 1
         Me.tvAreaNavigator.ToolTipControl.Text = "toolTip"
         '
+        'scTabs
+        '
+        Me.scTabs.BeforeTouchSize = 7
+        Me.scTabs.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.scTabs.Location = New System.Drawing.Point(0, 0)
+        Me.scTabs.Name = "scTabs"
+        '
+        'scTabs.Panel2
+        '
+        Me.scTabs.Panel2.Controls.Add(Me.Lists)
+        Me.scTabs.Size = New System.Drawing.Size(901, 563)
+        Me.scTabs.SplitterDistance = 700
+        Me.scTabs.TabIndex = 0
+        Me.scTabs.Text = "SplitContainerAdv1"
+        '
+        'Lists
+        '
+        Me.Lists.BeforeTouchSize = 7
+        Me.Lists.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Lists.Location = New System.Drawing.Point(0, 0)
+        Me.Lists.Name = "Lists"
+        Me.Lists.Orientation = System.Windows.Forms.Orientation.Vertical
+        '
+        'Lists.Panel2
+        '
+        Me.Lists.Panel2.Controls.Add(Me.SfDataGrid1)
+        Me.Lists.Size = New System.Drawing.Size(194, 563)
+        Me.Lists.SplitterDistance = 50
+        Me.Lists.TabIndex = 0
+        Me.Lists.Text = "scLists"
+        '
+        'SfDataGrid1
+        '
+        Me.SfDataGrid1.AccessibleName = "Table"
+        GridImageColumn1.AllowGrouping = False
+        GridImageColumn1.AllowSorting = False
+        GridImageColumn1.HeaderText = "Pictures"
+        GridImageColumn1.MappingName = "Pictures"
+        GridTextColumn1.HeaderText = "Path"
+        GridTextColumn1.MappingName = "Path"
+        Me.SfDataGrid1.Columns.Add(GridImageColumn1)
+        Me.SfDataGrid1.Columns.Add(GridTextColumn1)
+        Me.SfDataGrid1.DataSource = Me.HIPicturesBindingSource
+        Me.SfDataGrid1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SfDataGrid1.Location = New System.Drawing.Point(0, 0)
+        Me.SfDataGrid1.Name = "SfDataGrid1"
+        Me.SfDataGrid1.Size = New System.Drawing.Size(194, 506)
+        Me.SfDataGrid1.TabIndex = 0
+        Me.SfDataGrid1.Text = "SfDataGrid1"
+        '
         'RibbonControlAdv1
         '
+        Me.RibbonControlAdv1.CaptionFont = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.RibbonControlAdv1.Dock = Syncfusion.Windows.Forms.Tools.DockStyleEx.Top
         Me.RibbonControlAdv1.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.RibbonControlAdv1.Header.AddMainItem(ToolStripTabItem1)
@@ -468,46 +528,19 @@ Partial Class Main
         Me.ToolStripTabItem2.Tag = "2"
         Me.ToolStripTabItem2.Text = "ToolStripTabItem2"
         '
-        'scTabs
+        'HIPicturesBindingSource
         '
-        Me.scTabs.BeforeTouchSize = 7
-        Me.scTabs.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.scTabs.Location = New System.Drawing.Point(0, 0)
-        Me.scTabs.Name = "scTabs"
+        Me.HIPicturesBindingSource.DataSource = GetType(SyncfusionWindowsFormsApplication1.HIPictures)
         '
-        'scTabs.panLists
+        'ListBindingSource
         '
-        Me.scTabs.Panel2.Controls.Add(Me.Lists)
-        Me.scTabs.Size = New System.Drawing.Size(901, 563)
-        Me.scTabs.SplitterDistance = 700
-        Me.scTabs.TabIndex = 0
-        Me.scTabs.Text = "SplitContainerAdv1"
+        Me.ListBindingSource.DataMember = "List"
+        Me.ListBindingSource.DataSource = Me.HIPicturesBindingSource
         '
-        'Lists
+        'ListBindingSource1
         '
-        Me.Lists.BeforeTouchSize = 7
-        Me.Lists.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Lists.Location = New System.Drawing.Point(0, 0)
-        Me.Lists.Name = "Lists"
-        Me.Lists.Orientation = System.Windows.Forms.Orientation.Vertical
-        '
-        'Lists.Panel2
-        '
-        Me.Lists.Panel2.Controls.Add(Me.SfListView1)
-        Me.Lists.Size = New System.Drawing.Size(194, 563)
-        Me.Lists.SplitterDistance = 50
-        Me.Lists.TabIndex = 0
-        Me.Lists.Text = "scLists"
-        '
-        'SfListView1
-        '
-        Me.SfListView1.AccessibleName = "ScrollControl"
-        Me.SfListView1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SfListView1.Location = New System.Drawing.Point(0, 0)
-        Me.SfListView1.Name = "SfListView1"
-        Me.SfListView1.Size = New System.Drawing.Size(194, 506)
-        Me.SfListView1.TabIndex = 0
-        Me.SfListView1.Text = "SfListView1"
+        Me.ListBindingSource1.DataMember = "List"
+        Me.ListBindingSource1.DataSource = Me.HIPicturesBindingSource
         '
         'Main
         '
@@ -537,15 +570,19 @@ Partial Class Main
         CType(Me.scNavigate, System.ComponentModel.ISupportInitialize).EndInit()
         Me.scNavigate.ResumeLayout(False)
         CType(Me.tvAreaNavigator, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.RibbonControlAdv1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.RibbonControlAdv1.ResumeLayout(False)
-        Me.RibbonControlAdv1.PerformLayout()
         Me.scTabs.Panel2.ResumeLayout(False)
         CType(Me.scTabs, System.ComponentModel.ISupportInitialize).EndInit()
         Me.scTabs.ResumeLayout(False)
         Me.Lists.Panel2.ResumeLayout(False)
         CType(Me.Lists, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Lists.ResumeLayout(False)
+        CType(Me.SfDataGrid1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.RibbonControlAdv1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.RibbonControlAdv1.ResumeLayout(False)
+        Me.RibbonControlAdv1.PerformLayout()
+        CType(Me.HIPicturesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ListBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ListBindingSource1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -569,5 +606,8 @@ Partial Class Main
     Friend WithEvents ToolStripTabItem2 As Tools.ToolStripTabItem
     Friend WithEvents scTabs As Tools.SplitContainerAdv
     Friend WithEvents Lists As Tools.SplitContainerAdv
-    Friend WithEvents SfListView1 As Syncfusion.WinForms.ListView.SfListView
+    Friend WithEvents SfDataGrid1 As Syncfusion.WinForms.DataGrid.SfDataGrid
+    Friend WithEvents HIPicturesBindingSource As BindingSource
+    Friend WithEvents ListBindingSource As BindingSource
+    Friend WithEvents ListBindingSource1 As BindingSource
 End Class
