@@ -40,6 +40,7 @@ Partial Class Main
         Dim TreeNodeAdv12 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
         Dim GridImageColumn1 As Syncfusion.WinForms.DataGrid.GridImageColumn = New Syncfusion.WinForms.DataGrid.GridImageColumn()
         Dim GridTextColumn1 As Syncfusion.WinForms.DataGrid.GridTextColumn = New Syncfusion.WinForms.DataGrid.GridTextColumn()
+        Dim GridTextColumn2 As Syncfusion.WinForms.DataGrid.GridTextColumn = New Syncfusion.WinForms.DataGrid.GridTextColumn()
         Me.sbStatusBar = New Syncfusion.Windows.Forms.Tools.StatusBarAdv()
         Me.sbPanTemplatePath = New Syncfusion.Windows.Forms.Tools.StatusBarAdvPanel()
         Me.sbPanReportPath = New Syncfusion.Windows.Forms.Tools.StatusBarAdvPanel()
@@ -59,9 +60,6 @@ Partial Class Main
         Me.RibbonControlAdv1 = New Syncfusion.Windows.Forms.Tools.RibbonControlAdv()
         Me.ToolStripTabItem1 = New Syncfusion.Windows.Forms.Tools.ToolStripTabItem()
         Me.ToolStripTabItem2 = New Syncfusion.Windows.Forms.Tools.ToolStripTabItem()
-        Me.HIPicturesBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.ListBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.ListBindingSource1 = New System.Windows.Forms.BindingSource(Me.components)
         CType(Me.sbStatusBar, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.sbStatusBar.SuspendLayout()
         CType(Me.sbPanTemplatePath, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -86,9 +84,6 @@ Partial Class Main
         CType(Me.SfDataGrid1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RibbonControlAdv1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.RibbonControlAdv1.SuspendLayout()
-        CType(Me.HIPicturesBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.ListBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.ListBindingSource1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'sbStatusBar
@@ -455,15 +450,27 @@ Partial Class Main
         'SfDataGrid1
         '
         Me.SfDataGrid1.AccessibleName = "Table"
+        GridImageColumn1.AllowEditing = False
         GridImageColumn1.AllowGrouping = False
         GridImageColumn1.AllowSorting = False
-        GridImageColumn1.HeaderText = "Pictures"
-        GridImageColumn1.MappingName = "Pictures"
+        GridImageColumn1.CellStyle.Font.Facename = "Segoe UI"
+        GridImageColumn1.CellStyle.HorizontalAlignment = System.Windows.Forms.HorizontalAlignment.Center
+        GridImageColumn1.HeaderStyle.Font.Facename = "Segoe UI"
+        GridImageColumn1.HeaderText = "Images"
+        GridImageColumn1.MappingName = "Picture"
+        GridTextColumn1.AllowEditing = False
+        GridTextColumn1.CellStyle.Font.Facename = "Segoe UI"
+        GridTextColumn1.HeaderStyle.Font.Facename = "Segoe UI"
         GridTextColumn1.HeaderText = "Path"
         GridTextColumn1.MappingName = "Path"
+        GridTextColumn2.AllowEditing = False
+        GridTextColumn2.CellStyle.Font.Facename = "Segoe UI"
+        GridTextColumn2.HeaderStyle.Font.Facename = "Segoe UI"
+        GridTextColumn2.HeaderText = "ID"
+        GridTextColumn2.MappingName = "ID"
         Me.SfDataGrid1.Columns.Add(GridImageColumn1)
         Me.SfDataGrid1.Columns.Add(GridTextColumn1)
-        Me.SfDataGrid1.DataSource = Me.HIPicturesBindingSource
+        Me.SfDataGrid1.Columns.Add(GridTextColumn2)
         Me.SfDataGrid1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SfDataGrid1.Location = New System.Drawing.Point(0, 0)
         Me.SfDataGrid1.Name = "SfDataGrid1"
@@ -528,20 +535,6 @@ Partial Class Main
         Me.ToolStripTabItem2.Tag = "2"
         Me.ToolStripTabItem2.Text = "ToolStripTabItem2"
         '
-        'HIPicturesBindingSource
-        '
-        Me.HIPicturesBindingSource.DataSource = GetType(SyncfusionWindowsFormsApplication1.HIPictures)
-        '
-        'ListBindingSource
-        '
-        Me.ListBindingSource.DataMember = "List"
-        Me.ListBindingSource.DataSource = Me.HIPicturesBindingSource
-        '
-        'ListBindingSource1
-        '
-        Me.ListBindingSource1.DataMember = "List"
-        Me.ListBindingSource1.DataSource = Me.HIPicturesBindingSource
-        '
         'Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -580,9 +573,6 @@ Partial Class Main
         CType(Me.RibbonControlAdv1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.RibbonControlAdv1.ResumeLayout(False)
         Me.RibbonControlAdv1.PerformLayout()
-        CType(Me.HIPicturesBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.ListBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.ListBindingSource1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -607,7 +597,4 @@ Partial Class Main
     Friend WithEvents scTabs As Tools.SplitContainerAdv
     Friend WithEvents Lists As Tools.SplitContainerAdv
     Friend WithEvents SfDataGrid1 As Syncfusion.WinForms.DataGrid.SfDataGrid
-    Friend WithEvents HIPicturesBindingSource As BindingSource
-    Friend WithEvents ListBindingSource As BindingSource
-    Friend WithEvents ListBindingSource1 As BindingSource
 End Class

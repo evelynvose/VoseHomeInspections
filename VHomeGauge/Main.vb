@@ -1,16 +1,36 @@
 ﻿Imports Syncfusion.Windows.Forms
 Imports Syncfusion.WinForms.DataGrid
+Imports Syncfusion.WinForms.DataGrid.Events
+
 Public Class Main
+    '
+    ' **********************************************
+    ' ****
+    ' ******    LOAD handler
+    ' ****
+    ' **********************************************
+    ' 
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles Me.Load
         Me.KeyPreview = True
 
 
+        With SfDataGrid1
+            Dim thePictureRepository As New PictureInfoRepository
+
+            .DataSource = thePictureRepository.GetListPictureDetails(1)
+
+        End With
     End Sub
 
 
 
-
-
+#Region "Methods"
+    ' **********************************************
+    ' ****
+    ' ******    Methods
+    ' ****
+    ' **********************************************
+    ' 
     Private Sub Main_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
         If e.KeyCode = Keys.CapsLock Then
             With sbPanCapsLock
@@ -39,5 +59,6 @@ Public Class Main
         End If
     End Sub
 
+#End Region
 End Class
 
