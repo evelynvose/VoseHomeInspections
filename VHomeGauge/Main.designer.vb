@@ -38,6 +38,7 @@ Partial Class Main
         Dim TreeNodeAdv10 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
         Dim TreeNodeAdv11 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
         Dim TreeNodeAdv12 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Main))
         Dim GridImageColumn1 As Syncfusion.WinForms.DataGrid.GridImageColumn = New Syncfusion.WinForms.DataGrid.GridImageColumn()
         Dim GridTextColumn1 As Syncfusion.WinForms.DataGrid.GridTextColumn = New Syncfusion.WinForms.DataGrid.GridTextColumn()
         Dim GridTextColumn2 As Syncfusion.WinForms.DataGrid.GridTextColumn = New Syncfusion.WinForms.DataGrid.GridTextColumn()
@@ -56,7 +57,8 @@ Partial Class Main
         Me.tvAreaNavigator = New Syncfusion.Windows.Forms.Tools.TreeViewAdv()
         Me.scTabs = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
         Me.Lists = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
-        Me.SfDataGrid1 = New Syncfusion.WinForms.DataGrid.SfDataGrid()
+        Me.btnPictureBrowser = New Syncfusion.WinForms.Controls.SfButton()
+        Me.dgHiInfo = New Syncfusion.WinForms.DataGrid.SfDataGrid()
         Me.RibbonControlAdv1 = New Syncfusion.Windows.Forms.Tools.RibbonControlAdv()
         Me.ToolStripTabItem1 = New Syncfusion.Windows.Forms.Tools.ToolStripTabItem()
         Me.ToolStripTabItem2 = New Syncfusion.Windows.Forms.Tools.ToolStripTabItem()
@@ -79,9 +81,10 @@ Partial Class Main
         Me.scTabs.Panel2.SuspendLayout()
         Me.scTabs.SuspendLayout()
         CType(Me.Lists, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Lists.Panel1.SuspendLayout()
         Me.Lists.Panel2.SuspendLayout()
         Me.Lists.SuspendLayout()
-        CType(Me.SfDataGrid1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgHiInfo, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.RibbonControlAdv1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.RibbonControlAdv1.SuspendLayout()
         Me.SuspendLayout()
@@ -185,8 +188,10 @@ Partial Class Main
         '
         'scBase
         '
+        Me.scBase.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.scBase.BeforeTouchSize = 7
-        Me.scBase.FixedPanel = Syncfusion.Windows.Forms.Tools.Enums.FixedPanel.Panel1
         Me.scBase.Location = New System.Drawing.Point(0, 50)
         Me.scBase.Name = "scBase"
         '
@@ -205,8 +210,9 @@ Partial Class Main
         '
         'scNavigate
         '
+        Me.scNavigate.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.scNavigate.BeforeTouchSize = 7
-        Me.scNavigate.Dock = System.Windows.Forms.DockStyle.Fill
         Me.scNavigate.FixedPanel = Syncfusion.Windows.Forms.Tools.Enums.FixedPanel.Panel1
         Me.scNavigate.IsSplitterFixed = True
         Me.scNavigate.Location = New System.Drawing.Point(0, 0)
@@ -234,6 +240,8 @@ Partial Class Main
         '
         'btnAreas
         '
+        Me.btnAreas.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnAreas.Appearance = Syncfusion.Windows.Forms.ButtonAppearance.Metro
         Me.btnAreas.BackColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(165, Byte), Integer), CType(CType(220, Byte), Integer))
         Me.btnAreas.BeforeTouchSize = New System.Drawing.Size(200, 40)
@@ -249,6 +257,8 @@ Partial Class Main
         '
         'btnGeneralInfo
         '
+        Me.btnGeneralInfo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnGeneralInfo.Appearance = Syncfusion.Windows.Forms.ButtonAppearance.Metro
         Me.btnGeneralInfo.BackColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(165, Byte), Integer), CType(CType(220, Byte), Integer))
         Me.btnGeneralInfo.BeforeTouchSize = New System.Drawing.Size(200, 40)
@@ -264,6 +274,8 @@ Partial Class Main
         '
         'btnMiscellaneous
         '
+        Me.btnMiscellaneous.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnMiscellaneous.Appearance = Syncfusion.Windows.Forms.ButtonAppearance.Metro
         Me.btnMiscellaneous.BackColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(165, Byte), Integer), CType(CType(220, Byte), Integer))
         Me.btnMiscellaneous.BeforeTouchSize = New System.Drawing.Size(200, 40)
@@ -279,6 +291,8 @@ Partial Class Main
         '
         'btnReportInfo
         '
+        Me.btnReportInfo.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnReportInfo.Appearance = Syncfusion.Windows.Forms.ButtonAppearance.Metro
         Me.btnReportInfo.BackColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(165, Byte), Integer), CType(CType(220, Byte), Integer))
         Me.btnReportInfo.BeforeTouchSize = New System.Drawing.Size(200, 40)
@@ -294,6 +308,8 @@ Partial Class Main
         '
         'btnCustomer
         '
+        Me.btnCustomer.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnCustomer.Appearance = Syncfusion.Windows.Forms.ButtonAppearance.Metro
         Me.btnCustomer.BackColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(165, Byte), Integer), CType(CType(220, Byte), Integer))
         Me.btnCustomer.BeforeTouchSize = New System.Drawing.Size(200, 40)
@@ -418,8 +434,9 @@ Partial Class Main
         '
         'scTabs
         '
+        Me.scTabs.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.scTabs.BeforeTouchSize = 7
-        Me.scTabs.Dock = System.Windows.Forms.DockStyle.Fill
         Me.scTabs.Location = New System.Drawing.Point(0, 0)
         Me.scTabs.Name = "scTabs"
         '
@@ -433,25 +450,48 @@ Partial Class Main
         '
         'Lists
         '
+        Me.Lists.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Lists.BeforeTouchSize = 7
-        Me.Lists.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Lists.Location = New System.Drawing.Point(0, 0)
         Me.Lists.Name = "Lists"
         Me.Lists.Orientation = System.Windows.Forms.Orientation.Vertical
         '
+        'Lists.Panel1
+        '
+        Me.Lists.Panel1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.Lists.Panel1.Controls.Add(Me.btnPictureBrowser)
+        '
         'Lists.Panel2
         '
-        Me.Lists.Panel2.Controls.Add(Me.SfDataGrid1)
+        Me.Lists.Panel2.Controls.Add(Me.dgHiInfo)
         Me.Lists.Size = New System.Drawing.Size(194, 563)
         Me.Lists.SplitterDistance = 50
         Me.Lists.TabIndex = 0
         Me.Lists.Text = "scLists"
         '
-        'SfDataGrid1
+        'btnPictureBrowser
         '
-        Me.SfDataGrid1.AccessibleName = "Table"
+        Me.btnPictureBrowser.AccessibleName = "Button"
+        Me.btnPictureBrowser.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!)
+        Me.btnPictureBrowser.Image = CType(resources.GetObject("btnPictureBrowser.Image"), System.Drawing.Image)
+        Me.btnPictureBrowser.ImageSize = New System.Drawing.Size(24, 24)
+        Me.btnPictureBrowser.Location = New System.Drawing.Point(9, 12)
+        Me.btnPictureBrowser.Name = "btnPictureBrowser"
+        Me.btnPictureBrowser.Size = New System.Drawing.Size(27, 27)
+        Me.btnPictureBrowser.Style.Image = CType(resources.GetObject("resource.Image"), System.Drawing.Image)
+        Me.btnPictureBrowser.TabIndex = 0
+        '
+        'dgHiInfo
+        '
+        Me.dgHiInfo.AccessibleName = "Table"
+        Me.dgHiInfo.AllowResizingColumns = True
+        Me.dgHiInfo.AllowSorting = False
+        Me.dgHiInfo.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.dgHiInfo.CausesValidation = False
         GridImageColumn1.AllowEditing = False
         GridImageColumn1.AllowGrouping = False
+        GridImageColumn1.AllowResizing = True
         GridImageColumn1.AllowSorting = False
         GridImageColumn1.CellStyle.Font.Facename = "Segoe UI"
         GridImageColumn1.CellStyle.HorizontalAlignment = System.Windows.Forms.HorizontalAlignment.Center
@@ -459,24 +499,28 @@ Partial Class Main
         GridImageColumn1.HeaderText = "Images"
         GridImageColumn1.MappingName = "Picture"
         GridTextColumn1.AllowEditing = False
+        GridTextColumn1.AllowResizing = True
+        GridTextColumn1.AllowSorting = False
         GridTextColumn1.CellStyle.Font.Facename = "Segoe UI"
         GridTextColumn1.HeaderStyle.Font.Facename = "Segoe UI"
         GridTextColumn1.HeaderText = "Path"
         GridTextColumn1.MappingName = "Path"
         GridTextColumn2.AllowEditing = False
+        GridTextColumn2.AllowResizing = True
+        GridTextColumn2.AllowSorting = False
         GridTextColumn2.CellStyle.Font.Facename = "Segoe UI"
         GridTextColumn2.HeaderStyle.Font.Facename = "Segoe UI"
         GridTextColumn2.HeaderText = "ID"
         GridTextColumn2.MappingName = "ID"
-        Me.SfDataGrid1.Columns.Add(GridImageColumn1)
-        Me.SfDataGrid1.Columns.Add(GridTextColumn1)
-        Me.SfDataGrid1.Columns.Add(GridTextColumn2)
-        Me.SfDataGrid1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SfDataGrid1.Location = New System.Drawing.Point(0, 0)
-        Me.SfDataGrid1.Name = "SfDataGrid1"
-        Me.SfDataGrid1.Size = New System.Drawing.Size(194, 506)
-        Me.SfDataGrid1.TabIndex = 0
-        Me.SfDataGrid1.Text = "SfDataGrid1"
+        Me.dgHiInfo.Columns.Add(GridImageColumn1)
+        Me.dgHiInfo.Columns.Add(GridTextColumn1)
+        Me.dgHiInfo.Columns.Add(GridTextColumn2)
+        Me.dgHiInfo.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.dgHiInfo.Location = New System.Drawing.Point(0, 0)
+        Me.dgHiInfo.Name = "dgHiInfo"
+        Me.dgHiInfo.Size = New System.Drawing.Size(194, 506)
+        Me.dgHiInfo.TabIndex = 0
+        Me.dgHiInfo.Text = "dgHiInfo"
         '
         'RibbonControlAdv1
         '
@@ -543,9 +587,10 @@ Partial Class Main
         Me.Controls.Add(Me.RibbonControlAdv1)
         Me.Controls.Add(Me.scBase)
         Me.Controls.Add(Me.sbStatusBar)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True
         Me.Name = "Main"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "VHomeGauge"
         CType(Me.sbStatusBar, System.ComponentModel.ISupportInitialize).EndInit()
         Me.sbStatusBar.ResumeLayout(False)
@@ -566,10 +611,11 @@ Partial Class Main
         Me.scTabs.Panel2.ResumeLayout(False)
         CType(Me.scTabs, System.ComponentModel.ISupportInitialize).EndInit()
         Me.scTabs.ResumeLayout(False)
+        Me.Lists.Panel1.ResumeLayout(False)
         Me.Lists.Panel2.ResumeLayout(False)
         CType(Me.Lists, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Lists.ResumeLayout(False)
-        CType(Me.SfDataGrid1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgHiInfo, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.RibbonControlAdv1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.RibbonControlAdv1.ResumeLayout(False)
         Me.RibbonControlAdv1.PerformLayout()
@@ -596,5 +642,6 @@ Partial Class Main
     Friend WithEvents ToolStripTabItem2 As Tools.ToolStripTabItem
     Friend WithEvents scTabs As Tools.SplitContainerAdv
     Friend WithEvents Lists As Tools.SplitContainerAdv
-    Friend WithEvents SfDataGrid1 As Syncfusion.WinForms.DataGrid.SfDataGrid
+    Friend WithEvents dgHiInfo As Syncfusion.WinForms.DataGrid.SfDataGrid
+    Friend WithEvents btnPictureBrowser As Syncfusion.WinForms.Controls.SfButton
 End Class

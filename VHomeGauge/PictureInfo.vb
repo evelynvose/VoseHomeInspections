@@ -46,32 +46,43 @@ Public Class PictureInfo
     ' ****
     ' **********************************************
     '
-    Private m_Path As String
-
     Public ReadOnly Property ID As String
         Get
             Dim theSerialNumber As New SerialNumber
             Return theSerialNumber.Generate
-
         End Get
-
     End Property
 
+
+
+
+    Private m_Path As String
     Public Property Path As String
         Get
             Return m_Path
-
         End Get
         Set(value As String)
             m_Path = value
         End Set
     End Property
 
+
+
+
     Public ReadOnly Property Picture As Byte()
         Get
-
-            Return ImageToByteArray(System.Drawing.Image.FromFile(m_Path))
-
+            Return ImageToByteArray(Image.FromFile(m_Path))
         End Get
     End Property
+
+
+
+
+    Public ReadOnly Property PictureImage As Image
+        Get
+            Return Image.FromFile(m_Path)
+        End Get
+    End Property
+
+
 End Class
