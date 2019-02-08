@@ -1,8 +1,10 @@
 ﻿Imports Syncfusion.Windows.Forms
 Imports Syncfusion.WinForms.DataGrid
 Imports Syncfusion.WinForms.DataGrid.Events
+Imports SyncfusionWindowsFormsApplication1
 
 Public Class Main
+#Region "Load"
     '
     ' **********************************************
     ' ****
@@ -20,27 +22,73 @@ Public Class Main
         ' column of the dgHiInfo data grid
         Dim thePictureRepository As New PictureRepository
 
-        ' Set up the sfDataGrid picture column to the default row height and colimn width of pictures (150, 200)
-        With dgHiInfo
+        m_PictureFilter = New PictureFilter
+        For Each s As String In My.Settings.PictureFilters
+            m_PictureFilter.FilterList.Add(s)
+
+        Next
+
+        ' Set dgPictureInfo data source to the default start up picture repository
+        dgPictureInfo.DataSource = thePictureRepository.GetPictureList("")
+
+        ' Set the column display parameters
+        SetPictureInfoColumns()
+
+    End Sub
+#End Region
+#Region "Methods"
+    '
+    ' **********************************************
+    ' ****
+    ' ******    Methods
+    ' ****
+    ' **********************************************
+    ' 
+    Public Sub SetPictureInfoColumns()
+        With dgPictureInfo
+
             TryCast(.Columns("Picture"), GridImageColumn).ImageLayout = ImageLayout.Center
             TryCast(.Columns("Picture"), GridImageColumn).CellStyle.VerticalAlignment = VerticalAlignment.Center
             TryCast(.Columns("Picture"), GridImageColumn).CellStyle.HorizontalAlignment = HorizontalAlignment.Center
             TryCast(.Columns("Picture"), GridImageColumn).AllowResizing = True
-            TryCast(.Columns("Picture"), GridImageColumn).MinimumWidth = 200
-            .RowHeight = 150
+            TryCast(.Columns("Picture"), GridImageColumn).ImageLayout = ImageLayout.Stretch
 
-            ' Set the data source 
-            .DataSource = thePictureRepository.GetPictureList("")
+            ' row height set to an aspect ratio of the expected pictures
+            TryCast(.Columns("Picture"), GridImageColumn).MinimumWidth = 160
+            .RowHeight = 120
+
+            ' These columns will get added because they are properties in PicturInfo
+            ' We can't hide them until the DataSource is set, so they have to appear after that
+            TryCast(.Columns("Path"), GridTextColumn).Visible = False
+            TryCast(.Columns("ID"), GridTextColumn).Visible = False
 
         End With
     End Sub
 
+#End Region
 
 
-#Region "Methods"
+#Region "Properties"
+    '
     ' **********************************************
     ' ****
-    ' ******    Methods
+    ' ******    Properties
+    ' ****
+    ' **********************************************
+    ' 
+    Private m_PictureFilter As PictureFilter
+    Public ReadOnly Property PictureFilter As PictureFilter
+        Get
+            Return m_PictureFilter
+        End Get
+    End Property
+#End Region
+
+
+#Region "Event Handlers"
+    ' **********************************************
+    ' ****
+    ' ******    Event Handlers
     ' ****
     ' **********************************************
     ' 
@@ -84,7 +132,25 @@ Public Class Main
         If FileDialog.ShowDialog = Windows.Forms.DialogResult.OK Then
             Dim folderPath As String = FileDialog.SelectedPath
             Dim thePictureRepository As New PictureRepository
-            dgHiInfo.DataSource = thePictureRepository.GetPictureList(folderPath)
+            dgPictureInfo.DataSource = thePictureRepository.GetPictureList(folderPath)
+            SetPictureInfoColumns()
+
+            ' Add the original folder to the cbPhotoLocker
+
+            Dim pictureDirectoryInfo As New PictureDirectory(folderPath) ' System.IO.DirectoryInfo(folderPath)
+            cbPhotoLocker.Items.Clear()
+            cbPhotoLocker.Items.Add(pictureDirectoryInfo)
+
+            ' Get the sub folders
+            For Each folderPath In System.IO.Directory.GetDirectories(folderPath)
+                pictureDirectoryInfo = New PictureDirectory(folderPath)
+                cbPhotoLocker.Items.Add(pictureDirectoryInfo)
+
+            Next
+
+            ' Set the index to the first item, shows the first item
+            cbPhotoLocker.SelectedIndex = 0
+
 
         Else
             MessageBox.Show("Can't load pictures. Folder not found!")
@@ -93,6 +159,41 @@ Public Class Main
 
     End Sub
 
+
+
+    Private Sub cbPhotoLocker_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbPhotoLocker.SelectedIndexChanged
+        Dim pictureDirectoryInfo As PictureDirectory
+        pictureDirectoryInfo = cbPhotoLocker.Items(cbPhotoLocker.SelectedIndex)
+
+    End Sub
+
+
+
 #End Region
+End Class
+
+Public Class PictureDirectory
+
+    Private m_DirInfo As System.IO.DirectoryInfo
+
+    Public Sub New(ByVal folderpath As String)
+        m_DirInfo = New System.IO.DirectoryInfo(folderpath)
+
+    End Sub
+
+    Public Overrides Function ToString() As String
+        Return m_DirInfo.Name
+
+    End Function
+
+    Public ReadOnly Property Path As String
+        Get
+            Return m_DirInfo.FullName
+
+        End Get
+    End Property
+
+
+
 End Class
 

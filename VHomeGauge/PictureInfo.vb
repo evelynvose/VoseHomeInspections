@@ -66,7 +66,11 @@ Public Class PictureInfo
         End Set
     End Property
 
-
+    Public ReadOnly Property FileName As String
+        Get
+            Return System.IO.Path.GetFileName(m_Path)
+        End Get
+    End Property
 
 
     Public ReadOnly Property Picture As Byte()
@@ -74,9 +78,6 @@ Public Class PictureInfo
             Return ImageToByteArray(Image.FromFile(m_Path))
         End Get
     End Property
-
-
-
 
     Public ReadOnly Property PictureImage As Image
         Get

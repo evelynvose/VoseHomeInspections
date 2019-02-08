@@ -23,6 +23,7 @@ Public Class SerialNumber
     ' **********************************************
     ' 
     Private Function GetSerialNumber() As String
+        Const Length As Int64 = 16
 
         Dim serialGuid As Guid = Guid.NewGuid()
         Dim uniqueSerial As String = serialGuid.ToString("N")
@@ -32,11 +33,11 @@ Public Class SerialNumber
         Dim finalSerialNumber As String = ""
 
         Dim j As Integer = 0
-        For i As Integer = 0 To 27
+        For i As Integer = 0 To Length - 1
             For j = i To 4 + (i - 1)
                 finalSerialNumber += serialArray(j)
             Next
-            If j = 28 Then
+            If j = Length Then
                 Exit For
             Else
                 i = (j) - 1

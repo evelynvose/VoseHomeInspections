@@ -5,5 +5,17 @@
     <Setting Name="DefaultPictureImagePath" Type="System.String" Scope="Application">
       <Value Profile="(Default)">C:\Users\Evie.4HI-VM3\Dropbox\_Vose Home Inspections\Marketing\Logo\vosehi_hg_175.jpeg</Value>
     </Setting>
+    <Setting Name="PictureFilters" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;string&gt;Signature&lt;/string&gt;
+  &lt;string&gt;hgis&lt;/string&gt;
+  &lt;string&gt;hgx&lt;/string&gt;
+  &lt;string&gt;hvac&lt;/string&gt;
+  &lt;string&gt;vosehi&lt;/string&gt;
+  &lt;string&gt;line1&lt;/string&gt;
+  &lt;string&gt;watermark&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

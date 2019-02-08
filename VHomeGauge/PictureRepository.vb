@@ -21,6 +21,7 @@ Public Class PictureRepository
     Public Sub New()
         GetPictureList("")
 
+
     End Sub
 
 
@@ -43,10 +44,7 @@ Public Class PictureRepository
 
         Else
             For Each filepath As String In Directory.GetFiles(folderpath)
-                If filepath.Contains("Signature") Or filepath.Contains("hgis") Or filepath.Contains("hgix") Or filepath.Contains("hvac") Or filepath.Contains("vosehi") Then
-                    ' do nothing
-
-                Else ' do something
+                If Not Main.PictureFilter.IsFiltered(filepath) Then
                     If filepath.Contains(".jpg") Then
                         picturesDetails.Add(New PictureInfo(filepath))
 
@@ -70,8 +68,7 @@ Public Class PictureRepository
     ' **********************************************
     '
 
-
-
+    '
+    '
 End Class
-
 #End Region
