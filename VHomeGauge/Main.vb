@@ -1,17 +1,20 @@
 ﻿Imports Syncfusion.Windows.Forms
 Imports Syncfusion.WinForms.DataGrid
-Imports Syncfusion.WinForms.DataGrid.Events
-Imports SyncfusionWindowsFormsApplication1
-
+'
+' **********************************************
+' ****
+' ******    Main (Form) Class
+' ****
+' **********************************************
+' 
+#Region "Main Form Class"
 Public Class Main
-#Region "Load"
     '
-    ' **********************************************
-    ' ****
-    ' ******    LOAD handler
-    ' ****
-    ' **********************************************
-    ' 
+    ' ***********************************************
+    ' *****     Load
+    ' ***********************************************
+    '
+#Region "Load"
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles Me.Load
         ' This allows the form to get keypresses.  This is needed for the NUMS lock and CAPS lock status  on the status bar.
         ' The two event handlers below won't be invoked unless this is set to true.
@@ -29,14 +32,13 @@ Public Class Main
         Next
 
         ' Set dgPictureInfo data source to the default start up picture repository
-        dgPictureInfo.DataSource = thePictureRepository.GetPictureList("")
+        dgFilmstrip.DataSource = thePictureRepository.GetPictureList("")
 
         ' Set the column display parameters
         SetPictureInfoColumns()
 
     End Sub
 #End Region
-#Region "Methods"
     '
     ' **********************************************
     ' ****
@@ -44,8 +46,14 @@ Public Class Main
     ' ****
     ' **********************************************
     ' 
+#Region "Methods"
+    '
+    ' ***********************************************
+    ' *****     Set Picture Info Columns Method
+    ' ***********************************************
+    '
     Public Sub SetPictureInfoColumns()
-        With dgPictureInfo
+        With dgFilmstrip
 
             TryCast(.Columns("Picture"), GridImageColumn).ImageLayout = ImageLayout.Center
             TryCast(.Columns("Picture"), GridImageColumn).CellStyle.VerticalAlignment = VerticalAlignment.Center
@@ -67,8 +75,6 @@ Public Class Main
 
 #End Region
 
-
-#Region "Properties"
     '
     ' **********************************************
     ' ****
@@ -76,6 +82,8 @@ Public Class Main
     ' ****
     ' **********************************************
     ' 
+#Region "Properties"
+
     Private m_PictureFilter As PictureFilter
     Public ReadOnly Property PictureFilter As PictureFilter
         Get
@@ -84,15 +92,18 @@ Public Class Main
     End Property
 #End Region
 
-
-#Region "Event Handlers"
     ' **********************************************
     ' ****
     ' ******    Event Handlers
     ' ****
     ' **********************************************
     ' 
-    ' *****     CAPS & NUM Lock
+#Region "Event Handlers"
+
+    ' ***********************************************
+    ' *****     Key Down Event Handler
+    ' *****     Caps, Num and Insert key states
+    ' ***********************************************
     '
     Private Sub Main_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
         If e.KeyCode = Keys.CapsLock Then
@@ -122,8 +133,11 @@ Public Class Main
             End With
         End If
     End Sub
+
     '
-    ' ***** Get the path to the pictures
+    ' ***********************************************
+    ' *****     Picture Browser Button Event Handler
+    ' ***********************************************
     '
     Private Sub btnPictureBrowser_Click(sender As Object, e As EventArgs) Handles btnPictureBrowser.Click
         Dim FileDialog As FolderBrowserDialog = New FolderBrowserDialog With {
@@ -131,9 +145,6 @@ Public Class Main
         }
         If FileDialog.ShowDialog = Windows.Forms.DialogResult.OK Then
             Dim folderPath As String = FileDialog.SelectedPath
-            Dim thePictureRepository As New PictureRepository
-            dgPictureInfo.DataSource = thePictureRepository.GetPictureList(folderPath)
-            SetPictureInfoColumns()
 
             ' Add the original folder to the cbPhotoLocker
 
@@ -149,8 +160,9 @@ Public Class Main
             Next
 
             ' Set the index to the first item, shows the first item
+            ' This will fire the cbPhotoLocker.SelectedIndexChanged Event, which will load the pictures
+            ' that are in this folder
             cbPhotoLocker.SelectedIndex = 0
-
 
         Else
             MessageBox.Show("Can't load pictures. Folder not found!")
@@ -158,20 +170,62 @@ Public Class Main
         End If
 
     End Sub
-
-
-
+    '
+    ' ***********************************************
+    ' *****     Photo Locker Drop Down Event Handler
+    ' *****     Loads new pictures into the filmstrip
+    ' ***********************************************
+    '
     Private Sub cbPhotoLocker_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbPhotoLocker.SelectedIndexChanged
         Dim pictureDirectoryInfo As PictureDirectory
         pictureDirectoryInfo = cbPhotoLocker.Items(cbPhotoLocker.SelectedIndex)
 
+        Dim thePictureRepository As New PictureRepository
+        dgFilmstrip.DataSource = thePictureRepository.GetPictureList(pictureDirectoryInfo.Path)
+        SetPictureInfoColumns()
+
     End Sub
+    '
+    ' ***********************************************
+    ' *****     Contact Clients Event Handler
+    ' *****     Loads new clients into the contacts datagrid
+    ' ***********************************************
+    '
+    Private Sub btnContactsClient_Click(sender As Object, e As EventArgs) Handles btnContactsClient.Click
 
+        Dim OpenFileDialog1 = New OpenFileDialog With {
+            .CheckFileExists = True,
+            .CheckPathExists = True,
+            .DefaultExt = "csv",
+            .FileName = "",
+            .Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*",
+            .Multiselect = False
+        }
 
+        If OpenFileDialog1.ShowDialog = Windows.Forms.DialogResult.OK Then
+            Dim newClientRepository As New PersonRepository
+            dgPeopleInfo.DataSource = newClientRepository.GetList(New IO.FileInfo(OpenFileDialog1.FileName), 0)
+
+        End If
+
+    End Sub
 
 #End Region
 End Class
+#End Region
 
+
+
+
+
+
+'
+' **********************************************
+' ****
+' ******    Picture Directory Class
+' ****
+' **********************************************
+' 
 Public Class PictureDirectory
 
     Private m_DirInfo As System.IO.DirectoryInfo

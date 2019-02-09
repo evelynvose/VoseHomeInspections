@@ -38,12 +38,12 @@ Partial Class Main
         Dim TreeNodeAdv10 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
         Dim TreeNodeAdv11 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
         Dim TreeNodeAdv12 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Main))
         Dim GridImageColumn1 As Syncfusion.WinForms.DataGrid.GridImageColumn = New Syncfusion.WinForms.DataGrid.GridImageColumn()
         Dim GridTextColumn1 As Syncfusion.WinForms.DataGrid.GridTextColumn = New Syncfusion.WinForms.DataGrid.GridTextColumn()
         Dim GridTextColumn2 As Syncfusion.WinForms.DataGrid.GridTextColumn = New Syncfusion.WinForms.DataGrid.GridTextColumn()
         Dim GridTextColumn3 As Syncfusion.WinForms.DataGrid.GridTextColumn = New Syncfusion.WinForms.DataGrid.GridTextColumn()
         Dim GridTextColumn4 As Syncfusion.WinForms.DataGrid.GridTextColumn = New Syncfusion.WinForms.DataGrid.GridTextColumn()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Main))
         Me.scSlab = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
         Me.scFoundation = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
         Me.rbBanner = New Syncfusion.Windows.Forms.Tools.RibbonControlAdv()
@@ -58,16 +58,13 @@ Partial Class Main
         Me.tvAreaNavigator = New Syncfusion.Windows.Forms.Tools.TreeViewAdv()
         Me.scTabs = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
         Me.scLists = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
-        Me.tcPictures = New Syncfusion.Windows.Forms.Tools.TabControlAdv()
+        Me.tcFilmstrip = New Syncfusion.Windows.Forms.Tools.TabControlAdv()
         Me.tabPictures = New Syncfusion.Windows.Forms.Tools.TabPageAdv()
         Me.spPictreControls = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
         Me.cbPhotoLocker = New Syncfusion.Windows.Forms.Tools.ComboBoxAdv()
-        Me.btnPictureBrowser = New Syncfusion.WinForms.Controls.SfButton()
-        Me.dgPictureInfo = New Syncfusion.WinForms.DataGrid.SfDataGrid()
+        Me.dgFilmstrip = New Syncfusion.WinForms.DataGrid.SfDataGrid()
         Me.tabPeople = New Syncfusion.Windows.Forms.Tools.TabPageAdv()
         Me.scPeopleControls = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
-        Me.btnContactsAgent = New Syncfusion.Windows.Forms.ButtonAdv()
-        Me.btnContactsClient = New Syncfusion.Windows.Forms.ButtonAdv()
         Me.dgPeopleInfo = New Syncfusion.WinForms.DataGrid.SfDataGrid()
         Me.sbStatusBar = New Syncfusion.Windows.Forms.Tools.StatusBarAdv()
         Me.sbPanTemplatePath = New Syncfusion.Windows.Forms.Tools.StatusBarAdvPanel()
@@ -75,6 +72,9 @@ Partial Class Main
         Me.sbPanCapsLock = New Syncfusion.Windows.Forms.Tools.StatusBarAdvPanel()
         Me.sbPanNumLock = New Syncfusion.Windows.Forms.Tools.StatusBarAdvPanel()
         Me.ToolStripTabItem1 = New Syncfusion.Windows.Forms.Tools.ToolStripTabItem()
+        Me.btnPictureBrowser = New Syncfusion.WinForms.Controls.SfButton()
+        Me.btnContactsAgent = New Syncfusion.Windows.Forms.ButtonAdv()
+        Me.btnContactsClient = New Syncfusion.Windows.Forms.ButtonAdv()
         CType(Me.scSlab, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.scSlab.Panel1.SuspendLayout()
         Me.scSlab.Panel2.SuspendLayout()
@@ -100,15 +100,15 @@ Partial Class Main
         CType(Me.scLists, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.scLists.Panel2.SuspendLayout()
         Me.scLists.SuspendLayout()
-        CType(Me.tcPictures, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.tcPictures.SuspendLayout()
+        CType(Me.tcFilmstrip, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tcFilmstrip.SuspendLayout()
         Me.tabPictures.SuspendLayout()
         CType(Me.spPictreControls, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.spPictreControls.Panel1.SuspendLayout()
         Me.spPictreControls.Panel2.SuspendLayout()
         Me.spPictreControls.SuspendLayout()
         CType(Me.cbPhotoLocker, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.dgPictureInfo, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.dgFilmstrip, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabPeople.SuspendLayout()
         CType(Me.scPeopleControls, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.scPeopleControls.Panel1.SuspendLayout()
@@ -202,7 +202,7 @@ Partial Class Main
         Me.ToolStripTabItem2.Panel.TabIndex = 3
         Me.ToolStripTabItem2.Panel.Text = "Properties"
         Me.ToolStripTabItem2.Position = 0
-        Me.ToolStripTabItem2.Size = New System.Drawing.Size(75, 30)
+        Me.ToolStripTabItem2.Size = New System.Drawing.Size(65, 19)
         Me.ToolStripTabItem2.Tag = "2"
         Me.ToolStripTabItem2.Text = "Properties"
         '
@@ -486,28 +486,28 @@ Partial Class Main
         '
         'scLists.Panel2
         '
-        Me.scLists.Panel2.Controls.Add(Me.tcPictures)
+        Me.scLists.Panel2.Controls.Add(Me.tcFilmstrip)
         Me.scLists.Size = New System.Drawing.Size(206, 522)
         Me.scLists.SplitterDistance = 50
         Me.scLists.TabIndex = 0
         '
-        'tcPictures
+        'tcFilmstrip
         '
-        Me.tcPictures.ActiveTabForeColor = System.Drawing.Color.Empty
-        Me.tcPictures.BeforeTouchSize = New System.Drawing.Size(206, 515)
-        Me.tcPictures.CloseButtonForeColor = System.Drawing.Color.Empty
-        Me.tcPictures.CloseButtonHoverForeColor = System.Drawing.Color.Empty
-        Me.tcPictures.CloseButtonPressedForeColor = System.Drawing.Color.Empty
-        Me.tcPictures.Controls.Add(Me.tabPictures)
-        Me.tcPictures.Controls.Add(Me.tabPeople)
-        Me.tcPictures.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tcPictures.InActiveTabForeColor = System.Drawing.Color.Empty
-        Me.tcPictures.Location = New System.Drawing.Point(0, 0)
-        Me.tcPictures.Name = "tcPictures"
-        Me.tcPictures.SeparatorColor = System.Drawing.SystemColors.ControlDark
-        Me.tcPictures.ShowSeparator = False
-        Me.tcPictures.Size = New System.Drawing.Size(206, 515)
-        Me.tcPictures.TabIndex = 0
+        Me.tcFilmstrip.ActiveTabForeColor = System.Drawing.Color.Empty
+        Me.tcFilmstrip.BeforeTouchSize = New System.Drawing.Size(206, 515)
+        Me.tcFilmstrip.CloseButtonForeColor = System.Drawing.Color.Empty
+        Me.tcFilmstrip.CloseButtonHoverForeColor = System.Drawing.Color.Empty
+        Me.tcFilmstrip.CloseButtonPressedForeColor = System.Drawing.Color.Empty
+        Me.tcFilmstrip.Controls.Add(Me.tabPictures)
+        Me.tcFilmstrip.Controls.Add(Me.tabPeople)
+        Me.tcFilmstrip.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tcFilmstrip.InActiveTabForeColor = System.Drawing.Color.Empty
+        Me.tcFilmstrip.Location = New System.Drawing.Point(0, 0)
+        Me.tcFilmstrip.Name = "tcFilmstrip"
+        Me.tcFilmstrip.SeparatorColor = System.Drawing.SystemColors.ControlDark
+        Me.tcFilmstrip.ShowSeparator = False
+        Me.tcFilmstrip.Size = New System.Drawing.Size(206, 515)
+        Me.tcFilmstrip.TabIndex = 0
         '
         'tabPictures
         '
@@ -540,7 +540,7 @@ Partial Class Main
         '
         'spPictreControls.Panel2
         '
-        Me.spPictreControls.Panel2.Controls.Add(Me.dgPictureInfo)
+        Me.spPictreControls.Panel2.Controls.Add(Me.dgFilmstrip)
         Me.spPictreControls.Size = New System.Drawing.Size(203, 488)
         Me.spPictreControls.SplitterDistance = 32
         Me.spPictreControls.SplitterWidth = 1
@@ -559,21 +559,9 @@ Partial Class Main
         Me.cbPhotoLocker.TabIndex = 2
         Me.cbPhotoLocker.Text = "Sub Folders"
         '
-        'btnPictureBrowser
+        'dgFilmstrip
         '
-        Me.btnPictureBrowser.AccessibleName = "Button"
-        Me.btnPictureBrowser.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!)
-        Me.btnPictureBrowser.Image = CType(resources.GetObject("btnPictureBrowser.Image"), System.Drawing.Image)
-        Me.btnPictureBrowser.ImageSize = New System.Drawing.Size(24, 24)
-        Me.btnPictureBrowser.Location = New System.Drawing.Point(3, 3)
-        Me.btnPictureBrowser.Name = "btnPictureBrowser"
-        Me.btnPictureBrowser.Size = New System.Drawing.Size(27, 27)
-        Me.btnPictureBrowser.Style.Image = CType(resources.GetObject("resource.Image"), System.Drawing.Image)
-        Me.btnPictureBrowser.TabIndex = 1
-        '
-        'dgPictureInfo
-        '
-        Me.dgPictureInfo.AccessibleName = "Table"
+        Me.dgFilmstrip.AccessibleName = "Table"
         GridImageColumn1.AllowEditing = False
         GridImageColumn1.AllowGrouping = False
         GridImageColumn1.AllowSorting = False
@@ -585,13 +573,13 @@ Partial Class Main
         GridTextColumn1.AllowEditing = False
         GridTextColumn1.HeaderText = "FileName"
         GridTextColumn1.MappingName = "FileName"
-        Me.dgPictureInfo.Columns.Add(GridImageColumn1)
-        Me.dgPictureInfo.Columns.Add(GridTextColumn1)
-        Me.dgPictureInfo.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgPictureInfo.Location = New System.Drawing.Point(0, 0)
-        Me.dgPictureInfo.Name = "dgPictureInfo"
-        Me.dgPictureInfo.Size = New System.Drawing.Size(203, 455)
-        Me.dgPictureInfo.TabIndex = 0
+        Me.dgFilmstrip.Columns.Add(GridImageColumn1)
+        Me.dgFilmstrip.Columns.Add(GridTextColumn1)
+        Me.dgFilmstrip.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgFilmstrip.Location = New System.Drawing.Point(0, 0)
+        Me.dgFilmstrip.Name = "dgFilmstrip"
+        Me.dgFilmstrip.Size = New System.Drawing.Size(203, 455)
+        Me.dgFilmstrip.TabIndex = 0
         '
         'tabPeople
         '
@@ -630,43 +618,22 @@ Partial Class Main
         Me.scPeopleControls.SplitterWidth = 1
         Me.scPeopleControls.TabIndex = 0
         '
-        'btnContactsAgent
-        '
-        Me.btnContactsAgent.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnContactsAgent.BeforeTouchSize = New System.Drawing.Size(27, 27)
-        Me.btnContactsAgent.FlatAppearance.BorderSize = 0
-        Me.btnContactsAgent.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnContactsAgent.Image = Global.SyncfusionWindowsFormsApplication1.My.Resources.Resources.user_business
-        Me.btnContactsAgent.IsBackStageButton = False
-        Me.btnContactsAgent.Location = New System.Drawing.Point(37, 3)
-        Me.btnContactsAgent.Name = "btnContactsAgent"
-        Me.btnContactsAgent.Size = New System.Drawing.Size(27, 27)
-        Me.btnContactsAgent.TabIndex = 1
-        '
-        'btnContactsClient
-        '
-        Me.btnContactsClient.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.btnContactsClient.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnContactsClient.BeforeTouchSize = New System.Drawing.Size(27, 27)
-        Me.btnContactsClient.FlatAppearance.BorderSize = 0
-        Me.btnContactsClient.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnContactsClient.Image = CType(resources.GetObject("btnContactsClient.Image"), System.Drawing.Image)
-        Me.btnContactsClient.IsBackStageButton = False
-        Me.btnContactsClient.Location = New System.Drawing.Point(4, 4)
-        Me.btnContactsClient.Name = "btnContactsClient"
-        Me.btnContactsClient.Size = New System.Drawing.Size(27, 27)
-        Me.btnContactsClient.TabIndex = 0
-        '
         'dgPeopleInfo
         '
         Me.dgPeopleInfo.AccessibleName = "Table"
+        Me.dgPeopleInfo.AllowEditing = False
+        Me.dgPeopleInfo.AllowResizingColumns = True
+        Me.dgPeopleInfo.AutoGenerateColumns = False
         GridTextColumn2.AllowEditing = False
+        GridTextColumn2.AllowResizing = True
         GridTextColumn2.HeaderText = "First"
-        GridTextColumn2.MappingName = "First"
+        GridTextColumn2.MappingName = "FirstName"
         GridTextColumn3.AllowEditing = False
+        GridTextColumn3.AllowResizing = True
         GridTextColumn3.HeaderText = "Last"
-        GridTextColumn3.MappingName = "Last"
+        GridTextColumn3.MappingName = "LastName"
         GridTextColumn4.AllowEditing = False
+        GridTextColumn4.AllowResizing = True
         GridTextColumn4.HeaderText = "Company"
         GridTextColumn4.MappingName = "Company"
         Me.dgPeopleInfo.Columns.Add(GridTextColumn2)
@@ -790,6 +757,45 @@ Partial Class Main
         Me.ToolStripTabItem1.Tag = "1"
         Me.ToolStripTabItem1.Text = "ToolStripTabItem1"
         '
+        'btnPictureBrowser
+        '
+        Me.btnPictureBrowser.AccessibleName = "Button"
+        Me.btnPictureBrowser.Font = New System.Drawing.Font("Segoe UI Semibold", 9.0!)
+        Me.btnPictureBrowser.Image = CType(resources.GetObject("btnPictureBrowser.Image"), System.Drawing.Image)
+        Me.btnPictureBrowser.ImageSize = New System.Drawing.Size(24, 24)
+        Me.btnPictureBrowser.Location = New System.Drawing.Point(3, 3)
+        Me.btnPictureBrowser.Name = "btnPictureBrowser"
+        Me.btnPictureBrowser.Size = New System.Drawing.Size(27, 27)
+        Me.btnPictureBrowser.Style.Image = CType(resources.GetObject("resource.Image"), System.Drawing.Image)
+        Me.btnPictureBrowser.TabIndex = 1
+        '
+        'btnContactsAgent
+        '
+        Me.btnContactsAgent.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.btnContactsAgent.BeforeTouchSize = New System.Drawing.Size(27, 27)
+        Me.btnContactsAgent.FlatAppearance.BorderSize = 0
+        Me.btnContactsAgent.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnContactsAgent.Image = Global.SyncfusionWindowsFormsApplication1.My.Resources.Resources.user_business
+        Me.btnContactsAgent.IsBackStageButton = False
+        Me.btnContactsAgent.Location = New System.Drawing.Point(37, 3)
+        Me.btnContactsAgent.Name = "btnContactsAgent"
+        Me.btnContactsAgent.Size = New System.Drawing.Size(27, 27)
+        Me.btnContactsAgent.TabIndex = 1
+        '
+        'btnContactsClient
+        '
+        Me.btnContactsClient.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.btnContactsClient.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.btnContactsClient.BeforeTouchSize = New System.Drawing.Size(27, 27)
+        Me.btnContactsClient.FlatAppearance.BorderSize = 0
+        Me.btnContactsClient.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnContactsClient.Image = CType(resources.GetObject("btnContactsClient.Image"), System.Drawing.Image)
+        Me.btnContactsClient.IsBackStageButton = False
+        Me.btnContactsClient.Location = New System.Drawing.Point(4, 4)
+        Me.btnContactsClient.Name = "btnContactsClient"
+        Me.btnContactsClient.Size = New System.Drawing.Size(27, 27)
+        Me.btnContactsClient.TabIndex = 0
+        '
         'Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -828,15 +834,15 @@ Partial Class Main
         Me.scLists.Panel2.ResumeLayout(False)
         CType(Me.scLists, System.ComponentModel.ISupportInitialize).EndInit()
         Me.scLists.ResumeLayout(False)
-        CType(Me.tcPictures, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.tcPictures.ResumeLayout(False)
+        CType(Me.tcFilmstrip, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tcFilmstrip.ResumeLayout(False)
         Me.tabPictures.ResumeLayout(False)
         Me.spPictreControls.Panel1.ResumeLayout(False)
         Me.spPictreControls.Panel2.ResumeLayout(False)
         CType(Me.spPictreControls, System.ComponentModel.ISupportInitialize).EndInit()
         Me.spPictreControls.ResumeLayout(False)
         CType(Me.cbPhotoLocker, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.dgPictureInfo, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgFilmstrip, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabPeople.ResumeLayout(False)
         Me.scPeopleControls.Panel1.ResumeLayout(False)
         Me.scPeopleControls.Panel2.ResumeLayout(False)
@@ -874,7 +880,7 @@ Partial Class Main
     Friend WithEvents rbBanner As Tools.RibbonControlAdv
     Friend WithEvents ToolStripTabItem2 As Tools.ToolStripTabItem
     Friend WithEvents ToolStripTabItem1 As Tools.ToolStripTabItem
-    Friend WithEvents tcPictures As Tools.TabControlAdv
+    Friend WithEvents tcFilmstrip As Tools.TabControlAdv
     Friend WithEvents tabPictures As Tools.TabPageAdv
     Friend WithEvents tabPeople As Tools.TabPageAdv
     Friend WithEvents spPictreControls As Tools.SplitContainerAdv
@@ -883,6 +889,6 @@ Partial Class Main
     Friend WithEvents btnContactsAgent As ButtonAdv
     Friend WithEvents btnContactsClient As ButtonAdv
     Friend WithEvents dgPeopleInfo As Syncfusion.WinForms.DataGrid.SfDataGrid
-    Friend WithEvents dgPictureInfo As Syncfusion.WinForms.DataGrid.SfDataGrid
+    Friend WithEvents dgFilmstrip As Syncfusion.WinForms.DataGrid.SfDataGrid
     Friend WithEvents cbPhotoLocker As Tools.ComboBoxAdv
 End Class

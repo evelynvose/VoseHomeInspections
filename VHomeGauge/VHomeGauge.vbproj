@@ -90,7 +90,10 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Person.vb" />
+    <Compile Include="Helper Classes.vb" />
     <Compile Include="PictureFilter.vb" />
+    <Compile Include="PersonRepository.vb" />
     <Compile Include="PictureRepository.vb" />
     <Compile Include="SerialNumber.vb" />
     <Compile Include="PictureInfo.vb" />
@@ -140,11 +143,15 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Images\" />
     <Folder Include="My Project\DataSources\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\user-business.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\user-business.png" />
+    <Content Include="Images\user.png" />
+    <Content Include="Images\user_selected.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
