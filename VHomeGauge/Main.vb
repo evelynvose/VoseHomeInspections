@@ -1,4 +1,5 @@
 ﻿Imports Syncfusion.Windows.Forms
+Imports Syncfusion.Windows.Forms.Tools.Events
 Imports Syncfusion.WinForms.DataGrid
 '
 ' **********************************************
@@ -9,6 +10,7 @@ Imports Syncfusion.WinForms.DataGrid
 ' 
 #Region "Main Form Class"
 Public Class Main
+    Inherits MetroForm
     '
     ' ***********************************************
     ' *****     Load
@@ -19,6 +21,82 @@ Public Class Main
         ' This allows the form to get keypresses.  This is needed for the NUMS lock and CAPS lock status  on the status bar.
         ' The two event handlers below won't be invoked unless this is set to true.
         Me.KeyPreview = True
+
+
+        ' Initialize the form
+        InitializeSplitters()
+        InitializeFilmstrip()
+        InitializePeopleDataGrid()
+
+        ' Add the open report work form
+        Dim f As New WorkFormOpenReport
+        With f
+            .TopLevel = False
+            .FormBorderStyle = FormBorderStyle.None
+            f.Size = scTabs.Panel1.Size
+            f.Location = New Point(0, 0)
+            f.WindowState = FormWindowState.Normal
+            f.Visible = True
+
+        End With
+        scTabs.Panel1.Controls.Add(f)
+
+    End Sub
+#End Region
+    '
+    ' **********************************************
+    ' ****
+    ' ******    Methods
+    ' ****
+    ' **********************************************
+    ' 
+#Region "Methods"
+    '
+    ' ***********************************************
+    ' *****     Initialize Splitters
+    ' ***********************************************
+    '
+    Private m_IsSplittersInitialized As Boolean
+    Private Sub InitializeSplitters()
+        ' Stops repeated calls
+        If m_IsSplittersInitialized Then
+            MsgBox("Circular loads!")
+            Exit Sub
+        End If
+        m_IsSplittersInitialized = True
+
+        ' Uncomment for debugging initial startup 
+        ' My.Settings.SplitterRightDistance = 0
+        ' My.Settings.SplitterLeftDistance = 0
+
+        ' Calculate the splitters, if needed
+        ' then set them to the user's last known position
+        With My.Settings
+            If .SplitterLeftDistance = 0 Then .SplitterLeftDistance = 175
+            scControlsBase.SplitterDistance = .SplitterLeftDistance
+
+            If .SplitterRightDistance = 0 Then
+                My.Settings.SplitterRightDistance = Math.Ceiling(scTabs.Width * 0.8)
+
+            End If
+            scTabs.SplitterDistance = .SplitterRightDistance
+
+        End With
+
+    End Sub
+    '
+    ' ***********************************************
+    ' *****     Initialize the Filmstrip
+    ' ***********************************************
+    '
+    Private m_IsFilmstripInitialized As Boolean
+    Private Sub InitializeFilmstrip()
+        ' Stops Repeated Calls
+        If m_IsFilmstripInitialized Then
+            MsgBox("Circular loads!")
+            Exit Sub
+        End If
+        m_IsFilmstripInitialized = True
 
         ' This is where the picture's path are pulled from the directory and loaded and stored.
         ' Any path that goes in here will have its corresponding picture displayed in the first
@@ -34,25 +112,6 @@ Public Class Main
         ' Set dgPictureInfo data source to the default start up picture repository
         dgFilmstrip.DataSource = thePictureRepository.GetPictureList("")
 
-        ' Set the column display parameters
-        SetPictureInfoColumns()
-
-    End Sub
-#End Region
-    '
-    ' **********************************************
-    ' ****
-    ' ******    Methods
-    ' ****
-    ' **********************************************
-    ' 
-#Region "Methods"
-    '
-    ' ***********************************************
-    ' *****     Set Picture Info Columns Method
-    ' ***********************************************
-    '
-    Public Sub SetPictureInfoColumns()
         With dgFilmstrip
 
             TryCast(.Columns("Picture"), GridImageColumn).ImageLayout = ImageLayout.Center
@@ -65,14 +124,34 @@ Public Class Main
             TryCast(.Columns("Picture"), GridImageColumn).MinimumWidth = 160
             .RowHeight = 120
 
-            ' These columns will get added because they are properties in PicturInfo
-            ' We can't hide them until the DataSource is set, so they have to appear after that
-            TryCast(.Columns("Path"), GridTextColumn).Visible = False
-            TryCast(.Columns("ID"), GridTextColumn).Visible = False
-
         End With
-    End Sub
 
+        ' Load the cbPhotLocker with the intial path
+        cbPhotoLocker.Items.Clear()
+        cbPhotoLocker.Items.Add(New PictureDirectory(My.Settings.DefaultPictureImagePath))
+
+    End Sub
+    '
+    ' ***********************************************
+    ' *****     Initialize the People Data Grid
+    ' ***********************************************
+    '
+    Private m_IsPeopleDataGridInitialized As Boolean
+    Private Sub InitializePeopleDataGrid()
+        ' Stops repeated calls
+        If m_IsPeopleDataGridInitialized Then
+            MsgBox("Circular loads!")
+            Exit Sub
+        End If
+        m_IsPeopleDataGridInitialized = True
+
+        If IsNothing(My.Settings.People4DataPath) Then Exit Sub
+        If My.Settings.People4DataPath = "" Then Exit Sub
+
+        ' We always start out with the customers showing
+        dgPeopleInfo.DataSource = New ClientRepository
+
+    End Sub
 #End Region
 
     '
@@ -177,39 +256,80 @@ Public Class Main
     ' ***********************************************
     '
     Private Sub cbPhotoLocker_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbPhotoLocker.SelectedIndexChanged
-        Dim pictureDirectoryInfo As PictureDirectory
-        pictureDirectoryInfo = cbPhotoLocker.Items(cbPhotoLocker.SelectedIndex)
+        If IsNothing(cbPhotoLocker.Items(cbPhotoLocker.SelectedIndex)) Then
+            Exit Sub
+
+        End If
+
+        Dim newPictureDirectoryInfo As PictureDirectory
+        newPictureDirectoryInfo = cbPhotoLocker.Items(cbPhotoLocker.SelectedIndex)
 
         Dim thePictureRepository As New PictureRepository
-        dgFilmstrip.DataSource = thePictureRepository.GetPictureList(pictureDirectoryInfo.Path)
-        SetPictureInfoColumns()
+        dgFilmstrip.DataSource = thePictureRepository.GetPictureList(newPictureDirectoryInfo.Path)
 
     End Sub
     '
     ' ***********************************************
-    ' *****     Contact Clients Event Handler
+    ' *****     Clients Event Handler
     ' *****     Loads new clients into the contacts datagrid
     ' ***********************************************
     '
     Private Sub btnContactsClient_Click(sender As Object, e As EventArgs) Handles btnContactsClient.Click
+        Dim newRepository As New ClientRepository
+        dgPeopleInfo.DataSource = newRepository.GetList()
 
-        Dim OpenFileDialog1 = New OpenFileDialog With {
-            .CheckFileExists = True,
-            .CheckPathExists = True,
-            .DefaultExt = "csv",
-            .FileName = "",
-            .Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*",
-            .Multiselect = False
-        }
-
-        If OpenFileDialog1.ShowDialog = Windows.Forms.DialogResult.OK Then
-            Dim newClientRepository As New PersonRepository
-            dgPeopleInfo.DataSource = newClientRepository.GetList(New IO.FileInfo(OpenFileDialog1.FileName), 0)
-
-        End If
+        ' Change the image so the user will know what list is being shown
+        btnContactsClient.Image = My.Resources.customer_selected
+        btnContactsAgent.Image = My.Resources.agent
 
     End Sub
+    '
+    ' ***********************************************
+    ' *****     Agents's Event Handler
+    ' *****     Loads new clients into the contacts datagrid
+    ' ***********************************************
+    '
+    Private Sub btnContactsAgent_Click(sender As Object, e As EventArgs) Handles btnContactsAgent.Click
+        Dim newRepository As New AgentRepository
+        dgPeopleInfo.DataSource = newRepository.GetList()
 
+        ' Change the image so the user will know what list is being shown
+        btnContactsAgent.Image = My.Resources.agent_selected
+        btnContactsClient.Image = My.Resources.customer
+
+    End Sub
+    '
+    ' ***********************************************
+    ' *****     People Data Grid Event
+    ' *****    
+    ' ***********************************************
+    '
+    Private Sub dgPeopleInfo_Click(sender As Object, e As EventArgs) Handles dgPeopleInfo.SelectionChanged
+        Dim frmPeopleInfo As New PeopleInfoForm(TryCast(dgPeopleInfo.SelectedItem, Person))
+        frmPeopleInfo.ShowDialog()
+
+    End Sub
+    '
+    ' ***********************************************
+    ' *****     Right Splitter Moved
+    ' *****    
+    ' ***********************************************
+    '
+    Private Sub scTabs_SplitterMoved(sender As Object, e As SplitterMoveEventArgs) Handles scTabs.SplitterMoved
+        My.Settings.SplitterRightDistance = e.NewSplitPosition.X
+
+    End Sub
+    '
+    ' ***********************************************
+    ' *****     Left Splitter Moved
+    ' *****    
+    ' ***********************************************
+    '
+    Private Sub scControlsBase_SplitterMoved(sender As Object, e As SplitterMoveEventArgs) Handles scControlsBase.SplitterMoved
+        My.Settings.SplitterLeftDistance = e.NewSplitPosition.X
+
+    End Sub
+    '
 #End Region
 End Class
 #End Region
@@ -246,8 +366,6 @@ Public Class PictureDirectory
 
         End Get
     End Property
-
-
 
 End Class
 

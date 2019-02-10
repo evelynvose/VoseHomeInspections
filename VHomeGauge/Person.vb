@@ -5,10 +5,8 @@
 ' ****
 ' **********************************************
 '
-
 Public Class Person
-
-
+    '
     ' **********************************************
     ' ****
     ' ******    Constructor
@@ -18,23 +16,7 @@ Public Class Person
     Public Sub New()
 
     End Sub
-
-
-    Public Sub New(ByVal firstname As String, ByVal lastname As String, ByVal address1 As String, ByVal address2 As String, ByVal city As String, ByVal state As String, ByVal postalcode As String, ByVal phone As String, ByVal email As String)
-        Me.FirstName = firstname
-        Me.LastName = lastname
-        Me.Address1 = address1
-        Me.Address2 = address2
-        Me.City = city
-        Me.State = state
-        Me.PostalCode = postalcode
-        Me.Phone = phone
-        Me.eMail = email
-
-    End Sub
-
-
-
+    '
     ' **********************************************
     ' ****
     ' ******    Methods
@@ -58,14 +40,18 @@ Public Class Person
         Return s
 
     End Function
-
-
+    '
     ' **********************************************
     ' ****
     ' ******    Properties
     ' ****
     ' **********************************************
     ' 
+    '
+    ' ***********************************************
+    ' *****     Last Name
+    ' ***********************************************
+    '
     Public Overridable Property LastName As String
         Get
             Return m_LastName
@@ -75,7 +61,11 @@ Public Class Person
         End Set
     End Property
     Private m_LastName As String = ""
-
+    '
+    ' ***********************************************
+    ' *****     First Name
+    ' ***********************************************
+    '
     Public Property FirstName As String
         Get
             Return m_FirstName
@@ -85,8 +75,25 @@ Public Class Person
         End Set
     End Property
     Private Property m_FirstName As String = ""
-
-
+    '
+    ' ***********************************************
+    ' *****     Company Name
+    ' ***********************************************
+    '
+    Public Property CompanyName As String
+        Get
+            Return m_CompanyName
+        End Get
+        Set(value As String)
+            m_CompanyName = value.Trim("""")
+        End Set
+    End Property
+    Private m_CompanyName As String = ""
+    '
+    ' ***********************************************
+    ' *****     Address 1
+    ' ***********************************************
+    '
     Public Property Address1 As String
         Get
             Return m_Address1
@@ -96,7 +103,11 @@ Public Class Person
         End Set
     End Property
     Private m_Address1 As String = ""
-
+    '
+    ' ***********************************************
+    ' *****     Address 2
+    ' ***********************************************
+    '
     Public Property Address2 As String
         Set(value As String)
             m_Address2 = value.Trim("""")
@@ -106,7 +117,11 @@ Public Class Person
         End Get
     End Property
     Private m_Address2 As String = ""
-
+    '
+    ' ***********************************************
+    ' *****     City
+    ' ***********************************************
+    '
     Public Property City As String
         Get
             Return m_City
@@ -116,7 +131,11 @@ Public Class Person
         End Set
     End Property
     Private m_City As String = ""
-
+    '
+    ' ***********************************************
+    ' *****     State
+    ' ***********************************************
+    '
     Public Property State As String
         Get
             Return m_State
@@ -126,7 +145,11 @@ Public Class Person
         End Set
     End Property
     Private m_State As String = ""
-
+    '
+    ' ***********************************************
+    ' *****     Postal Code
+    ' ***********************************************
+    '
     Public Property PostalCode As String
         Get
             Return m_PostalCode
@@ -136,23 +159,11 @@ Public Class Person
         End Set
     End Property
     Private m_PostalCode As String
-
-    Public Property Phone As String
-        Get
-            Return m_Phone
-        End Get
-        Set(value As String)
-            m_Phone = value.Trim("""")
-        End Set
-    End Property
-    Private m_Phone As String = ""
-
-    Public ReadOnly Property Address As String
-        Get
-            Return GetAddress()
-        End Get
-    End Property
-
+    '
+    ' ***********************************************
+    ' *****     eMail 1
+    ' ***********************************************
+    '
     Public Property eMail As String
         Get
             Return m_eMail
@@ -162,7 +173,59 @@ Public Class Person
         End Set
     End Property
     Private m_eMail As String = ""
+    '
+    ' ***********************************************
+    ' *****     eMail 2
+    ' ***********************************************
+    '
+    Public Property eMail2 As String
+        Get
+            Return m_eMail2
+        End Get
+        Set(value As String)
+            m_eMail2 = value.Trim("""")
+        End Set
+    End Property
+    Private m_eMail2 As String = ""
 
+    Public Property eMail3 As String
+        Get
+            Return m_eMail3
+        End Get
+        Set(value As String)
+            m_eMail3 = value.Trim("""")
+        End Set
+    End Property
+    Private m_eMail3 As String = ""
+    '
+    ' ***********************************************
+    ' *****     eMail 3
+    ' ***********************************************
+    '
+    Public Property Phone As String
+        Get
+            Return m_Phone
+        End Get
+        Set(value As String)
+            m_Phone = value.Trim("""")
+        End Set
+    End Property
+    Private m_Phone As String = ""
+    '
+    ' ***********************************************
+    ' *****     Address
+    ' ***********************************************
+    '
+    Public ReadOnly Property Address As String
+        Get
+            Return GetAddress()
+        End Get
+    End Property
+    '
+    ' ***********************************************
+    ' *****     Type
+    ' ***********************************************
+    '
     Public Property Type As String
         Get
             Return m_Type
@@ -172,6 +235,62 @@ Public Class Person
         End Set
     End Property
     Private m_Type As String = ""
-
-
+    '
+    ' ***********************************************
+    ' *****     Note
+    ' ***********************************************
+    '
+    Public Property Note As String
+        Get
+            Return m_Note
+        End Get
+        Set(value As String)
+            m_Note = value.Trim("""")
+        End Set
+    End Property
+    Private m_Note As String = ""
+    '
+    '
+    ' ***********************************************
+    ' *****     HG User Name
+    ' ***********************************************
+    '
+    Public Property HGUserName As String
+        Get
+            Return m_HGUserName
+        End Get
+        Set(value As String)
+            m_HGUserName = value.Trim("""")
+        End Set
+    End Property
+    Private m_HGUserName As String = ""
+    '
+    ' ***********************************************
+    ' *****     Website
+    ' ***********************************************
+    '
+    Public Property Website As String
+        Get
+            Return m_Website
+        End Get
+        Set(value As String)
+            m_Website = value.Trim("""")
+        End Set
+    End Property
+    Private m_Website As String = ""
+    '
+    ' ***********************************************
+    ' *****     GUID
+    ' ***********************************************
+    '
+    Public Property GUID As String
+        Get
+            Return m_GUID
+        End Get
+        Set(value As String)
+            ' MsgBox("Can't set GUID - Home Gauge only!")
+            m_GUID = value.Trim("""")
+        End Set
+    End Property
+    Private m_GUID As String = ""
 End Class

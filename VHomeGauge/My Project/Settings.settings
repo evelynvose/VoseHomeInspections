@@ -2,9 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="My" GeneratedClassName="MySettings" UseMySettingsClassName="true">
   <Profiles />
   <Settings>
-    <Setting Name="DefaultPictureImagePath" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">C:\Users\Evie.4HI-VM3\Dropbox\_Vose Home Inspections\Marketing\Logo\vosehi_hg_175.jpeg</Value>
-    </Setting>
     <Setting Name="PictureFilters" Type="System.Collections.Specialized.StringCollection" Scope="User">
       <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;ArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
@@ -16,6 +13,18 @@
   &lt;string&gt;line1&lt;/string&gt;
   &lt;string&gt;watermark&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
+    </Setting>
+    <Setting Name="DefaultPictureImagePath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">C:\Users\Evie.4HI-VM3\Documents\source\repos\VoseHomeInspections\VHomeGauge\Images\vosehi_vhg_175.jpeg</Value>
+    </Setting>
+    <Setting Name="SplitterLeftDistance" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="SplitterRightDistance" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="People4DataPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Users\Evie.4HI-VM3\Documents\HomeGauge\people4.csv</Value>
     </Setting>
   </Settings>
 </SettingsFile>

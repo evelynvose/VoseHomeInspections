@@ -1,0 +1,16 @@
+﻿-- Script Date: 2/9/2019 8:24 PM  - ErikEJ.SqlCeScripting version 3.5.2.80
+CREATE TABLE [reports] (
+  [Id] int IDENTITY (1,1) NOT NULL
+, [ReportId] nvarchar(25) NOT NULL
+, [ClientName] nvarchar(100) NOT NULL
+, [Address1] nvarchar(100) NOT NULL
+, [Address2] nvarchar(100) NOT NULL
+, [City] nvarchar(100) NOT NULL
+, [State] nvarchar(2) NOT NULL
+, [ZipCode] nvarchar(10) NOT NULL
+, [AgentName] nvarchar(100) NOT NULL
+, [Uploaded] bit NOT NULL
+);
+GO
+ALTER TABLE [reports] ADD CONSTRAINT [PK_reports] PRIMARY KEY ([Id]);
+GO

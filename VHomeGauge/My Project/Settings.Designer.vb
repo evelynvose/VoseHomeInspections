@@ -54,16 +54,6 @@ Namespace My
             End Get
         End Property
         
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("C:\Users\Evie.4HI-VM3\Dropbox\_Vose Home Inspections\Marketing\Logo\vosehi_hg_175"& _ 
-            ".jpeg")>  _
-        Public ReadOnly Property DefaultPictureImagePath() As String
-            Get
-                Return CType(Me("DefaultPictureImagePath"),String)
-            End Get
-        End Property
-        
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("<?xml version=""1.0"" encoding=""utf-16""?>"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"<ArrayOfString xmlns:xsi=""http://www.w3."& _ 
@@ -77,6 +67,52 @@ Namespace My
             End Get
             Set
                 Me("PictureFilters") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("C:\Users\Evie.4HI-VM3\Documents\source\repos\VoseHomeInspections\VHomeGauge\Image"& _ 
+            "s\vosehi_vhg_175.jpeg")>  _
+        Public ReadOnly Property DefaultPictureImagePath() As String
+            Get
+                Return CType(Me("DefaultPictureImagePath"),String)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property SplitterLeftDistance() As Integer
+            Get
+                Return CType(Me("SplitterLeftDistance"),Integer)
+            End Get
+            Set
+                Me("SplitterLeftDistance") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property SplitterRightDistance() As Integer
+            Get
+                Return CType(Me("SplitterRightDistance"),Integer)
+            End Get
+            Set
+                Me("SplitterRightDistance") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("C:\Users\Evie.4HI-VM3\Documents\HomeGauge\people4.csv")>  _
+        Public Property People4DataPath() As String
+            Get
+                Return CType(Me("People4DataPath"),String)
+            End Get
+            Set
+                Me("People4DataPath") = value
             End Set
         End Property
     End Class

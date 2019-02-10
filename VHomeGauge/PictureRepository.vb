@@ -43,14 +43,20 @@ Public Class PictureRepository
             picturesDetails.Add(New PictureInfo(My.Settings.DefaultPictureImagePath))
 
         Else
-            For Each filepath As String In Directory.GetFiles(folderpath)
-                If Not Main.PictureFilter.IsFiltered(filepath) Then
-                    If filepath.Contains(".jpg") Then
-                        picturesDetails.Add(New PictureInfo(filepath))
+            Try
+                For Each filepath As String In Directory.GetFiles(folderpath)
+                    If Not Main.PictureFilter.IsFiltered(filepath) Then
+                        If filepath.Contains(".jpg") Then
+                            picturesDetails.Add(New PictureInfo(filepath))
 
+                        End If
                     End If
-                End If
-            Next
+                Next
+            Catch e As Exception
+                MsgBox(e.Message)
+
+            End Try
+
         End If
 
 
