@@ -15,7 +15,10 @@ Public Class Report
     ' ****
     ' **********************************************
     ' 
-    Public Sub New()
+    ' For now, we're only going to allow reports to opened that exist. The HGReportProcessor will
+    ' read a HG report and enter it into the VReports dB.  This object, given a Guid, can then pull
+    ' data from the dB and fill itself.
+    Public Sub New(ByVal Guid As String)
         Initialize()
 
     End Sub

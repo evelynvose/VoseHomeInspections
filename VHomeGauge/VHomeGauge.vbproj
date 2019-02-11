@@ -96,9 +96,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Report.vb" />
+    <Compile Include="ReportPerson.vb" />
     <Compile Include="ReportClient.vb" />
     <Compile Include="ClientRepository.vb" />
     <Compile Include="AgentRepository.vb" />
+    <Compile Include="dsPerson.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsPerson.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dsPerson.vb">
+      <DependentUpon>dsPerson.xsd</DependentUpon>
+    </Compile>
     <Compile Include="WorkFormOpenReport.Designer.vb">
       <DependentUpon>WorkFormOpenReport.vb</DependentUpon>
     </Compile>
@@ -179,6 +188,17 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="packages.config" />
+    <None Include="dsPerson.xsc">
+      <DependentUpon>dsPerson.xsd</DependentUpon>
+    </None>
+    <None Include="dsPerson.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsPerson.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="dsPerson.xss">
+      <DependentUpon>dsPerson.xsd</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="My Project\DataSources\" />
@@ -194,6 +214,9 @@
     <Content Include="Resources\client.png" />
     <Content Include="Images\rep.png" />
     <Content Include="Resources\gear.png" />
+    <Content Include="vreports.accdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Resources\gear1.png" />
     <None Include="Resources\gear2.png" />
     <Content Include="Resources\rep.png" />
