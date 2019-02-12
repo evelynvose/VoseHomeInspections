@@ -1,6 +1,6 @@
 ﻿Imports Syncfusion.Windows.Forms
 Imports System.Xml
-Imports System.Data.Common
+Imports System.Data
 
 '
 ' **********************************************
@@ -25,7 +25,7 @@ Public Class WorkFormOpenReport
             m_xmld = New XmlDocument()
 
             'Load the Xml file
-            m_xmld.Load(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\190202192E 1.2\report.hr5")
+            m_xmld.Load(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\190202192E\report.hr5")
 
             ' Set the namespace
             Dim oManager As XmlNamespaceManager = New XmlNamespaceManager(New NameTable())
@@ -43,9 +43,9 @@ Public Class WorkFormOpenReport
                 ParseReportPersonFromNode(m_node)
             Next
 
-        Catch errorVariable As Exception
+        Catch ex As Exception
             'Error trapping
-            Console.Write(errorVariable.ToString())
+            MsgBox(ex.Message)
 
         End Try
     End Sub
@@ -54,34 +54,70 @@ Public Class WorkFormOpenReport
         If IsNothing(node) Then Exit Sub
 
         Dim parser As New XMLParser(node)
-        Dim set1 As New dsPerson
         Dim thePersonGuid As New Guid(parser.GetPropertyValue("prop[@name='CGuid']"))
-        Dim value As String
 
-        Dim tap As vreportsDataSetTableAdapters.PhonesTableAdapter
-        tap = New vreportsDataSetTableAdapters.PhonesTableAdapter
-        value = parser.GetPropertyValue("prop[@name='CMobilePhone']")
-        If value <> "" Then
-            If tap.GetDataByPersonIDandType(thePersonGuid, 0).Count > 0 Then
-                tap.InsertQuery(Guid.NewGuid(), thePersonGuid, value, 0)
+
+        Dim ta As New vreportsDataSetTableAdapters.PhoneTableAdapter
+        '
+        ' ***********************************************
+        ' *****     Mobile Phone
+        ' ***********************************************
+        '
+        Try
+            ta.Connection.ConnectionString = My.Settings.ConnectionString
+            ta.Insert(Guid.NewGuid, thePersonGuid, parser.GetPropertyValue("prop[@name='CMobilePhone']"), PhoneTypes.Mobile)
+
+        Catch e As Exception
+            ' lazy girl's way of preventing duplicate values instead of querying to see
+            If Not e.Message.Contains("duplicate values") Then
+                MsgBox(e.Message)
 
             End If
-        End If
+        End Try
+        '
+        ' ***********************************************
+        ' *****     Home Phone
+        ' ***********************************************
+        '
+        Try
+            ta.Connection.ConnectionString = My.Settings.ConnectionString
+            ta.Insert(Guid.NewGuid, thePersonGuid, parser.GetPropertyValue("prop[@name='CHomePhone']"), PhoneTypes.Home)
+
+        Catch e As Exception
+            ' lazy girl's way of preventing duplicate values instead of querying to see
+            If Not e.Message.Contains("duplicate values") Then
+                MsgBox(e.Message)
+
+            End If
+        End Try
+        '
+        ' ***********************************************
+        ' *****     Work Phone
+        ' ***********************************************
+        '
+        Try
+            ta.Connection.ConnectionString = My.Settings.ConnectionString
+            ta.Insert(Guid.NewGuid, thePersonGuid, parser.GetPropertyValue("prop[@name='CWorkPhone']"), PhoneTypes.Work)
+
+        Catch e As Exception
+            ' lazy girl's way of preventing duplicate values instead of querying to see
+            If Not e.Message.Contains("duplicate values") Then
+                MsgBox(e.Message)
+
+            End If
+        End Try
 
         ' First email, if any
-        Dim tae As vreportsDataSetTableAdapters.EmailsTableAdapter
-        tae = New vreportsDataSetTableAdapters.EmailsTableAdapter
-        Dim dte As vreportsDataSet.EmailsDataTable
-        dte = New vreportsDataSet.EmailsDataTable
-        value = parser.GetPropertyValue("prop[@name='CEmail']")
-        If value <> "" Then
-            tae.InsertQuery(Guid.NewGuid(), thePersonGuid, value, 0)
-            tae.Update(dte)
+        '    Dim tae As vreportsDataSetTableAdapters.EmailsTableAdapter
+        '    tae = New vreportsDataSetTableAdapters.EmailsTableAdapter
+        '    Dim dte As vreportsDataSet.EmailsDataTable
+        '    dte = New vreportsDataSet.EmailsDataTable
+        '    value = parser.GetPropertyValue("prop[@name='CEmail']")
+        '    If value <> "" Then
+        '        tae.InsertQuery(Guid.NewGuid(), thePersonGuid, value, 0)
+        '        tae.Update(dte)
 
-        End If
-
-
-
+        '    End If
         'FirstName = GetPropertyValue("prop[@name='CFName1']")
         'LastName = GetPropertyValue("prop[@name='CLName1']")
         'Email2 = GetPropertyValue("prop[@name='CEmail2']")

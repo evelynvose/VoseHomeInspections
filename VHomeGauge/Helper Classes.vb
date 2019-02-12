@@ -39,3 +39,9 @@ Public Class XMLParser
     End Function
 
 End Class
+
+Public Enum PhoneTypes
+    Mobile
+    Home
+    Work
+End Enum
