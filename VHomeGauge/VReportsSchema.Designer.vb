@@ -446,7 +446,6 @@ Partial Public Class vreportsDataSet
             Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnID}, true))
             Me.columnID.AllowDBNull = false
             Me.columnID.Unique = true
-            Me.columnPersonID.AllowDBNull = false
             Me.columnNumber.MaxLength = 255
         End Sub
         
@@ -607,7 +606,11 @@ Partial Public Class vreportsDataSet
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Public Property PersonID() As System.Guid
             Get
-                Return CType(Me(Me.tablePhone.PersonIDColumn),Global.System.Guid)
+                Try 
+                    Return CType(Me(Me.tablePhone.PersonIDColumn),Global.System.Guid)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PersonID' in table 'Phone' is DBNull.", e)
+                End Try
             End Get
             Set
                 Me(Me.tablePhone.PersonIDColumn) = value
@@ -643,6 +646,18 @@ Partial Public Class vreportsDataSet
                 Me(Me.tablePhone.TypeColumn) = value
             End Set
         End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public Function IsPersonIDNull() As Boolean
+            Return Me.IsNull(Me.tablePhone.PersonIDColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public Sub SetPersonIDNull()
+            Me(Me.tablePhone.PersonIDColumn) = Global.System.Convert.DBNull
+        End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
@@ -891,11 +906,16 @@ Namespace vreportsDataSetTableAdapters
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Private Sub InitCommandCollection()
-            Me._commandCollection = New Global.System.Data.OleDb.OleDbCommand(0) {}
+            Me._commandCollection = New Global.System.Data.OleDb.OleDbCommand(1) {}
             Me._commandCollection(0) = New Global.System.Data.OleDb.OleDbCommand()
             Me._commandCollection(0).Connection = Me.Connection
             Me._commandCollection(0).CommandText = "SELECT ID, PersonID, [Number], Type FROM Phone"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
+            Me._commandCollection(1) = New Global.System.Data.OleDb.OleDbCommand()
+            Me._commandCollection(1).Connection = Me.Connection
+            Me._commandCollection(1).CommandText = "SELECT ID, PersonID, [Number], Type FROM Phone WHERE PersonID = ?"
+            Me._commandCollection(1).CommandType = Global.System.Data.CommandType.Text
+            Me._commandCollection(1).Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("PersonID", Global.System.Data.OleDb.OleDbType.Guid, 1024, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "PersonID", Global.System.Data.DataRowVersion.Current, false, Nothing))
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -917,6 +937,40 @@ Namespace vreportsDataSetTableAdapters
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
         Public Overloads Overridable Function GetData() As vreportsDataSet.PhoneDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
+            Dim dataTable As vreportsDataSet.PhoneDataTable = New vreportsDataSet.PhoneDataTable()
+            Me.Adapter.Fill(dataTable)
+            Return dataTable
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, false)>  _
+        Public Overloads Overridable Function FillByPersonID(ByVal dataTable As vreportsDataSet.PhoneDataTable, ByVal PersonID As Object) As Integer
+            Me.Adapter.SelectCommand = Me.CommandCollection(1)
+            If (PersonID Is Nothing) Then
+                Throw New Global.System.ArgumentNullException("PersonID")
+            Else
+                Me.Adapter.SelectCommand.Parameters(0).Value = CType(PersonID,Object)
+            End If
+            If (Me.ClearBeforeFill = true) Then
+                dataTable.Clear
+            End If
+            Dim returnValue As Integer = Me.Adapter.Fill(dataTable)
+            Return returnValue
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)>  _
+        Public Overloads Overridable Function GetDataByPersonID(ByVal PersonID As Object) As vreportsDataSet.PhoneDataTable
+            Me.Adapter.SelectCommand = Me.CommandCollection(1)
+            If (PersonID Is Nothing) Then
+                Throw New Global.System.ArgumentNullException("PersonID")
+            Else
+                Me.Adapter.SelectCommand.Parameters(0).Value = CType(PersonID,Object)
+            End If
             Dim dataTable As vreportsDataSet.PhoneDataTable = New vreportsDataSet.PhoneDataTable()
             Me.Adapter.Fill(dataTable)
             Return dataTable
@@ -954,7 +1008,7 @@ Namespace vreportsDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, true)>  _
-        Public Overloads Overridable Function Delete(ByVal Original_ID As System.Guid, ByVal Original_PersonID As System.Guid, ByVal Original_Number As String, ByVal Original_Type As Global.System.Nullable(Of Integer)) As Integer
+        Public Overloads Overridable Function Delete(ByVal Original_ID As System.Guid, ByVal Original_PersonID As System.Guid, ByVal Original_Number As String, ByVal Original_Type As Integer) As Integer
             Me.Adapter.DeleteCommand.Parameters(0).Value = CType(Original_ID,System.Guid)
             Me.Adapter.DeleteCommand.Parameters(1).Value = CType(0,Object)
             Me.Adapter.DeleteCommand.Parameters(2).Value = CType(Original_PersonID,System.Guid)
@@ -965,13 +1019,8 @@ Namespace vreportsDataSetTableAdapters
                 Me.Adapter.DeleteCommand.Parameters(3).Value = CType(0,Object)
                 Me.Adapter.DeleteCommand.Parameters(4).Value = CType(Original_Number,String)
             End If
-            If (Original_Type.HasValue = true) Then
-                Me.Adapter.DeleteCommand.Parameters(5).Value = CType(0,Object)
-                Me.Adapter.DeleteCommand.Parameters(6).Value = CType(Original_Type.Value,Integer)
-            Else
-                Me.Adapter.DeleteCommand.Parameters(5).Value = CType(1,Object)
-                Me.Adapter.DeleteCommand.Parameters(6).Value = Global.System.DBNull.Value
-            End If
+            Me.Adapter.DeleteCommand.Parameters(5).Value = CType(0,Object)
+            Me.Adapter.DeleteCommand.Parameters(6).Value = CType(Original_Type,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.DeleteCommand.Connection.State
             If ((Me.Adapter.DeleteCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -991,7 +1040,7 @@ Namespace vreportsDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, true)>  _
-        Public Overloads Overridable Function Insert(ByVal ID As System.Guid, ByVal PersonID As System.Guid, ByVal Number As String, ByVal Type As Global.System.Nullable(Of Integer)) As Integer
+        Public Overloads Overridable Function Insert(ByVal ID As System.Guid, ByVal PersonID As System.Guid, ByVal Number As String, ByVal Type As Integer) As Integer
             Me.Adapter.InsertCommand.Parameters(0).Value = CType(ID,System.Guid)
             Me.Adapter.InsertCommand.Parameters(1).Value = CType(PersonID,System.Guid)
             If (Number Is Nothing) Then
@@ -999,11 +1048,7 @@ Namespace vreportsDataSetTableAdapters
             Else
                 Me.Adapter.InsertCommand.Parameters(2).Value = CType(Number,String)
             End If
-            If (Type.HasValue = true) Then
-                Me.Adapter.InsertCommand.Parameters(3).Value = CType(Type.Value,Integer)
-            Else
-                Me.Adapter.InsertCommand.Parameters(3).Value = Global.System.DBNull.Value
-            End If
+            Me.Adapter.InsertCommand.Parameters(3).Value = CType(Type,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.InsertCommand.Connection.State
             If ((Me.Adapter.InsertCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -1023,7 +1068,7 @@ Namespace vreportsDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
-        Public Overloads Overridable Function Update(ByVal ID As System.Guid, ByVal PersonID As System.Guid, ByVal Number As String, ByVal Type As Global.System.Nullable(Of Integer), ByVal Original_ID As System.Guid, ByVal Original_PersonID As System.Guid, ByVal Original_Number As String, ByVal Original_Type As Global.System.Nullable(Of Integer)) As Integer
+        Public Overloads Overridable Function Update(ByVal ID As System.Guid, ByVal PersonID As System.Guid, ByVal Number As String, ByVal Type As Integer, ByVal Original_ID As System.Guid, ByVal Original_PersonID As System.Guid, ByVal Original_Number As String, ByVal Original_Type As Integer) As Integer
             Me.Adapter.UpdateCommand.Parameters(0).Value = CType(ID,System.Guid)
             Me.Adapter.UpdateCommand.Parameters(1).Value = CType(PersonID,System.Guid)
             If (Number Is Nothing) Then
@@ -1031,11 +1076,7 @@ Namespace vreportsDataSetTableAdapters
             Else
                 Me.Adapter.UpdateCommand.Parameters(2).Value = CType(Number,String)
             End If
-            If (Type.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(3).Value = CType(Type.Value,Integer)
-            Else
-                Me.Adapter.UpdateCommand.Parameters(3).Value = Global.System.DBNull.Value
-            End If
+            Me.Adapter.UpdateCommand.Parameters(3).Value = CType(Type,Integer)
             Me.Adapter.UpdateCommand.Parameters(4).Value = CType(Original_ID,System.Guid)
             Me.Adapter.UpdateCommand.Parameters(5).Value = CType(0,Object)
             Me.Adapter.UpdateCommand.Parameters(6).Value = CType(Original_PersonID,System.Guid)
@@ -1046,13 +1087,8 @@ Namespace vreportsDataSetTableAdapters
                 Me.Adapter.UpdateCommand.Parameters(7).Value = CType(0,Object)
                 Me.Adapter.UpdateCommand.Parameters(8).Value = CType(Original_Number,String)
             End If
-            If (Original_Type.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(9).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(10).Value = CType(Original_Type.Value,Integer)
-            Else
-                Me.Adapter.UpdateCommand.Parameters(9).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(10).Value = Global.System.DBNull.Value
-            End If
+            Me.Adapter.UpdateCommand.Parameters(9).Value = CType(0,Object)
+            Me.Adapter.UpdateCommand.Parameters(10).Value = CType(Original_Type,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.UpdateCommand.Connection.State
             If ((Me.Adapter.UpdateCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -1072,7 +1108,7 @@ Namespace vreportsDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
-        Public Overloads Overridable Function Update(ByVal PersonID As System.Guid, ByVal Number As String, ByVal Type As Global.System.Nullable(Of Integer), ByVal Original_ID As System.Guid, ByVal Original_PersonID As System.Guid, ByVal Original_Number As String, ByVal Original_Type As Global.System.Nullable(Of Integer)) As Integer
+        Public Overloads Overridable Function Update(ByVal PersonID As System.Guid, ByVal Number As String, ByVal Type As Integer, ByVal Original_ID As System.Guid, ByVal Original_PersonID As System.Guid, ByVal Original_Number As String, ByVal Original_Type As Integer) As Integer
             Return Me.Update(Original_ID, PersonID, Number, Type, Original_ID, Original_PersonID, Original_Number, Original_Type)
         End Function
     End Class

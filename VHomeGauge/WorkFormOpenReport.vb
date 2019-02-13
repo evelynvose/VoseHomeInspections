@@ -41,6 +41,7 @@ Public Class WorkFormOpenReport
             'Loop through the nodes
             For Each m_node In m_nodelist
                 ParseReportPersonFromNode(m_node)
+
             Next
 
         Catch ex As Exception
@@ -54,58 +55,119 @@ Public Class WorkFormOpenReport
         If IsNothing(node) Then Exit Sub
 
         Dim parser As New XMLParser(node)
-        Dim thePersonGuid As New Guid(parser.GetPropertyValue("prop[@name='CGuid']"))
 
+        ' This is not an acceptable condition
+        If parser.GetPropertyValue("prop[@name='CGuid']") = "" Then Exit Sub
 
-        Dim ta As New vreportsDataSetTableAdapters.PhoneTableAdapter
-        '
-        ' ***********************************************
-        ' *****     Mobile Phone
-        ' ***********************************************
-        '
-        Try
-            ta.Connection.ConnectionString = My.Settings.ConnectionString
-            ta.Insert(Guid.NewGuid, thePersonGuid, parser.GetPropertyValue("prop[@name='CMobilePhone']"), PhoneTypes.Mobile)
+        ' Convert the string representation of the HG Report GUID to a GUID struct
+        Dim thePersonID As Guid = New Guid(parser.GetPropertyValue("prop[@name='CGuid']"))
 
-        Catch e As Exception
-            ' lazy girl's way of preventing duplicate values instead of querying to see
-            If Not e.Message.Contains("duplicate values") Then
-                MsgBox(e.Message)
+        ' Let's keep a new row opject pointer handy
+        Dim newRow As vreportsDataSet.PhoneRow
 
-            End If
-        End Try
-        '
-        ' ***********************************************
-        ' *****     Home Phone
-        ' ***********************************************
-        '
-        Try
-            ta.Connection.ConnectionString = My.Settings.ConnectionString
-            ta.Insert(Guid.NewGuid, thePersonGuid, parser.GetPropertyValue("prop[@name='CHomePhone']"), PhoneTypes.Home)
+        ' We'll ne a found flag
+        Dim bIsFound As Boolean
 
-        Catch e As Exception
-            ' lazy girl's way of preventing duplicate values instead of querying to see
-            If Not e.Message.Contains("duplicate values") Then
-                MsgBox(e.Message)
+        Using dt As vreportsDataSet.PhoneDataTable = New vreportsDataSet.PhoneDataTable
+            Using ta = New vreportsDataSetTableAdapters.PhoneTableAdapter
 
-            End If
-        End Try
-        '
-        ' ***********************************************
-        ' *****     Work Phone
-        ' ***********************************************
-        '
-        Try
-            ta.Connection.ConnectionString = My.Settings.ConnectionString
-            ta.Insert(Guid.NewGuid, thePersonGuid, parser.GetPropertyValue("prop[@name='CWorkPhone']"), PhoneTypes.Work)
+                ' Fill the data table (if the person ID exists)
+                ta.FillByPersonID(dt, thePersonID)
 
-        Catch e As Exception
-            ' lazy girl's way of preventing duplicate values instead of querying to see
-            If Not e.Message.Contains("duplicate values") Then
-                MsgBox(e.Message)
+                '
+                ' ***********************************************
+                ' *****     Mobile Phone
+                ' ***********************************************
+                '
+                ' Check to see if the phone record exists and if it does, update it with the new phone number
+                For Each mobileRow As vreportsDataSet.PhoneRow In dt
+                    With mobileRow
+                        If .PersonID = thePersonID AndAlso .Type = PhoneTypes.Mobile Then
+                            .Number = parser.GetPropertyValue("prop[@name='CMobilePhone']")
+                            bIsFound = True
 
-            End If
-        End Try
+                        End If
+                    End With
+                Next
+
+                ' Didn't find an existing phone record to update let's insert the
+                ' preconfigured new phone record
+                If Not bIsFound Then
+                    newRow = dt.NewPhoneRow
+                    With newRow
+                        .ID = Guid.NewGuid()
+                        .PersonID = thePersonID
+                        .Number = parser.GetPropertyValue("prop[@name='CMobilePhone']")
+                        .Type = PhoneTypes.Mobile
+
+                    End With
+                    dt.AddPhoneRow(newRow)
+                End If
+
+                '
+                ' ***********************************************
+                ' *****     Home Phone
+                ' ***********************************************
+                '
+                ' Check to see if the phone record exists and if it does, update it with the new phone number
+                For Each mobileRow As vreportsDataSet.PhoneRow In dt
+                    With mobileRow
+                        If .PersonID = thePersonID AndAlso .Type = PhoneTypes.Home Then
+                            .Number = parser.GetPropertyValue("prop[@name='CHomePhone']")
+                            bIsFound = True
+
+                        End If
+                    End With
+                Next
+
+                ' Didn't find an existing phone record to update let's insert the
+                ' preconfigured new phone record
+                If Not bIsFound Then
+                    bIsFound = False
+                    newRow = dt.NewPhoneRow
+                    With newRow
+                        .ID = Guid.NewGuid()
+                        .PersonID = thePersonID
+                        .Number = parser.GetPropertyValue("prop[@name='CHomePhone']")
+                        .Type = PhoneTypes.Home
+
+                    End With
+                    dt.AddPhoneRow(newRow)
+                End If
+                '
+                ' ***********************************************
+                ' *****     Work Phone
+                ' ***********************************************
+                '
+                ' Check to see if the phone record exists and if it does, update it with the new phone number
+                For Each mobileRow As vreportsDataSet.PhoneRow In dt
+                    With mobileRow
+                        If .PersonID = thePersonID AndAlso .Type = PhoneTypes.Work Then
+                            .Number = parser.GetPropertyValue("prop[@name='CWorkPhone']")
+                            bIsFound = True
+
+                        End If
+                    End With
+                Next
+
+                ' Didn't find an existing phone record to update let's insert the
+                ' preconfigured new phone record
+                If Not bIsFound Then
+                    bIsFound = False
+                    newRow = dt.NewPhoneRow
+                    With newRow
+                        .ID = Guid.NewGuid()
+                        .PersonID = thePersonID
+                        .Number = parser.GetPropertyValue("prop[@name='CWorkPhone']")
+                        .Type = PhoneTypes.Work
+
+                    End With
+                    dt.AddPhoneRow(newRow)
+                End If
+                ta.Update(dt)
+            End Using 'dt
+        End Using 'ta
+
 
         ' First email, if any
         '    Dim tae As vreportsDataSetTableAdapters.EmailsTableAdapter
@@ -114,7 +176,7 @@ Public Class WorkFormOpenReport
         '    dte = New vreportsDataSet.EmailsDataTable
         '    value = parser.GetPropertyValue("prop[@name='CEmail']")
         '    If value <> "" Then
-        '        tae.InsertQuery(Guid.NewGuid(), thePersonGuid, value, 0)
+        '        tae.InsertQuery(Guid.NewGuid(), thePersonID, value, 0)
         '        tae.Update(dte)
 
         '    End If
