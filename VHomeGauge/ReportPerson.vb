@@ -28,7 +28,7 @@ Public Class ReportPerson
     ' 
     Protected Friend Overridable Function Load() As Boolean
         If Not m_IsDirty Then Return False
-
+        Return True
 
     End Function
     '
