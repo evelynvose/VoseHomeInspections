@@ -99,6 +99,8 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Address.vb" />
+    <Compile Include="ClientAddress.vb" />
     <Compile Include="Report.vb" />
     <Compile Include="ReportPerson.vb" />
     <Compile Include="ReportClient.vb" />

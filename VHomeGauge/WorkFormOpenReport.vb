@@ -45,7 +45,7 @@ Public Class WorkFormOpenReport
 
             'Loop through the nodes
             For Each m_node In m_nodelist
-                ParseReportPersonFromNode(m_node)
+                ParseClientsFromNode(m_node)
 
             Next
 
@@ -92,7 +92,7 @@ Public Class WorkFormOpenReport
         ' We'll need a found flag
         Dim IsFound As Boolean
 
-        ' Check if the job site address exists and 1) get the AddressID, or 2) update the address 
+        'Check If the job site address exists And 1) get the AddressID, Or 2) update the address 
         Dim jobAddress As Guid
         jobAddress = AddressUpdate(
                                 parser.GetPropertyValue("prop[@name='RIAddress1']"),
@@ -338,12 +338,12 @@ Public Class WorkFormOpenReport
     ' ***********************************************    
     ' ***********************************************
     ' ***
-    ' *****      Parse Report Person From Node
+    ' *****      Parse Client(s) From Node
     ' ***
     ' ***********************************************
     ' ***********************************************
     '
-    Public Sub ParseReportPersonFromNode(ByVal node As XmlNode)
+    Public Sub ParseClientsFromNode(ByVal node As XmlNode)
         If IsNothing(node) Then Exit Sub
 
         Dim parser As New XMLParser(node)
@@ -469,7 +469,7 @@ Public Class WorkFormOpenReport
                     ta.Update(dt)
 
                 Catch ex As Exception
-                    MsgBox(" ParseReportPersonFromNode()" & vbCrLf & ex.Message)
+                    MsgBox(" ParseClientsFromNode()" & vbCrLf & ex.Message)
 
                 End Try
 
@@ -587,56 +587,19 @@ Public Class WorkFormOpenReport
         ' *****      PHYSICAL ADDRESSES
         ' ***********************************************
         '
-        Using dt As vreportsDataSet.AddressDataTable = New vreportsDataSet.AddressDataTable
-            Using ta = New vreportsDataSetTableAdapters.AddressTableAdapter
+        Dim theClientAddress As ClientAddress = New ClientAddress(thePersonID)
 
-                ' Let's keep a new row opject pointer handy
-                Dim newRow As vreportsDataSet.AddressRow
+        With theClientAddress
+            .Address1 = parser.GetPropertyValue("prop[@name='CAddress']")
+            .Address2 = parser.GetPropertyValue("prop[@name='CAddress2']")
+            .City = parser.GetPropertyValue("prop[@name='CCity']")
+            .State = parser.GetPropertyValue("prop[@name='CState']")
+            .ZipCode = parser.GetPropertyValue("prop[@name='CZip']")
+            .County = parser.GetPropertyValue("prop[@name='CCounty']")
+            .Country = parser.GetPropertyValue("prop[@name='CCountry']")
+            .Update()
 
-                ' Fill the data table (if the person ID exists)
-                ta.FillByPersonID(dt, thePersonID)
-                '
-                ' ***********************************************
-                ' *****     Current/Billing Address
-                ' ***********************************************
-                '
-                ' Check to see if the record exists and if it does, update it.
-                IsFound = False
-                For Each Row As vreportsDataSet.AddressRow In dt
-                    With Row
-                        If .PersonId = thePersonID AndAlso .Type = AddressTypes.Current Then
-                            .Address1 = parser.GetPropertyValue("prop[@name='CAddress']")
-                            .Address2 = parser.GetPropertyValue("prop[@name='CAddress2']")
-                            .City = parser.GetPropertyValue("prop[@name='CCity']")
-                            .State = parser.GetPropertyValue("prop[@name='CState']")
-                            .ZipCode = parser.GetPropertyValue("prop[@name='CZip']")
-                            .Country = parser.GetPropertyValue("prop[@name='CCountry']")
-                            IsFound = True
-
-                        End If
-                    End With
-                Next
-
-                ' Didn't find an existing phone record to update so let's insert a new one.
-                If Not IsFound Then
-                    newRow = dt.NewAddressRow
-                    With newRow
-                        .ID = Guid.NewGuid()
-                        .PersonId = thePersonID
-                        .Address1 = parser.GetPropertyValue("prop[@name='CAddress']")
-                        .Address2 = parser.GetPropertyValue("prop[@name='CAddress2']")
-                        .City = parser.GetPropertyValue("prop[@name='CCity']")
-                        .State = parser.GetPropertyValue("prop[@name='CState']")
-                        .ZipCode = parser.GetPropertyValue("prop[@name='CZip']")
-                        .Country = parser.GetPropertyValue("prop[@name='CCountry']")
-                        .Type = AddressTypes.Current
-
-                    End With
-                    dt.AddAddressRow(newRow)
-                End If
-                ta.Update(dt)
-            End Using 'dt
-        End Using 'ta
+        End With
         '
         ' ***********************************************
         ' *****      CLIENT NAMES
@@ -786,4 +749,5 @@ Public Class WorkFormOpenReport
         Return matchAddressId
 
     End Function
+
 End Class

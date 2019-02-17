@@ -56,9 +56,10 @@ Public Enum EmailTypes
 End Enum
 
 
-Public Enum AddressTypes
-    Current
+Public Enum AddressTypes ' Must match database!
+    Residential
     JobSite
+    Company
 
 End Enum
 
@@ -77,3 +78,6 @@ Public Enum CompanyTypes
     Other
 
 End Enum
+
+
+
