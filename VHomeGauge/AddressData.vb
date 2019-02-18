@@ -7,7 +7,7 @@
 ' 
 Imports SyncfusionWindowsFormsApplication1
 
-Public MustInherit Class Address
+Public MustInherit Class AddressData
     '
     ' **********************************************
     ' ****
@@ -15,71 +15,10 @@ Public MustInherit Class Address
     ' ****
     ' **********************************************
     ' 
-    Public Sub New()
+    Friend Sub New()
         Initialize()
 
     End Sub
-    '
-    ' ***********************************************
-    ' *****     Finalize
-    ' ***********************************************
-    '
-    Protected Overrides Sub Finalize()
-        Update()
-
-    End Sub
-    '
-    ' **********************************************
-    ' ****
-    ' ******    Methods
-    ' ****
-    ' **********************************************
-    ' 
-    Public Function Update() As Boolean
-        If Not IsDirty Then Return IsDirty ' nothing to save or update
-
-        Using ta As vreportsDataSetTableAdapters.AddressTableAdapter = New vreportsDataSetTableAdapters.AddressTableAdapter
-            Using dt As vreportsDataSet.AddressDataTable = New vreportsDataSet.AddressDataTable
-                Dim row As vreportsDataSet.AddressRow
-                ta.FillByID(dt, AddressID)
-                If dt.Count = 0 Then
-                    row = dt.NewAddressRow
-
-                Else
-                    row = dt.Rows(0)
-
-                End If
-                With row
-                    .ID = AddressID
-                    .Address1 = Address1
-                    .Address2 = Address2
-                    .City = City
-                    .State = State
-                    .ZipCode = ZipCode
-                    .County = County
-                    .Country = Country
-                    .PersonId = PersonID
-                    .ReportID = ReportID
-                    .CompanyID = CompanyID
-                    .Type = AddressType
-
-                End With
-
-                Try
-                    If dt.Count = 0 Then dt.AddAddressRow(row)
-                    ta.Update(dt)
-                    IsDirty = False
-                Catch ex As Exception
-                    MsgBox("Update()" & vbCrLf & ex.Message)
-
-                End Try
-
-            End Using 'ta
-        End Using ' dt
-
-        Return IsDirty
-
-    End Function
     '
     ' ***********************************************
     ' *****     Initialize
@@ -114,7 +53,7 @@ Public MustInherit Class Address
     Private m_ZipCode As String = ""
     Private m_County As String = ""
     Private m_Country As String = "US"
-    Private m_AddressType As AddressTypes
+    Private m_AddressType As AddressTypes = "-1"
     Private m_IsDirty As Boolean
 
 
@@ -247,7 +186,7 @@ Public MustInherit Class Address
         End Set
     End Property
 
-    Public Enum ObjectState
+    Public Enum ObjectStates
         NewRecord
         ExistingRecord
         ErrorCondition

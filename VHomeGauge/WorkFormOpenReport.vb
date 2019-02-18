@@ -64,6 +64,13 @@ Public Class WorkFormOpenReport
             MsgBox(ex.Message)
 
         End Try
+        '
+        ' Tell the world that we are done!
+        '
+        MsgBox("Report is Imported!",, "Report Import")
+        '
+        '
+        '
     End Sub
     '
     ' **********************************************
@@ -91,19 +98,7 @@ Public Class WorkFormOpenReport
 
         ' We'll need a found flag
         Dim IsFound As Boolean
-
-        'Check If the job site address exists And 1) get the AddressID, Or 2) update the address 
-        Dim jobAddress As Guid
-        jobAddress = AddressUpdate(
-                                parser.GetPropertyValue("prop[@name='RIAddress1']"),
-                                parser.GetPropertyValue("prop[@name='RIAddress2']"),
-                                parser.GetPropertyValue("prop[@name='RICity']"),
-                                parser.GetPropertyValue("prop[@name='RIState']"),
-                                parser.GetPropertyValue("prop[@name='RIZip']"),
-                                parser.GetPropertyValue("prop[@name='RICounty']"),
-                                AddressTypes.JobSite
-                                )
-
+        '
         Using dt As vreportsDataSet.ReportMasterDataTable = New vreportsDataSet.ReportMasterDataTable
             Using ta = New vreportsDataSetTableAdapters.ReportMasterTableAdapter
 
@@ -144,9 +139,6 @@ Public Class WorkFormOpenReport
                                 .InspectionDate = Date.Parse(parser.GetPropertyValue("prop[@name='RIDate']"))
 
                             End If
-
-                            ' Address
-                            .AddressID = jobAddress
 
                             ' Vose doesn't track start and stop times, but it is available so we'll capture it
                             .StartTime = parser.GetPropertyValue("prop[@name='RIStartTime']")
@@ -196,8 +188,6 @@ Public Class WorkFormOpenReport
 
                         End If
 
-                        ' Address
-                        .AddressID = jobAddress
 
                         ' Inspection date
                         If IsDate(parser.GetPropertyValue("prop[@name='RIDate']")) Then
@@ -230,6 +220,22 @@ Public Class WorkFormOpenReport
                 ' Update the data table
                 Try
                     ta.Update(dt)
+
+                    ' Now that we have a valid report we can enter the address
+                    Dim theJobAddress As New JobAddress(m_ReportID)
+                    If theJobAddress.ObjectState = JobAddress.ObjectStates.NewRecord Then
+                        With theJobAddress
+                            .Address1 = parser.GetPropertyValue("prop[@name='RIAddress1']")
+                            .Address2 = parser.GetPropertyValue("prop[@name='RIAddress2']")
+                            .City = parser.GetPropertyValue("prop[@name='RICity']")
+                            .State = parser.GetPropertyValue("prop[@name='RIState']")
+                            .ZipCode = parser.GetPropertyValue("prop[@name='RIZip']")
+                            .County = parser.GetPropertyValue("prop[@name='RICounty']")
+                            .Update()
+
+                        End With
+                    End If
+
 
                 Catch ex As Exception
                     MsgBox("ParseReportInformationFromNode()" & vbCrLf & ex.Message)
@@ -584,24 +590,6 @@ Public Class WorkFormOpenReport
         End Using 'ta
         '
         ' ***********************************************
-        ' *****      PHYSICAL ADDRESSES
-        ' ***********************************************
-        '
-        Dim theClientAddress As ClientAddress = New ClientAddress(thePersonID)
-
-        With theClientAddress
-            .Address1 = parser.GetPropertyValue("prop[@name='CAddress']")
-            .Address2 = parser.GetPropertyValue("prop[@name='CAddress2']")
-            .City = parser.GetPropertyValue("prop[@name='CCity']")
-            .State = parser.GetPropertyValue("prop[@name='CState']")
-            .ZipCode = parser.GetPropertyValue("prop[@name='CZip']")
-            .County = parser.GetPropertyValue("prop[@name='CCounty']")
-            .Country = parser.GetPropertyValue("prop[@name='CCountry']")
-            .Update()
-
-        End With
-        '
-        ' ***********************************************
         ' *****      CLIENT NAMES
         ' ***********************************************
         '
@@ -647,107 +635,39 @@ Public Class WorkFormOpenReport
                     dt.AddPersonRow(newRow)
                 End If
 
-                ta.Update(dt)
-            End Using 'dt
-        End Using 'ta
-
-    End Sub
-    '
-    ' ***********************************************    
-    ' ***********************************************
-    ' ***
-    ' *****     Address Match
-    ' ***       returns either a record GUID or
-    ' ***       a virgin GUID
-    ' ***
-    ' ***********************************************
-    ' ***********************************************
-    '
-    Public Function AddressMatch(ByVal address As String, ByVal city As String, ByVal state As String, ByVal type As AddressTypes) As Guid
-        Using ta As New vreportsDataSetTableAdapters.AddressTableAdapter
-            Using dt As vreportsDataSet.AddressDataTable = ta.GetDataByAddressCityState(address, city, state, type)
-                If dt.Count > 0 Then
-                    Dim row As vreportsDataSet.AddressRow = dt.Rows(0)
-                    Return row.ID
-
-                End If
-            End Using 'dt
-        End Using 'ta
-
-        Return New Guid
-    End Function
-    '
-    ' ***********************************************    
-    ' ***********************************************
-    ' ***
-    ' *****      Address Update
-    ' ***
-    ' ***********************************************
-    ' ***********************************************
-    '
-    Public Function AddressUpdate(ByVal address1 As String, ByVal address2 As String, ByVal city As String, ByVal state As String, ByVal zipcode As String, ByVal county As String, ByVal type As AddressTypes) As Guid
-
-        Dim matchAddressId As Guid
-        matchAddressId = AddressMatch(address1, city, state, type)
-
-        Using dt As New vreportsDataSet.AddressDataTable
-            Using ta As New vreportsDataSetTableAdapters.AddressTableAdapter
-                Dim row As vreportsDataSet.AddressRow
-
-                Dim IsNewRecord As Boolean
-
-                If matchAddressId.Equals(New Guid) Then
-                    matchAddressId = Guid.NewGuid()
-                    IsNewRecord = True
-
-                Else
-                    ta.FillByID(dt, matchAddressId)
-
-                End If
-
-                ' Get an existing row
-                If dt.Count > 0 Then
-                    row = dt.Rows(0)
-
-                Else ' make a new row
-                    row = dt.NewAddressRow '
-
-                End If
-
-                With row
-                    If IsNewRecord Then .ID = matchAddressId
-                    .Address1 = address1
-                    .Address2 = address2
-                    .City = city
-                    .State = state
-                    .ZipCode = zipcode
-                    .County = county
-                    .Country = "US"
-                    .Type = type
-
-                End With
-
-                ' put the row into the data table
-                If IsNewRecord Then
-                    dt.AddAddressRow(row)
-
-                End If
-
-                ' Send the update to the database
                 Try
                     ta.Update(dt)
 
                 Catch ex As Exception
-                    MsgBox("UpdateAddress()" & vbCrLf & ex.Message)
+                    MsgBox("Create or Update Client()" & vbCrLf & ex.Message)
 
                 End Try
 
-            End Using 'ta
-        End Using 'dt
+            End Using 'dt
+        End Using 'ta
+        '
+        ' ***********************************************
+        ' *****      PHYSICAL ADDRESSES
+        ' ***********************************************
+        '
+        ' This has to come after the PersonID is created in the dB, otherwise, the object won't know how
+        ' to type the object.
+        '
+        Dim theClientAddress As ClientAddress = New ClientAddress(thePersonID)
+        '
+        With theClientAddress
+            .Address1 = parser.GetPropertyValue("prop[@name='CAddress']")
+            .Address2 = parser.GetPropertyValue("prop[@name='CAddress2']")
+            .City = parser.GetPropertyValue("prop[@name='CCity']")
+            .State = parser.GetPropertyValue("prop[@name='CState']")
+            .ZipCode = parser.GetPropertyValue("prop[@name='CZip']")
+            .County = parser.GetPropertyValue("prop[@name='CCounty']")
+            .Country = parser.GetPropertyValue("prop[@name='CCountry']")
+            .Update()
+
+        End With
 
 
-        Return matchAddressId
-
-    End Function
-
+    End Sub
+    '
 End Class
