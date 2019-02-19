@@ -5,8 +5,8 @@
 ' ****
 ' **********************************************
 ' 
-Public MustInherit Class AddressADO
-    Inherits AddressData
+Public MustInherit Class EmailAddressADO
+    Inherits EmailAddressData
     '
     ' **********************************************
     ' ****
@@ -21,6 +21,7 @@ Public MustInherit Class AddressADO
     ' Case 1 - set the base data and return.
     ' Case 2 - Query each table (Person, Report and Company) and if the primary key returns results, set the base data, set the AddressType and return.
     ' Case 3 - When called through the New(id) constructor, this is an error condition. Display the error message and exit.  Later we will through an exception.
+    ' Case 4 - We are instantiated with a PersonID and Email Address Type
     '
     ' In all three cases, we set the ObjectState variable to reflect the condition that was found and accomodated.
     '
@@ -31,7 +32,7 @@ Public MustInherit Class AddressADO
         MyBase.New()
 
         ' All records in the Address table must have a primary key.
-        AddressID = Guid.NewGuid()
+        EmailAddressID = Guid.NewGuid()
 
         ' Tell the world that this is a new record
         ObjectState = ObjectStates.NewRecord
@@ -46,7 +47,7 @@ Public MustInherit Class AddressADO
         ' Virgin ID means error condition!
         '
         If anID.Equals(New Guid) Then ' Error condition
-            AddressType = -1
+            EmailAddressType = -1
             ObjectState = ObjectStates.ErrorCondition
             Exit Sub
 
@@ -77,7 +78,39 @@ Public MustInherit Class AddressADO
         ' We may have had a valid foreign key and AddressType, but there isn't an address record
         ' so we'll assume that the instantiator wanted this to be a virgin address record.
         '
-        AddressID = Guid.NewGuid()
+        EmailAddressID = Guid.NewGuid()
+        ObjectState = ObjectStates.NewRecord
+
+    End Sub
+    '
+    ' Case 4
+    '
+    Friend Sub New(ByVal anID As Guid, theemailaddresstype As EmailAddressTypes)
+        MyBase.New()
+        '
+        ' Virgin ID means error condition!
+        '
+        If anID.Equals(New Guid) Then ' Error condition
+            EmailAddressType = -1
+            ObjectState = ObjectStates.ErrorCondition
+            Exit Sub
+
+        End If
+        '
+        ' Loading by anID and type.
+        '
+        PersonID = anID
+        EmailAddressType = theemailaddresstype
+        If LoadByFkIDAndType() = ObjectStates.ExistingRecord Then
+            Exit Sub
+
+        End If
+        '
+        ' We may have had a valid foreign key and AddressType, but there isn't an address record
+        ' so we'll assume that the instantiator wanted this to be a virgin address record.
+        '
+        EmailAddressID = Guid.NewGuid()
+        EmailAddressType = theemailaddresstype
         ObjectState = ObjectStates.NewRecord
 
     End Sub
@@ -102,7 +135,7 @@ Public MustInherit Class AddressADO
     ' *****     Set Type by Foreign Key
     ' ***********************************************
     '
-    Private Function SetTypeByFK(ByVal anId As Guid) As AddressTypes
+    Private Function SetTypeByFK(ByVal anId As Guid) As EmailAddressTypes
         ' 
         ' Bad ID
         '
@@ -116,7 +149,8 @@ Public MustInherit Class AddressADO
                 Try
                     ta.FillByPersonID(dt, anId)
                     If dt.Count = 1 Then
-                        AddressType = AddressTypes.Residential
+                        Dim row As vreportsDataSet.EmailAddressRow = dt.Rows(0)
+                        EmailAddressType = row.EmailType
                         PersonID = anId
 
                     End If
@@ -126,46 +160,8 @@ Public MustInherit Class AddressADO
                 End Try
             End Using 'dt
         End Using 'ta
-        '
-        ' Is there a CompanyId record that matches anID?
-        '
-        Using ta As vreportsDataSetTableAdapters.CompanyTableAdapter = New vreportsDataSetTableAdapters.CompanyTableAdapter
-            Using dt As vreportsDataSet.CompanyDataTable = New vreportsDataSet.CompanyDataTable
-                '
-                Try
-                    ta.FillByCompanyID(dt, anId)
-                    If dt.Count = 1 Then
-                        AddressType = AddressTypes.Company
-                        CompanyID = anId
 
-                    End If
-                Catch ex As Exception
-                    MsgBox("SetTypeByFK()" & vbCrLf & "Error in CompanyID lookup")
-
-                End Try
-            End Using 'dt
-        End Using 'ta
-        '
-        ' Is there a ReportId record that matches anID?
-        '
-        Using ta As vreportsDataSetTableAdapters.ReportMasterTableAdapter = New vreportsDataSetTableAdapters.ReportMasterTableAdapter
-            Using dt As vreportsDataSet.ReportMasterDataTable = New vreportsDataSet.ReportMasterDataTable
-                '
-                Try
-                    ta.FillByReportID(dt, anId)
-                    If dt.Count = 1 Then
-                        AddressType = AddressTypes.JobSite
-                        ReportID = anId
-
-                    End If
-                Catch ex As Exception
-                    MsgBox("SetTypeByFK()" & vbCrLf & "Error in CompanyID lookup")
-
-                End Try
-            End Using 'dt
-        End Using 'ta
-
-        Return AddressType
+        Return EmailAddressType
 
     End Function
     '
@@ -175,12 +171,12 @@ Public MustInherit Class AddressADO
     '
     Private Function LoadByID(ByVal id As Guid) As ObjectStates
         '
-        Using ta As vreportsDataSetTableAdapters.AddressTableAdapter = New vreportsDataSetTableAdapters.AddressTableAdapter
-            Using dt As vreportsDataSet.AddressDataTable = New vreportsDataSet.AddressDataTable
+        Using ta As vreportsDataSetTableAdapters.EmailAddressTableAdapter = New vreportsDataSetTableAdapters.EmailAddressTableAdapter
+            Using dt As vreportsDataSet.EmailAddressDataTable = New vreportsDataSet.EmailAddressDataTable
                 ObjectState = ObjectStates.ErrorCondition
                 Try
-                    ' This call assumes that the GUID is in fact, an AddressRecordID
-                    ta.FillByID(dt, id)
+                    ' This call assumes that the GUID is in fact, an EmailAddressRecordID
+                    ta.FillByEmailAddressID(dt, id)
                     If dt.Count = 1 Then
                         SetDataFromRow(dt.Rows(0))
                         ObjectState = ObjectStates.ExistingRecord
@@ -204,26 +200,12 @@ Public MustInherit Class AddressADO
     '
     Private Function LoadByFkIDAndType() As ObjectStates
         '
-        Using ta As vreportsDataSetTableAdapters.AddressTableAdapter = New vreportsDataSetTableAdapters.AddressTableAdapter
-            Using dt As vreportsDataSet.AddressDataTable = New vreportsDataSet.AddressDataTable
+        Using ta As vreportsDataSetTableAdapters.EmailAddressTableAdapter = New vreportsDataSetTableAdapters.EmailAddressTableAdapter
+            Using dt As vreportsDataSet.EmailAddressDataTable = New vreportsDataSet.EmailAddressDataTable
                 ObjectState = ObjectStates.ErrorCondition
                 Try
-                    Select Case AddressType
-                        Case AddressTypes.Company
-                            ta.FillByCompanyIDAndType(dt, CompanyID, AddressType)
 
-                        Case AddressTypes.JobSite
-                            ta.FillByReportIDAndType(dt, ReportID, AddressType)
-
-                        Case AddressTypes.Residential
-                            ta.FillByPersonIDAndType(dt, PersonID, AddressType)
-
-                        Case Else
-                            MsgBox("LoadByFkAndType()" & vbCrLf & String.Format("There wans't a case for %s", AddressType))
-                            ObjectState = ObjectStates.ErrorCondition
-                            Return ObjectState
-
-                    End Select
+                    ta.FillByPersonIDAndEmailType(dt, PersonID, EmailAddressType)
 
                     If dt.Count = 1 Then
                         SetDataFromRow(dt.Rows(0))
@@ -232,7 +214,7 @@ Public MustInherit Class AddressADO
                     End If
 
                 Catch ex As Exception
-                    MsgBox("LoadByIDAndAddressType()" & vbCrLf & ex.Message)
+                    MsgBox("LoadByPersonIDAndEmailAddressType()" & vbCrLf & ex.Message,, "EmailAddressADO Class")
 
                 End Try
             End Using 'dt
@@ -249,7 +231,7 @@ Public MustInherit Class AddressADO
     ' An address object in the database is only valid under these conditions:
     ' A. Must not be in an error condition.
     '
-    ' 1) It is typed with an AddressType .
+    ' 1) It is typed with an EmailAddressType .
     ' 2) It has one or more valid foreign keys.
     ' 3) It's own primary key must be a valid Guid
     '
@@ -272,7 +254,7 @@ Public MustInherit Class AddressADO
         '
         ' Rule 1
         '
-        If AddressType = -1 Then
+        If EmailAddressType = -1 Then
             bRule_1_Met = False
         End If
         '
@@ -280,14 +262,14 @@ Public MustInherit Class AddressADO
         '
         Dim newGuid As Guid
 
-        If PersonID.Equals(newGuid) AndAlso CompanyID.Equals(newGuid) AndAlso ReportID.Equals(newGuid) Then
+        If PersonID.Equals(newGuid) Then
             bRule_2_Met = False
 
         End If
         '
         ' Rule 3
         '
-        If AddressID.Equals(newGuid) Then
+        If EmailAddressID.Equals(newGuid) Then
             bRule_3_Met = False
         End If
         '
@@ -298,7 +280,7 @@ Public MustInherit Class AddressADO
             sMessage &= vbCrLf
             sMessage &= "The Address isn't typed."
 
-        End If
+                    End If
         If Not bRule_2_Met Then
             sMessage &= vbCrLf
             sMessage &= "The Address isn't tagged with at least one valid foreign key."
@@ -313,7 +295,7 @@ Public MustInherit Class AddressADO
         ' Test the flags
         '
         If Not bRule_1_Met OrElse Not bRule_2_Met OrElse Not bRule_3_Met Then
-            MsgBox(sMessage)
+            MsgBox("Rule Check" & vbCrLf & sMessage,, "EmailAddressADO Class")
             Return False
 
         End If
@@ -340,12 +322,12 @@ Public MustInherit Class AddressADO
         '
         ' Passed the rule check, so update the record
         '
-        Using ta As vreportsDataSetTableAdapters.AddressTableAdapter = New vreportsDataSetTableAdapters.AddressTableAdapter
-            Using dt As vreportsDataSet.AddressDataTable = New vreportsDataSet.AddressDataTable
-                Dim row As vreportsDataSet.AddressRow
-                ta.FillByID(dt, AddressID)
+        Using ta As vreportsDataSetTableAdapters.EmailAddressTableAdapter = New vreportsDataSetTableAdapters.EmailAddressTableAdapter
+            Using dt As vreportsDataSet.EmailAddressDataTable = New vreportsDataSet.EmailAddressDataTable
+                Dim row As vreportsDataSet.EmailAddressRow
+                ta.FillByEmailAddressID(dt, EmailAddressID)
                 If dt.Count = 0 Then
-                    row = dt.NewAddressRow
+                    row = dt.NewEmailAddressRow
 
                 Else
                     row = dt.Rows(0)
@@ -355,11 +337,11 @@ Public MustInherit Class AddressADO
                 SetRowFromData(row)
 
                 Try
-                    If dt.Count = 0 Then dt.AddAddressRow(row)
+                    If dt.Count = 0 Then dt.AddEmailAddressRow(row)
                     ta.Update(dt)
                     IsDirty = False
                 Catch ex As Exception
-                    MsgBox("Update()" & vbCrLf & ex.Message)
+                    MsgBox("Update()" & vbCrLf & ex.Message,, "EmailAddressADO Class")
 
                 End Try
 

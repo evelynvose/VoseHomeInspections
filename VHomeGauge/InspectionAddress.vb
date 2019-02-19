@@ -5,7 +5,7 @@
 ' ****
 ' **********************************************
 '
-Public Class ClientAddress
+Public Class InspectionAddress
     Inherits AddressADO
     '
     ' **********************************************
@@ -22,7 +22,7 @@ Public Class ClientAddress
         MyBase.New()
 
         ' This is what makes this a valid Client Address
-        AddressType = AddressTypes.Residential
+        AddressType = AddressTypes.JobSite
 
     End Sub
     '
@@ -37,8 +37,8 @@ Public Class ClientAddress
         ' using anID to determine what AddressType we have. If New(anID) determined
         ' that the AddressType is other than Residential, this is an invalid object.
         '
-        If AddressType <> AddressTypes.Residential Then
-            MsgBox("Class ClientAddress" & vbCrLf & "Not a valid AddressType!")
+        If AddressType <> AddressTypes.JobSite Then
+            MsgBox("InspectionAddress.New(id)" & vbCrLf & "Not a valid AddressType!")
 
         End If
     End Sub

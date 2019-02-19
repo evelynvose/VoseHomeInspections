@@ -39,8 +39,20 @@ Public Class WorkFormOpenReport
             ' Get the report's GUID 
             m_node = m_xmld.SelectSingleNode("Report/ReportGUID")
             m_ReportID = New Guid(m_node.FirstChild.Value)
+            '
+            ' Report Information (RI)
+            '
+            m_nodelist = m_xmld.SelectNodes("/Report/ReportInfo")
 
-            'Get the associate Client's names.  There is usually one, but there can be none or any number. 
+            ' Loop through the nodes
+            For Each m_node In m_nodelist
+                ParseInspectorInformationFromNode(m_node)
+                ParseReportInformationFromNode(m_node)
+
+            Next
+            '
+            ' Client Information (CL) 
+            '
             m_nodelist = m_xmld.SelectNodes("/Report/ClientData")
 
             'Loop through the nodes
@@ -49,15 +61,7 @@ Public Class WorkFormOpenReport
 
             Next
 
-            ' Move on to the report information 
-            m_nodelist = m_xmld.SelectNodes("/Report/ReportInfo")
 
-            'Loop through the nodes
-            For Each m_node In m_nodelist
-                ParseInspectorInformationFromNode(m_node)
-                ParseReportInformationFromNode(m_node)
-
-            Next
 
         Catch ex As Exception
             'Error trapping
@@ -96,154 +100,52 @@ Public Class WorkFormOpenReport
 
         Dim parser As New XMLParser(node)
 
-        ' We'll need a found flag
-        Dim IsFound As Boolean
+        ' Report
+        Dim theReport As InspectionReport
+        theReport = New InspectionReport(m_ReportID)
+        With theReport
+            '
+            ' Inspection date
+            '
+            If IsDate(parser.GetPropertyValue("RIDate")) Then
+                .InspectionDate = Date.Parse(parser.GetPropertyValue("prop[@name='RIDate']"))
+
+            End If
+            '
+            ' Vose doesn't track start and stop times, but it is available so we'll capture it
+            '
+            .StartTime = parser.GetPropertyValue("prop[@name='RIStartTime']")
+            .EndTime = parser.GetPropertyValue("prop[@name='RIStopTime']")
+            '
+            ' Report Number
+            '
+            .ReportNumber = parser.GetPropertyValue("prop[@name='RIReportNumber']")
+            '
+            ' The notes
+            '
+            .SpecialNotes = parser.GetPropertyValue("prop[@name='RISpecialNotes']")
+            '
+            ' As of this momement I'm guessing that this is the appointment in the HGI Dashboard if one was created.
+            '
+            .AppointmentID = New Guid(parser.GetPropertyValue("prop[@name='RIAppointmentId']"))
+
+            .Update()
+        End With
         '
-        Using dt As vreportsDataSet.ReportMasterDataTable = New vreportsDataSet.ReportMasterDataTable
-            Using ta = New vreportsDataSetTableAdapters.ReportMasterTableAdapter
+        ' Inspection Address
+        '
+        Dim theInspectionAddress As InspectionAddress
+        theInspectionAddress = New InspectionAddress(m_ReportID)
+        With theInspectionAddress
+            .Address1 = parser.GetPropertyValue("prop[@name='RIAddress1']")
+            .Address2 = parser.GetPropertyValue("prop[@name='RIAddress2']")
+            .City = parser.GetPropertyValue("prop[@name='RICity']")
+            .State = parser.GetPropertyValue("prop[@name='RIState']")
+            .ZipCode = parser.GetPropertyValue("prop[@name='RIZip']")
+            .County = parser.GetPropertyValue("prop[@name='RICounty']")
+            .Update()
 
-
-                ' Let's keep a new row opject pointer handy
-                Dim newRow As vreportsDataSet.ReportMasterRow
-
-                ' Fill the data table using the Inspector type as we have no idea (yet) what the PersonID is.
-                ta.FillByReportID(dt, m_ReportID)
-                '
-                ' Check to see if the record exists and if it does update the report
-                IsFound = False
-
-                For Each Row As vreportsDataSet.ReportMasterRow In dt
-                    If Row.ID.Equals(m_ReportID) Then ' they match
-                        IsFound = True
-
-                        With Row
-                            ' The report number should be broken into two parts, the report number and the version.  More than two parts is not
-                            ' a recognized format so we'll do the best we can and let the user make corrections.
-                            Dim reportSplits() As String
-                            reportSplits = parser.GetPropertyValue("prop[@name='RIReportNumber']").Split(" ")
-                            If reportSplits.Count > 0 AndAlso reportSplits(0) <> "" Then
-                                .ReportNumber = reportSplits(0)
-                                If reportSplits.Count = 1 Then
-                                    Array.Resize(reportSplits, reportSplits.Length + 1)
-                                    reportSplits(1) = "1.0"
-
-                                End If
-                                If reportSplits.Count > 1 Then
-                                    .Version = reportSplits(1)
-
-                                End If
-                            End If
-
-                            ' Inspection date
-                            If IsDate(parser.GetPropertyValue("RIDate")) Then
-                                .InspectionDate = Date.Parse(parser.GetPropertyValue("prop[@name='RIDate']"))
-
-                            End If
-
-                            ' Vose doesn't track start and stop times, but it is available so we'll capture it
-                            .StartTime = parser.GetPropertyValue("prop[@name='RIStartTime']")
-                            .EndTime = parser.GetPropertyValue("prop[@name='RIStopTime']")
-
-                            ' The notes
-                            .SpecialNotes = parser.GetPropertyValue("prop[@name='RISpecialNotes']")
-
-                            ' As of this momement I'm guessing that this is the appointment in the HGI Dashboard if one was created.
-                            .AppointmentID = New Guid(parser.GetPropertyValue("prop[@name='RIAppointmentId']"))
-
-                        End With
-                    End If
-
-                Next
-
-                ' Didn't find an existing record to update let's insert a new record
-                If Not IsFound Then
-                    newRow = dt.NewReportMasterRow
-                    With newRow
-                        .ID = m_ReportID
-
-                        ' The report number should be broken into two parts, the report number and the version.  More than two parts is not
-                        ' a recognized format so we'll do the best we can and let the user make corrections.
-                        Dim reportSplits() As String
-                        reportSplits = parser.GetPropertyValue("prop[@name='RIReportNumber']").Split(" ")
-
-                        ' parser will return at least "" so there should be at least one element in the array
-                        If reportSplits.Count = 1 AndAlso reportSplits(0) = "" Then ' there isn't a report number so format one
-                            Array.Resize(reportSplits, reportSplits.Length + 2)
-                            reportSplits(0) = "0000000000 "
-                            reportSplits(1) = "1.0"
-
-                        End If
-
-                        ' In this case, there is a report number (see above), but no version, since the array should have 2 elements
-                        If reportSplits.Count = 1 Then
-                            Array.Resize(reportSplits, reportSplits.Length + 1)
-                            reportSplits(1) = "1.0"
-
-                        End If
-
-                        ' by now we should have an array with at least 2 elements so we are safe
-                        If reportSplits.Count > 1 Then
-                            .ReportNumber = reportSplits(0)
-                            .Version = reportSplits(1)
-
-                        End If
-
-
-                        ' Inspection date
-                        If IsDate(parser.GetPropertyValue("prop[@name='RIDate']")) Then
-                            .InspectionDate = Date.Parse(parser.GetPropertyValue("prop[@name='RIDate']"))
-
-                        End If
-
-                        ' Vose doesn't track start and stop times, but it is available so we'll capture it. These are saved as string values.
-                        .StartTime = parser.GetPropertyValue("prop[@name='RIStartTime']")
-                        .EndTime = parser.GetPropertyValue("prop[@name='RIStopTime']")
-
-                        ' The notes
-                        .SpecialNotes = parser.GetPropertyValue("prop[@name='RISpecialNotes']")
-
-                        ' As of this momement I'm guessing that this is the appointment in the HGI Dashboard if one was created.
-                        Try
-                            Dim AppointmentID As Guid = New Guid(parser.GetPropertyValue("prop[@name='RIAppointmentId']"))
-                            .AppointmentID = AppointmentID
-
-                        Catch ex As Exception
-
-                        End Try
-
-                    End With
-
-                    dt.AddReportMasterRow(newRow)
-
-                End If
-
-                ' Update the data table
-                Try
-                    ta.Update(dt)
-
-                    ' Now that we have a valid report we can enter the address
-                    Dim theJobAddress As New JobAddress(m_ReportID)
-                    If theJobAddress.ObjectState = JobAddress.ObjectStates.NewRecord Then
-                        With theJobAddress
-                            .Address1 = parser.GetPropertyValue("prop[@name='RIAddress1']")
-                            .Address2 = parser.GetPropertyValue("prop[@name='RIAddress2']")
-                            .City = parser.GetPropertyValue("prop[@name='RICity']")
-                            .State = parser.GetPropertyValue("prop[@name='RIState']")
-                            .ZipCode = parser.GetPropertyValue("prop[@name='RIZip']")
-                            .County = parser.GetPropertyValue("prop[@name='RICounty']")
-                            .Update()
-
-                        End With
-                    End If
-
-
-                Catch ex As Exception
-                    MsgBox("ParseReportInformationFromNode()" & vbCrLf & ex.Message)
-
-                End Try
-
-            End Using 'ta
-        End Using 'dt
+        End With
 
     End Sub
     '
@@ -483,111 +385,40 @@ Public Class WorkFormOpenReport
         End Using 'ta
         '
         ' ***********************************************
-        ' *****      EMAIL ADDRESSES
+        ' *****     Primary Email Address
         ' ***********************************************
         '
-        Using dt As vreportsDataSet.EmailAddressDataTable = New vreportsDataSet.EmailAddressDataTable
-            Using ta = New vreportsDataSetTableAdapters.EmailAddressTableAdapter
+        If parser.GetPropertyValue("prop[@name='CEmail']") <> "" Then
+            Dim thePrimaryEmailAddress As EmailAddress
+            thePrimaryEmailAddress = New EmailAddress(thePersonID, EmailAddressTypes.Primary)
+            thePrimaryEmailAddress.URL = parser.GetPropertyValue("prop[@name='CEmail']")
+            thePrimaryEmailAddress.Update()
 
-                ' Let's keep a new row opject pointer handy
-                Dim newRow As vreportsDataSet.EmailAddressRow
+        End If
+        '
+        ' ***********************************************
+        ' *****     Second Email Address
+        ' ***********************************************
+        '
+        If parser.GetPropertyValue("prop[@name='CEmail2']") <> "" Then
+            Dim theSecondEmailAddress As EmailAddress
+            theSecondEmailAddress = New EmailAddress(thePersonID, EmailAddressTypes.Second)
+            theSecondEmailAddress.URL = parser.GetPropertyValue("prop[@name='CEmail2']")
+            theSecondEmailAddress.Update()
 
-                ' Fill the data table (if the person ID exists)
-                ta.FillByPersonID(dt, thePersonID)
+        End If
+        '
+        ' ***********************************************
+        ' *****     Third Email Address
+        ' ***********************************************
+        '
+        If parser.GetPropertyValue("prop[@name='CEmail3']") <> "" Then
+            Dim theThirdEmailAddress As EmailAddress
+            theThirdEmailAddress = New EmailAddress(thePersonID, EmailAddressTypes.Third)
+            theThirdEmailAddress.URL = parser.GetPropertyValue("prop[@name='CEmail3']")
+            theThirdEmailAddress.Update()
 
-                '
-                ' ***********************************************
-                ' *****     Primary Email
-                ' ***********************************************
-                '
-                ' Check to see if the  record exists and if it does, update it.
-                IsFound = False
-                For Each Row As vreportsDataSet.EmailAddressRow In dt
-                    With Row
-                        If .PersonID = thePersonID AndAlso .Type = EmailTypes.Primary Then
-                            .URL = parser.GetPropertyValue("prop[@name='CEmail']")
-                            IsFound = True
-
-                        End If
-                    End With
-                Next
-
-                ' Didn't find an existing record to update let's insert a new one.
-                If Not IsFound Then
-                    newRow = dt.NewEmailAddressRow
-                    With newRow
-                        .ID = Guid.NewGuid()
-                        .PersonID = thePersonID
-                        .URL = parser.GetPropertyValue("prop[@name='CEmail']")
-                        .Type = EmailTypes.Primary
-
-                    End With
-                    dt.AddEmailAddressRow(newRow)
-                End If
-
-                '
-                ' ***********************************************
-                ' *****     Second Email
-                ' ***********************************************
-                '
-                ' Check to see if the record exists and if it does, update it.r
-                IsFound = False
-                For Each Row As vreportsDataSet.EmailAddressRow In dt
-                    With Row
-                        If .PersonID = thePersonID AndAlso .Type = EmailTypes.Second Then
-                            .URL = parser.GetPropertyValue("prop[@name='CEmail2']")
-                            IsFound = True
-
-                        End If
-                    End With
-                Next
-
-                ' Didn't find an existing record to update let's insert a new one.
-                If Not IsFound Then
-                    IsFound = False
-                    newRow = dt.NewEmailAddressRow
-                    With newRow
-                        .ID = Guid.NewGuid()
-                        .PersonID = thePersonID
-                        .URL = parser.GetPropertyValue("prop[@name='CEmail2']")
-                        .Type = EmailTypes.Second
-
-                    End With
-                    dt.AddEmailAddressRow(newRow)
-                End If
-                '
-                ' ***********************************************
-                ' *****     Third Email
-                ' ***********************************************
-                '
-                ' Check to see if the record exists and if it does, update it.
-                IsFound = False
-                For Each Row As vreportsDataSet.EmailAddressRow In dt
-                    With Row
-                        If .PersonID = thePersonID AndAlso .Type = EmailTypes.Third Then
-                            .URL = parser.GetPropertyValue("prop[@name='CEmail3']")
-                            IsFound = True
-
-                        End If
-                    End With
-                Next
-
-                ' Didn't find an existing phone record to update so let's insert a new one.
-                If Not IsFound Then
-                    IsFound = False
-                    newRow = dt.NewEmailAddressRow
-                    With newRow
-                        .ID = Guid.NewGuid()
-                        .PersonID = thePersonID
-                        .URL = parser.GetPropertyValue("prop[@name='CEmail3']")
-                        .Type = EmailTypes.Third
-
-                    End With
-                    dt.AddEmailAddressRow(newRow)
-                End If
-                ta.Update(dt)
-            End Using 'dt
-        End Using 'ta
+        End If
         '
         ' ***********************************************
         ' *****      CLIENT NAMES

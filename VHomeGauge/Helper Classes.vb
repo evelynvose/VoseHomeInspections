@@ -48,22 +48,6 @@ Public Enum PhoneTypes
 End Enum
 
 
-Public Enum EmailTypes
-    Primary
-    Second
-    Third
-
-End Enum
-
-
-Public Enum AddressTypes ' Must match database!
-    Residential
-    JobSite
-    Company
-
-End Enum
-
-
 Public Enum PersonTypes
     Client
     Agent

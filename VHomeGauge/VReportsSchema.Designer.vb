@@ -765,7 +765,7 @@ Partial Public Class vreportsDataSet
         
         Private columnURL As Global.System.Data.DataColumn
         
-        Private columnType As Global.System.Data.DataColumn
+        Private columnEmailType As Global.System.Data.DataColumn
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
@@ -828,9 +828,9 @@ Partial Public Class vreportsDataSet
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
-        Public ReadOnly Property TypeColumn() As Global.System.Data.DataColumn
+        Public ReadOnly Property EmailTypeColumn() As Global.System.Data.DataColumn
             Get
-                Return Me.columnType
+                Return Me.columnEmailType
             End Get
         End Property
         
@@ -871,9 +871,9 @@ Partial Public Class vreportsDataSet
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
-        Public Overloads Function AddEmailAddressRow(ByVal ID As System.Guid, ByVal PersonID As System.Guid, ByVal URL As String, ByVal Type As Integer) As EmailAddressRow
+        Public Overloads Function AddEmailAddressRow(ByVal ID As System.Guid, ByVal PersonID As System.Guid, ByVal URL As String, ByVal EmailType As Integer) As EmailAddressRow
             Dim rowEmailAddressRow As EmailAddressRow = CType(Me.NewRow,EmailAddressRow)
-            Dim columnValuesArray() As Object = New Object() {ID, PersonID, URL, Type}
+            Dim columnValuesArray() As Object = New Object() {ID, PersonID, URL, EmailType}
             rowEmailAddressRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowEmailAddressRow)
             Return rowEmailAddressRow
@@ -905,7 +905,7 @@ Partial Public Class vreportsDataSet
             Me.columnID = MyBase.Columns("ID")
             Me.columnPersonID = MyBase.Columns("PersonID")
             Me.columnURL = MyBase.Columns("URL")
-            Me.columnType = MyBase.Columns("Type")
+            Me.columnEmailType = MyBase.Columns("EmailType")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -917,8 +917,8 @@ Partial Public Class vreportsDataSet
             MyBase.Columns.Add(Me.columnPersonID)
             Me.columnURL = New Global.System.Data.DataColumn("URL", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnURL)
-            Me.columnType = New Global.System.Data.DataColumn("Type", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnType)
+            Me.columnEmailType = New Global.System.Data.DataColumn("EmailType", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnEmailType)
             Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnID}, true))
             Me.columnID.AllowDBNull = false
             Me.columnID.Unique = true
@@ -1801,6 +1801,8 @@ Partial Public Class vreportsDataSet
         
         Private columnAppointmentID As Global.System.Data.DataColumn
         
+        Private columnReportType As Global.System.Data.DataColumn
+        
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Public Sub New()
@@ -1901,6 +1903,14 @@ Partial Public Class vreportsDataSet
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public ReadOnly Property ReportTypeColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnReportType
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -1937,9 +1947,9 @@ Partial Public Class vreportsDataSet
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
-        Public Overloads Function AddReportMasterRow(ByVal ID As System.Guid, ByVal InspectionDate As Date, ByVal ReportNumber As String, ByVal Version As String, ByVal StartTime As Date, ByVal EndTime As Date, ByVal SpecialNotes As String, ByVal AppointmentID As System.Guid) As ReportMasterRow
+        Public Overloads Function AddReportMasterRow(ByVal ID As System.Guid, ByVal InspectionDate As Date, ByVal ReportNumber As String, ByVal Version As String, ByVal StartTime As String, ByVal EndTime As String, ByVal SpecialNotes As String, ByVal AppointmentID As System.Guid, ByVal ReportType As Integer) As ReportMasterRow
             Dim rowReportMasterRow As ReportMasterRow = CType(Me.NewRow,ReportMasterRow)
-            Dim columnValuesArray() As Object = New Object() {ID, InspectionDate, ReportNumber, Version, StartTime, EndTime, SpecialNotes, AppointmentID}
+            Dim columnValuesArray() As Object = New Object() {ID, InspectionDate, ReportNumber, Version, StartTime, EndTime, SpecialNotes, AppointmentID, ReportType}
             rowReportMasterRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowReportMasterRow)
             Return rowReportMasterRow
@@ -1976,6 +1986,7 @@ Partial Public Class vreportsDataSet
             Me.columnEndTime = MyBase.Columns("EndTime")
             Me.columnSpecialNotes = MyBase.Columns("SpecialNotes")
             Me.columnAppointmentID = MyBase.Columns("AppointmentID")
+            Me.columnReportType = MyBase.Columns("ReportType")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -1989,14 +2000,16 @@ Partial Public Class vreportsDataSet
             MyBase.Columns.Add(Me.columnReportNumber)
             Me.columnVersion = New Global.System.Data.DataColumn("Version", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnVersion)
-            Me.columnStartTime = New Global.System.Data.DataColumn("StartTime", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
+            Me.columnStartTime = New Global.System.Data.DataColumn("StartTime", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnStartTime)
-            Me.columnEndTime = New Global.System.Data.DataColumn("EndTime", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
+            Me.columnEndTime = New Global.System.Data.DataColumn("EndTime", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnEndTime)
             Me.columnSpecialNotes = New Global.System.Data.DataColumn("SpecialNotes", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnSpecialNotes)
             Me.columnAppointmentID = New Global.System.Data.DataColumn("AppointmentID", GetType(Global.System.Guid), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnAppointmentID)
+            Me.columnReportType = New Global.System.Data.DataColumn("ReportType", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnReportType)
             Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnID}, true))
             Me.columnID.AllowDBNull = false
             Me.columnID.Unique = true
@@ -2600,16 +2613,16 @@ Partial Public Class vreportsDataSet
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
-        Public Property Type() As Integer
+        Public Property EmailType() As Integer
             Get
                 Try 
-                    Return CType(Me(Me.tableEmailAddress.TypeColumn),Integer)
+                    Return CType(Me(Me.tableEmailAddress.EmailTypeColumn),Integer)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'Type' in table 'EmailAddress' is DBNull.", e)
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'EmailType' in table 'EmailAddress' is DBNull.", e)
                 End Try
             End Get
             Set
-                Me(Me.tableEmailAddress.TypeColumn) = value
+                Me(Me.tableEmailAddress.EmailTypeColumn) = value
             End Set
         End Property
         
@@ -2639,14 +2652,14 @@ Partial Public Class vreportsDataSet
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
-        Public Function IsTypeNull() As Boolean
-            Return Me.IsNull(Me.tableEmailAddress.TypeColumn)
+        Public Function IsEmailTypeNull() As Boolean
+            Return Me.IsNull(Me.tableEmailAddress.EmailTypeColumn)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
-        Public Sub SetTypeNull()
-            Me(Me.tableEmailAddress.TypeColumn) = Global.System.Convert.DBNull
+        Public Sub SetEmailTypeNull()
+            Me(Me.tableEmailAddress.EmailTypeColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     
@@ -3154,11 +3167,11 @@ Partial Public Class vreportsDataSet
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Public Property ReportNumber() As String
             Get
-                Try 
+                If Me.IsReportNumberNull Then
+                    Return String.Empty
+                Else
                     Return CType(Me(Me.tableReportMaster.ReportNumberColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'ReportNumber' in table 'ReportMaster' is DBNull.", e)
-                End Try
+                End If
             End Get
             Set
                 Me(Me.tableReportMaster.ReportNumberColumn) = value
@@ -3169,11 +3182,11 @@ Partial Public Class vreportsDataSet
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Public Property Version() As String
             Get
-                Try 
+                If Me.IsVersionNull Then
+                    Return String.Empty
+                Else
                     Return CType(Me(Me.tableReportMaster.VersionColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'Version' in table 'ReportMaster' is DBNull.", e)
-                End Try
+                End If
             End Get
             Set
                 Me(Me.tableReportMaster.VersionColumn) = value
@@ -3182,13 +3195,13 @@ Partial Public Class vreportsDataSet
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
-        Public Property StartTime() As Date
+        Public Property StartTime() As String
             Get
-                Try 
-                    Return CType(Me(Me.tableReportMaster.StartTimeColumn),Date)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'StartTime' in table 'ReportMaster' is DBNull.", e)
-                End Try
+                If Me.IsStartTimeNull Then
+                    Return String.Empty
+                Else
+                    Return CType(Me(Me.tableReportMaster.StartTimeColumn),String)
+                End If
             End Get
             Set
                 Me(Me.tableReportMaster.StartTimeColumn) = value
@@ -3197,13 +3210,13 @@ Partial Public Class vreportsDataSet
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
-        Public Property EndTime() As Date
+        Public Property EndTime() As String
             Get
-                Try 
-                    Return CType(Me(Me.tableReportMaster.EndTimeColumn),Date)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'EndTime' in table 'ReportMaster' is DBNull.", e)
-                End Try
+                If Me.IsEndTimeNull Then
+                    Return String.Empty
+                Else
+                    Return CType(Me(Me.tableReportMaster.EndTimeColumn),String)
+                End If
             End Get
             Set
                 Me(Me.tableReportMaster.EndTimeColumn) = value
@@ -3214,11 +3227,11 @@ Partial Public Class vreportsDataSet
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Public Property SpecialNotes() As String
             Get
-                Try 
+                If Me.IsSpecialNotesNull Then
+                    Return String.Empty
+                Else
                     Return CType(Me(Me.tableReportMaster.SpecialNotesColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'SpecialNotes' in table 'ReportMaster' is DBNull.", e)
-                End Try
+                End If
             End Get
             Set
                 Me(Me.tableReportMaster.SpecialNotesColumn) = value
@@ -3237,6 +3250,21 @@ Partial Public Class vreportsDataSet
             End Get
             Set
                 Me(Me.tableReportMaster.AppointmentIDColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public Property ReportType() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tableReportMaster.ReportTypeColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'ReportType' in table 'ReportMaster' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tableReportMaster.ReportTypeColumn) = value
             End Set
         End Property
         
@@ -3322,6 +3350,18 @@ Partial Public Class vreportsDataSet
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Public Sub SetAppointmentIDNull()
             Me(Me.tableReportMaster.AppointmentIDColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public Function IsReportTypeNull() As Boolean
+            Return Me.IsNull(Me.tableReportMaster.ReportTypeColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
+        Public Sub SetReportTypeNull()
+            Me(Me.tableReportMaster.ReportTypeColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     
@@ -4172,41 +4212,43 @@ Namespace vreportsDataSetTableAdapters
             tableMapping.ColumnMappings.Add("ID", "ID")
             tableMapping.ColumnMappings.Add("PersonID", "PersonID")
             tableMapping.ColumnMappings.Add("URL", "URL")
-            tableMapping.ColumnMappings.Add("Type", "Type")
+            tableMapping.ColumnMappings.Add("EmailType", "EmailType")
             Me._adapter.TableMappings.Add(tableMapping)
             Me._adapter.DeleteCommand = New Global.System.Data.OleDb.OleDbCommand()
             Me._adapter.DeleteCommand.Connection = Me.Connection
             Me._adapter.DeleteCommand.CommandText = "DELETE FROM `EmailAddress` WHERE ((`ID` = ?) AND ((? = 1 AND `PersonID` IS NULL) "& _ 
-                "OR (`PersonID` = ?)) AND ((? = 1 AND `Type` IS NULL) OR (`Type` = ?)))"
+                "OR (`PersonID` = ?)) AND ((? = 1 AND `EmailType` IS NULL) OR (`EmailType` = ?)))"& _ 
+                ""
             Me._adapter.DeleteCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_ID", Global.System.Data.OleDb.OleDbType.Guid, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ID", Global.System.Data.DataRowVersion.Original, false, Nothing))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_PersonID", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "PersonID", Global.System.Data.DataRowVersion.Original, true, Nothing))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_PersonID", Global.System.Data.OleDb.OleDbType.Guid, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "PersonID", Global.System.Data.DataRowVersion.Original, false, Nothing))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_Type", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Type", Global.System.Data.DataRowVersion.Original, true, Nothing))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_Type", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Type", Global.System.Data.DataRowVersion.Original, false, Nothing))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_EmailType", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "EmailType", Global.System.Data.DataRowVersion.Original, true, Nothing))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_EmailType", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "EmailType", Global.System.Data.DataRowVersion.Original, false, Nothing))
             Me._adapter.InsertCommand = New Global.System.Data.OleDb.OleDbCommand()
             Me._adapter.InsertCommand.Connection = Me.Connection
-            Me._adapter.InsertCommand.CommandText = "INSERT INTO `EmailAddress` (`ID`, `PersonID`, `URL`, `Type`) VALUES (?, ?, ?, ?)"
+            Me._adapter.InsertCommand.CommandText = "INSERT INTO `EmailAddress` (`ID`, `PersonID`, `URL`, `EmailType`) VALUES (?, ?, ?"& _ 
+                ", ?)"
             Me._adapter.InsertCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("ID", Global.System.Data.OleDb.OleDbType.Guid, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ID", Global.System.Data.DataRowVersion.Current, false, Nothing))
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("PersonID", Global.System.Data.OleDb.OleDbType.Guid, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "PersonID", Global.System.Data.DataRowVersion.Current, false, Nothing))
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("URL", Global.System.Data.OleDb.OleDbType.LongVarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "URL", Global.System.Data.DataRowVersion.Current, false, Nothing))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Type", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Type", Global.System.Data.DataRowVersion.Current, false, Nothing))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("EmailType", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "EmailType", Global.System.Data.DataRowVersion.Current, false, Nothing))
             Me._adapter.UpdateCommand = New Global.System.Data.OleDb.OleDbCommand()
             Me._adapter.UpdateCommand.Connection = Me.Connection
-            Me._adapter.UpdateCommand.CommandText = "UPDATE `EmailAddress` SET `ID` = ?, `PersonID` = ?, `URL` = ?, `Type` = ? WHERE ("& _ 
-                "(`ID` = ?) AND ((? = 1 AND `PersonID` IS NULL) OR (`PersonID` = ?)) AND ((? = 1 "& _ 
-                "AND `Type` IS NULL) OR (`Type` = ?)))"
+            Me._adapter.UpdateCommand.CommandText = "UPDATE `EmailAddress` SET `ID` = ?, `PersonID` = ?, `URL` = ?, `EmailType` = ? WH"& _ 
+                "ERE ((`ID` = ?) AND ((? = 1 AND `PersonID` IS NULL) OR (`PersonID` = ?)) AND ((?"& _ 
+                " = 1 AND `EmailType` IS NULL) OR (`EmailType` = ?)))"
             Me._adapter.UpdateCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("ID", Global.System.Data.OleDb.OleDbType.Guid, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ID", Global.System.Data.DataRowVersion.Current, false, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("PersonID", Global.System.Data.OleDb.OleDbType.Guid, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "PersonID", Global.System.Data.DataRowVersion.Current, false, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("URL", Global.System.Data.OleDb.OleDbType.LongVarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "URL", Global.System.Data.DataRowVersion.Current, false, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Type", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Type", Global.System.Data.DataRowVersion.Current, false, Nothing))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("EmailType", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "EmailType", Global.System.Data.DataRowVersion.Current, false, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_ID", Global.System.Data.OleDb.OleDbType.Guid, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ID", Global.System.Data.DataRowVersion.Original, false, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_PersonID", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "PersonID", Global.System.Data.DataRowVersion.Original, true, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_PersonID", Global.System.Data.OleDb.OleDbType.Guid, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "PersonID", Global.System.Data.DataRowVersion.Original, false, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_Type", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Type", Global.System.Data.DataRowVersion.Original, true, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_Type", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Type", Global.System.Data.DataRowVersion.Original, false, Nothing))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_EmailType", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "EmailType", Global.System.Data.DataRowVersion.Original, true, Nothing))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_EmailType", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "EmailType", Global.System.Data.DataRowVersion.Original, false, Nothing))
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -4219,16 +4261,28 @@ Namespace vreportsDataSetTableAdapters
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Private Sub InitCommandCollection()
-            Me._commandCollection = New Global.System.Data.OleDb.OleDbCommand(1) {}
+            Me._commandCollection = New Global.System.Data.OleDb.OleDbCommand(3) {}
             Me._commandCollection(0) = New Global.System.Data.OleDb.OleDbCommand()
             Me._commandCollection(0).Connection = Me.Connection
-            Me._commandCollection(0).CommandText = "SELECT ID, PersonID, URL, Type FROM EmailAddress"
+            Me._commandCollection(0).CommandText = "SELECT * FROM EmailAddress"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(1) = New Global.System.Data.OleDb.OleDbCommand()
             Me._commandCollection(1).Connection = Me.Connection
-            Me._commandCollection(1).CommandText = "SELECT ID, PersonID, URL, Type FROM EmailAddress WHERE (PersonID = ?)"
+            Me._commandCollection(1).CommandText = "SELECT * FROM EmailAddress WHERE (ID = ?) "
             Me._commandCollection(1).CommandType = Global.System.Data.CommandType.Text
-            Me._commandCollection(1).Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("PersonID", Global.System.Data.OleDb.OleDbType.Guid, 1024, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "PersonID", Global.System.Data.DataRowVersion.Current, false, Nothing))
+            Me._commandCollection(1).Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("ID", Global.System.Data.OleDb.OleDbType.Guid, 1024, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ID", Global.System.Data.DataRowVersion.Current, false, Nothing))
+            Me._commandCollection(2) = New Global.System.Data.OleDb.OleDbCommand()
+            Me._commandCollection(2).Connection = Me.Connection
+            Me._commandCollection(2).CommandText = "SELECT * FROM EmailAddress WHERE (ID = ?) AND (EmailType = ?)"
+            Me._commandCollection(2).CommandType = Global.System.Data.CommandType.Text
+            Me._commandCollection(2).Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("ID", Global.System.Data.OleDb.OleDbType.Guid, 1024, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ID", Global.System.Data.DataRowVersion.Current, false, Nothing))
+            Me._commandCollection(2).Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("EmailType", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "EmailType", Global.System.Data.DataRowVersion.Current, false, Nothing))
+            Me._commandCollection(3) = New Global.System.Data.OleDb.OleDbCommand()
+            Me._commandCollection(3).Connection = Me.Connection
+            Me._commandCollection(3).CommandText = "SELECT * FROM EmailAddress WHERE (PersonID = ?) AND (EmailType = ?)"
+            Me._commandCollection(3).CommandType = Global.System.Data.CommandType.Text
+            Me._commandCollection(3).Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("PersonID", Global.System.Data.OleDb.OleDbType.Guid, 1024, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "PersonID", Global.System.Data.DataRowVersion.Current, false, Nothing))
+            Me._commandCollection(3).Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("EmailType", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "EmailType", Global.System.Data.DataRowVersion.Current, false, Nothing))
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -4259,12 +4313,12 @@ Namespace vreportsDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, false)>  _
-        Public Overloads Overridable Function FillByPersonID(ByVal dataTable As vreportsDataSet.EmailAddressDataTable, ByVal PersonID As Object) As Integer
+        Public Overloads Overridable Function FillByEmailAddressID(ByVal dataTable As vreportsDataSet.EmailAddressDataTable, ByVal ID As Object) As Integer
             Me.Adapter.SelectCommand = Me.CommandCollection(1)
-            If (PersonID Is Nothing) Then
-                Throw New Global.System.ArgumentNullException("PersonID")
+            If (ID Is Nothing) Then
+                Me.Adapter.SelectCommand.Parameters(0).Value = Global.System.DBNull.Value
             Else
-                Me.Adapter.SelectCommand.Parameters(0).Value = CType(PersonID,Object)
+                Me.Adapter.SelectCommand.Parameters(0).Value = CType(ID,Object)
             End If
             If (Me.ClearBeforeFill = true) Then
                 dataTable.Clear
@@ -4277,12 +4331,100 @@ Namespace vreportsDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)>  _
-        Public Overloads Overridable Function GetDataByPersonID(ByVal PersonID As Object) As vreportsDataSet.EmailAddressDataTable
+        Public Overloads Overridable Function GetDataByEmailAddressID(ByVal ID As Object) As vreportsDataSet.EmailAddressDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(1)
+            If (ID Is Nothing) Then
+                Me.Adapter.SelectCommand.Parameters(0).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.SelectCommand.Parameters(0).Value = CType(ID,Object)
+            End If
+            Dim dataTable As vreportsDataSet.EmailAddressDataTable = New vreportsDataSet.EmailAddressDataTable()
+            Me.Adapter.Fill(dataTable)
+            Return dataTable
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, false)>  _
+        Public Overloads Overridable Function FillByEmailAddressIDAndEmailType(ByVal dataTable As vreportsDataSet.EmailAddressDataTable, ByVal ID As Object, ByVal EmailType As Global.System.Nullable(Of Integer)) As Integer
+            Me.Adapter.SelectCommand = Me.CommandCollection(2)
+            If (ID Is Nothing) Then
+                Me.Adapter.SelectCommand.Parameters(0).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.SelectCommand.Parameters(0).Value = CType(ID,Object)
+            End If
+            If (EmailType.HasValue = true) Then
+                Me.Adapter.SelectCommand.Parameters(1).Value = CType(EmailType.Value,Integer)
+            Else
+                Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
+            End If
+            If (Me.ClearBeforeFill = true) Then
+                dataTable.Clear
+            End If
+            Dim returnValue As Integer = Me.Adapter.Fill(dataTable)
+            Return returnValue
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)>  _
+        Public Overloads Overridable Function GetDataByEmailAddressIDAndEmailType(ByVal ID As Object, ByVal EmailType As Global.System.Nullable(Of Integer)) As vreportsDataSet.EmailAddressDataTable
+            Me.Adapter.SelectCommand = Me.CommandCollection(2)
+            If (ID Is Nothing) Then
+                Me.Adapter.SelectCommand.Parameters(0).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.SelectCommand.Parameters(0).Value = CType(ID,Object)
+            End If
+            If (EmailType.HasValue = true) Then
+                Me.Adapter.SelectCommand.Parameters(1).Value = CType(EmailType.Value,Integer)
+            Else
+                Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
+            End If
+            Dim dataTable As vreportsDataSet.EmailAddressDataTable = New vreportsDataSet.EmailAddressDataTable()
+            Me.Adapter.Fill(dataTable)
+            Return dataTable
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, false)>  _
+        Public Overloads Overridable Function FillByPersonIDAndEmailType(ByVal dataTable As vreportsDataSet.EmailAddressDataTable, ByVal PersonID As Object, ByVal EmailType As Global.System.Nullable(Of Integer)) As Integer
+            Me.Adapter.SelectCommand = Me.CommandCollection(3)
             If (PersonID Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("PersonID")
             Else
                 Me.Adapter.SelectCommand.Parameters(0).Value = CType(PersonID,Object)
+            End If
+            If (EmailType.HasValue = true) Then
+                Me.Adapter.SelectCommand.Parameters(1).Value = CType(EmailType.Value,Integer)
+            Else
+                Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
+            End If
+            If (Me.ClearBeforeFill = true) Then
+                dataTable.Clear
+            End If
+            Dim returnValue As Integer = Me.Adapter.Fill(dataTable)
+            Return returnValue
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)>  _
+        Public Overloads Overridable Function GetDataByPersonIDAndEmailType(ByVal PersonID As Object, ByVal EmailType As Global.System.Nullable(Of Integer)) As vreportsDataSet.EmailAddressDataTable
+            Me.Adapter.SelectCommand = Me.CommandCollection(3)
+            If (PersonID Is Nothing) Then
+                Throw New Global.System.ArgumentNullException("PersonID")
+            Else
+                Me.Adapter.SelectCommand.Parameters(0).Value = CType(PersonID,Object)
+            End If
+            If (EmailType.HasValue = true) Then
+                Me.Adapter.SelectCommand.Parameters(1).Value = CType(EmailType.Value,Integer)
+            Else
+                Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
             End If
             Dim dataTable As vreportsDataSet.EmailAddressDataTable = New vreportsDataSet.EmailAddressDataTable()
             Me.Adapter.Fill(dataTable)
@@ -4321,7 +4463,7 @@ Namespace vreportsDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, true)>  _
-        Public Overloads Overridable Function Delete(ByVal Original_ID As Global.System.Nullable(Of Global.System.Guid), ByVal Original_PersonID As System.Guid, ByVal Original_Type As Global.System.Nullable(Of Integer)) As Integer
+        Public Overloads Overridable Function Delete(ByVal Original_ID As Global.System.Nullable(Of Global.System.Guid), ByVal Original_PersonID As System.Guid, ByVal Original_EmailType As Global.System.Nullable(Of Integer)) As Integer
             If (Original_ID.HasValue = true) Then
                 Me.Adapter.DeleteCommand.Parameters(0).Value = CType(Original_ID.Value,System.Guid)
             Else
@@ -4329,9 +4471,9 @@ Namespace vreportsDataSetTableAdapters
             End If
             Me.Adapter.DeleteCommand.Parameters(1).Value = CType(0,Object)
             Me.Adapter.DeleteCommand.Parameters(2).Value = CType(Original_PersonID,System.Guid)
-            If (Original_Type.HasValue = true) Then
+            If (Original_EmailType.HasValue = true) Then
                 Me.Adapter.DeleteCommand.Parameters(3).Value = CType(0,Object)
-                Me.Adapter.DeleteCommand.Parameters(4).Value = CType(Original_Type.Value,Integer)
+                Me.Adapter.DeleteCommand.Parameters(4).Value = CType(Original_EmailType.Value,Integer)
             Else
                 Me.Adapter.DeleteCommand.Parameters(3).Value = CType(1,Object)
                 Me.Adapter.DeleteCommand.Parameters(4).Value = Global.System.DBNull.Value
@@ -4355,7 +4497,7 @@ Namespace vreportsDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, true)>  _
-        Public Overloads Overridable Function Insert(ByVal ID As Global.System.Nullable(Of Global.System.Guid), ByVal PersonID As System.Guid, ByVal URL As String, ByVal Type As Global.System.Nullable(Of Integer)) As Integer
+        Public Overloads Overridable Function Insert(ByVal ID As Global.System.Nullable(Of Global.System.Guid), ByVal PersonID As System.Guid, ByVal URL As String, ByVal EmailType As Global.System.Nullable(Of Integer)) As Integer
             If (ID.HasValue = true) Then
                 Me.Adapter.InsertCommand.Parameters(0).Value = CType(ID.Value,System.Guid)
             Else
@@ -4367,8 +4509,8 @@ Namespace vreportsDataSetTableAdapters
             Else
                 Me.Adapter.InsertCommand.Parameters(2).Value = CType(URL,String)
             End If
-            If (Type.HasValue = true) Then
-                Me.Adapter.InsertCommand.Parameters(3).Value = CType(Type.Value,Integer)
+            If (EmailType.HasValue = true) Then
+                Me.Adapter.InsertCommand.Parameters(3).Value = CType(EmailType.Value,Integer)
             Else
                 Me.Adapter.InsertCommand.Parameters(3).Value = Global.System.DBNull.Value
             End If
@@ -4391,7 +4533,7 @@ Namespace vreportsDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
-        Public Overloads Overridable Function Update(ByVal ID As Global.System.Nullable(Of Global.System.Guid), ByVal PersonID As System.Guid, ByVal URL As String, ByVal Type As Global.System.Nullable(Of Integer), ByVal Original_ID As Global.System.Nullable(Of Global.System.Guid), ByVal Original_PersonID As System.Guid, ByVal Original_Type As Global.System.Nullable(Of Integer)) As Integer
+        Public Overloads Overridable Function Update(ByVal ID As Global.System.Nullable(Of Global.System.Guid), ByVal PersonID As System.Guid, ByVal URL As String, ByVal EmailType As Global.System.Nullable(Of Integer), ByVal Original_ID As Global.System.Nullable(Of Global.System.Guid), ByVal Original_PersonID As System.Guid, ByVal Original_EmailType As Global.System.Nullable(Of Integer)) As Integer
             If (ID.HasValue = true) Then
                 Me.Adapter.UpdateCommand.Parameters(0).Value = CType(ID.Value,System.Guid)
             Else
@@ -4403,8 +4545,8 @@ Namespace vreportsDataSetTableAdapters
             Else
                 Me.Adapter.UpdateCommand.Parameters(2).Value = CType(URL,String)
             End If
-            If (Type.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(3).Value = CType(Type.Value,Integer)
+            If (EmailType.HasValue = true) Then
+                Me.Adapter.UpdateCommand.Parameters(3).Value = CType(EmailType.Value,Integer)
             Else
                 Me.Adapter.UpdateCommand.Parameters(3).Value = Global.System.DBNull.Value
             End If
@@ -4415,9 +4557,9 @@ Namespace vreportsDataSetTableAdapters
             End If
             Me.Adapter.UpdateCommand.Parameters(5).Value = CType(0,Object)
             Me.Adapter.UpdateCommand.Parameters(6).Value = CType(Original_PersonID,System.Guid)
-            If (Original_Type.HasValue = true) Then
+            If (Original_EmailType.HasValue = true) Then
                 Me.Adapter.UpdateCommand.Parameters(7).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(8).Value = CType(Original_Type.Value,Integer)
+                Me.Adapter.UpdateCommand.Parameters(8).Value = CType(Original_EmailType.Value,Integer)
             Else
                 Me.Adapter.UpdateCommand.Parameters(7).Value = CType(1,Object)
                 Me.Adapter.UpdateCommand.Parameters(8).Value = Global.System.DBNull.Value
@@ -4441,8 +4583,8 @@ Namespace vreportsDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
-        Public Overloads Overridable Function Update(ByVal PersonID As System.Guid, ByVal URL As String, ByVal Type As Global.System.Nullable(Of Integer), ByVal Original_ID As Global.System.Nullable(Of Global.System.Guid), ByVal Original_PersonID As System.Guid, ByVal Original_Type As Global.System.Nullable(Of Integer)) As Integer
-            Return Me.Update(Original_ID, PersonID, URL, Type, Original_ID, Original_PersonID, Original_Type)
+        Public Overloads Overridable Function Update(ByVal PersonID As System.Guid, ByVal URL As String, ByVal EmailType As Global.System.Nullable(Of Integer), ByVal Original_ID As Global.System.Nullable(Of Global.System.Guid), ByVal Original_PersonID As System.Guid, ByVal Original_EmailType As Global.System.Nullable(Of Integer)) As Integer
+            Return Me.Update(Original_ID, PersonID, URL, EmailType, Original_ID, Original_PersonID, Original_EmailType)
         End Function
     End Class
     
@@ -5982,10 +6124,11 @@ Namespace vreportsDataSetTableAdapters
             tableMapping.ColumnMappings.Add("InspectionDate", "InspectionDate")
             tableMapping.ColumnMappings.Add("ReportNumber", "ReportNumber")
             tableMapping.ColumnMappings.Add("Version", "Version")
-            tableMapping.ColumnMappings.Add("StartTime", "StartTime")
-            tableMapping.ColumnMappings.Add("EndTime", "EndTime")
             tableMapping.ColumnMappings.Add("SpecialNotes", "SpecialNotes")
             tableMapping.ColumnMappings.Add("AppointmentID", "AppointmentID")
+            tableMapping.ColumnMappings.Add("ReportType", "ReportType")
+            tableMapping.ColumnMappings.Add("StartTime", "StartTime")
+            tableMapping.ColumnMappings.Add("EndTime", "EndTime")
             Me._adapter.TableMappings.Add(tableMapping)
             Me._adapter.DeleteCommand = New Global.System.Data.OleDb.OleDbCommand()
             Me._adapter.DeleteCommand.Connection = Me.Connection
@@ -5994,7 +6137,7 @@ Namespace vreportsDataSetTableAdapters
                 "portNumber` = ?)) AND ((? = 1 AND `Version` IS NULL) OR (`Version` = ?)) AND ((?"& _ 
                 " = 1 AND `StartTime` IS NULL) OR (`StartTime` = ?)) AND ((? = 1 AND `EndTime` IS"& _ 
                 " NULL) OR (`EndTime` = ?)) AND ((? = 1 AND `AppointmentID` IS NULL) OR (`Appoint"& _ 
-                "mentID` = ?)))"
+                "mentID` = ?)) AND ((? = 1 AND `ReportType` IS NULL) OR (`ReportType` = ?)))"
             Me._adapter.DeleteCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_ID", Global.System.Data.OleDb.OleDbType.Guid, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ID", Global.System.Data.DataRowVersion.Original, false, Nothing))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_InspectionDate", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "InspectionDate", Global.System.Data.DataRowVersion.Original, true, Nothing))
@@ -6009,11 +6152,13 @@ Namespace vreportsDataSetTableAdapters
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_EndTime", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "EndTime", Global.System.Data.DataRowVersion.Original, false, Nothing))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_AppointmentID", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "AppointmentID", Global.System.Data.DataRowVersion.Original, true, Nothing))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_AppointmentID", Global.System.Data.OleDb.OleDbType.Guid, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "AppointmentID", Global.System.Data.DataRowVersion.Original, false, Nothing))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_ReportType", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ReportType", Global.System.Data.DataRowVersion.Original, true, Nothing))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_ReportType", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ReportType", Global.System.Data.DataRowVersion.Original, false, Nothing))
             Me._adapter.InsertCommand = New Global.System.Data.OleDb.OleDbCommand()
             Me._adapter.InsertCommand.Connection = Me.Connection
             Me._adapter.InsertCommand.CommandText = "INSERT INTO `ReportMaster` (`ID`, `InspectionDate`, `ReportNumber`, `Version`, `S"& _ 
-                "tartTime`, `EndTime`, `SpecialNotes`, `AppointmentID`) VALUES (?, ?, ?, ?, ?, ?,"& _ 
-                " ?, ?)"
+                "tartTime`, `EndTime`, `SpecialNotes`, `AppointmentID`, `ReportType`) VALUES (?, "& _ 
+                "?, ?, ?, ?, ?, ?, ?, ?)"
             Me._adapter.InsertCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("ID", Global.System.Data.OleDb.OleDbType.Guid, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ID", Global.System.Data.DataRowVersion.Current, false, Nothing))
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("InspectionDate", Global.System.Data.OleDb.OleDbType.[Date], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "InspectionDate", Global.System.Data.DataRowVersion.Current, false, Nothing))
@@ -6023,15 +6168,17 @@ Namespace vreportsDataSetTableAdapters
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("EndTime", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "EndTime", Global.System.Data.DataRowVersion.Current, false, Nothing))
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("SpecialNotes", Global.System.Data.OleDb.OleDbType.LongVarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "SpecialNotes", Global.System.Data.DataRowVersion.Current, false, Nothing))
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("AppointmentID", Global.System.Data.OleDb.OleDbType.Guid, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "AppointmentID", Global.System.Data.DataRowVersion.Current, false, Nothing))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("ReportType", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ReportType", Global.System.Data.DataRowVersion.Current, false, Nothing))
             Me._adapter.UpdateCommand = New Global.System.Data.OleDb.OleDbCommand()
             Me._adapter.UpdateCommand.Connection = Me.Connection
             Me._adapter.UpdateCommand.CommandText = "UPDATE `ReportMaster` SET `ID` = ?, `InspectionDate` = ?, `ReportNumber` = ?, `Ve"& _ 
                 "rsion` = ?, `StartTime` = ?, `EndTime` = ?, `SpecialNotes` = ?, `AppointmentID` "& _ 
-                "= ? WHERE ((`ID` = ?) AND ((? = 1 AND `InspectionDate` IS NULL) OR (`InspectionD"& _ 
-                "ate` = ?)) AND ((? = 1 AND `ReportNumber` IS NULL) OR (`ReportNumber` = ?)) AND "& _ 
-                "((? = 1 AND `Version` IS NULL) OR (`Version` = ?)) AND ((? = 1 AND `StartTime` I"& _ 
-                "S NULL) OR (`StartTime` = ?)) AND ((? = 1 AND `EndTime` IS NULL) OR (`EndTime` ="& _ 
-                " ?)) AND ((? = 1 AND `AppointmentID` IS NULL) OR (`AppointmentID` = ?)))"
+                "= ?, `ReportType` = ? WHERE ((`ID` = ?) AND ((? = 1 AND `InspectionDate` IS NULL"& _ 
+                ") OR (`InspectionDate` = ?)) AND ((? = 1 AND `ReportNumber` IS NULL) OR (`Report"& _ 
+                "Number` = ?)) AND ((? = 1 AND `Version` IS NULL) OR (`Version` = ?)) AND ((? = 1"& _ 
+                " AND `StartTime` IS NULL) OR (`StartTime` = ?)) AND ((? = 1 AND `EndTime` IS NUL"& _ 
+                "L) OR (`EndTime` = ?)) AND ((? = 1 AND `AppointmentID` IS NULL) OR (`Appointment"& _ 
+                "ID` = ?)) AND ((? = 1 AND `ReportType` IS NULL) OR (`ReportType` = ?)))"
             Me._adapter.UpdateCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("ID", Global.System.Data.OleDb.OleDbType.Guid, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ID", Global.System.Data.DataRowVersion.Current, false, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("InspectionDate", Global.System.Data.OleDb.OleDbType.[Date], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "InspectionDate", Global.System.Data.DataRowVersion.Current, false, Nothing))
@@ -6041,6 +6188,7 @@ Namespace vreportsDataSetTableAdapters
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("EndTime", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "EndTime", Global.System.Data.DataRowVersion.Current, false, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("SpecialNotes", Global.System.Data.OleDb.OleDbType.LongVarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "SpecialNotes", Global.System.Data.DataRowVersion.Current, false, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("AppointmentID", Global.System.Data.OleDb.OleDbType.Guid, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "AppointmentID", Global.System.Data.DataRowVersion.Current, false, Nothing))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("ReportType", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ReportType", Global.System.Data.DataRowVersion.Current, false, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_ID", Global.System.Data.OleDb.OleDbType.Guid, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ID", Global.System.Data.DataRowVersion.Original, false, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_InspectionDate", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "InspectionDate", Global.System.Data.DataRowVersion.Original, true, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_InspectionDate", Global.System.Data.OleDb.OleDbType.[Date], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "InspectionDate", Global.System.Data.DataRowVersion.Original, false, Nothing))
@@ -6054,6 +6202,8 @@ Namespace vreportsDataSetTableAdapters
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_EndTime", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "EndTime", Global.System.Data.DataRowVersion.Original, false, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_AppointmentID", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "AppointmentID", Global.System.Data.DataRowVersion.Original, true, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_AppointmentID", Global.System.Data.OleDb.OleDbType.Guid, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "AppointmentID", Global.System.Data.DataRowVersion.Original, false, Nothing))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_ReportType", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ReportType", Global.System.Data.DataRowVersion.Original, true, Nothing))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_ReportType", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ReportType", Global.System.Data.DataRowVersion.Original, false, Nothing))
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -6066,18 +6216,22 @@ Namespace vreportsDataSetTableAdapters
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Private Sub InitCommandCollection()
-            Me._commandCollection = New Global.System.Data.OleDb.OleDbCommand(1) {}
+            Me._commandCollection = New Global.System.Data.OleDb.OleDbCommand(2) {}
             Me._commandCollection(0) = New Global.System.Data.OleDb.OleDbCommand()
             Me._commandCollection(0).Connection = Me.Connection
-            Me._commandCollection(0).CommandText = "SELECT ID, InspectionDate, ReportNumber, Version, StartTime, EndTime, SpecialNote"& _ 
-                "s, AppointmentID FROM ReportMaster"
+            Me._commandCollection(0).CommandText = "SELECT * FROM ReportMaster"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(1) = New Global.System.Data.OleDb.OleDbCommand()
             Me._commandCollection(1).Connection = Me.Connection
-            Me._commandCollection(1).CommandText = "SELECT ID, InspectionDate, ReportNumber, Version, StartTime, EndTime, SpecialNote"& _ 
-                "s, AppointmentID FROM ReportMaster WHERE (ID = ?)"
+            Me._commandCollection(1).CommandText = "SELECT * FROM ReportMaster WHERE (ID = ?)"
             Me._commandCollection(1).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(1).Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("ID", Global.System.Data.OleDb.OleDbType.Guid, 1024, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ID", Global.System.Data.DataRowVersion.Current, false, Nothing))
+            Me._commandCollection(2) = New Global.System.Data.OleDb.OleDbCommand()
+            Me._commandCollection(2).Connection = Me.Connection
+            Me._commandCollection(2).CommandText = "SELECT * FROM ReportMaster WHERE (ID = ?) AND (ReportType = ?)"
+            Me._commandCollection(2).CommandType = Global.System.Data.CommandType.Text
+            Me._commandCollection(2).Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("ID", Global.System.Data.OleDb.OleDbType.Guid, 1024, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ID", Global.System.Data.DataRowVersion.Current, false, Nothing))
+            Me._commandCollection(2).Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("ReportType", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ReportType", Global.System.Data.DataRowVersion.Current, false, Nothing))
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -6140,6 +6294,42 @@ Namespace vreportsDataSetTableAdapters
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, false)>  _
+        Public Overloads Overridable Function FillByReportIDAndReportType(ByVal dataTable As vreportsDataSet.ReportMasterDataTable, ByVal ID As Object, ByVal ReportType As Integer) As Integer
+            Me.Adapter.SelectCommand = Me.CommandCollection(2)
+            If (ID Is Nothing) Then
+                Me.Adapter.SelectCommand.Parameters(0).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.SelectCommand.Parameters(0).Value = CType(ID,Object)
+            End If
+            Me.Adapter.SelectCommand.Parameters(1).Value = CType(ReportType,Integer)
+            If (Me.ClearBeforeFill = true) Then
+                dataTable.Clear
+            End If
+            Dim returnValue As Integer = Me.Adapter.Fill(dataTable)
+            Return returnValue
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)>  _
+        Public Overloads Overridable Function GetDataByReportIDAndReportType(ByVal ID As Object, ByVal ReportType As Integer) As vreportsDataSet.ReportMasterDataTable
+            Me.Adapter.SelectCommand = Me.CommandCollection(2)
+            If (ID Is Nothing) Then
+                Me.Adapter.SelectCommand.Parameters(0).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.SelectCommand.Parameters(0).Value = CType(ID,Object)
+            End If
+            Me.Adapter.SelectCommand.Parameters(1).Value = CType(ReportType,Integer)
+            Dim dataTable As vreportsDataSet.ReportMasterDataTable = New vreportsDataSet.ReportMasterDataTable()
+            Me.Adapter.Fill(dataTable)
+            Return dataTable
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
         Public Overloads Overridable Function Update(ByVal dataTable As vreportsDataSet.ReportMasterDataTable) As Integer
             Return Me.Adapter.Update(dataTable)
@@ -6170,7 +6360,7 @@ Namespace vreportsDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, true)>  _
-        Public Overloads Overridable Function Delete(ByVal Original_ID As Global.System.Nullable(Of Global.System.Guid), ByVal Original_InspectionDate As Global.System.Nullable(Of Date), ByVal Original_ReportNumber As String, ByVal Original_Version As String, ByVal Original_StartTime As String, ByVal Original_EndTime As String, ByVal Original_AppointmentID As Global.System.Nullable(Of Global.System.Guid)) As Integer
+        Public Overloads Overridable Function Delete(ByVal Original_ID As Global.System.Nullable(Of Global.System.Guid), ByVal Original_InspectionDate As Global.System.Nullable(Of Date), ByVal Original_ReportNumber As String, ByVal Original_Version As String, ByVal Original_StartTime As String, ByVal Original_EndTime As String, ByVal Original_AppointmentID As Global.System.Nullable(Of Global.System.Guid), ByVal Original_ReportType As Integer) As Integer
             If (Original_ID.HasValue = true) Then
                 Me.Adapter.DeleteCommand.Parameters(0).Value = CType(Original_ID.Value,System.Guid)
             Else
@@ -6218,6 +6408,8 @@ Namespace vreportsDataSetTableAdapters
                 Me.Adapter.DeleteCommand.Parameters(11).Value = CType(1,Object)
                 Me.Adapter.DeleteCommand.Parameters(12).Value = Global.System.DBNull.Value
             End If
+            Me.Adapter.DeleteCommand.Parameters(13).Value = CType(0,Object)
+            Me.Adapter.DeleteCommand.Parameters(14).Value = CType(Original_ReportType,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.DeleteCommand.Connection.State
             If ((Me.Adapter.DeleteCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -6237,7 +6429,7 @@ Namespace vreportsDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, true)>  _
-        Public Overloads Overridable Function Insert(ByVal ID As Global.System.Nullable(Of Global.System.Guid), ByVal InspectionDate As Global.System.Nullable(Of Date), ByVal ReportNumber As String, ByVal Version As String, ByVal StartTime As String, ByVal EndTime As String, ByVal SpecialNotes As String, ByVal AppointmentID As Global.System.Nullable(Of Global.System.Guid)) As Integer
+        Public Overloads Overridable Function Insert(ByVal ID As Global.System.Nullable(Of Global.System.Guid), ByVal InspectionDate As Global.System.Nullable(Of Date), ByVal ReportNumber As String, ByVal Version As String, ByVal StartTime As String, ByVal EndTime As String, ByVal SpecialNotes As String, ByVal AppointmentID As Global.System.Nullable(Of Global.System.Guid), ByVal ReportType As Integer) As Integer
             If (ID.HasValue = true) Then
                 Me.Adapter.InsertCommand.Parameters(0).Value = CType(ID.Value,System.Guid)
             Else
@@ -6278,6 +6470,7 @@ Namespace vreportsDataSetTableAdapters
             Else
                 Me.Adapter.InsertCommand.Parameters(7).Value = Global.System.DBNull.Value
             End If
+            Me.Adapter.InsertCommand.Parameters(8).Value = CType(ReportType,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.InsertCommand.Connection.State
             If ((Me.Adapter.InsertCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -6297,7 +6490,24 @@ Namespace vreportsDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
-        Public Overloads Overridable Function Update(ByVal ID As Global.System.Nullable(Of Global.System.Guid), ByVal InspectionDate As Global.System.Nullable(Of Date), ByVal ReportNumber As String, ByVal Version As String, ByVal StartTime As String, ByVal EndTime As String, ByVal SpecialNotes As String, ByVal AppointmentID As Global.System.Nullable(Of Global.System.Guid), ByVal Original_ID As Global.System.Nullable(Of Global.System.Guid), ByVal Original_InspectionDate As Global.System.Nullable(Of Date), ByVal Original_ReportNumber As String, ByVal Original_Version As String, ByVal Original_StartTime As String, ByVal Original_EndTime As String, ByVal Original_AppointmentID As Global.System.Nullable(Of Global.System.Guid)) As Integer
+        Public Overloads Overridable Function Update( _
+                    ByVal ID As Global.System.Nullable(Of Global.System.Guid),  _
+                    ByVal InspectionDate As Global.System.Nullable(Of Date),  _
+                    ByVal ReportNumber As String,  _
+                    ByVal Version As String,  _
+                    ByVal StartTime As String,  _
+                    ByVal EndTime As String,  _
+                    ByVal SpecialNotes As String,  _
+                    ByVal AppointmentID As Global.System.Nullable(Of Global.System.Guid),  _
+                    ByVal ReportType As Integer,  _
+                    ByVal Original_ID As Global.System.Nullable(Of Global.System.Guid),  _
+                    ByVal Original_InspectionDate As Global.System.Nullable(Of Date),  _
+                    ByVal Original_ReportNumber As String,  _
+                    ByVal Original_Version As String,  _
+                    ByVal Original_StartTime As String,  _
+                    ByVal Original_EndTime As String,  _
+                    ByVal Original_AppointmentID As Global.System.Nullable(Of Global.System.Guid),  _
+                    ByVal Original_ReportType As Integer) As Integer
             If (ID.HasValue = true) Then
                 Me.Adapter.UpdateCommand.Parameters(0).Value = CType(ID.Value,System.Guid)
             Else
@@ -6338,53 +6548,56 @@ Namespace vreportsDataSetTableAdapters
             Else
                 Me.Adapter.UpdateCommand.Parameters(7).Value = Global.System.DBNull.Value
             End If
+            Me.Adapter.UpdateCommand.Parameters(8).Value = CType(ReportType,Integer)
             If (Original_ID.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(8).Value = CType(Original_ID.Value,System.Guid)
+                Me.Adapter.UpdateCommand.Parameters(9).Value = CType(Original_ID.Value,System.Guid)
             Else
-                Me.Adapter.UpdateCommand.Parameters(8).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(9).Value = Global.System.DBNull.Value
             End If
             If (Original_InspectionDate.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(9).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(10).Value = CType(Original_InspectionDate.Value,Date)
+                Me.Adapter.UpdateCommand.Parameters(10).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(11).Value = CType(Original_InspectionDate.Value,Date)
             Else
-                Me.Adapter.UpdateCommand.Parameters(9).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(10).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(10).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(11).Value = Global.System.DBNull.Value
             End If
             If (Original_ReportNumber Is Nothing) Then
-                Me.Adapter.UpdateCommand.Parameters(11).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(12).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(12).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(13).Value = Global.System.DBNull.Value
             Else
-                Me.Adapter.UpdateCommand.Parameters(11).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(12).Value = CType(Original_ReportNumber,String)
+                Me.Adapter.UpdateCommand.Parameters(12).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(13).Value = CType(Original_ReportNumber,String)
             End If
             If (Original_Version Is Nothing) Then
-                Me.Adapter.UpdateCommand.Parameters(13).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(14).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(14).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(15).Value = Global.System.DBNull.Value
             Else
-                Me.Adapter.UpdateCommand.Parameters(13).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(14).Value = CType(Original_Version,String)
+                Me.Adapter.UpdateCommand.Parameters(14).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(15).Value = CType(Original_Version,String)
             End If
             If (Original_StartTime Is Nothing) Then
-                Me.Adapter.UpdateCommand.Parameters(15).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(16).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(16).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(17).Value = Global.System.DBNull.Value
             Else
-                Me.Adapter.UpdateCommand.Parameters(15).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(16).Value = CType(Original_StartTime,String)
+                Me.Adapter.UpdateCommand.Parameters(16).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(17).Value = CType(Original_StartTime,String)
             End If
             If (Original_EndTime Is Nothing) Then
-                Me.Adapter.UpdateCommand.Parameters(17).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(18).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(18).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(19).Value = Global.System.DBNull.Value
             Else
-                Me.Adapter.UpdateCommand.Parameters(17).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(18).Value = CType(Original_EndTime,String)
+                Me.Adapter.UpdateCommand.Parameters(18).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(19).Value = CType(Original_EndTime,String)
             End If
             If (Original_AppointmentID.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(19).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(20).Value = CType(Original_AppointmentID.Value,System.Guid)
+                Me.Adapter.UpdateCommand.Parameters(20).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(21).Value = CType(Original_AppointmentID.Value,System.Guid)
             Else
-                Me.Adapter.UpdateCommand.Parameters(19).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(20).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(20).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(21).Value = Global.System.DBNull.Value
             End If
+            Me.Adapter.UpdateCommand.Parameters(22).Value = CType(0,Object)
+            Me.Adapter.UpdateCommand.Parameters(23).Value = CType(Original_ReportType,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.UpdateCommand.Connection.State
             If ((Me.Adapter.UpdateCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -6404,8 +6617,24 @@ Namespace vreportsDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
-        Public Overloads Overridable Function Update(ByVal InspectionDate As Global.System.Nullable(Of Date), ByVal ReportNumber As String, ByVal Version As String, ByVal StartTime As String, ByVal EndTime As String, ByVal SpecialNotes As String, ByVal AppointmentID As Global.System.Nullable(Of Global.System.Guid), ByVal Original_ID As Global.System.Nullable(Of Global.System.Guid), ByVal Original_InspectionDate As Global.System.Nullable(Of Date), ByVal Original_ReportNumber As String, ByVal Original_Version As String, ByVal Original_StartTime As String, ByVal Original_EndTime As String, ByVal Original_AppointmentID As Global.System.Nullable(Of Global.System.Guid)) As Integer
-            Return Me.Update(Original_ID, InspectionDate, ReportNumber, Version, StartTime, EndTime, SpecialNotes, AppointmentID, Original_ID, Original_InspectionDate, Original_ReportNumber, Original_Version, Original_StartTime, Original_EndTime, Original_AppointmentID)
+        Public Overloads Overridable Function Update( _
+                    ByVal InspectionDate As Global.System.Nullable(Of Date),  _
+                    ByVal ReportNumber As String,  _
+                    ByVal Version As String,  _
+                    ByVal StartTime As String,  _
+                    ByVal EndTime As String,  _
+                    ByVal SpecialNotes As String,  _
+                    ByVal AppointmentID As Global.System.Nullable(Of Global.System.Guid),  _
+                    ByVal ReportType As Integer,  _
+                    ByVal Original_ID As Global.System.Nullable(Of Global.System.Guid),  _
+                    ByVal Original_InspectionDate As Global.System.Nullable(Of Date),  _
+                    ByVal Original_ReportNumber As String,  _
+                    ByVal Original_Version As String,  _
+                    ByVal Original_StartTime As String,  _
+                    ByVal Original_EndTime As String,  _
+                    ByVal Original_AppointmentID As Global.System.Nullable(Of Global.System.Guid),  _
+                    ByVal Original_ReportType As Integer) As Integer
+            Return Me.Update(Original_ID, InspectionDate, ReportNumber, Version, StartTime, EndTime, SpecialNotes, AppointmentID, ReportType, Original_ID, Original_InspectionDate, Original_ReportNumber, Original_Version, Original_StartTime, Original_EndTime, Original_AppointmentID, Original_ReportType)
         End Function
     End Class
     

@@ -99,11 +99,17 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EmailAddress.vb" />
+    <Compile Include="EmailAddressADO.vb" />
+    <Compile Include="EmailAddressData.vb" />
     <Compile Include="AddressData.vb" />
     <Compile Include="AddressADO.vb" />
+    <Compile Include="InspectionAddress.vb" />
+    <Compile Include="ReportADO.vb" />
+    <Compile Include="ReportData.vb" />
     <Compile Include="JobAddress.vb" />
     <Compile Include="ClientAddress.vb" />
-    <Compile Include="Report.vb" />
+    <Compile Include="InspectionReport.vb" />
     <Compile Include="ReportPerson.vb" />
     <Compile Include="ReportClient.vb" />
     <Compile Include="ClientRepository.vb" />
