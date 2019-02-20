@@ -30,15 +30,14 @@ Public Class InspectionAddress
     ' *****     New(id)
     ' ***********************************************
     '
-    Public Sub New(ByVal anID As Guid)
-        MyBase.New(anID)
+    Public Sub New(ByVal aReportID As Guid)
+        MyBase.New(aReportID, AddressTypes.JobSite)
         '
-        ' The call to myBase.New(anID) goes through the process of
-        ' using anID to determine what AddressType we have. If New(anID) determined
-        ' that the AddressType is other than Residential, this is an invalid object.
+        ' The call to myBase.New(anID) determines in a record exists using the PersonID FK. 
+        ' There are 3 cases: 1) Exists, 2) Doesn't exist but we can create one, or 3) error
         '
-        If AddressType <> AddressTypes.JobSite Then
-            MsgBox("InspectionAddress.New(id)" & vbCrLf & "Not a valid AddressType!")
+        If ObjectState = ObjectStates.ErrorCondition Then
+            MsgBox("New(id)" & vbCrLf & "The object is in an error condition!",, "InspectionAddress Class")
 
         End If
     End Sub

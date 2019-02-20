@@ -5,7 +5,7 @@
 ' ****
 ' **********************************************
 ' 
-Public MustInherit Class AddressData
+Public MustInherit Class PhoneData
     '
     ' **********************************************
     ' ****
@@ -30,26 +30,19 @@ Public MustInherit Class AddressData
     ' *****     Set Data From Row
     ' ***********************************************
     '
-    Friend Function SetDataFromRow(ByRef row As vreportsDataSet.AddressRow) As ObjectStates
+    Friend Function SetDataFromRow(ByRef row As vreportsDataSet.PhoneRow) As ObjectStates
 
         Try
             With row
-                AddressID = .ID
-                Address1 = .Address1
-                Address2 = .Address2
-                City = .City
-                State = .State
-                ZipCode = .ZipCode
-                County = .County
-                Country = .Country
-                PersonID = .PersonId
-                ReportID = .ReportID
+                PhoneID = .ID
+                Number = .Number
+                PersonID = .PersonID
                 CompanyID = .CompanyID
-                AddressType = .AddressType
+                PhoneType = .PhoneType
 
             End With
         Catch ex As Exception
-            MsgBox("SetDataFromRow()" & vbCrLf & "Error setting the row in Address()!")
+            MsgBox("SetDataFromRow()" & vbCrLf & "Error setting the row in Phone()!")
             m_ObjectState = ObjectStates.ErrorCondition
 
         End Try
@@ -62,23 +55,16 @@ Public MustInherit Class AddressData
     ' *****     Set Row From Data
     ' ***********************************************
     '
-    Protected Friend Function SetRowFromData(ByRef row As vreportsDataSet.AddressRow) As Boolean
+    Protected Friend Function SetRowFromData(ByRef row As vreportsDataSet.PhoneRow) As Boolean
         Dim bFlag As Boolean = True
         '
         Try
             With row
-                .ID = AddressID
-                .Address1 = Address1
-                .Address2 = Address2
-                .City = City
-                .State = State
-                .ZipCode = ZipCode
-                .County = County
-                .Country = Country
-                .PersonId = PersonID
-                .ReportID = ReportID
+                .ID = PhoneID
+                .Number = Number
+                .PersonID = PersonID
                 .CompanyID = CompanyID
-                .AddressType = AddressType
+                .PhoneType = PhoneType
 
             End With
 
@@ -92,6 +78,20 @@ Public MustInherit Class AddressData
 
     End Function
     '
+    ' ***********************************************
+    ' *****     Numerals Only
+    ' ***********************************************
+    '  
+    Private Function NumeralsOnly(ByVal sIn As String) As String
+        Dim sNew As String = ""
+        For x = 0 To sIn.Length - 1
+            If IsNumeric(sIn.Chars(x)) Then
+                sNew &= sIn.Chars(x)
+
+            End If
+        Next
+        Return sNew
+    End Function
     '
     '
     ' **********************************************
@@ -117,29 +117,29 @@ Public MustInherit Class AddressData
     ' Encapsulated Data
     '
     Private m_IsDirty As Boolean
-    Private m_AddressID As Guid = Guid.Empty
-    Private m_AddressType As AddressTypes = "-1"
+    Private m_PhoneID As Guid = Guid.Empty
+    Private m_PhoneType As PhoneTypes = "-1"
     '
-    ' AddressID, which is the primary key
+    ' PhoneID, which is the primary key
     '
-    Public Property AddressID As Guid
+    Public Property PhoneID As Guid
         Get
-            Return m_AddressID
+            Return m_PhoneID
         End Get
         Set(value As Guid)
-            m_AddressID = value
+            m_PhoneID = value
             m_IsDirty = True
         End Set
     End Property
     '
-    ' Address Type, all biz objects using this design pattern have a type, even if it has just one type
+    ' Phone Type, all biz objects using this design pattern have a type, even if it has just one type
     '
-    Public Property AddressType As AddressTypes
+    Public Property PhoneType As PhoneTypes
         Get
-            Return m_AddressType
+            Return m_PhoneType
         End Get
-        Set(value As AddressTypes)
-            m_AddressType = value
+        Set(value As PhoneTypes)
+            m_PhoneType = value
             m_IsDirty = True
         End Set
     End Property
@@ -186,14 +186,7 @@ Public MustInherit Class AddressData
     '
     Private m_PersonID As Guid = Guid.Empty
     Private m_CompanyID As Guid = Guid.Empty
-    Private m_ReportID As Guid = Guid.Empty
-    Private m_Address1 As String = ""
-    Private m_Address2 As String = ""
-    Private m_City As String = ""
-    Private m_State As String = ""
-    Private m_ZipCode As String = ""
-    Private m_County As String = ""
-    Private m_Country As String = "US"
+    Private m_Number As String = ""
     '
     ' PersonID, this is a GUID that serves as a foreign key tag.
     '
@@ -219,103 +212,18 @@ Public MustInherit Class AddressData
         End Set
     End Property
     '
-    ' ReportID, this is a GUID that serves as a foreign key tag.
+    ' Number, as in only numbers!
     '
-    Public Property ReportID As Guid
+    Public Property Number As String
         Get
-            Return m_ReportID
-        End Get
-        Set(value As Guid)
-            m_ReportID = value
-            m_IsDirty = True
-        End Set
-    End Property
-    '
-    ' Address 1
-    '
-    Public Property Address1 As String
-        Get
-            Return m_Address1
+            Return m_Number
         End Get
         Set(value As String)
-            m_Address1 = value
+            m_Number = NumeralsOnly(value)
             m_IsDirty = True
         End Set
     End Property
     '
-    ' Address 2
-    '
-    Public Property Address2 As String
-        Get
-            Return m_Address2
-        End Get
-        Set(value As String)
-            m_Address2 = value
-            m_IsDirty = True
-        End Set
-    End Property
-    '
-    ' City
-    '
-    Public Property City As String
-        Get
-            Return m_City
-        End Get
-        Set(value As String)
-            m_City = value
-            m_IsDirty = True
-        End Set
-    End Property
-    '
-    ' State
-    '
-    Public Property State As String
-        Get
-            Return m_State
-        End Get
-        Set(value As String)
-            m_State = value
-            m_IsDirty = True
-        End Set
-    End Property
-    '
-    ' Zip Code
-    '
-    Public Property ZipCode As String
-        Get
-            Return m_ZipCode
-        End Get
-        Set(value As String)
-            m_ZipCode = value
-            m_IsDirty = True
-        End Set
-    End Property
-    '
-    ' County
-    '
-    Public Property County As String
-        Get
-            Return m_County
-        End Get
-        Set(value As String)
-            m_County = value
-            m_IsDirty = True
-        End Set
-    End Property
-    '
-    ' Country, technically not needed for the pupose of this application, but kept because HGI captures the information.
-    '
-    Public Property Country As String
-        Get
-            Return m_Country
-        End Get
-        Set(value As String)
-            m_Country = value
-            m_IsDirty = True
-        End Set
-    End Property
-
-
 End Class
 '///////////////////////////////////////////// END OF CLASS //////////////////////////////////////////////
 '
@@ -325,10 +233,15 @@ End Class
 ' ****
 ' **********************************************
 ' 
-Public Enum AddressTypes ' Must match database!
-    Residential
-    JobSite
-    Company
+Public Enum PhoneTypes
+    PersonMobile
+    PersonHome
+    PersonWork
+    PersonFax
+    CompanyMobile
+    CompanyMain
+    CompanyDirect
+    CompanyFax
 
 End Enum
 

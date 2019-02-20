@@ -5,8 +5,8 @@
 ' ****
 ' **********************************************
 '
-Public Class ClientAddress
-    Inherits AddressADO
+Public Class CompanyMainPhone
+    Inherits PhoneADO
     '
     ' **********************************************
     ' ****
@@ -19,10 +19,7 @@ Public Class ClientAddress
     ' ***********************************************
     '   
     Public Sub New()
-        MyBase.New()
-
-        ' This is what makes this a valid Client Address
-        AddressType = AddressTypes.Residential
+        MyBase.New(PhoneTypes.CompanyMain)
 
     End Sub
     '
@@ -31,16 +28,14 @@ Public Class ClientAddress
     ' ***********************************************
     '
     Public Sub New(ByVal aClientID As Guid)
-        MyBase.New(aClientID, AddressTypes.Residential)
+        MyBase.New(aClientID, PhoneTypes.CompanyMain)
         '
         ' One of three things happened: 1) the record exists, 2) a new record was seeded, or 3) Error
         '
         If ObjectState = ObjectStates.ErrorCondition Then
-            MsgBox("New(id)" & vbCrLf & "The object is in an error condition!",, "ClientAddress Class")
+            MsgBox("New(id)" & vbCrLf & "The object is in an error condition!",, "CompanyMainPhone Class")
 
         End If
     End Sub
-
-
-
+    '
 End Class

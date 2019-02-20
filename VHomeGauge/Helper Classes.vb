@@ -40,20 +40,8 @@ Public Class XMLParser
 
 End Class
 
-Public Enum PhoneTypes
-    Mobile
-    Home
-    Work
-
-End Enum
 
 
-Public Enum PersonTypes
-    Client
-    Agent
-    Inspector
-
-End Enum
 
 
 Public Enum CompanyTypes

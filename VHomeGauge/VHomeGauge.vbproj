@@ -99,6 +99,21 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PersonFaxPhone.vb" />
+    <Compile Include="PersonWorkPhone.vb" />
+    <Compile Include="PersonHomePhone.vb" />
+    <Compile Include="PersonMobilePhone.vb" />
+    <Compile Include="CompanyFaxPhone.vb" />
+    <Compile Include="CompanyDirectPhone.vb" />
+    <Compile Include="CompanyMobilePhone.vb" />
+    <Compile Include="CompanyMainPhone.vb" />
+    <Compile Include="PhoneADO.vb" />
+    <Compile Include="PhoneData.vb" />
+    <Compile Include="Inspector.vb" />
+    <Compile Include="Agent.vb" />
+    <Compile Include="Client.vb" />
+    <Compile Include="PersonADO.vb" />
+    <Compile Include="PersonData.vb" />
     <Compile Include="EmailAddress.vb" />
     <Compile Include="EmailAddressADO.vb" />
     <Compile Include="EmailAddressData.vb" />
@@ -107,7 +122,7 @@
     <Compile Include="InspectionAddress.vb" />
     <Compile Include="ReportADO.vb" />
     <Compile Include="ReportData.vb" />
-    <Compile Include="JobAddress.vb" />
+    <Compile Include="CompanyAddress.vb" />
     <Compile Include="ClientAddress.vb" />
     <Compile Include="InspectionReport.vb" />
     <Compile Include="ReportPerson.vb" />
