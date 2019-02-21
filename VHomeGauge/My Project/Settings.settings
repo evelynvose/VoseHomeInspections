@@ -37,5 +37,8 @@
     <Setting Name="ConnectionString" Type="System.String" Scope="User">
       <Value Profile="(Default)">Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\Evie.4HI-VM3\Documents\source\repos\VoseHomeInspections\VHomeGauge\VReports.accdb</Value>
     </Setting>
+    <Setting Name="HomeGaugeReportsPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Users\Evie.4HI-VM3\Documents\HomeGauge\Reports</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

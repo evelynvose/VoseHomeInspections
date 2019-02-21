@@ -72,7 +72,8 @@ Public Class InspectionReport
 
                 End If
                 If reportSplits.Count > 1 Then
-                    ReportVersion = reportSplits(1)
+                    ReportVersion = reportSplits(1).TrimStart("v")
+                    ReportVersion = ReportVersion.TrimStart("V")
 
                 End If
             End If

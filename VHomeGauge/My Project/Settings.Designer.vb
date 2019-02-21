@@ -138,6 +138,18 @@ Namespace My
                 Me("ConnectionString") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("C:\Users\Evie.4HI-VM3\Documents\HomeGauge\Reports")>  _
+        Public Property HomeGaugeReportsPath() As String
+            Get
+                Return CType(Me("HomeGaugeReportsPath"),String)
+            End Get
+            Set
+                Me("HomeGaugeReportsPath") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

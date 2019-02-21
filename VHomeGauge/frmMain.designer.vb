@@ -1,7 +1,7 @@
 ﻿Imports Syncfusion.Windows.Forms
 
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
-Partial Class Main
+Partial Class frmMain
     Inherits MetroForm ' System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -38,7 +38,7 @@ Partial Class Main
         Dim TreeNodeAdv10 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
         Dim TreeNodeAdv11 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
         Dim TreeNodeAdv12 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Main))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
         Dim GridImageColumn1 As Syncfusion.WinForms.DataGrid.GridImageColumn = New Syncfusion.WinForms.DataGrid.GridImageColumn()
         Dim GridTextColumn1 As Syncfusion.WinForms.DataGrid.GridTextColumn = New Syncfusion.WinForms.DataGrid.GridTextColumn()
         Dim GridTextColumn2 As Syncfusion.WinForms.DataGrid.GridTextColumn = New Syncfusion.WinForms.DataGrid.GridTextColumn()
@@ -70,10 +70,13 @@ Partial Class Main
         Me.btnContactsClient = New Syncfusion.Windows.Forms.ButtonAdv()
         Me.dgPeopleInfo = New Syncfusion.WinForms.DataGrid.SfDataGrid()
         Me.sbStatusBar = New Syncfusion.Windows.Forms.Tools.StatusBarAdv()
+        Me.sbPanelTemplateIcon = New Syncfusion.Windows.Forms.Tools.StatusBarAdvPanel()
         Me.sbPanTemplatePath = New Syncfusion.Windows.Forms.Tools.StatusBarAdvPanel()
+        Me.sbPanelReportIcon = New Syncfusion.Windows.Forms.Tools.StatusBarAdvPanel()
         Me.sbPanReportPath = New Syncfusion.Windows.Forms.Tools.StatusBarAdvPanel()
         Me.sbPanCapsLock = New Syncfusion.Windows.Forms.Tools.StatusBarAdvPanel()
         Me.sbPanNumLock = New Syncfusion.Windows.Forms.Tools.StatusBarAdvPanel()
+        Me.sbPanInsLock = New Syncfusion.Windows.Forms.Tools.StatusBarAdvPanel()
         Me.ToolStripTabItem1 = New Syncfusion.Windows.Forms.Tools.ToolStripTabItem()
         CType(Me.scSlab, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.scSlab.Panel1.SuspendLayout()
@@ -117,10 +120,13 @@ Partial Class Main
         CType(Me.dgPeopleInfo, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.sbStatusBar, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.sbStatusBar.SuspendLayout()
+        CType(Me.sbPanelTemplateIcon, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.sbPanTemplatePath, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.sbPanelReportIcon, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.sbPanReportPath, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.sbPanCapsLock, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.sbPanNumLock, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.sbPanInsLock, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'scSlab
@@ -688,59 +694,96 @@ Partial Class Main
         'sbStatusBar
         '
         Me.sbStatusBar.Alignment = Syncfusion.Windows.Forms.Tools.FlowAlignment.Far
-        Me.sbStatusBar.BeforeTouchSize = New System.Drawing.Size(1098, 26)
+        Me.sbStatusBar.BeforeTouchSize = New System.Drawing.Size(1098, 28)
         Me.sbStatusBar.BorderSingle = System.Windows.Forms.ButtonBorderStyle.None
         Me.sbStatusBar.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.sbStatusBar.Controls.Add(Me.sbPanelTemplateIcon)
         Me.sbStatusBar.Controls.Add(Me.sbPanTemplatePath)
+        Me.sbStatusBar.Controls.Add(Me.sbPanelReportIcon)
         Me.sbStatusBar.Controls.Add(Me.sbPanReportPath)
         Me.sbStatusBar.Controls.Add(Me.sbPanCapsLock)
         Me.sbStatusBar.Controls.Add(Me.sbPanNumLock)
+        Me.sbStatusBar.Controls.Add(Me.sbPanInsLock)
         Me.sbStatusBar.CustomLayoutBounds = New System.Drawing.Rectangle(0, 0, 0, 0)
         Me.sbStatusBar.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.sbStatusBar.IgnoreThemeBackground = True
-        Me.sbStatusBar.Location = New System.Drawing.Point(0, -1)
+        Me.sbStatusBar.Location = New System.Drawing.Point(0, -3)
         Me.sbStatusBar.Name = "sbStatusBar"
         Me.sbStatusBar.Padding = New System.Windows.Forms.Padding(3)
-        Me.sbStatusBar.Size = New System.Drawing.Size(1098, 26)
+        Me.sbStatusBar.Size = New System.Drawing.Size(1098, 28)
         Me.sbStatusBar.Spacing = New System.Drawing.Size(2, 2)
         Me.sbStatusBar.TabIndex = 1
         Me.sbStatusBar.ThemesEnabled = True
         '
+        'sbPanelTemplateIcon
+        '
+        Me.sbPanelTemplateIcon.BackColor = System.Drawing.SystemColors.Control
+        Me.sbPanelTemplateIcon.BeforeTouchSize = New System.Drawing.Size(24, 24)
+        Me.sbPanelTemplateIcon.Border3DStyle = System.Windows.Forms.Border3DStyle.Flat
+        Me.sbPanelTemplateIcon.BorderSingle = System.Windows.Forms.ButtonBorderStyle.None
+        Me.sbPanelTemplateIcon.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.sbPanelTemplateIcon.Icon = CType(resources.GetObject("sbPanelTemplateIcon.Icon"), System.Drawing.Icon)
+        Me.sbPanelTemplateIcon.Location = New System.Drawing.Point(368, 2)
+        Me.sbPanelTemplateIcon.Margin = New System.Windows.Forms.Padding(0)
+        Me.sbPanelTemplateIcon.Name = "sbPanelTemplateIcon"
+        Me.sbPanelTemplateIcon.Size = New System.Drawing.Size(24, 24)
+        Me.sbPanelTemplateIcon.TabIndex = 8
+        Me.sbPanelTemplateIcon.Text = Nothing
+        Me.sbPanelTemplateIcon.ThemesEnabled = True
+        '
         'sbPanTemplatePath
         '
+        Me.sbPanTemplatePath.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.sbPanTemplatePath.AutoSize = True
         Me.sbPanTemplatePath.BackColor = System.Drawing.SystemColors.Control
-        Me.sbPanTemplatePath.BeforeTouchSize = New System.Drawing.Size(338, 22)
+        Me.sbPanTemplatePath.BeforeTouchSize = New System.Drawing.Size(257, 24)
         Me.sbPanTemplatePath.Border3DStyle = System.Windows.Forms.Border3DStyle.Flat
         Me.sbPanTemplatePath.BorderColor = System.Drawing.Color.Transparent
         Me.sbPanTemplatePath.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.sbPanTemplatePath.CustomOFFText = ""
         Me.sbPanTemplatePath.CustomONText = ""
         Me.sbPanTemplatePath.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.sbPanTemplatePath.Location = New System.Drawing.Point(322, 2)
+        Me.sbPanTemplatePath.Location = New System.Drawing.Point(394, 2)
         Me.sbPanTemplatePath.Margin = New System.Windows.Forms.Padding(0)
         Me.sbPanTemplatePath.Name = "sbPanTemplatePath"
-        Me.sbPanTemplatePath.Size = New System.Drawing.Size(338, 22)
-        Me.sbPanTemplatePath.TabIndex = 3
+        Me.sbPanTemplatePath.Size = New System.Drawing.Size(257, 24)
+        Me.sbPanTemplatePath.TabIndex = 7
         Me.sbPanTemplatePath.Text = "Template Path"
         Me.sbPanTemplatePath.ThemesEnabled = True
+        '
+        'sbPanelReportIcon
+        '
+        Me.sbPanelReportIcon.BackColor = System.Drawing.SystemColors.Control
+        Me.sbPanelReportIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.sbPanelReportIcon.BeforeTouchSize = New System.Drawing.Size(24, 24)
+        Me.sbPanelReportIcon.Border3DStyle = System.Windows.Forms.Border3DStyle.Flat
+        Me.sbPanelReportIcon.BorderSingle = System.Windows.Forms.ButtonBorderStyle.None
+        Me.sbPanelReportIcon.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.sbPanelReportIcon.Icon = CType(resources.GetObject("sbPanelReportIcon.Icon"), System.Drawing.Icon)
+        Me.sbPanelReportIcon.Location = New System.Drawing.Point(653, 2)
+        Me.sbPanelReportIcon.Margin = New System.Windows.Forms.Padding(0)
+        Me.sbPanelReportIcon.Name = "sbPanelReportIcon"
+        Me.sbPanelReportIcon.Size = New System.Drawing.Size(24, 24)
+        Me.sbPanelReportIcon.TabIndex = 6
+        Me.sbPanelReportIcon.Text = Nothing
+        Me.sbPanelReportIcon.ThemesEnabled = True
         '
         'sbPanReportPath
         '
         Me.sbPanReportPath.AutoSize = True
         Me.sbPanReportPath.BackColor = System.Drawing.SystemColors.Control
-        Me.sbPanReportPath.BeforeTouchSize = New System.Drawing.Size(311, 22)
+        Me.sbPanReportPath.BeforeTouchSize = New System.Drawing.Size(240, 24)
         Me.sbPanReportPath.Border3DStyle = System.Windows.Forms.Border3DStyle.Flat
         Me.sbPanReportPath.BorderColor = System.Drawing.Color.Transparent
         Me.sbPanReportPath.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.sbPanReportPath.CustomOFFText = ""
         Me.sbPanReportPath.CustomONText = ""
         Me.sbPanReportPath.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.sbPanReportPath.Location = New System.Drawing.Point(662, 2)
+        Me.sbPanReportPath.Location = New System.Drawing.Point(679, 2)
         Me.sbPanReportPath.Margin = New System.Windows.Forms.Padding(0)
         Me.sbPanReportPath.Name = "sbPanReportPath"
-        Me.sbPanReportPath.Size = New System.Drawing.Size(311, 22)
-        Me.sbPanReportPath.TabIndex = 2
+        Me.sbPanReportPath.Size = New System.Drawing.Size(240, 24)
+        Me.sbPanReportPath.TabIndex = 5
         Me.sbPanReportPath.Text = "Report Path"
         Me.sbPanReportPath.ThemesEnabled = True
         '
@@ -748,18 +791,18 @@ Partial Class Main
         '
         Me.sbPanCapsLock.Alignment = System.Windows.Forms.HorizontalAlignment.Center
         Me.sbPanCapsLock.BackColor = System.Drawing.SystemColors.Control
-        Me.sbPanCapsLock.BeforeTouchSize = New System.Drawing.Size(52, 22)
+        Me.sbPanCapsLock.BeforeTouchSize = New System.Drawing.Size(52, 24)
         Me.sbPanCapsLock.Border3DStyle = System.Windows.Forms.Border3DStyle.Flat
         Me.sbPanCapsLock.BorderColor = System.Drawing.Color.Transparent
         Me.sbPanCapsLock.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.sbPanCapsLock.CustomOFFText = "CAPS"
         Me.sbPanCapsLock.CustomONText = "CAPS"
         Me.sbPanCapsLock.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.sbPanCapsLock.Location = New System.Drawing.Point(975, 2)
+        Me.sbPanCapsLock.Location = New System.Drawing.Point(921, 2)
         Me.sbPanCapsLock.Margin = New System.Windows.Forms.Padding(0)
         Me.sbPanCapsLock.Name = "sbPanCapsLock"
-        Me.sbPanCapsLock.Size = New System.Drawing.Size(52, 22)
-        Me.sbPanCapsLock.TabIndex = 1
+        Me.sbPanCapsLock.Size = New System.Drawing.Size(52, 24)
+        Me.sbPanCapsLock.TabIndex = 4
         Me.sbPanCapsLock.Text = "CAP"
         Me.sbPanCapsLock.ThemesEnabled = True
         '
@@ -767,20 +810,39 @@ Partial Class Main
         '
         Me.sbPanNumLock.Alignment = System.Windows.Forms.HorizontalAlignment.Center
         Me.sbPanNumLock.BackColor = System.Drawing.SystemColors.Control
-        Me.sbPanNumLock.BeforeTouchSize = New System.Drawing.Size(52, 22)
+        Me.sbPanNumLock.BeforeTouchSize = New System.Drawing.Size(52, 24)
         Me.sbPanNumLock.Border3DStyle = System.Windows.Forms.Border3DStyle.Flat
         Me.sbPanNumLock.BorderColor = System.Drawing.Color.Transparent
         Me.sbPanNumLock.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.sbPanNumLock.CustomOFFText = "NUM"
         Me.sbPanNumLock.CustomONText = "NUM"
         Me.sbPanNumLock.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.sbPanNumLock.Location = New System.Drawing.Point(1029, 2)
+        Me.sbPanNumLock.Location = New System.Drawing.Point(975, 2)
         Me.sbPanNumLock.Margin = New System.Windows.Forms.Padding(0)
         Me.sbPanNumLock.Name = "sbPanNumLock"
-        Me.sbPanNumLock.Size = New System.Drawing.Size(52, 22)
-        Me.sbPanNumLock.TabIndex = 0
+        Me.sbPanNumLock.Size = New System.Drawing.Size(52, 24)
+        Me.sbPanNumLock.TabIndex = 3
         Me.sbPanNumLock.Text = "NUM"
         Me.sbPanNumLock.ThemesEnabled = True
+        '
+        'sbPanInsLock
+        '
+        Me.sbPanInsLock.Alignment = System.Windows.Forms.HorizontalAlignment.Center
+        Me.sbPanInsLock.BackColor = System.Drawing.SystemColors.Control
+        Me.sbPanInsLock.BeforeTouchSize = New System.Drawing.Size(52, 24)
+        Me.sbPanInsLock.Border3DStyle = System.Windows.Forms.Border3DStyle.Flat
+        Me.sbPanInsLock.BorderColor = System.Drawing.Color.Transparent
+        Me.sbPanInsLock.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.sbPanInsLock.CustomOFFText = "INS"
+        Me.sbPanInsLock.CustomONText = "INS"
+        Me.sbPanInsLock.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.sbPanInsLock.Location = New System.Drawing.Point(1029, 2)
+        Me.sbPanInsLock.Margin = New System.Windows.Forms.Padding(0)
+        Me.sbPanInsLock.Name = "sbPanInsLock"
+        Me.sbPanInsLock.Size = New System.Drawing.Size(52, 24)
+        Me.sbPanInsLock.TabIndex = 2
+        Me.sbPanInsLock.Text = "INS"
+        Me.sbPanInsLock.ThemesEnabled = True
         '
         'ToolStripTabItem1
         '
@@ -797,7 +859,7 @@ Partial Class Main
         Me.ToolStripTabItem1.Tag = "1"
         Me.ToolStripTabItem1.Text = "ToolStripTabItem1"
         '
-        'Main
+        'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -805,7 +867,7 @@ Partial Class Main
         Me.Controls.Add(Me.scSlab)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True
-        Me.Name = "Main"
+        Me.Name = "frmMain"
         Me.Padding = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.ShowIcon = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
@@ -854,10 +916,13 @@ Partial Class Main
         CType(Me.sbStatusBar, System.ComponentModel.ISupportInitialize).EndInit()
         Me.sbStatusBar.ResumeLayout(False)
         Me.sbStatusBar.PerformLayout()
+        CType(Me.sbPanelTemplateIcon, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.sbPanTemplatePath, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.sbPanelReportIcon, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.sbPanReportPath, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.sbPanCapsLock, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.sbPanNumLock, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.sbPanInsLock, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -874,11 +939,6 @@ Partial Class Main
     Friend WithEvents tvAreaNavigator As Tools.TreeViewAdv
     Friend WithEvents scTabs As Tools.SplitContainerAdv
     Friend WithEvents scLists As Tools.SplitContainerAdv
-    Private WithEvents sbStatusBar As Tools.StatusBarAdv
-    Private WithEvents sbPanTemplatePath As Tools.StatusBarAdvPanel
-    Private WithEvents sbPanReportPath As Tools.StatusBarAdvPanel
-    Private WithEvents sbPanCapsLock As Tools.StatusBarAdvPanel
-    Private WithEvents sbPanNumLock As Tools.StatusBarAdvPanel
     Friend WithEvents rbBanner As Tools.RibbonControlAdv
     Friend WithEvents ToolStripTabItem2 As Tools.ToolStripTabItem
     Friend WithEvents ToolStripTabItem1 As Tools.ToolStripTabItem
@@ -893,4 +953,12 @@ Partial Class Main
     Friend WithEvents dgPeopleInfo As Syncfusion.WinForms.DataGrid.SfDataGrid
     Friend WithEvents dgFilmstrip As Syncfusion.WinForms.DataGrid.SfDataGrid
     Friend WithEvents cbPhotoLocker As Tools.ComboBoxAdv
+    Private WithEvents sbStatusBar As Tools.StatusBarAdv
+    Friend WithEvents sbPanelTemplateIcon As Tools.StatusBarAdvPanel
+    Private WithEvents sbPanTemplatePath As Tools.StatusBarAdvPanel
+    Friend WithEvents sbPanelReportIcon As Tools.StatusBarAdvPanel
+    Private WithEvents sbPanReportPath As Tools.StatusBarAdvPanel
+    Private WithEvents sbPanCapsLock As Tools.StatusBarAdvPanel
+    Private WithEvents sbPanNumLock As Tools.StatusBarAdvPanel
+    Private WithEvents sbPanInsLock As Tools.StatusBarAdvPanel
 End Class

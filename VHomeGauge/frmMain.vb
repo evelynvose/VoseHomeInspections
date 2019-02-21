@@ -9,7 +9,7 @@ Imports Syncfusion.WinForms.DataGrid
 ' **********************************************
 ' 
 #Region "Main Form Class"
-Public Class Main
+Public Class frmMain
     Inherits MetroForm
     '
     ' ***********************************************
@@ -28,8 +28,8 @@ Public Class Main
         InitializeFilmstrip()
         InitializePeopleDataGrid()
 
-        ' Add the open report work form
-        Dim f As New WorkFormOpenReport
+        ' Add the open report browser form
+        Dim f As New frmReportBrowser
         With f
             .TopLevel = False
             .FormBorderStyle = FormBorderStyle.None
@@ -40,6 +40,7 @@ Public Class Main
 
         End With
         scTabs.Panel1.Controls.Add(f)
+        f.Dock = DockStyle.Fill
 
     End Sub
 #End Region
@@ -184,7 +185,11 @@ Public Class Main
     ' *****     Caps, Num and Insert key states
     ' ***********************************************
     '
+    Private m_InsertOvrStateFlag As Boolean
     Private Sub Main_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
+        '
+        ' CAPS Lock
+        '
         If e.KeyCode = Keys.CapsLock Then
             With sbPanCapsLock
                 If My.Computer.Keyboard.CapsLock Then
@@ -197,8 +202,9 @@ Public Class Main
                 .Text = "CAP"
             End With
         End If
-
-
+        '
+        ' NUM Lock
+        '
         If e.KeyCode = Keys.NumLock Then
             With sbPanNumLock
                 If My.Computer.Keyboard.NumLock Then
@@ -211,6 +217,25 @@ Public Class Main
                 .Text = "NUM"
             End With
         End If
+        '
+        ' INS Lock
+        '
+        If e.KeyData = Keys.Insert Then
+            With sbPanInsLock
+                If m_InsertOvrStateFlag Then
+                    m_InsertOvrStateFlag = True
+                    .Font = New Font(.Font, FontStyle.Bold)
+                    .Text = "OVR"
+
+                Else
+                    m_InsertOvrStateFlag = True
+                    .Font = New Font(.Font, FontStyle.Regular)
+                    .Text = "INS"
+
+                End If
+            End With
+        End If
+
     End Sub
 
     '
@@ -305,7 +330,7 @@ Public Class Main
     ' ***********************************************
     '
     Private Sub dgPeopleInfo_Click(sender As Object, e As EventArgs) Handles dgPeopleInfo.SelectionChanged
-        Dim frmPeopleInfo As New PeopleInfoForm(TryCast(dgPeopleInfo.SelectedItem, Person))
+        Dim frmPeopleInfo As New frmPeopleInfo(TryCast(dgPeopleInfo.SelectedItem, Person))
         frmPeopleInfo.ShowDialog()
 
     End Sub

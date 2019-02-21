@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class WorkFormOpenReport
+Partial Class frmReportBrowser
     Inherits Syncfusion.Windows.Forms.MetroForm
 
     'Form overrides dispose to clean up the component list.
@@ -31,16 +31,17 @@ Partial Class WorkFormOpenReport
         Dim GridTextColumn6 As Syncfusion.WinForms.DataGrid.GridTextColumn = New Syncfusion.WinForms.DataGrid.GridTextColumn()
         Dim GridTextColumn7 As Syncfusion.WinForms.DataGrid.GridTextColumn = New Syncfusion.WinForms.DataGrid.GridTextColumn()
         Dim GridTextColumn8 As Syncfusion.WinForms.DataGrid.GridTextColumn = New Syncfusion.WinForms.DataGrid.GridTextColumn()
+        Dim GridTextColumn9 As Syncfusion.WinForms.DataGrid.GridTextColumn = New Syncfusion.WinForms.DataGrid.GridTextColumn()
         Me.scSlab = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
         Me.scReportGrid = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
         Me.labOpenReportInstructions = New Syncfusion.Windows.Forms.Tools.AutoLabel()
         Me.dgReports = New Syncfusion.WinForms.DataGrid.SfDataGrid()
         Me.scReportInfo = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
+        Me.btnOpenHG = New Syncfusion.Windows.Forms.ButtonAdv()
         Me.btnGear = New Syncfusion.Windows.Forms.ButtonAdv()
         Me.bthRefreshDb = New Syncfusion.Windows.Forms.ButtonAdv()
-        Me.btnHelp = New Syncfusion.Windows.Forms.ButtonAdv()
-        Me.btnCancel = New Syncfusion.Windows.Forms.ButtonAdv()
-        Me.btnOpen = New Syncfusion.Windows.Forms.ButtonAdv()
+        Me.btnOpenDb = New Syncfusion.Windows.Forms.ButtonAdv()
+        Me.btnImport = New Syncfusion.Windows.Forms.ButtonAdv()
         Me.SplitContainerAdv1 = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
         Me.dgReportInfo = New Syncfusion.WinForms.DataGrid.SfDataGrid()
         Me.pbCoverImage = New System.Windows.Forms.PictureBox()
@@ -130,28 +131,40 @@ Partial Class WorkFormOpenReport
         '
         Me.dgReports.AccessibleName = "Table"
         Me.dgReports.AllowEditing = False
+        Me.dgReports.AllowResizingColumns = True
         Me.dgReports.AutoGenerateColumns = False
         GridTextColumn1.AllowEditing = False
+        GridTextColumn1.AllowResizing = True
         GridTextColumn1.HeaderText = "Report ID"
-        GridTextColumn1.MappingName = "ReportId"
+        GridTextColumn1.MappingName = "ReportNumber"
         GridTextColumn2.AllowEditing = False
-        GridTextColumn2.HeaderText = "Client Name"
-        GridTextColumn2.MappingName = "ClientName"
+        GridTextColumn2.AllowResizing = True
+        GridTextColumn2.HeaderText = "Version"
+        GridTextColumn2.MappingName = "Version"
         GridTextColumn3.AllowEditing = False
-        GridTextColumn3.HeaderText = "Address"
-        GridTextColumn3.MappingName = "Address1"
+        GridTextColumn3.AllowResizing = True
+        GridTextColumn3.HeaderText = "Client Name"
+        GridTextColumn3.MappingName = "ClientName"
         GridTextColumn4.AllowEditing = False
-        GridTextColumn4.HeaderText = "City"
-        GridTextColumn4.MappingName = "City"
+        GridTextColumn4.AllowResizing = True
+        GridTextColumn4.HeaderText = "Address"
+        GridTextColumn4.MappingName = "Address"
         GridTextColumn5.AllowEditing = False
-        GridTextColumn5.HeaderText = "Zip Code"
-        GridTextColumn5.MappingName = "ZipCode"
+        GridTextColumn5.AllowResizing = True
+        GridTextColumn5.HeaderText = "City"
+        GridTextColumn5.MappingName = "City"
         GridTextColumn6.AllowEditing = False
-        GridTextColumn6.HeaderText = "Agent"
-        GridTextColumn6.MappingName = "AgentName"
+        GridTextColumn6.AllowResizing = True
+        GridTextColumn6.HeaderText = "Zip Code"
+        GridTextColumn6.MappingName = "ZipCode"
         GridTextColumn7.AllowEditing = False
-        GridTextColumn7.HeaderText = "Uploaded"
-        GridTextColumn7.MappingName = "Uploaded"
+        GridTextColumn7.AllowResizing = True
+        GridTextColumn7.HeaderText = "Agent"
+        GridTextColumn7.MappingName = "AgentName"
+        GridTextColumn8.AllowEditing = False
+        GridTextColumn8.AllowResizing = True
+        GridTextColumn8.HeaderText = "Uploaded"
+        GridTextColumn8.MappingName = "Uploaded"
         Me.dgReports.Columns.Add(GridTextColumn1)
         Me.dgReports.Columns.Add(GridTextColumn2)
         Me.dgReports.Columns.Add(GridTextColumn3)
@@ -159,6 +172,7 @@ Partial Class WorkFormOpenReport
         Me.dgReports.Columns.Add(GridTextColumn5)
         Me.dgReports.Columns.Add(GridTextColumn6)
         Me.dgReports.Columns.Add(GridTextColumn7)
+        Me.dgReports.Columns.Add(GridTextColumn8)
         Me.dgReports.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgReports.Location = New System.Drawing.Point(0, 0)
         Me.dgReports.Name = "dgReports"
@@ -178,11 +192,11 @@ Partial Class WorkFormOpenReport
         'scReportInfo.Panel1
         '
         Me.scReportInfo.Panel1.BackgroundColor = New Syncfusion.Drawing.BrushInfo(System.Drawing.Color.WhiteSmoke)
+        Me.scReportInfo.Panel1.Controls.Add(Me.btnOpenHG)
         Me.scReportInfo.Panel1.Controls.Add(Me.btnGear)
         Me.scReportInfo.Panel1.Controls.Add(Me.bthRefreshDb)
-        Me.scReportInfo.Panel1.Controls.Add(Me.btnHelp)
-        Me.scReportInfo.Panel1.Controls.Add(Me.btnCancel)
-        Me.scReportInfo.Panel1.Controls.Add(Me.btnOpen)
+        Me.scReportInfo.Panel1.Controls.Add(Me.btnOpenDb)
+        Me.scReportInfo.Panel1.Controls.Add(Me.btnImport)
         '
         'scReportInfo.Panel2
         '
@@ -191,6 +205,20 @@ Partial Class WorkFormOpenReport
         Me.scReportInfo.SplitterDistance = 45
         Me.scReportInfo.SplitterWidth = 1
         Me.scReportInfo.TabIndex = 0
+        '
+        'btnOpenHG
+        '
+        Me.btnOpenHG.Appearance = Syncfusion.Windows.Forms.ButtonAppearance.Metro
+        Me.btnOpenHG.BackColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(165, Byte), Integer), CType(CType(220, Byte), Integer))
+        Me.btnOpenHG.BeforeTouchSize = New System.Drawing.Size(75, 23)
+        Me.btnOpenHG.ForeColor = System.Drawing.Color.White
+        Me.btnOpenHG.IsBackStageButton = False
+        Me.btnOpenHG.Location = New System.Drawing.Point(175, 12)
+        Me.btnOpenHG.Name = "btnOpenHG"
+        Me.btnOpenHG.Size = New System.Drawing.Size(75, 23)
+        Me.btnOpenHG.TabIndex = 5
+        Me.btnOpenHG.Text = "Open HG"
+        Me.btnOpenHG.UseVisualStyle = True
         '
         'btnGear
         '
@@ -219,50 +247,36 @@ Partial Class WorkFormOpenReport
         Me.bthRefreshDb.Name = "bthRefreshDb"
         Me.bthRefreshDb.Size = New System.Drawing.Size(116, 23)
         Me.bthRefreshDb.TabIndex = 3
-        Me.bthRefreshDb.Text = "Refresh Database"
+        Me.bthRefreshDb.Text = "Refresh The Grid"
         Me.bthRefreshDb.UseVisualStyle = True
         '
-        'btnHelp
+        'btnOpenDb
         '
-        Me.btnHelp.Appearance = Syncfusion.Windows.Forms.ButtonAppearance.Metro
-        Me.btnHelp.BackColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(165, Byte), Integer), CType(CType(220, Byte), Integer))
-        Me.btnHelp.BeforeTouchSize = New System.Drawing.Size(75, 23)
-        Me.btnHelp.ForeColor = System.Drawing.Color.White
-        Me.btnHelp.IsBackStageButton = False
-        Me.btnHelp.Location = New System.Drawing.Point(224, 12)
-        Me.btnHelp.Name = "btnHelp"
-        Me.btnHelp.Size = New System.Drawing.Size(75, 23)
-        Me.btnHelp.TabIndex = 2
-        Me.btnHelp.Text = "Help"
-        Me.btnHelp.UseVisualStyle = True
+        Me.btnOpenDb.Appearance = Syncfusion.Windows.Forms.ButtonAppearance.Metro
+        Me.btnOpenDb.BackColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(165, Byte), Integer), CType(CType(220, Byte), Integer))
+        Me.btnOpenDb.BeforeTouchSize = New System.Drawing.Size(75, 23)
+        Me.btnOpenDb.ForeColor = System.Drawing.Color.White
+        Me.btnOpenDb.IsBackStageButton = False
+        Me.btnOpenDb.Location = New System.Drawing.Point(94, 12)
+        Me.btnOpenDb.Name = "btnOpenDb"
+        Me.btnOpenDb.Size = New System.Drawing.Size(75, 23)
+        Me.btnOpenDb.TabIndex = 1
+        Me.btnOpenDb.Text = "Open dB"
+        Me.btnOpenDb.UseVisualStyle = True
         '
-        'btnCancel
+        'btnImport
         '
-        Me.btnCancel.Appearance = Syncfusion.Windows.Forms.ButtonAppearance.Metro
-        Me.btnCancel.BackColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(165, Byte), Integer), CType(CType(220, Byte), Integer))
-        Me.btnCancel.BeforeTouchSize = New System.Drawing.Size(75, 23)
-        Me.btnCancel.ForeColor = System.Drawing.Color.White
-        Me.btnCancel.IsBackStageButton = False
-        Me.btnCancel.Location = New System.Drawing.Point(94, 12)
-        Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(75, 23)
-        Me.btnCancel.TabIndex = 1
-        Me.btnCancel.Text = "Cancel"
-        Me.btnCancel.UseVisualStyle = True
-        '
-        'btnOpen
-        '
-        Me.btnOpen.Appearance = Syncfusion.Windows.Forms.ButtonAppearance.Metro
-        Me.btnOpen.BackColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(165, Byte), Integer), CType(CType(220, Byte), Integer))
-        Me.btnOpen.BeforeTouchSize = New System.Drawing.Size(75, 23)
-        Me.btnOpen.ForeColor = System.Drawing.Color.White
-        Me.btnOpen.IsBackStageButton = False
-        Me.btnOpen.Location = New System.Drawing.Point(12, 12)
-        Me.btnOpen.Name = "btnOpen"
-        Me.btnOpen.Size = New System.Drawing.Size(75, 23)
-        Me.btnOpen.TabIndex = 0
-        Me.btnOpen.Text = "Open"
-        Me.btnOpen.UseVisualStyle = True
+        Me.btnImport.Appearance = Syncfusion.Windows.Forms.ButtonAppearance.Metro
+        Me.btnImport.BackColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(165, Byte), Integer), CType(CType(220, Byte), Integer))
+        Me.btnImport.BeforeTouchSize = New System.Drawing.Size(75, 23)
+        Me.btnImport.ForeColor = System.Drawing.Color.White
+        Me.btnImport.IsBackStageButton = False
+        Me.btnImport.Location = New System.Drawing.Point(12, 12)
+        Me.btnImport.Name = "btnImport"
+        Me.btnImport.Size = New System.Drawing.Size(75, 23)
+        Me.btnImport.TabIndex = 0
+        Me.btnImport.Text = "Import"
+        Me.btnImport.UseVisualStyle = True
         '
         'SplitContainerAdv1
         '
@@ -288,13 +302,13 @@ Partial Class WorkFormOpenReport
         '
         Me.dgReportInfo.AccessibleName = "Table"
         Me.dgReportInfo.AutoGenerateColumns = False
-        GridTextColumn8.AllowEditing = False
-        GridTextColumn8.AllowGrouping = False
-        GridTextColumn8.AllowSorting = False
-        GridTextColumn8.HeaderText = "Column1"
-        GridTextColumn8.MappingName = "ReportInfo"
-        GridTextColumn8.Visible = False
-        Me.dgReportInfo.Columns.Add(GridTextColumn8)
+        GridTextColumn9.AllowEditing = False
+        GridTextColumn9.AllowGrouping = False
+        GridTextColumn9.AllowSorting = False
+        GridTextColumn9.HeaderText = "Column1"
+        GridTextColumn9.MappingName = "ReportInfo"
+        GridTextColumn9.Visible = False
+        Me.dgReportInfo.Columns.Add(GridTextColumn9)
         Me.dgReportInfo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgReportInfo.Location = New System.Drawing.Point(0, 0)
         Me.dgReportInfo.Name = "dgReportInfo"
@@ -313,7 +327,7 @@ Partial Class WorkFormOpenReport
         Me.pbCoverImage.TabIndex = 0
         Me.pbCoverImage.TabStop = False
         '
-        'WorkFormOpenReport
+        'frmReportBrowser
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -322,7 +336,7 @@ Partial Class WorkFormOpenReport
         Me.Controls.Add(Me.scSlab)
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
-        Me.Name = "WorkFormOpenReport"
+        Me.Name = "frmReportBrowser"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.Text = "Reports"
@@ -355,11 +369,11 @@ Partial Class WorkFormOpenReport
     Friend WithEvents dgReports As Syncfusion.WinForms.DataGrid.SfDataGrid
     Friend WithEvents scReportInfo As Syncfusion.Windows.Forms.Tools.SplitContainerAdv
     Friend WithEvents bthRefreshDb As Syncfusion.Windows.Forms.ButtonAdv
-    Friend WithEvents btnHelp As Syncfusion.Windows.Forms.ButtonAdv
-    Friend WithEvents btnCancel As Syncfusion.Windows.Forms.ButtonAdv
-    Friend WithEvents btnOpen As Syncfusion.Windows.Forms.ButtonAdv
+    Friend WithEvents btnOpenDb As Syncfusion.Windows.Forms.ButtonAdv
+    Friend WithEvents btnImport As Syncfusion.Windows.Forms.ButtonAdv
     Friend WithEvents btnGear As Syncfusion.Windows.Forms.ButtonAdv
     Friend WithEvents SplitContainerAdv1 As Syncfusion.Windows.Forms.Tools.SplitContainerAdv
     Friend WithEvents dgReportInfo As Syncfusion.WinForms.DataGrid.SfDataGrid
     Friend WithEvents pbCoverImage As PictureBox
+    Friend WithEvents btnOpenHG As Syncfusion.Windows.Forms.ButtonAdv
 End Class

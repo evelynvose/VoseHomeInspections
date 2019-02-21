@@ -1,6 +1,6 @@
 ﻿Imports Syncfusion.Windows.Forms
 
-Public Class WorkFormClient
+Public Class frmClient
     Inherits MetroForm
 
 

@@ -6,7 +6,7 @@
 ' ****
 ' **********************************************
 ' 
-Public Class PeopleInfoForm
+Public Class frmPeopleInfo
     Inherits MetroForm
     '
     ' **********************************************

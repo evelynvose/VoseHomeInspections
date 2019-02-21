@@ -31,21 +31,16 @@ Public MustInherit Class PhoneADO
         MyBase.New()
 
         Select Case thePhoneType
-            Case PhoneTypes.PersonMobile
-            Case PhoneTypes.PersonHome
-            Case PhoneTypes.PersonWork
-            Case PhoneTypes.PersonFax
-            Case PhoneTypes.CompanyDirect
+            Case PhoneTypes.PersonMobile, PhoneTypes.PersonHome, PhoneTypes.PersonWork, PhoneTypes.PersonFax, PhoneTypes.CompanyDirect
                 PersonID = Guid.NewGuid
 
-            Case PhoneTypes.CompanyMobile
-            Case PhoneTypes.CompanyMain
-            Case PhoneTypes.CompanyFax
+            Case PhoneTypes.CompanyMobile, PhoneTypes.CompanyMain, PhoneTypes.CompanyFax
                 CompanyID = Guid.NewGuid
 
             Case Else
                 ObjectState = ObjectStates.ErrorCondition
                 Exit Sub
+
         End Select
 
         ' Tell the world that this is a new record
@@ -74,13 +69,10 @@ Public MustInherit Class PhoneADO
 
         End If
         '
-        '
+        ' Our hope now is that anID is a valid foreign key of the correct type.
         '
         PhoneType = thePhoneType
-        '
-        ' Our only hope now is that anID is a valid foreign key.
-        '
-        If LoadByFkIdAndPhoneType(aFkId) = -1 Then Exit Sub
+        If LoadByFkIdAndPhoneType(aFkId) = ObjectStates.ExistingRecord Then Exit Sub
         '
         ' We may have had a valid GUID format and PhoneType, but there isn't an Phone record
         ' so we'll assume that the instantiator wanted this to be a new Phone record.
@@ -158,22 +150,10 @@ Public MustInherit Class PhoneADO
                 ObjectState = ObjectStates.ErrorCondition
                 Try
                     Select Case PhoneType
-                        Case PhoneTypes.CompanyFax
-                            ta.FillByCompanyIDAndPhoneType(dt, aFkId, PhoneType)
-                        Case PhoneTypes.CompanyMain
-                            ta.FillByCompanyIDAndPhoneType(dt, aFkId, PhoneType)
-                        Case PhoneTypes.CompanyMobile
+                        Case PhoneTypes.CompanyFax, PhoneTypes.CompanyMain, PhoneTypes.CompanyMobile
                             ta.FillByCompanyIDAndPhoneType(dt, aFkId, PhoneType)
 
-                        Case PhoneTypes.CompanyDirect
-                            ta.FillByPersonIDAndPhoneType(dt, aFkId, PhoneType)
-                        Case PhoneTypes.PersonFax
-                            ta.FillByPersonIDAndPhoneType(dt, aFkId, PhoneType)
-                        Case PhoneTypes.PersonHome
-                            ta.FillByPersonIDAndPhoneType(dt, aFkId, PhoneType)
-                        Case PhoneTypes.PersonMobile
-                            ta.FillByPersonIDAndPhoneType(dt, aFkId, PhoneType)
-                        Case PhoneTypes.PersonWork
+                        Case PhoneTypes.CompanyDirect, PhoneTypes.PersonFax, PhoneTypes.PersonHome, PhoneTypes.PersonMobile, PhoneTypes.PersonWork
                             ta.FillByPersonIDAndPhoneType(dt, aFkId, PhoneType)
 
                         Case Else
@@ -183,7 +163,7 @@ Public MustInherit Class PhoneADO
 
                     End Select
 
-                    If dt.Count = 1 Then
+                    If dt.Count > 0 Then
                         SetDataFromRow(dt.Rows(0))
                         ObjectState = ObjectStates.ExistingRecord
 

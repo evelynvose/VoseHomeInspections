@@ -110,6 +110,69 @@ Public MustInherit Class ReportADO
     ' 
     '
     ' ***********************************************
+    ' *****     Find By ID
+    ' ***********************************************
+    '
+    Public Shared Function FindByID(ByVal theReportId As Guid) As Boolean
+        '
+        ' Error checking
+        '
+        If IsNothing(theReportId) Then theReportId = Guid.Empty
+        '
+        ' Do the lookup
+        '
+        Using ta As New vreportsDataSetTableAdapters.ReportMasterTableAdapter
+            Using dt As New vreportsDataSet.ReportMasterDataTable
+                Try
+                    ta.FillByReportID(dt, theReportId)
+                    If dt.Count > 0 Then Return True
+
+                Catch ex As Exception
+                    Return False
+
+                End Try
+
+
+            End Using
+        End Using
+
+        Return False
+
+    End Function
+    '
+    ' ***********************************************
+    ' *****     Find By Report Number And Version
+    ' ***********************************************
+    '
+    Public Shared Function FindByID(ByVal theReportNumber As String, theVersion As String) As Boolean
+        '
+        ' Error Checking
+        '
+        If IsNothing(theReportNumber) Then theReportNumber = ""
+        If IsNothing(theVersion) Then theVersion = ""
+        '
+        ' Do the lookup
+        '
+        Using ta As New vreportsDataSetTableAdapters.ReportMasterTableAdapter
+            Using dt As New vreportsDataSet.ReportMasterDataTable
+                Try
+                    ta.FillByReportID(dt, theReportNumber)
+                    If dt.Count > 0 Then Return True
+
+                Catch ex As Exception
+                    Return False
+
+                End Try
+
+
+            End Using
+        End Using
+
+        Return False
+
+    End Function
+    '
+    ' ***********************************************
     ' *****     Set Type by Foreign Key
     ' ***********************************************
     '

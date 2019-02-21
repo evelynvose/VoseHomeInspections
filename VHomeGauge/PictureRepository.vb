@@ -45,7 +45,7 @@ Public Class PictureRepository
         Else
             Try
                 For Each filepath As String In Directory.GetFiles(folderpath)
-                    If Not Main.PictureFilter.IsFiltered(filepath) Then
+                    If Not frmMain.PictureFilter.IsFiltered(filepath) Then
                         If filepath.Contains(".jpg") Then
                             picturesDetails.Add(New PictureInfo(filepath))
 
