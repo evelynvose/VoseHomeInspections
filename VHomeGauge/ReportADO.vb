@@ -113,7 +113,7 @@ Public MustInherit Class ReportADO
     ' *****     Find By ID
     ' ***********************************************
     '
-    Public Shared Function FindByID(ByVal theReportId As Guid) As Boolean
+    Public Shared Function Find(ByVal theReportId As Guid) As Boolean
         '
         ' Error checking
         '
@@ -144,7 +144,7 @@ Public MustInherit Class ReportADO
     ' *****     Find By Report Number And Version
     ' ***********************************************
     '
-    Public Shared Function FindByID(ByVal theReportNumber As String, theVersion As String) As Boolean
+    Public Shared Function Find(ByVal theReportNumber As String, theVersion As String) As Boolean
         '
         ' Error Checking
         '

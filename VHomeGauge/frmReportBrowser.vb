@@ -51,7 +51,7 @@ Public Class frmReportBrowser
         ' Attempt to open and read the report into the database.
         '   First, check to see if it is already in the database.
         '
-        If InspectionReport.FindByID(TryCast(dgReports.SelectedItem, ReportInfo).ReportID) Then
+        If InspectionReport.Find(TryCast(dgReports.SelectedItem, ReportInfo).ReportID) Then
             MsgBox("The report is already in the dB.",, "Report Browser")
             Exit Sub
             '
@@ -67,7 +67,7 @@ Public Class frmReportBrowser
             '
             ' Load the Xml file
             '
-            m_xmld.Load(My.Computer.FileSystem.SpecialDirectories.MyDocuments & "\190202192E\report.hr5")
+            m_xmld.Load(TryCast(dgReports.CurrentItem, ReportInfo).ReportFullName)
             '
             ' Set the namespace
             '

@@ -54,17 +54,27 @@ Public MustInherit Class PersonADO
         '
         ' Check if this is an existing record by PersonID
         '
-        If LoadByID(anID, thepersontype) = ObjectStates.ExistingRecord Then
+        If LoadByPersonID(anID, thepersontype) = ObjectStates.ExistingRecord Then
             Exit Sub
 
         End If
-
+        '
         ' Not existing, but since this is a valid GUID and type, we'll create a record for them.
+        '
         PersonType = thepersontype
-        PersonID = Guid.NewGuid()
+        If Not anID.Equals(New Guid) Then
+            '
+            ' Use the HG Guid
+            ' 
+            PersonID = anID
+            '
+        Else
+            PersonID = Guid.NewGuid()
+            '
+        End If
+        '
         ObjectState = ObjectStates.NewRecord
-
-
+        '
     End Sub
     '
     ' Case 2
@@ -152,10 +162,54 @@ Public MustInherit Class PersonADO
     End Function
     '
     ' ***********************************************
+    ' *****     Find by Person ID
+    ' ***********************************************
+    '
+    Public Shared Function Find(ByVal thePersonId As Guid) As Boolean
+        Using ta As New vreportsDataSetTableAdapters.PersonTableAdapter
+            Using dt As New vreportsDataSet.PersonDataTable
+                Try
+                    ta.FillByPersonID(dt, thePersonId)
+                    If dt.Count > 0 Then Return True
+                    '
+                Catch ex As Exception
+                    MsgBox("Find() by person ID" & vbCrLf & ex.Message,, "PersonADO Class")
+                    '
+                End Try
+            End Using
+        End Using
+        '
+        Return False
+        '
+    End Function
+    '
+    ' ***********************************************
+    ' *****     Find by First/Last Names and Type
+    ' ***********************************************
+    '
+    Public Shared Function Find(ByVal theFirstName As String, theLastName As String, ByVal thePersonType As PersonTypes) As Boolean
+        Using ta As New vreportsDataSetTableAdapters.PersonTableAdapter
+            Using dt As New vreportsDataSet.PersonDataTable
+                Try
+                    ta.FillByFirstLastNames(dt, theFirstName, theLastName, thePersonType)
+                    If dt.Count > 0 Then Return True
+                    '
+                Catch ex As Exception
+                    MsgBox("Find() by person ID" & vbCrLf & ex.Message,, "PersonADO Class")
+                    '
+                End Try
+            End Using
+        End Using
+        '
+        Return False
+        '
+    End Function
+    '
+    ' ***********************************************
     ' *****     Load By ID
     ' ***********************************************
     '
-    Private Function LoadByID(ByVal id As Guid, ByVal thepersontype As PersonTypes) As ObjectStates
+    Private Function LoadByPersonID(ByVal id As Guid, ByVal thepersontype As PersonTypes) As ObjectStates
         '
         Using ta As vreportsDataSetTableAdapters.PersonTableAdapter = New vreportsDataSetTableAdapters.PersonTableAdapter
             Using dt As vreportsDataSet.PersonDataTable = New vreportsDataSet.PersonDataTable
@@ -163,7 +217,7 @@ Public MustInherit Class PersonADO
                 Try
                     ' This call assumes that the GUID is in fact, an AddressRecordID
                     ta.FillByPersonIDAndType(dt, id, thepersontype)
-                    If dt.Count = 1 Then
+                    If dt.Count > 0 Then
                         SetDataFromRow(dt.Rows(0))
                         ObjectState = ObjectStates.ExistingRecord
 
@@ -193,7 +247,7 @@ Public MustInherit Class PersonADO
                 Try
                     ta.FillByPersonIDAndType(dt, PersonID, PersonType)
 
-                    If dt.Count = 1 Then
+                    If dt.Count > 0 Then
                         SetDataFromRow(dt.Rows(0))
                         ObjectState = ObjectStates.ExistingRecord
 
