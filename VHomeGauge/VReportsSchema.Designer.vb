@@ -4981,53 +4981,23 @@ Namespace vreportsDataSetTableAdapters
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("AddressType", Global.System.Data.OleDb.OleDbType.SmallInt, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "AddressType", Global.System.Data.DataRowVersion.Current, false, Nothing))
             Me._adapter.UpdateCommand = New Global.System.Data.OleDb.OleDbCommand()
             Me._adapter.UpdateCommand.Connection = Me.Connection
-            Me._adapter.UpdateCommand.CommandText = "UPDATE `Address` SET `ID` = ?, `PersonId` = ?, `ReportID` = ?, `CompanyID` = ?, `"& _ 
-                "Address1` = ?, `Address2` = ?, `City` = ?, `State` = ?, `ZipCode` = ?, `County` "& _ 
-                "= ?, `Country` = ?, `Type` = ? WHERE ((`ID` = ?) AND ((? = 1 AND `PersonId` IS N"& _ 
-                "ULL) OR (`PersonId` = ?)) AND ((? = 1 AND `ReportID` IS NULL) OR (`ReportID` = ?"& _ 
-                ")) AND ((? = 1 AND `CompanyID` IS NULL) OR (`CompanyID` = ?)) AND ((? = 1 AND `A"& _ 
-                "ddress1` IS NULL) OR (`Address1` = ?)) AND ((? = 1 AND `Address2` IS NULL) OR (`"& _ 
-                "Address2` = ?)) AND ((? = 1 AND `City` IS NULL) OR (`City` = ?)) AND ((? = 1 AND"& _ 
-                " `State` IS NULL) OR (`State` = ?)) AND ((? = 1 AND `ZipCode` IS NULL) OR (`ZipC"& _ 
-                "ode` = ?)) AND ((? = 1 AND `County` IS NULL) OR (`County` = ?)) AND ((? = 1 AND "& _ 
-                "`Country` IS NULL) OR (`Country` = ?)) AND ((? = 1 AND `Type` IS NULL) OR (`Type"& _ 
-                "` = ?)))"
+            Me._adapter.UpdateCommand.CommandText = "UPDATE       Address"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"SET                ID = ?, PersonId = ?, ReportID = ?, Comp"& _ 
+                "anyID = ?, Address1 = ?, Address2 = ?, City = ?, State = ?, ZipCode = ?, County "& _ 
+                "= ?, Country = ?, AddressType = ?"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"WHERE        (ID = ?)"
             Me._adapter.UpdateCommand.CommandType = Global.System.Data.CommandType.Text
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("ID", Global.System.Data.OleDb.OleDbType.Guid, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ID", Global.System.Data.DataRowVersion.Current, false, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("PersonId", Global.System.Data.OleDb.OleDbType.Guid, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "PersonId", Global.System.Data.DataRowVersion.Current, false, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("ReportID", Global.System.Data.OleDb.OleDbType.Guid, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ReportID", Global.System.Data.DataRowVersion.Current, false, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("CompanyID", Global.System.Data.OleDb.OleDbType.Guid, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "CompanyID", Global.System.Data.DataRowVersion.Current, false, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Address1", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Address1", Global.System.Data.DataRowVersion.Current, false, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Address2", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Address2", Global.System.Data.DataRowVersion.Current, false, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("City", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "City", Global.System.Data.DataRowVersion.Current, false, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("State", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "State", Global.System.Data.DataRowVersion.Current, false, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("ZipCode", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ZipCode", Global.System.Data.DataRowVersion.Current, false, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("County", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "County", Global.System.Data.DataRowVersion.Current, false, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Country", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Country", Global.System.Data.DataRowVersion.Current, false, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Type", Global.System.Data.OleDb.OleDbType.SmallInt, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Type", Global.System.Data.DataRowVersion.Current, false, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_ID", Global.System.Data.OleDb.OleDbType.Guid, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ID", Global.System.Data.DataRowVersion.Original, false, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_PersonId", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "PersonId", Global.System.Data.DataRowVersion.Original, true, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_PersonId", Global.System.Data.OleDb.OleDbType.Guid, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "PersonId", Global.System.Data.DataRowVersion.Original, false, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_ReportID", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ReportID", Global.System.Data.DataRowVersion.Original, true, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_ReportID", Global.System.Data.OleDb.OleDbType.Guid, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ReportID", Global.System.Data.DataRowVersion.Original, false, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_CompanyID", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "CompanyID", Global.System.Data.DataRowVersion.Original, true, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_CompanyID", Global.System.Data.OleDb.OleDbType.Guid, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "CompanyID", Global.System.Data.DataRowVersion.Original, false, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_Address1", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Address1", Global.System.Data.DataRowVersion.Original, true, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_Address1", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Address1", Global.System.Data.DataRowVersion.Original, false, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_Address2", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Address2", Global.System.Data.DataRowVersion.Original, true, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_Address2", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Address2", Global.System.Data.DataRowVersion.Original, false, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_City", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "City", Global.System.Data.DataRowVersion.Original, true, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_City", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "City", Global.System.Data.DataRowVersion.Original, false, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_State", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "State", Global.System.Data.DataRowVersion.Original, true, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_State", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "State", Global.System.Data.DataRowVersion.Original, false, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_ZipCode", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ZipCode", Global.System.Data.DataRowVersion.Original, true, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_ZipCode", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ZipCode", Global.System.Data.DataRowVersion.Original, false, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_County", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "County", Global.System.Data.DataRowVersion.Original, true, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_County", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "County", Global.System.Data.DataRowVersion.Original, false, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_Country", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Country", Global.System.Data.DataRowVersion.Original, true, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_Country", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Country", Global.System.Data.DataRowVersion.Original, false, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_Type", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Type", Global.System.Data.DataRowVersion.Original, true, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_Type", Global.System.Data.OleDb.OleDbType.SmallInt, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Type", Global.System.Data.DataRowVersion.Original, false, Nothing))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("ID", Global.System.Data.OleDb.OleDbType.Guid, 1024, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ID", Global.System.Data.DataRowVersion.Current, false, Nothing))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("PersonId", Global.System.Data.OleDb.OleDbType.Guid, 1024, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "PersonId", Global.System.Data.DataRowVersion.Current, false, Nothing))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("ReportID", Global.System.Data.OleDb.OleDbType.Guid, 1024, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ReportID", Global.System.Data.DataRowVersion.Current, false, Nothing))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("CompanyID", Global.System.Data.OleDb.OleDbType.Guid, 1024, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "CompanyID", Global.System.Data.DataRowVersion.Current, false, Nothing))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Address1", Global.System.Data.OleDb.OleDbType.WChar, 255, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Address1", Global.System.Data.DataRowVersion.Current, false, Nothing))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Address2", Global.System.Data.OleDb.OleDbType.WChar, 255, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Address2", Global.System.Data.DataRowVersion.Current, false, Nothing))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("City", Global.System.Data.OleDb.OleDbType.WChar, 255, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "City", Global.System.Data.DataRowVersion.Current, false, Nothing))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("State", Global.System.Data.OleDb.OleDbType.WChar, 2, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "State", Global.System.Data.DataRowVersion.Current, false, Nothing))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("ZipCode", Global.System.Data.OleDb.OleDbType.WChar, 10, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ZipCode", Global.System.Data.DataRowVersion.Current, false, Nothing))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("County", Global.System.Data.OleDb.OleDbType.WChar, 255, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "County", Global.System.Data.DataRowVersion.Current, false, Nothing))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Country", Global.System.Data.OleDb.OleDbType.WChar, 255, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Country", Global.System.Data.DataRowVersion.Current, false, Nothing))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("AddressType", Global.System.Data.OleDb.OleDbType.SmallInt, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "AddressType", Global.System.Data.DataRowVersion.Current, false, Nothing))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_ID", Global.System.Data.OleDb.OleDbType.Guid, 1024, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ID", Global.System.Data.DataRowVersion.Original, false, Nothing))
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -5109,7 +5079,7 @@ Namespace vreportsDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, false)>  _
-        Public Overloads Overridable Function FillByAddressCityState(ByVal dataTable As vreportsDataSet.AddressDataTable, ByVal Address1 As String, ByVal City As String, ByVal State As String, ByVal AddressType As Short) As Integer
+        Public Overloads Overridable Function FillByAddressCityState(ByVal dataTable As vreportsDataSet.AddressDataTable, ByVal Address1 As String, ByVal City As String, ByVal State As String, ByVal AddressType As Global.System.Nullable(Of Short)) As Integer
             Me.Adapter.SelectCommand = Me.CommandCollection(1)
             If (Address1 Is Nothing) Then
                 Me.Adapter.SelectCommand.Parameters(0).Value = Global.System.DBNull.Value
@@ -5126,7 +5096,11 @@ Namespace vreportsDataSetTableAdapters
             Else
                 Me.Adapter.SelectCommand.Parameters(2).Value = CType(State,String)
             End If
-            Me.Adapter.SelectCommand.Parameters(3).Value = CType(AddressType,Short)
+            If (AddressType.HasValue = true) Then
+                Me.Adapter.SelectCommand.Parameters(3).Value = CType(AddressType.Value,Short)
+            Else
+                Me.Adapter.SelectCommand.Parameters(3).Value = Global.System.DBNull.Value
+            End If
             If (Me.ClearBeforeFill = true) Then
                 dataTable.Clear
             End If
@@ -5138,7 +5112,7 @@ Namespace vreportsDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)>  _
-        Public Overloads Overridable Function GetDataByAddressCityState(ByVal Address1 As String, ByVal City As String, ByVal State As String, ByVal AddressType As Short) As vreportsDataSet.AddressDataTable
+        Public Overloads Overridable Function GetDataByAddressCityState(ByVal Address1 As String, ByVal City As String, ByVal State As String, ByVal AddressType As Global.System.Nullable(Of Short)) As vreportsDataSet.AddressDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(1)
             If (Address1 Is Nothing) Then
                 Me.Adapter.SelectCommand.Parameters(0).Value = Global.System.DBNull.Value
@@ -5155,7 +5129,11 @@ Namespace vreportsDataSetTableAdapters
             Else
                 Me.Adapter.SelectCommand.Parameters(2).Value = CType(State,String)
             End If
-            Me.Adapter.SelectCommand.Parameters(3).Value = CType(AddressType,Short)
+            If (AddressType.HasValue = true) Then
+                Me.Adapter.SelectCommand.Parameters(3).Value = CType(AddressType.Value,Short)
+            Else
+                Me.Adapter.SelectCommand.Parameters(3).Value = Global.System.DBNull.Value
+            End If
             Dim dataTable As vreportsDataSet.AddressDataTable = New vreportsDataSet.AddressDataTable()
             Me.Adapter.Fill(dataTable)
             Return dataTable
@@ -5165,14 +5143,18 @@ Namespace vreportsDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, false)>  _
-        Public Overloads Overridable Function FillByCompanyIDAndType(ByVal dataTable As vreportsDataSet.AddressDataTable, ByVal CompanyID As Object, ByVal AddressType As Short) As Integer
+        Public Overloads Overridable Function FillByCompanyIDAndType(ByVal dataTable As vreportsDataSet.AddressDataTable, ByVal CompanyID As Object, ByVal AddressType As Global.System.Nullable(Of Short)) As Integer
             Me.Adapter.SelectCommand = Me.CommandCollection(2)
             If (CompanyID Is Nothing) Then
                 Me.Adapter.SelectCommand.Parameters(0).Value = Global.System.DBNull.Value
             Else
                 Me.Adapter.SelectCommand.Parameters(0).Value = CType(CompanyID,Object)
             End If
-            Me.Adapter.SelectCommand.Parameters(1).Value = CType(AddressType,Short)
+            If (AddressType.HasValue = true) Then
+                Me.Adapter.SelectCommand.Parameters(1).Value = CType(AddressType.Value,Short)
+            Else
+                Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
+            End If
             If (Me.ClearBeforeFill = true) Then
                 dataTable.Clear
             End If
@@ -5184,14 +5166,18 @@ Namespace vreportsDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)>  _
-        Public Overloads Overridable Function GetDataByCompanyIDAndType(ByVal CompanyID As Object, ByVal AddressType As Short) As vreportsDataSet.AddressDataTable
+        Public Overloads Overridable Function GetDataByCompanyIDAndType(ByVal CompanyID As Object, ByVal AddressType As Global.System.Nullable(Of Short)) As vreportsDataSet.AddressDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(2)
             If (CompanyID Is Nothing) Then
                 Me.Adapter.SelectCommand.Parameters(0).Value = Global.System.DBNull.Value
             Else
                 Me.Adapter.SelectCommand.Parameters(0).Value = CType(CompanyID,Object)
             End If
-            Me.Adapter.SelectCommand.Parameters(1).Value = CType(AddressType,Short)
+            If (AddressType.HasValue = true) Then
+                Me.Adapter.SelectCommand.Parameters(1).Value = CType(AddressType.Value,Short)
+            Else
+                Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
+            End If
             Dim dataTable As vreportsDataSet.AddressDataTable = New vreportsDataSet.AddressDataTable()
             Me.Adapter.Fill(dataTable)
             Return dataTable
@@ -5235,14 +5221,18 @@ Namespace vreportsDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, false)>  _
-        Public Overloads Overridable Function FillByPersonIDAndType(ByVal dataTable As vreportsDataSet.AddressDataTable, ByVal PersonId As Object, ByVal AddressType As Short) As Integer
+        Public Overloads Overridable Function FillByPersonIDAndType(ByVal dataTable As vreportsDataSet.AddressDataTable, ByVal PersonId As Object, ByVal AddressType As Global.System.Nullable(Of Short)) As Integer
             Me.Adapter.SelectCommand = Me.CommandCollection(4)
             If (PersonId Is Nothing) Then
                 Me.Adapter.SelectCommand.Parameters(0).Value = Global.System.DBNull.Value
             Else
                 Me.Adapter.SelectCommand.Parameters(0).Value = CType(PersonId,Object)
             End If
-            Me.Adapter.SelectCommand.Parameters(1).Value = CType(AddressType,Short)
+            If (AddressType.HasValue = true) Then
+                Me.Adapter.SelectCommand.Parameters(1).Value = CType(AddressType.Value,Short)
+            Else
+                Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
+            End If
             If (Me.ClearBeforeFill = true) Then
                 dataTable.Clear
             End If
@@ -5254,14 +5244,18 @@ Namespace vreportsDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)>  _
-        Public Overloads Overridable Function GetDataByPersonIDAndType(ByVal PersonId As Object, ByVal AddressType As Short) As vreportsDataSet.AddressDataTable
+        Public Overloads Overridable Function GetDataByPersonIDAndType(ByVal PersonId As Object, ByVal AddressType As Global.System.Nullable(Of Short)) As vreportsDataSet.AddressDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(4)
             If (PersonId Is Nothing) Then
                 Me.Adapter.SelectCommand.Parameters(0).Value = Global.System.DBNull.Value
             Else
                 Me.Adapter.SelectCommand.Parameters(0).Value = CType(PersonId,Object)
             End If
-            Me.Adapter.SelectCommand.Parameters(1).Value = CType(AddressType,Short)
+            If (AddressType.HasValue = true) Then
+                Me.Adapter.SelectCommand.Parameters(1).Value = CType(AddressType.Value,Short)
+            Else
+                Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
+            End If
             Dim dataTable As vreportsDataSet.AddressDataTable = New vreportsDataSet.AddressDataTable()
             Me.Adapter.Fill(dataTable)
             Return dataTable
@@ -5271,14 +5265,18 @@ Namespace vreportsDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, false)>  _
-        Public Overloads Overridable Function FillByReportIDAndType(ByVal dataTable As vreportsDataSet.AddressDataTable, ByVal ReportID As Object, ByVal AddressType As Short) As Integer
+        Public Overloads Overridable Function FillByReportIDAndType(ByVal dataTable As vreportsDataSet.AddressDataTable, ByVal ReportID As Object, ByVal AddressType As Global.System.Nullable(Of Short)) As Integer
             Me.Adapter.SelectCommand = Me.CommandCollection(5)
             If (ReportID Is Nothing) Then
                 Me.Adapter.SelectCommand.Parameters(0).Value = Global.System.DBNull.Value
             Else
                 Me.Adapter.SelectCommand.Parameters(0).Value = CType(ReportID,Object)
             End If
-            Me.Adapter.SelectCommand.Parameters(1).Value = CType(AddressType,Short)
+            If (AddressType.HasValue = true) Then
+                Me.Adapter.SelectCommand.Parameters(1).Value = CType(AddressType.Value,Short)
+            Else
+                Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
+            End If
             If (Me.ClearBeforeFill = true) Then
                 dataTable.Clear
             End If
@@ -5290,14 +5288,18 @@ Namespace vreportsDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], false)>  _
-        Public Overloads Overridable Function GetDataByReportIDAndType(ByVal ReportID As Object, ByVal AddressType As Short) As vreportsDataSet.AddressDataTable
+        Public Overloads Overridable Function GetDataByReportIDAndType(ByVal ReportID As Object, ByVal AddressType As Global.System.Nullable(Of Short)) As vreportsDataSet.AddressDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(5)
             If (ReportID Is Nothing) Then
                 Me.Adapter.SelectCommand.Parameters(0).Value = Global.System.DBNull.Value
             Else
                 Me.Adapter.SelectCommand.Parameters(0).Value = CType(ReportID,Object)
             End If
-            Me.Adapter.SelectCommand.Parameters(1).Value = CType(AddressType,Short)
+            If (AddressType.HasValue = true) Then
+                Me.Adapter.SelectCommand.Parameters(1).Value = CType(AddressType.Value,Short)
+            Else
+                Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
+            End If
             Dim dataTable As vreportsDataSet.AddressDataTable = New vreportsDataSet.AddressDataTable()
             Me.Adapter.Fill(dataTable)
             Return dataTable
@@ -5432,7 +5434,7 @@ Namespace vreportsDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, true)>  _
-        Public Overloads Overridable Function Insert(ByVal ID As Object, ByVal PersonId As Object, ByVal ReportID As Object, ByVal CompanyID As Object, ByVal Address1 As String, ByVal Address2 As String, ByVal City As String, ByVal State As String, ByVal ZipCode As String, ByVal County As String, ByVal Country As String, ByVal AddressType As Short) As Integer
+        Public Overloads Overridable Function Insert(ByVal ID As Object, ByVal PersonId As Object, ByVal ReportID As Object, ByVal CompanyID As Object, ByVal Address1 As String, ByVal Address2 As String, ByVal City As String, ByVal State As String, ByVal ZipCode As String, ByVal County As String, ByVal Country As String, ByVal AddressType As Global.System.Nullable(Of Short)) As Integer
             If (ID Is Nothing) Then
                 Me.Adapter.InsertCommand.Parameters(0).Value = Global.System.DBNull.Value
             Else
@@ -5488,7 +5490,11 @@ Namespace vreportsDataSetTableAdapters
             Else
                 Me.Adapter.InsertCommand.Parameters(10).Value = CType(Country,String)
             End If
-            Me.Adapter.InsertCommand.Parameters(11).Value = CType(AddressType,Short)
+            If (AddressType.HasValue = true) Then
+                Me.Adapter.InsertCommand.Parameters(11).Value = CType(AddressType.Value,Short)
+            Else
+                Me.Adapter.InsertCommand.Parameters(11).Value = Global.System.DBNull.Value
+            End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.InsertCommand.Connection.State
             If ((Me.Adapter.InsertCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -5508,50 +5514,26 @@ Namespace vreportsDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
-        Public Overloads Overridable Function Update( _
-                    ByVal ID As Global.System.Nullable(Of Global.System.Guid),  _
-                    ByVal PersonId As Global.System.Nullable(Of Global.System.Guid),  _
-                    ByVal ReportID As Global.System.Nullable(Of Global.System.Guid),  _
-                    ByVal CompanyID As Global.System.Nullable(Of Global.System.Guid),  _
-                    ByVal Address1 As String,  _
-                    ByVal Address2 As String,  _
-                    ByVal City As String,  _
-                    ByVal State As String,  _
-                    ByVal ZipCode As String,  _
-                    ByVal County As String,  _
-                    ByVal Country As String,  _
-                    ByVal Type As Short,  _
-                    ByVal Original_ID As Global.System.Nullable(Of Global.System.Guid),  _
-                    ByVal Original_PersonId As Global.System.Nullable(Of Global.System.Guid),  _
-                    ByVal Original_ReportID As Global.System.Nullable(Of Global.System.Guid),  _
-                    ByVal Original_CompanyID As Global.System.Nullable(Of Global.System.Guid),  _
-                    ByVal Original_Address1 As String,  _
-                    ByVal Original_Address2 As String,  _
-                    ByVal Original_City As String,  _
-                    ByVal Original_State As String,  _
-                    ByVal Original_ZipCode As String,  _
-                    ByVal Original_County As String,  _
-                    ByVal Original_Country As String,  _
-                    ByVal Original_Type As Short) As Integer
-            If (ID.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(0).Value = CType(ID.Value,System.Guid)
-            Else
+        Public Overloads Overridable Function Update(ByVal ID As Object, ByVal PersonId As Object, ByVal ReportID As Object, ByVal CompanyID As Object, ByVal Address1 As String, ByVal Address2 As String, ByVal City As String, ByVal State As String, ByVal ZipCode As String, ByVal County As String, ByVal Country As String, ByVal AddressType As Short, ByVal Original_ID As Object) As Integer
+            If (ID Is Nothing) Then
                 Me.Adapter.UpdateCommand.Parameters(0).Value = Global.System.DBNull.Value
-            End If
-            If (PersonId.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(1).Value = CType(PersonId.Value,System.Guid)
             Else
+                Me.Adapter.UpdateCommand.Parameters(0).Value = CType(ID,Object)
+            End If
+            If (PersonId Is Nothing) Then
                 Me.Adapter.UpdateCommand.Parameters(1).Value = Global.System.DBNull.Value
-            End If
-            If (ReportID.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(2).Value = CType(ReportID.Value,System.Guid)
             Else
+                Me.Adapter.UpdateCommand.Parameters(1).Value = CType(PersonId,Object)
+            End If
+            If (ReportID Is Nothing) Then
                 Me.Adapter.UpdateCommand.Parameters(2).Value = Global.System.DBNull.Value
-            End If
-            If (CompanyID.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(3).Value = CType(CompanyID.Value,System.Guid)
             Else
+                Me.Adapter.UpdateCommand.Parameters(2).Value = CType(ReportID,Object)
+            End If
+            If (CompanyID Is Nothing) Then
                 Me.Adapter.UpdateCommand.Parameters(3).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.UpdateCommand.Parameters(3).Value = CType(CompanyID,Object)
             End If
             If (Address1 Is Nothing) Then
                 Me.Adapter.UpdateCommand.Parameters(4).Value = Global.System.DBNull.Value
@@ -5588,84 +5570,12 @@ Namespace vreportsDataSetTableAdapters
             Else
                 Me.Adapter.UpdateCommand.Parameters(10).Value = CType(Country,String)
             End If
-            Me.Adapter.UpdateCommand.Parameters(11).Value = CType(Type,Short)
-            If (Original_ID.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(12).Value = CType(Original_ID.Value,System.Guid)
-            Else
+            Me.Adapter.UpdateCommand.Parameters(11).Value = CType(AddressType,Short)
+            If (Original_ID Is Nothing) Then
                 Me.Adapter.UpdateCommand.Parameters(12).Value = Global.System.DBNull.Value
-            End If
-            If (Original_PersonId.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(13).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(14).Value = CType(Original_PersonId.Value,System.Guid)
             Else
-                Me.Adapter.UpdateCommand.Parameters(13).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(14).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(12).Value = CType(Original_ID,Object)
             End If
-            If (Original_ReportID.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(15).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(16).Value = CType(Original_ReportID.Value,System.Guid)
-            Else
-                Me.Adapter.UpdateCommand.Parameters(15).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(16).Value = Global.System.DBNull.Value
-            End If
-            If (Original_CompanyID.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(17).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(18).Value = CType(Original_CompanyID.Value,System.Guid)
-            Else
-                Me.Adapter.UpdateCommand.Parameters(17).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(18).Value = Global.System.DBNull.Value
-            End If
-            If (Original_Address1 Is Nothing) Then
-                Me.Adapter.UpdateCommand.Parameters(19).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(20).Value = Global.System.DBNull.Value
-            Else
-                Me.Adapter.UpdateCommand.Parameters(19).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(20).Value = CType(Original_Address1,String)
-            End If
-            If (Original_Address2 Is Nothing) Then
-                Me.Adapter.UpdateCommand.Parameters(21).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(22).Value = Global.System.DBNull.Value
-            Else
-                Me.Adapter.UpdateCommand.Parameters(21).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(22).Value = CType(Original_Address2,String)
-            End If
-            If (Original_City Is Nothing) Then
-                Me.Adapter.UpdateCommand.Parameters(23).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(24).Value = Global.System.DBNull.Value
-            Else
-                Me.Adapter.UpdateCommand.Parameters(23).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(24).Value = CType(Original_City,String)
-            End If
-            If (Original_State Is Nothing) Then
-                Me.Adapter.UpdateCommand.Parameters(25).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(26).Value = Global.System.DBNull.Value
-            Else
-                Me.Adapter.UpdateCommand.Parameters(25).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(26).Value = CType(Original_State,String)
-            End If
-            If (Original_ZipCode Is Nothing) Then
-                Me.Adapter.UpdateCommand.Parameters(27).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(28).Value = Global.System.DBNull.Value
-            Else
-                Me.Adapter.UpdateCommand.Parameters(27).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(28).Value = CType(Original_ZipCode,String)
-            End If
-            If (Original_County Is Nothing) Then
-                Me.Adapter.UpdateCommand.Parameters(29).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(30).Value = Global.System.DBNull.Value
-            Else
-                Me.Adapter.UpdateCommand.Parameters(29).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(30).Value = CType(Original_County,String)
-            End If
-            If (Original_Country Is Nothing) Then
-                Me.Adapter.UpdateCommand.Parameters(31).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(32).Value = Global.System.DBNull.Value
-            Else
-                Me.Adapter.UpdateCommand.Parameters(31).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(32).Value = CType(Original_Country,String)
-            End If
-            Me.Adapter.UpdateCommand.Parameters(33).Value = CType(0,Object)
-            Me.Adapter.UpdateCommand.Parameters(34).Value = CType(Original_Type,Short)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.UpdateCommand.Connection.State
             If ((Me.Adapter.UpdateCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -5685,31 +5595,8 @@ Namespace vreportsDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
-        Public Overloads Overridable Function Update( _
-                    ByVal PersonId As Global.System.Nullable(Of Global.System.Guid),  _
-                    ByVal ReportID As Global.System.Nullable(Of Global.System.Guid),  _
-                    ByVal CompanyID As Global.System.Nullable(Of Global.System.Guid),  _
-                    ByVal Address1 As String,  _
-                    ByVal Address2 As String,  _
-                    ByVal City As String,  _
-                    ByVal State As String,  _
-                    ByVal ZipCode As String,  _
-                    ByVal County As String,  _
-                    ByVal Country As String,  _
-                    ByVal Type As Short,  _
-                    ByVal Original_ID As Global.System.Nullable(Of Global.System.Guid),  _
-                    ByVal Original_PersonId As Global.System.Nullable(Of Global.System.Guid),  _
-                    ByVal Original_ReportID As Global.System.Nullable(Of Global.System.Guid),  _
-                    ByVal Original_CompanyID As Global.System.Nullable(Of Global.System.Guid),  _
-                    ByVal Original_Address1 As String,  _
-                    ByVal Original_Address2 As String,  _
-                    ByVal Original_City As String,  _
-                    ByVal Original_State As String,  _
-                    ByVal Original_ZipCode As String,  _
-                    ByVal Original_County As String,  _
-                    ByVal Original_Country As String,  _
-                    ByVal Original_Type As Short) As Integer
-            Return Me.Update(Original_ID, PersonId, ReportID, CompanyID, Address1, Address2, City, State, ZipCode, County, Country, Type, Original_ID, Original_PersonId, Original_ReportID, Original_CompanyID, Original_Address1, Original_Address2, Original_City, Original_State, Original_ZipCode, Original_County, Original_Country, Original_Type)
+        Public Overloads Overridable Function Update(ByVal PersonId As Object, ByVal ReportID As Object, ByVal CompanyID As Object, ByVal Address1 As String, ByVal Address2 As String, ByVal City As String, ByVal State As String, ByVal ZipCode As String, ByVal County As String, ByVal Country As String, ByVal AddressType As Short, ByVal Original_ID As Object) As Integer
+            Return Me.Update(Original_ID, PersonId, ReportID, CompanyID, Address1, Address2, City, State, ZipCode, County, Country, AddressType, Original_ID)
         End Function
     End Class
     

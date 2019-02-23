@@ -49,7 +49,7 @@ Public MustInherit Class AddressData
 
             End With
         Catch ex As Exception
-            MsgBox("SetDataFromRow()" & vbCrLf & "Error setting the row in Address()!")
+            MsgBox("SetDataFromRow()" & vbCrLf & "Error setting the row in Address()!",, "AddressData Class")
             m_ObjectState = ObjectStates.ErrorCondition
 
         End Try
@@ -83,7 +83,7 @@ Public MustInherit Class AddressData
             End With
 
         Catch ex As Exception
-            MsgBox("SetRowFromData()" & vbCrLf & ex.Message)
+            MsgBox("SetRowFromData()" & vbCrLf & ex.Message,, "AddressData Class")
             bFlag = False
 
         End Try

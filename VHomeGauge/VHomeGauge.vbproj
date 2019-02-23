@@ -114,6 +114,20 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="dlgReportImportProgressBar.Designer.vb">
+      <DependentUpon>dlgReportImportProgressBar.vb</DependentUpon>
+    </Compile>
+    <Compile Include="dlgReportImportProgressBar.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportInfo.vb" />
+    <Compile Include="HGIReportProcessor.vb" />
+    <Compile Include="dlgReportInDb.Designer.vb">
+      <DependentUpon>dlgReportInDb.vb</DependentUpon>
+    </Compile>
+    <Compile Include="dlgReportInDb.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="PersonFaxPhone.vb" />
     <Compile Include="PersonWorkPhone.vb" />
     <Compile Include="PersonHomePhone.vb" />
@@ -201,6 +215,12 @@
     <Compile Include="Settings.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="dlgReportImportProgressBar.resx">
+      <DependentUpon>dlgReportImportProgressBar.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dlgReportInDb.resx">
+      <DependentUpon>dlgReportInDb.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.vb</DependentUpon>
     </EmbeddedResource>

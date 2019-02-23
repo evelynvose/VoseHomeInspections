@@ -65,7 +65,7 @@ Public MustInherit Class AddressADO
         '
         ' Our only hope now is that anID is a valid foreign key.
         '
-        If LoadByFkIdAndAddressType(aFkId) = -1 Then Exit Sub
+        If LoadByFkIdAndAddressType(aFkId) = ObjectStates.ExistingRecord Then Exit Sub
         '
         ' We may have had a valid GUID format and AddressType, but there isn't an address record
         ' so we'll assume that the instantiator wanted this to be a new address record.
@@ -114,7 +114,7 @@ Public MustInherit Class AddressADO
                 Try
                     ' This call assumes that the GUID is in fact, an AddressRecordID
                     ta.FillByID(dt, id)
-                    If dt.Count = 1 Then
+                    If dt.Count > 0 Then
                         SetDataFromRow(dt.Rows(0))
                         ObjectState = ObjectStates.ExistingRecord
 
@@ -158,7 +158,7 @@ Public MustInherit Class AddressADO
 
                     End Select
 
-                    If dt.Count = 1 Then
+                    If dt.Count > 0 Then
                         SetDataFromRow(dt.Rows(0))
                         ObjectState = ObjectStates.ExistingRecord
 
