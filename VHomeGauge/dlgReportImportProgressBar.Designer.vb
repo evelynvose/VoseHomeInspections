@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class dlgReportImportProgressBar
     Inherits Syncfusion.Windows.Forms.MetroForm
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,11 +20,14 @@ Partial Class dlgReportImportProgressBar
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.ProgressBarAdv1 = New Syncfusion.Windows.Forms.Tools.ProgressBarAdv()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
+        Me.btnOK = New Syncfusion.Windows.Forms.ButtonAdv()
+        Me.StatusLabel = New Syncfusion.Windows.Forms.Tools.GradientLabel()
         CType(Me.ProgressBarAdv1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -42,7 +45,7 @@ Partial Class dlgReportImportProgressBar
         Me.ProgressBarAdv1.ForegroundImage = Nothing
         Me.ProgressBarAdv1.GradientEndColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(165, Byte), Integer), CType(CType(220, Byte), Integer))
         Me.ProgressBarAdv1.GradientStartColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(165, Byte), Integer), CType(CType(220, Byte), Integer))
-        Me.ProgressBarAdv1.Location = New System.Drawing.Point(12, 12)
+        Me.ProgressBarAdv1.Location = New System.Drawing.Point(17, 16)
         Me.ProgressBarAdv1.MultipleColors = New System.Drawing.Color() {System.Drawing.Color.Empty}
         Me.ProgressBarAdv1.Name = "ProgressBarAdv1"
         Me.ProgressBarAdv1.ProgressStyle = Syncfusion.Windows.Forms.Tools.ProgressBarStyles.Metro
@@ -56,14 +59,52 @@ Partial Class dlgReportImportProgressBar
         'Timer1
         '
         '
+        'BackgroundWorker1
+        '
+        '
+        'btnOK
+        '
+        Me.btnOK.BeforeTouchSize = New System.Drawing.Size(75, 23)
+        Me.btnOK.BorderStyleAdv = Syncfusion.Windows.Forms.ButtonAdvBorderStyle.Flat
+        Me.btnOK.IsBackStageButton = False
+        Me.btnOK.Location = New System.Drawing.Point(361, 16)
+        Me.btnOK.Name = "btnOK"
+        Me.btnOK.Size = New System.Drawing.Size(75, 23)
+        Me.btnOK.TabIndex = 1
+        Me.btnOK.Text = "OK"
+        Me.btnOK.UseVisualStyle = False
+        '
+        'StatusLabel
+        '
+        Me.StatusLabel.BackgroundColor = New Syncfusion.Drawing.BrushInfo()
+        Me.StatusLabel.BeforeTouchSize = New System.Drawing.Size(289, 36)
+        Me.StatusLabel.BorderAppearance = System.Windows.Forms.BorderStyle.None
+        Me.StatusLabel.BorderColor = System.Drawing.Color.Transparent
+        Me.StatusLabel.BorderSides = CType(((((System.Windows.Forms.Border3DSide.Left Or System.Windows.Forms.Border3DSide.Top) _
+            Or System.Windows.Forms.Border3DSide.Right) _
+            Or System.Windows.Forms.Border3DSide.Bottom) _
+            Or System.Windows.Forms.Border3DSide.Middle), System.Windows.Forms.Border3DSide)
+        Me.StatusLabel.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.StatusLabel.Location = New System.Drawing.Point(38, 9)
+        Me.StatusLabel.Name = "StatusLabel"
+        Me.StatusLabel.Size = New System.Drawing.Size(289, 36)
+        Me.StatusLabel.TabIndex = 2
+        Me.StatusLabel.Text = "Success!"
+        Me.StatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.StatusLabel.Visible = False
+        '
         'dlgReportImportProgressBar
         '
+        Me.AcceptButton = Me.btnOK
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CaptionFont = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ClientSize = New System.Drawing.Size(354, 56)
+        Me.ClientSize = New System.Drawing.Size(462, 66)
         Me.ControlBox = False
+        Me.Controls.Add(Me.StatusLabel)
+        Me.Controls.Add(Me.btnOK)
         Me.Controls.Add(Me.ProgressBarAdv1)
+        Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Name = "dlgReportImportProgressBar"
         Me.ShowIcon = False
@@ -79,4 +120,7 @@ Partial Class dlgReportImportProgressBar
 
     Friend WithEvents ProgressBarAdv1 As Syncfusion.Windows.Forms.Tools.ProgressBarAdv
     Friend WithEvents Timer1 As Timer
+    Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
+    Friend WithEvents btnOK As Syncfusion.Windows.Forms.ButtonAdv
+    Friend WithEvents StatusLabel As Syncfusion.Windows.Forms.Tools.GradientLabel
 End Class

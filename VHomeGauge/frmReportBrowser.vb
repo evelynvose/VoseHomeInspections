@@ -55,28 +55,12 @@ Public Class frmReportBrowser
         End If
         '
         ' OK - rock and roll
-        '
-        ' Show the Progress Bar
+        '     by showing the Progress Bar form. It processes the report!
         '
         Dim theProgressBar As New dlgReportImportProgressBar
-        theProgressBar.TopMost = True
-        theProgressBar.Show(Me)
-        '
-        ' Process the report
-        '
-        Dim theHGIReportProcessor As New HGIReportProcessor(TryCast(dgReports.CurrentItem, ReportInfo).ReportFullName)
-        theProgressBar.StartTimer()
-        If theHGIReportProcessor.ProcessTheReport() Then
-            theProgressBar.Hide()
-            MsgBox("Report is Imported!",, "Report Processor")
-
-        Else
-            theProgressBar.Hide()
-            MsgBox("Report is imported, but with errors!", MsgBoxStyle.Critical, "Report Processor")
-
-        End If
-
-
+        theProgressBar.StartPosition = FormStartPosition.CenterParent
+        theProgressBar.ReportPath = New FileInfo(TryCast(dgReports.CurrentItem, ReportInfo).ReportFullName)
+        theProgressBar.ShowDialog()
         '
     End Sub
     '

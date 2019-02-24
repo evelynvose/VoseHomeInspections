@@ -1,6 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿Imports Syncfusion.Windows.Forms
+'
+'
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class dlgReportInDb
-    Inherits System.Windows.Forms.Form
+    Inherits MetroForm
 
     'Form overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -42,9 +45,9 @@ Partial Class dlgReportInDb
         Me.AutoLabel1.Font = New System.Drawing.Font("Segoe UI", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.AutoLabel1.Location = New System.Drawing.Point(83, 50)
         Me.AutoLabel1.Name = "AutoLabel1"
-        Me.AutoLabel1.Size = New System.Drawing.Size(273, 25)
+        Me.AutoLabel1.Size = New System.Drawing.Size(270, 25)
         Me.AutoLabel1.TabIndex = 1
-        Me.AutoLabel1.Text = "The report in already in the db!"
+        Me.AutoLabel1.Text = "The report is already in the db!"
         '
         'ckUpdateFromReportFile
         '
@@ -71,6 +74,7 @@ Partial Class dlgReportInDb
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "dlgReportInDb"
+        Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Report Browser"

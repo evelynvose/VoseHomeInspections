@@ -162,12 +162,15 @@ Public Class ReportInfo
             '
             Dim reportSplits() As String
             reportSplits = value.Split(" ")
-            m_ReportNumber = reportSplits(0)
+            If reportSplits.Count > 0 Then
+                m_ReportNumber = reportSplits(0)
+                '
+            End If
             '
             ' Version Number
             '
             m_Version = "1.0"
-            If reportSplits.Count > 0 Then
+            If reportSplits.Count > 1 Then
                 m_Version = reportSplits(1)
 
             End If

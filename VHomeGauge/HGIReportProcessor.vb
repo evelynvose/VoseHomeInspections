@@ -1,4 +1,5 @@
 ﻿Imports System.Xml
+Imports System.IO
 '
 ' **********************************************
 ' ****
@@ -14,14 +15,48 @@ Public Class HGIReportProcessor
     ' ****
     ' **********************************************
     ' 
-    Private m_ReportFullName As String = ""
-    Public Sub New(ByVal theReportFullName As String)
-        m_ReportFullName = theReportFullName
+    '
+    ' ***********************************************
+    ' *****     New ()
+    ' ***********************************************
+    '
+    Public Sub New()
+        ' Do Nothing
+    End Sub
+    '
+    ' ***********************************************
+    ' *****     New (FileInfo)
+    ' ***********************************************
+    '
+    Private m_FileInfo As FileInfo
+    Public Sub New(ByVal theReportFullName As FileInfo)
+        m_FileInfo = theReportFullName
         '
     End Sub
+    '
+    ' **********************************************
+    ' ****
+    ' ******    Methods
+    ' ****
+    ' **********************************************
+    ' 
+    '
+    ' ***********************************************
+    ' *****     Process The Report (FileInfo)
+    ' ***********************************************
+    '
+    Public Function ProcessTheReport(ByVal theFileInfo As FileInfo) As Boolean
+        m_FileInfo = theFileInfo
+        Return ProcessTheReport()
 
+    End Function
+    '
+    ' ***********************************************
+    ' *****     Process The Report ()
+    ' ***********************************************
+    '
     Public Function ProcessTheReport() As Boolean
-        If IsNothing(m_ReportFullName) OrElse m_ReportFullName = "" Then
+        If IsNothing(m_FileInfo) OrElse m_FileInfo.FullName = "" Then
             '
             MsgBox("ProcessReport()" & vbCrLf & "The report path is an empty string!",, "HGIReportProcessor Class")
             Return False
@@ -38,7 +73,7 @@ Public Class HGIReportProcessor
             '
             ' Load the Xml file
             '
-            Xmld.Load(m_ReportFullName)
+            Xmld.Load(m_FileInfo.FullName)
             '
             ' Set the namespace
             '
@@ -99,13 +134,6 @@ Public Class HGIReportProcessor
         Return True
         '
     End Function
-    '
-    ' **********************************************
-    ' ****
-    ' ******    Methods
-    ' ****
-    ' **********************************************
-    ' 
     '
     ' ***********************************************
     ' *****      Parse Report Information From Node
@@ -305,7 +333,7 @@ Public Class HGIReportProcessor
                         .LastName = node.FirstChild.Value
                         '
                     Case "PSHGIName"
-                        .UserName &= node.FirstChild.Value
+                        .UserName = node.FirstChild.Value
                         '
                     Case "PRole"
                         Select Case node.FirstChild.Value
