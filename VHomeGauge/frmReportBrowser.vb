@@ -57,10 +57,19 @@ Public Class frmReportBrowser
         ' OK - rock and roll
         '     by showing the Progress Bar form. It processes the report!
         '
-        Dim theProgressBar As New dlgReportImportProgressBar
-        theProgressBar.StartPosition = FormStartPosition.CenterParent
-        theProgressBar.ReportPath = New FileInfo(TryCast(dgReports.CurrentItem, ReportInfo).ReportFullName)
-        theProgressBar.ShowDialog()
+        Dim TheHGIReportProcessor As New HGIReportProcessor(New FileInfo(TryCast(dgReports.CurrentItem, ReportInfo).ReportFullName))
+        Dim theProgressBar As New dlgVProgressBar
+        With theProgressBar
+            .StartPosition = FormStartPosition.CenterParent
+            .DoWorkClass = TheHGIReportProcessor
+            .Text = "Import Report"
+            .AnnouncementVisible = True
+            .AnnouncementText = "Success!"
+            .OKButtonVisible = True
+            .Launch()
+            .ShowDialog()
+
+        End With
         '
     End Sub
     '

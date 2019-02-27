@@ -43,7 +43,6 @@ Partial Class frmMain
         Dim GridTextColumn1 As Syncfusion.WinForms.DataGrid.GridTextColumn = New Syncfusion.WinForms.DataGrid.GridTextColumn()
         Dim GridTextColumn2 As Syncfusion.WinForms.DataGrid.GridTextColumn = New Syncfusion.WinForms.DataGrid.GridTextColumn()
         Dim GridTextColumn3 As Syncfusion.WinForms.DataGrid.GridTextColumn = New Syncfusion.WinForms.DataGrid.GridTextColumn()
-        Dim GridTextColumn4 As Syncfusion.WinForms.DataGrid.GridTextColumn = New Syncfusion.WinForms.DataGrid.GridTextColumn()
         Me.scSlab = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
         Me.scFoundation = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
         Me.rbBanner = New Syncfusion.Windows.Forms.Tools.RibbonControlAdv()
@@ -214,6 +213,7 @@ Partial Class frmMain
         '
         'scControlsBase
         '
+        Me.scControlsBase.BackColor = System.Drawing.Color.WhiteSmoke
         Me.scControlsBase.BeforeTouchSize = 7
         Me.scControlsBase.Dock = System.Windows.Forms.DockStyle.Fill
         Me.scControlsBase.Location = New System.Drawing.Point(0, 0)
@@ -353,6 +353,8 @@ Partial Class frmMain
         TreeNodeAdvStyleInfo1.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tvAreaNavigator.BaseStylePairs.AddRange(New Syncfusion.Windows.Forms.Tools.StyleNamePair() {New Syncfusion.Windows.Forms.Tools.StyleNamePair("Standard", TreeNodeAdvStyleInfo1)})
         Me.tvAreaNavigator.BeforeTouchSize = New System.Drawing.Size(173, 315)
+        Me.tvAreaNavigator.Border3DStyle = System.Windows.Forms.Border3DStyle.Flat
+        Me.tvAreaNavigator.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.tvAreaNavigator.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tvAreaNavigator.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         '
@@ -581,23 +583,27 @@ Partial Class frmMain
         'dgFilmstrip
         '
         Me.dgFilmstrip.AccessibleName = "Table"
+        Me.dgFilmstrip.AutoGenerateColumns = False
         GridImageColumn1.AllowEditing = False
         GridImageColumn1.AllowGrouping = False
+        GridImageColumn1.AllowResizing = True
         GridImageColumn1.AllowSorting = False
+        GridImageColumn1.CellStyle.BackColor = System.Drawing.Color.Black
+        GridImageColumn1.CellStyle.Font.Facename = "Segoe UI"
+        GridImageColumn1.CellStyle.TextMargins = New System.Windows.Forms.Padding(3, 6, 3, 6)
+        GridImageColumn1.HeaderStyle.Font.Facename = "Segoe UI"
         GridImageColumn1.HeaderText = "Picture"
         GridImageColumn1.MappingName = "Picture"
-        GridImageColumn1.MaximumWidth = 640.0R
+        GridImageColumn1.MaximumWidth = 320.0R
         GridImageColumn1.MinimumWidth = 80.0R
         GridImageColumn1.Width = 160.0R
-        GridTextColumn1.AllowEditing = False
-        GridTextColumn1.HeaderText = "FileName"
-        GridTextColumn1.MappingName = "FileName"
         Me.dgFilmstrip.Columns.Add(GridImageColumn1)
-        Me.dgFilmstrip.Columns.Add(GridTextColumn1)
         Me.dgFilmstrip.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgFilmstrip.Location = New System.Drawing.Point(0, 0)
         Me.dgFilmstrip.Name = "dgFilmstrip"
         Me.dgFilmstrip.Size = New System.Drawing.Size(208, 455)
+        Me.dgFilmstrip.Style.Border3DStyle = System.Windows.Forms.Border3DStyle.Flat
+        Me.dgFilmstrip.Style.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgFilmstrip.TabIndex = 0
         '
         'tabPeople
@@ -670,21 +676,21 @@ Partial Class frmMain
         Me.dgPeopleInfo.AllowEditing = False
         Me.dgPeopleInfo.AllowResizingColumns = True
         Me.dgPeopleInfo.AutoGenerateColumns = False
+        GridTextColumn1.AllowEditing = False
+        GridTextColumn1.AllowResizing = True
+        GridTextColumn1.HeaderText = "First"
+        GridTextColumn1.MappingName = "FirstName"
         GridTextColumn2.AllowEditing = False
         GridTextColumn2.AllowResizing = True
-        GridTextColumn2.HeaderText = "First"
-        GridTextColumn2.MappingName = "FirstName"
+        GridTextColumn2.HeaderText = "Last"
+        GridTextColumn2.MappingName = "LastName"
         GridTextColumn3.AllowEditing = False
         GridTextColumn3.AllowResizing = True
-        GridTextColumn3.HeaderText = "Last"
-        GridTextColumn3.MappingName = "LastName"
-        GridTextColumn4.AllowEditing = False
-        GridTextColumn4.AllowResizing = True
-        GridTextColumn4.HeaderText = "Company"
-        GridTextColumn4.MappingName = "Company"
+        GridTextColumn3.HeaderText = "Company"
+        GridTextColumn3.MappingName = "Company"
+        Me.dgPeopleInfo.Columns.Add(GridTextColumn1)
         Me.dgPeopleInfo.Columns.Add(GridTextColumn2)
         Me.dgPeopleInfo.Columns.Add(GridTextColumn3)
-        Me.dgPeopleInfo.Columns.Add(GridTextColumn4)
         Me.dgPeopleInfo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgPeopleInfo.Location = New System.Drawing.Point(0, 0)
         Me.dgPeopleInfo.Name = "dgPeopleInfo"
@@ -694,6 +700,7 @@ Partial Class frmMain
         'sbStatusBar
         '
         Me.sbStatusBar.Alignment = Syncfusion.Windows.Forms.Tools.FlowAlignment.Far
+        Me.sbStatusBar.BackColor = System.Drawing.Color.WhiteSmoke
         Me.sbStatusBar.BeforeTouchSize = New System.Drawing.Size(1098, 28)
         Me.sbStatusBar.BorderSingle = System.Windows.Forms.ButtonBorderStyle.None
         Me.sbStatusBar.BorderStyle = System.Windows.Forms.BorderStyle.None
@@ -863,6 +870,7 @@ Partial Class frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.Color.WhiteSmoke
         Me.ClientSize = New System.Drawing.Size(1108, 639)
         Me.Controls.Add(Me.scSlab)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)

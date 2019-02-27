@@ -1,12 +1,24 @@
 ﻿Imports System.Xml
 Imports System.IO
 '
+' TODO Add a DoWork() method.
+' TODO Remove any ability to call a method other than DoWork().
+' TODO Convert all message box messages to raised events.
+' TODO Update the project flowchart.
+' TODO Change frmReportBrowser form to use the new DoWork protocol re this class.
+'
 ' **********************************************
 ' ****
 ' ******    Class
 ' ****
 ' **********************************************
 ' 
+' This is a DoWork compliant task. It is meant to be run as a background process/thread
+' and code design complies to those requirements such as: 1) Has a DoWork() Method that is called
+' by the background thread start process. No arguments are allowed. 2) All error messages as raised through
+' events. No message box messages are allowed. 3) Runtime parameters are set as properties of this class
+' prior to the background processor invoking DoWork() method.
+'
 Public Class HGIReportProcessor
     '
     ' **********************************************
@@ -50,6 +62,15 @@ Public Class HGIReportProcessor
         Return ProcessTheReport()
 
     End Function
+    '
+    ' ***********************************************
+    ' *****     DoWork
+    ' ***********************************************
+    '
+    Public Sub DoWork()
+        ProcessTheReport()
+
+    End Sub
     '
     ' ***********************************************
     ' *****     Process The Report ()

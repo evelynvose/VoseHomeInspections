@@ -68,6 +68,7 @@ Partial Class frmReportBrowser
         '
         'scSlab.Panel2
         '
+        Me.scSlab.Panel2.BackColor = System.Drawing.Color.WhiteSmoke
         Me.scSlab.Panel2.BackgroundColor = New Syncfusion.Drawing.BrushInfo(System.Drawing.Color.WhiteSmoke)
         Me.scSlab.Panel2.Controls.Add(Me.btnOpenHG)
         Me.scSlab.Panel2.Controls.Add(Me.btnGear)
@@ -167,6 +168,7 @@ Partial Class frmReportBrowser
         Me.dgReports.Location = New System.Drawing.Point(0, 0)
         Me.dgReports.Name = "dgReports"
         Me.dgReports.Size = New System.Drawing.Size(705, 435)
+        Me.dgReports.Style.Border3DStyle = System.Windows.Forms.Border3DStyle.Flat
         Me.dgReports.TabIndex = 0
         Me.dgReports.Text = "SfDataGrid1"
         '

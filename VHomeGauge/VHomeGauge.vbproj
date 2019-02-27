@@ -114,10 +114,10 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="dlgReportImportProgressBar.Designer.vb">
-      <DependentUpon>dlgReportImportProgressBar.vb</DependentUpon>
+    <Compile Include="dlgVProgressBar.Designer.vb">
+      <DependentUpon>dlgVProgressBar.vb</DependentUpon>
     </Compile>
-    <Compile Include="dlgReportImportProgressBar.vb">
+    <Compile Include="dlgVProgressBar.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ReportInfo.vb" />
@@ -215,8 +215,8 @@
     <Compile Include="Settings.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="dlgReportImportProgressBar.resx">
-      <DependentUpon>dlgReportImportProgressBar.vb</DependentUpon>
+    <EmbeddedResource Include="dlgVProgressBar.resx">
+      <DependentUpon>dlgVProgressBar.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="dlgReportInDb.resx">
       <DependentUpon>dlgReportInDb.vb</DependentUpon>
