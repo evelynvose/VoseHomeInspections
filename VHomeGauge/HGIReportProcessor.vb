@@ -1,9 +1,7 @@
 ﻿Imports System.Xml
 Imports System.IO
 '
-' TODO Convert all message box messages to raised events.
 ' TODO Update the project flowchart.
-' TODO Change frmReportBrowser form to use the new DoWork protocol re this class.
 '
 ' **********************************************
 ' ****
@@ -18,6 +16,7 @@ Imports System.IO
 ' prior to the background processor invoking DoWork() method.
 '
 Public Class HGIReportProcessor
+    Implements IDoWorkWorker
     '
     ' **********************************************
     ' ****
@@ -70,7 +69,7 @@ Public Class HGIReportProcessor
         ' Continue or exit depending on whether or not the report path is valid
         '
         If Not IsReportPathValid Then
-            RaiseEvent DoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.ErrorCondition, LastErrorMessage))
+            RaiseEvent RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.ErrorCondition, LastErrorMessage))
             '
         End If
         '
@@ -87,7 +86,7 @@ Public Class HGIReportProcessor
     ' *****     DoWork
     ' ***********************************************
     '
-    Public Sub DoWork()
+    Public Sub DoWork() Implements IDoWorkWorker.DoWork
         '
         ' This method serves solely to expose the report processor method and is
         '      a Vose requirement for vProgressBar.
@@ -96,7 +95,7 @@ Public Class HGIReportProcessor
         '
         ' Set the terrmination Message
         '
-        RaiseEvent DoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Termination, "Success!"))
+        RaiseEvent RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Termination, "Success!"))
         '
     End Sub
     '
@@ -171,7 +170,7 @@ Public Class HGIReportProcessor
             'Error trapping
             '
             LastErrorMessage = "btnOpen_Click" & vbCrLf & ex.Message
-            RaiseEvent DoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.ErrorCondition, LastErrorMessage))
+            RaiseEvent RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.ErrorCondition, LastErrorMessage))
             Return False
             '
         End Try
@@ -193,7 +192,7 @@ Public Class HGIReportProcessor
         '
         ' Progress Update
         '
-        RaiseEvent DoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, "Parsing report information.."))
+        RaiseEvent RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, "Parsing report information.."))
         '
         ' Report Basic Information
         '
@@ -204,7 +203,7 @@ Public Class HGIReportProcessor
             If IsDate(parser.GetPropertyValue("RIDate")) Then
                 .InspectionDate = Date.Parse(parser.GetPropertyValue("prop[@name='RIDate']"))
 
-        End If
+            End If
             .StartTime = parser.GetPropertyValue("prop[@name='RIStartTime']")
             .EndTime = parser.GetPropertyValue("prop[@name='RIStopTime']")
             .ReportNumber = parser.GetPropertyValue("prop[@name='RIReportNumber']")
@@ -216,7 +215,7 @@ Public Class HGIReportProcessor
         '
         ' Progress Update
         '
-        RaiseEvent DoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, "Parsing inspection address.."))
+        RaiseEvent RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, "Parsing inspection address.."))
         '
         ' Inspection Address
         '
@@ -253,7 +252,7 @@ Public Class HGIReportProcessor
         '
         ' Progress Update
         '
-        RaiseEvent DoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, "Parsing inspector information.."))
+        RaiseEvent RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, "Parsing inspector information.."))
         '
         '
         '
@@ -278,14 +277,14 @@ Public Class HGIReportProcessor
         Dim parser As New XMLParser(node)
         If parser.GetPropertyValue("prop[@name='CGuid']") = "" Then
             LastErrorMessage = "The report client does not have a GUID."
-            RaiseEvent DoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.ErrorCondition, LastErrorMessage))
+            RaiseEvent RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.ErrorCondition, LastErrorMessage))
             Exit Sub
             '
         End If
         '
         ' Progress Update
         '
-        RaiseEvent DoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, "Parsing client information.."))
+        RaiseEvent RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, "Parsing client information.."))
         '
         ' Convert the string representation of the HG Report GUID to a GUID struct
         '
@@ -386,7 +385,7 @@ Public Class HGIReportProcessor
         '
         ' Progress Update
         '
-        RaiseEvent DoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, "Parsing agent information.."))
+        RaiseEvent RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, "Parsing agent information.."))
         '
         ' Get the HGI assigned Agent Guid, bail if not found or is invalid
         '
@@ -397,7 +396,7 @@ Public Class HGIReportProcessor
             '
         Catch ex As Exception
             LastErrorMessage = "ParseAgentInformationFromNode" & vbCrLf & ex.Message
-            RaiseEvent DoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.ErrorCondition, LastErrorMessage))
+            RaiseEvent RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.ErrorCondition, LastErrorMessage))
             Exit Sub
             '
         End Try
@@ -447,7 +446,7 @@ Public Class HGIReportProcessor
             Catch ex As Exception
                 '
                 LastErrorMessage = "ParseAgentInformationFromNode()" & vbCrLf & ex.Message
-                RaiseEvent DoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.ErrorCondition, LastErrorMessage))
+                RaiseEvent RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.ErrorCondition, LastErrorMessage))
                 '
             End Try
             '
@@ -459,7 +458,7 @@ Public Class HGIReportProcessor
     ' *****      HGI Report Processor Event
     ' ***********************************************
     ' 
-    Public Event DoWorkEvent(ByVal sender As Object, ByVal theEventArgs As VDoWorkEventArgs)
+    Public Event RaiseDoWorkEvent(ByVal sender As Object, ByVal theEventArgs As VDoWorkEventArgs) Implements IDoWorkWorker.RaiseDoWorkEvent
     '
     ' **********************************************
     ' ****
@@ -488,7 +487,7 @@ Public Class HGIReportProcessor
     ' *****      Last Error Message
     ' ***********************************************
     ' 
-    Public Property LastErrorMessage As String
+    Public Property LastErrorMessage As String Implements IDoWorkWorker.LastErrorMessage
         Get
             Return m_LastErrorMessage
         End Get

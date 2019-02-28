@@ -22,7 +22,24 @@ Public Class frmReportBrowser
     ' ***********************************************
     '
     Private Sub bthRefreshDb_Click(sender As Object, e As EventArgs) Handles bthRefreshDb.Click
-        dgReports.DataSource = BuildReportRepsitory()
+        '
+        ' OK - rock and roll
+        '     by showing the Vose Progress Bar form. It takes an IDoWorkWorker implemented class and processes the Report
+        '
+        Dim theHGIReportInfoReposirory As New HGIReportInfoRepository
+        Dim theVProgressBar As New dlgVProgressBar
+        With theVProgressBar
+            .StartPosition = FormStartPosition.CenterParent
+            .SetDoWorkClass(theHGIReportInfoReposirory)
+            .Text = "Build Report Info Repository"
+            .AnnouncementVisible = False
+            .RunningStatusVisible = True
+            .OKButtonVisible = False
+            .LaunchDoWork()
+            .ShowDialog()
+            '
+        End With
+        dgReports.DataSource = theHGIReportInfoReposirory.ReportInfoRepository
 
     End Sub
     '
@@ -55,20 +72,20 @@ Public Class frmReportBrowser
         End If
         '
         ' OK - rock and roll
-        '     by showing the Progress Bar form. It processes the report!
+        '     by showing the Vose Progress Bar form. It takes an IDoWorkWorker implemented class and processes the Report
         '
         Dim TheHGIReportProcessor As New HGIReportProcessor(New FileInfo(TryCast(dgReports.CurrentItem, ReportInfo).ReportFullName))
-        Dim theProgressBar As New dlgVProgressBar
-        With theProgressBar
+        Dim theVProgressBar As New dlgVProgressBar
+        With theVProgressBar
             .StartPosition = FormStartPosition.CenterParent
             .SetDoWorkClass(TheHGIReportProcessor)
             .Text = "Import Report"
             .AnnouncementVisible = True
             .RunningStatusVisible = True
             .OKButtonVisible = True
-            .Launch()
+            .LaunchDoWork()
             .ShowDialog()
-
+            '
         End With
         '
     End Sub
@@ -113,40 +130,6 @@ Public Class frmReportBrowser
     ' ****
     ' **********************************************
     ' 
-    '  
-    ' ***********************************************    
-    ' *****      Build Report Repository
-    ' ***********************************************
-    '
-    Private Function BuildReportRepsitory() As IList(Of ReportInfo)
-        '
-        Dim reportRepos As IList(Of ReportInfo) = New List(Of ReportInfo)
-        '
-        ' Open ever file that fits the filter: report.hr5.
-        ' Because HG stores reports in folders and the filename is always Report.hr5, we have
-        '   to filter our superfluous folders such as temporary reports and HG supplied sample reports.
-        '
-        Try
-            For Each f As String In Directory.GetFiles(My.Settings.HomeGaugeReportsPath, "report.hr5", SearchOption.AllDirectories)
-                If f.Contains("00000") Then Continue For ' Typical temporary directories start with at least five zeros: 00000
-                If f.Contains("sample") Then Continue For ' Sample reports
-                If f.Contains("Sample") Then Continue For ' Sample reports
-                '
-                ' Okay - let's go!
-                '
-                Dim theReportFile As New ReportInfo
-                theReportFile.SetPath(f)        ' set the path, which kicks off an XML file parser to fill the FileInfo's data from the report.
-                reportRepos.Add(theReportFile)
-                '
-            Next
-        Catch ex As Exception
-            MsgBox("BuildReportRepository()" & vbCrLf & ex.Message,, "frmOpenReport Class")
-            '
-        End Try
-        '
-        Return reportRepos
-        '
-    End Function
     '
 End Class
 

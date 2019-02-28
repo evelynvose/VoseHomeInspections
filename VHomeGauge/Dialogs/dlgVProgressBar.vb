@@ -9,6 +9,7 @@ Imports System.ComponentModel
 ' 
 Public Class dlgVProgressBar
     Inherits MetroForm
+    Implements IDoWorkManager
     '
     ' **********************************************
     ' ****
@@ -35,6 +36,11 @@ Public Class dlgVProgressBar
         btnOK.Enabled = False
         lblAnnouncement.Text = ""
         lblAnnouncement.Visible = False
+        '
+        ' Add the requisite ManagerDoWork event handler
+        '
+        AddHandler BackgroundWorker1.DoWork, AddressOf BackgroundWorker1_DoWork
+        AddHandler BackgroundWorker1.RunWorkerCompleted, AddressOf BackgroundWorker1_RunWorkerCompleted
         '
     End Sub
     '
@@ -64,7 +70,7 @@ Public Class dlgVProgressBar
     ' the event, BackgroundWorker1_DoWork, fires and that's where the "DoWork" method is called in the m_DoWorkClass
     ' class pointer reference.
     '
-    Public Sub Launch()
+    Public Sub LaunchDoWork() Implements IDoWorkManager.LaunchDoWork
         '
         ' The heart of this dialog is the DoWorkClass object.
         ' Without that we may as well go home since there is no work to be done!
@@ -114,7 +120,7 @@ Public Class dlgVProgressBar
     ' ***********************************************
     '
     Friend WithEvents m_DoWorkClass As Object
-    Public Sub SetDoWorkClass(ByRef DoWorkClass As Object)
+    Public Sub SetDoWorkClass(ByRef DoWorkClass As Object) Implements IDoWorkManager.SetDoWorkClass
         ' 
         ' Set the pointer to the DoWorkClass
         '       Used by BackgroundWorker1_DoWork
@@ -124,7 +130,11 @@ Public Class dlgVProgressBar
         '     Note that this is a hack that will require adding a test for every DoWorkClass that we create.
         '
         If m_DoWorkClass.ToString().Contains("HGIReportProcessor") Then
-            AddHandler CType(m_DoWorkClass, HGIReportProcessor).DoWorkEvent, AddressOf DoWorkEventHandlingFunction
+            AddHandler CType(m_DoWorkClass, HGIReportProcessor).RaiseDoWorkEvent, AddressOf DoWorkEventHandlingFunction
+            '
+        End If
+        If m_DoWorkClass.ToString().Contains("HGIReportInfoRepository") Then
+            AddHandler CType(m_DoWorkClass, HGIReportInfoRepository).RaiseDoWorkEvent, AddressOf DoWorkEventHandlingFunction
             '
         End If
         '
@@ -142,7 +152,7 @@ Public Class dlgVProgressBar
     ' *****     DoWork Event Handling Function
     ' ***********************************************
     '
-    Private Sub DoWorkEventHandlingFunction(ByVal sender As Object, ByVal e As VDoWorkEventArgs)
+    Private Sub DoWorkEventHandlingFunction(ByVal sender As Object, ByVal e As VDoWorkEventArgs) Implements IDoWorkManager.DoWorkEventHandlingFunction
         Select Case e.EventType
             Case VDoWorkEventArgTypes.Informational
                 InfoMessage = e.Message
@@ -186,6 +196,10 @@ Public Class dlgVProgressBar
             lblStatus.Visible = False
             lblAnnouncement.Text = AnnouncementText
             lblAnnouncement.Visible = AnnouncementVisible
+            If Not OKButtonVisible Then
+                Close()
+                '
+            End If
             btnOK.Enabled = True
             '
         Else
@@ -204,7 +218,8 @@ Public Class dlgVProgressBar
     ' *****     Background Worker 1_DoWork
     ' ***********************************************
     '
-    Private Sub BackgroundWorker1_DoWork(sender As Object, e As DoWorkEventArgs) Handles BackgroundWorker1.DoWork
+    Private Event DoWorkEvent(ByVal sender As Object, ByVal e As DoWorkEventArgs) Implements IDoWorkManager.DoWorkEvent
+    Private Sub BackgroundWorker1_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs)
         '
         ' Call the DoWork method in the DoWork Class.
         '
@@ -216,7 +231,8 @@ Public Class dlgVProgressBar
     ' *****     Background Worker 1_RunWorkerCompleted
     ' ***********************************************
     '
-    Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles BackgroundWorker1.RunWorkerCompleted
+    Private Event RunWorkerCompletedEvent(sender As Object, e As RunWorkerCompletedEventArgs) Implements IDoWorkManager.RunWorkerCompletedEvent
+    Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs)
         '
         ' The next progress bar tick will note that the IsWorkCompleted flag is Ture and it will disable the timer.
         '
@@ -251,7 +267,7 @@ Public Class dlgVProgressBar
     ' *****     Is Work Completed?
     ' ***********************************************
     '
-    Private Property IsWorkCompleted As Boolean
+    Private Property IsWorkCompleted As Boolean Implements IDoWorkManager.IsWorkCompleted
         Get
             Return m_IsWorkCompleted
         End Get

@@ -114,19 +114,22 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HGIReportInfoRepository.vb" />
+    <Compile Include="Interfaces\IDoWorkWorker.vb" />
+    <Compile Include="Interfaces\IDoWorkManager.vb" />
     <Compile Include="VDoWorkEventArgs.vb" />
-    <Compile Include="dlgVProgressBar.Designer.vb">
+    <Compile Include="Dialogs\dlgVProgressBar.Designer.vb">
       <DependentUpon>dlgVProgressBar.vb</DependentUpon>
     </Compile>
-    <Compile Include="dlgVProgressBar.vb">
+    <Compile Include="Dialogs\dlgVProgressBar.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ReportInfo.vb" />
     <Compile Include="HGIReportProcessor.vb" />
-    <Compile Include="dlgReportInDb.Designer.vb">
+    <Compile Include="Dialogs\dlgReportInDb.Designer.vb">
       <DependentUpon>dlgReportInDb.vb</DependentUpon>
     </Compile>
-    <Compile Include="dlgReportInDb.vb">
+    <Compile Include="Dialogs\dlgReportInDb.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="PersonFaxPhone.vb" />
@@ -167,22 +170,22 @@
     <Compile Include="VReportsSchema.vb">
       <DependentUpon>VReportsSchema.xsd</DependentUpon>
     </Compile>
-    <Compile Include="frmReportBrowser.Designer.vb">
+    <Compile Include="Forms\frmReportBrowser.Designer.vb">
       <DependentUpon>frmReportBrowser.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmReportBrowser.vb">
+    <Compile Include="Forms\frmReportBrowser.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmClient.Designer.vb">
+    <Compile Include="Forms\frmClient.Designer.vb">
       <DependentUpon>frmClient.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmClient.vb">
+    <Compile Include="Forms\frmClient.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmPeopleInfo.Designer.vb">
+    <Compile Include="Forms\frmPeopleInfo.Designer.vb">
       <DependentUpon>frmPeopleInfo.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmPeopleInfo.vb">
+    <Compile Include="Forms\frmPeopleInfo.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Person.vb" />
@@ -192,10 +195,10 @@
     <Compile Include="PictureRepository.vb" />
     <Compile Include="SerialNumber.vb" />
     <Compile Include="PictureInfo.vb" />
-    <Compile Include="frmMain.designer.vb">
+    <Compile Include="Forms\frmMain.designer.vb">
       <DependentUpon>frmMain.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmMain.vb">
+    <Compile Include="Forms\frmMain.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -216,13 +219,13 @@
     <Compile Include="Settings.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="dlgVProgressBar.resx">
+    <EmbeddedResource Include="Dialogs\dlgVProgressBar.resx">
       <DependentUpon>dlgVProgressBar.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="dlgReportInDb.resx">
+    <EmbeddedResource Include="Dialogs\dlgReportInDb.resx">
       <DependentUpon>dlgReportInDb.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmMain.resx">
+    <EmbeddedResource Include="Forms\frmMain.resx">
       <DependentUpon>frmMain.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -231,13 +234,13 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmPeopleInfo.resx">
+    <EmbeddedResource Include="Forms\frmPeopleInfo.resx">
       <DependentUpon>frmPeopleInfo.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmClient.resx">
+    <EmbeddedResource Include="Forms\frmClient.resx">
       <DependentUpon>frmClient.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmReportBrowser.resx">
+    <EmbeddedResource Include="Forms\frmReportBrowser.resx">
       <DependentUpon>frmReportBrowser.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
