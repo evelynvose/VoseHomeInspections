@@ -1,8 +1,6 @@
 ﻿Imports System.Xml
 Imports System.IO
 '
-' TODO Add a DoWork() method.
-' TODO Remove any ability to call a method other than DoWork().
 ' TODO Convert all message box messages to raised events.
 ' TODO Update the project flowchart.
 ' TODO Change frmReportBrowser form to use the new DoWork protocol re this class.
@@ -33,7 +31,12 @@ Public Class HGIReportProcessor
     ' ***********************************************
     '
     Public Sub New()
-        ' Do Nothing
+        ' 
+        ' This redundant variable assignment serves more to document how this
+        ' critical flag serves this class than it is a necessary assignment (compiler will initialize anyawy)
+        '
+        IsReportPathValid = False
+        '
     End Sub
     '
     ' ***********************************************
@@ -42,7 +45,34 @@ Public Class HGIReportProcessor
     '
     Private m_FileInfo As FileInfo
     Public Sub New(ByVal theReportFullName As FileInfo)
+        '
+        ' Raise an event if the report path doesn't resolve to a report file
+        '
         m_FileInfo = theReportFullName
+        IsReportPathValid = True
+        '
+        ' Validate the report path
+        '
+        If IsNothing(theReportFullName) OrElse theReportFullName.Name = "" Then
+            LastErrorMessage = "Can't process the report." & vbCrLf & "The report path is empty!"
+            IsReportPathValid = False
+            '
+        End If
+        '
+        ' An HGI report file name must end in hr5 so this processor can understand its format and contents.
+        '
+        If Not theReportFullName.Name.ToLower.Contains(".hr5".ToLower) Then
+            LastErrorMessage = "Can't process the report." & vbCrLf & "The file name doesn't end in .hr5!"
+            IsReportPathValid = False
+            '
+        End If
+        '
+        ' Continue or exit depending on whether or not the report path is valid
+        '
+        If Not IsReportPathValid Then
+            RaiseEvent DoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.ErrorCondition, LastErrorMessage))
+            '
+        End If
         '
     End Sub
     '
@@ -54,35 +84,31 @@ Public Class HGIReportProcessor
     ' 
     '
     ' ***********************************************
-    ' *****     Process The Report (FileInfo)
-    ' ***********************************************
-    '
-    Public Function ProcessTheReport(ByVal theFileInfo As FileInfo) As Boolean
-        m_FileInfo = theFileInfo
-        Return ProcessTheReport()
-
-    End Function
-    '
-    ' ***********************************************
     ' *****     DoWork
     ' ***********************************************
     '
     Public Sub DoWork()
+        '
+        ' This method serves solely to expose the report processor method and is
+        '      a Vose requirement for vProgressBar.
+        '
         ProcessTheReport()
-
+        '
+        ' Set the terrmination Message
+        '
+        RaiseEvent DoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Termination, "Success!"))
+        '
     End Sub
     '
     ' ***********************************************
     ' *****     Process The Report ()
     ' ***********************************************
     '
-    Public Function ProcessTheReport() As Boolean
-        If IsNothing(m_FileInfo) OrElse m_FileInfo.FullName = "" Then
-            '
-            MsgBox("ProcessReport()" & vbCrLf & "The report path is an empty string!",, "HGIReportProcessor Class")
-            Return False
-            '
-        End If
+    Private Function ProcessTheReport() As Boolean
+        '
+        ' Error Checking
+        '
+        If Not IsReportPathValid Then Return False
         '
         ' Begin Processing
         '
@@ -124,13 +150,10 @@ Public Class HGIReportProcessor
             ' Agent Information (P)
             '
             nodelist = node.SelectNodes("Person")
-            ' nodelist = Xmld.SelectNodes("/Report/ReportInfo/Person")
             For Each node In nodelist
                 ParseAgentInformationFromNode(node)
-
+                '
             Next
-            'node = Xmld.SelectSingleNode("Report/ReportInfo/Person")
-            'ParseAgentInformationFromNode(Xmld)
             '
             ' Client Information (CL) 
             '
@@ -147,7 +170,8 @@ Public Class HGIReportProcessor
             '
             'Error trapping
             '
-            MsgBox("btnOpen_Click" & vbCrLf & ex.Message,, "frmOpemReport Class")
+            LastErrorMessage = "btnOpen_Click" & vbCrLf & ex.Message
+            RaiseEvent DoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.ErrorCondition, LastErrorMessage))
             Return False
             '
         End Try
@@ -160,30 +184,39 @@ Public Class HGIReportProcessor
     ' *****      Parse Report Information From Node
     ' ***********************************************
     ' 
-    Public Sub ParseReportInformationFromNode(ByVal node As XmlNode)
-
-        ' traffic lights
+    Private Sub ParseReportInformationFromNode(ByVal node As XmlNode)
+        '
+        ' Error Checking
+        '
         If IsNothing(node) Then Exit Sub
         If m_ReportID.ToString = "" Then Exit Sub
         '
-        Dim parser As New XMLParser(node)
+        ' Progress Update
+        '
+        RaiseEvent DoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, "Parsing report information.."))
         '
         ' Report Basic Information
         '
+        Dim parser As New XMLParser(node)
         Dim theReport As InspectionReport
         theReport = New InspectionReport(m_ReportID)
         With theReport
             If IsDate(parser.GetPropertyValue("RIDate")) Then
                 .InspectionDate = Date.Parse(parser.GetPropertyValue("prop[@name='RIDate']"))
 
-            End If
+        End If
             .StartTime = parser.GetPropertyValue("prop[@name='RIStartTime']")
             .EndTime = parser.GetPropertyValue("prop[@name='RIStopTime']")
             .ReportNumber = parser.GetPropertyValue("prop[@name='RIReportNumber']")
             .SpecialNotes = parser.GetPropertyValue("prop[@name='RISpecialNotes']")
             .AppointmentID = New Guid(parser.GetPropertyValue("prop[@name='RIAppointmentId']"))
             .Update()
+            '
         End With
+        '
+        ' Progress Update
+        '
+        RaiseEvent DoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, "Parsing inspection address.."))
         '
         ' Inspection Address
         '
@@ -197,7 +230,7 @@ Public Class HGIReportProcessor
             .ZipCode = parser.GetPropertyValue("prop[@name='RIZip']")
             .County = parser.GetPropertyValue("prop[@name='RICounty']")
             .Update()
-
+            '
         End With
 
     End Sub
@@ -212,29 +245,50 @@ Public Class HGIReportProcessor
     ' if the inspector already exists in the Person table as type Inspector, and if not, we will
     ' create the initial Person record.
     ' 
-    Public Sub ParseInspectorInformationFromNode(ByVal node As XmlNode)
+    Private Sub ParseInspectorInformationFromNode(ByVal node As XmlNode)
+        '
+        ' Error checking
+        '
         If IsNothing(node) Then Exit Sub
-
+        '
+        ' Progress Update
+        '
+        RaiseEvent DoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, "Parsing inspector information.."))
+        '
+        '
+        '
         Dim parser As New XMLParser(node)
-
         Dim theInspector As New Inspector(parser.GetPropertyValue("prop[@name='RIInspector']"))
         theInspector.Update()
-
+        '
     End Sub
     '
     ' ***********************************************    
     ' *****      Parse Client(s) From Node
     ' ***********************************************
     '
-    Public Sub ParseClientsFromNode(ByVal node As XmlNode)
+    Private Sub ParseClientsFromNode(ByVal node As XmlNode)
+        '
+        ' Error Checking
+        '
         If IsNothing(node) Then Exit Sub
-
-        Dim parser As New XMLParser(node)
-
+        '
         ' This is not an acceptable condition
-        If parser.GetPropertyValue("prop[@name='CGuid']") = "" Then Exit Sub
-
+        '
+        Dim parser As New XMLParser(node)
+        If parser.GetPropertyValue("prop[@name='CGuid']") = "" Then
+            LastErrorMessage = "The report client does not have a GUID."
+            RaiseEvent DoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.ErrorCondition, LastErrorMessage))
+            Exit Sub
+            '
+        End If
+        '
+        ' Progress Update
+        '
+        RaiseEvent DoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, "Parsing client information.."))
+        '
         ' Convert the string representation of the HG Report GUID to a GUID struct
+        '
         Dim thePersonID As Guid = New Guid(parser.GetPropertyValue("prop[@name='CGuid']"))
         '
         ' ***********************************************
@@ -247,6 +301,7 @@ Public Class HGIReportProcessor
             .LastName = parser.GetPropertyValue("prop[@name='CLName1']")
             .UserName = parser.GetPropertyValue("prop[@name='CSHGIName']")
             .Update()
+            '
         End With
         '
         ' ***********************************************
@@ -257,7 +312,6 @@ Public Class HGIReportProcessor
         ' to type the object.
         '
         Dim theClientAddress As ClientAddress = New ClientAddress(thePersonID)
-        '
         With theClientAddress
             .Address1 = parser.GetPropertyValue("prop[@name='CAddress']")
             .Address2 = parser.GetPropertyValue("prop[@name='CAddress2']")
@@ -267,7 +321,7 @@ Public Class HGIReportProcessor
             .County = parser.GetPropertyValue("prop[@name='CCounty']")
             .Country = parser.GetPropertyValue("prop[@name='CCountry']")
             .Update()
-
+            '
         End With
         '
         ' ***********************************************
@@ -303,7 +357,7 @@ Public Class HGIReportProcessor
             thePrimaryEmailAddress = New EmailAddress(thePersonID, EmailAddressTypes.Primary)
             thePrimaryEmailAddress.URL = parser.GetPropertyValue("prop[@name='CEmail']")
             thePrimaryEmailAddress.Update()
-
+            '
         End If
         '
         ' ***********************************************
@@ -315,7 +369,7 @@ Public Class HGIReportProcessor
             theSecondEmailAddress = New EmailAddress(thePersonID, EmailAddressTypes.Second)
             theSecondEmailAddress.URL = parser.GetPropertyValue("prop[@name='CEmail2']")
             theSecondEmailAddress.Update()
-
+            '
         End If
         '
     End Sub
@@ -324,9 +378,15 @@ Public Class HGIReportProcessor
     ' *****      Parse Agent
     ' ***********************************************
     ' 
-    Public Sub ParseAgentInformationFromNode(ByRef theParentNode As XmlNode)
+    Private Sub ParseAgentInformationFromNode(ByRef theParentNode As XmlNode)
+        '
+        ' Error checking
         '
         If IsNothing(theParentNode) Then Exit Sub
+        '
+        ' Progress Update
+        '
+        RaiseEvent DoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, "Parsing agent information.."))
         '
         ' Get the HGI assigned Agent Guid, bail if not found or is invalid
         '
@@ -334,11 +394,12 @@ Public Class HGIReportProcessor
         Try
             tempGuid = New Guid(theParentNode.SelectSingleNode("PGuid").FirstChild.Value)
             If tempGuid.Equals(New Guid) Then Exit Sub
-
+            '
         Catch ex As Exception
-            MsgBox("ParseAgentInformationFromNode" & vbCrLf & ex.Message,, "HGReportProcessor Class")
+            LastErrorMessage = "ParseAgentInformationFromNode" & vbCrLf & ex.Message
+            RaiseEvent DoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.ErrorCondition, LastErrorMessage))
             Exit Sub
-
+            '
         End Try
         '
         ' We probably have a valid Guid so we can instantiate the Agent Object and save the agent to the dB
@@ -360,16 +421,16 @@ Public Class HGIReportProcessor
                         Select Case node.FirstChild.Value
                             Case "Buyer Agent"
                                 .Role = PersonRoles.BuyerAgent
-
+                                '
                             Case "Listing Agent"
                                 .Role = PersonRoles.SellerAgent
-
+                                '
                             Case "Agency Coordinator"
                                 .Role = PersonRoles.AgencyCoordinator
-
+                                '
                             Case Else
                                 .Role = -1
-
+                                '
                         End Select
                         '
                     Case Else
@@ -385,7 +446,8 @@ Public Class HGIReportProcessor
                 '
             Catch ex As Exception
                 '
-                MsgBox("ParseAgentInformationFromNode()" & vbCrLf & ex.Message,, "HGIReportParser Class")
+                LastErrorMessage = "ParseAgentInformationFromNode()" & vbCrLf & ex.Message
+                RaiseEvent DoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.ErrorCondition, LastErrorMessage))
                 '
             End Try
             '
@@ -393,17 +455,49 @@ Public Class HGIReportProcessor
         '
     End Sub
     '
+    ' ***********************************************
+    ' *****      HGI Report Processor Event
+    ' ***********************************************
+    ' 
+    Public Event DoWorkEvent(ByVal sender As Object, ByVal theEventArgs As VDoWorkEventArgs)
+    '
     ' **********************************************
     ' ****
-    ' ******    Properties
+    ' ******    Properties & Data
     ' ****
     ' **********************************************
     '
     Private m_ReportID As Guid = Guid.Empty
-
-    Public ReadOnly Property ReportID As Guid
+    Private m_IsReportPathValid As Boolean
+    Private m_LastErrorMessage As String = ""
+    '
+    ' ***********************************************
+    ' *****      Is Report Path Valid
+    ' ***********************************************
+    ' 
+    Public Property IsReportPathValid As Boolean
         Get
-            Return m_ReportID
+            Return m_IsReportPathValid
         End Get
+        Set(value As Boolean)
+            m_IsReportPathValid = value
+        End Set
     End Property
+    '
+    ' ***********************************************
+    ' *****      Last Error Message
+    ' ***********************************************
+    ' 
+    Public Property LastErrorMessage As String
+        Get
+            Return m_LastErrorMessage
+        End Get
+        Set(value As String)
+            m_LastErrorMessage = value
+        End Set
+    End Property
+
+    '
+
 End Class
+

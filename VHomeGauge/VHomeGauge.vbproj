@@ -114,6 +114,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="VDoWorkEventArgs.vb" />
     <Compile Include="dlgVProgressBar.Designer.vb">
       <DependentUpon>dlgVProgressBar.vb</DependentUpon>
     </Compile>

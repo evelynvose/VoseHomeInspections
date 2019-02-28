@@ -28,9 +28,8 @@ Partial Class dlgVProgressBar
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.btnOK = New Syncfusion.Windows.Forms.ButtonAdv()
         Me.lblAnnouncement = New Syncfusion.Windows.Forms.Tools.GradientLabel()
-        Me.tbStatus = New Syncfusion.Windows.Forms.Tools.TextBoxExt()
+        Me.lblStatus = New Syncfusion.Windows.Forms.Tools.AutoLabel()
         CType(Me.ProgressBarAdv1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.tbStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ProgressBarAdv1
@@ -69,7 +68,7 @@ Partial Class dlgVProgressBar
         Me.btnOK.BeforeTouchSize = New System.Drawing.Size(75, 23)
         Me.btnOK.BorderStyleAdv = Syncfusion.Windows.Forms.ButtonAdvBorderStyle.Flat
         Me.btnOK.IsBackStageButton = False
-        Me.btnOK.Location = New System.Drawing.Point(145, 59)
+        Me.btnOK.Location = New System.Drawing.Point(272, 59)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(75, 23)
         Me.btnOK.TabIndex = 1
@@ -95,19 +94,13 @@ Partial Class dlgVProgressBar
         Me.lblAnnouncement.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.lblAnnouncement.Visible = False
         '
-        'tbStatus
+        'lblStatus
         '
-        Me.tbStatus.BeforeTouchSize = New System.Drawing.Size(330, 23)
-        Me.tbStatus.Border3DStyle = System.Windows.Forms.Border3DStyle.Flat
-        Me.tbStatus.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.tbStatus.Location = New System.Drawing.Point(17, 59)
-        Me.tbStatus.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
-        Me.tbStatus.Multiline = True
-        Me.tbStatus.Name = "tbStatus"
-        Me.tbStatus.Size = New System.Drawing.Size(330, 23)
-        Me.tbStatus.TabIndex = 3
-        Me.tbStatus.Text = "Status"
-        Me.tbStatus.Visible = False
+        Me.lblStatus.AutoSize = False
+        Me.lblStatus.Location = New System.Drawing.Point(17, 59)
+        Me.lblStatus.Name = "lblStatus"
+        Me.lblStatus.Size = New System.Drawing.Size(249, 23)
+        Me.lblStatus.TabIndex = 3
         '
         'dlgVProgressBar
         '
@@ -117,10 +110,10 @@ Partial Class dlgVProgressBar
         Me.CaptionFont = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ClientSize = New System.Drawing.Size(365, 94)
         Me.ControlBox = False
+        Me.Controls.Add(Me.lblStatus)
         Me.Controls.Add(Me.lblAnnouncement)
         Me.Controls.Add(Me.btnOK)
         Me.Controls.Add(Me.ProgressBarAdv1)
-        Me.Controls.Add(Me.tbStatus)
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Name = "dlgVProgressBar"
@@ -131,9 +124,7 @@ Partial Class dlgVProgressBar
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Title"
         CType(Me.ProgressBarAdv1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.tbStatus, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
 
@@ -142,5 +133,5 @@ Partial Class dlgVProgressBar
     Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
     Friend WithEvents btnOK As Syncfusion.Windows.Forms.ButtonAdv
     Friend WithEvents lblAnnouncement As Syncfusion.Windows.Forms.Tools.GradientLabel
-    Friend WithEvents tbStatus As Syncfusion.Windows.Forms.Tools.TextBoxExt
+    Friend WithEvents lblStatus As Syncfusion.Windows.Forms.Tools.AutoLabel
 End Class

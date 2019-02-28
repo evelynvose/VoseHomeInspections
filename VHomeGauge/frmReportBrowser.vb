@@ -61,10 +61,10 @@ Public Class frmReportBrowser
         Dim theProgressBar As New dlgVProgressBar
         With theProgressBar
             .StartPosition = FormStartPosition.CenterParent
-            .DoWorkClass = TheHGIReportProcessor
+            .SetDoWorkClass(TheHGIReportProcessor)
             .Text = "Import Report"
             .AnnouncementVisible = True
-            .AnnouncementText = "Success!"
+            .RunningStatusVisible = True
             .OKButtonVisible = True
             .Launch()
             .ShowDialog()

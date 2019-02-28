@@ -29,8 +29,8 @@ Public Class dlgVProgressBar
         '
         ProgressBarAdv1.Value = 0
         ProgressBarAdv1.Visible = True
-        tbStatus.Text = ""
-        tbStatus.Visible = False
+        lblStatus.Text = ""
+        lblStatus.Visible = False
         btnOK.Visible = False
         btnOK.Enabled = False
         lblAnnouncement.Text = ""
@@ -69,7 +69,7 @@ Public Class dlgVProgressBar
         ' The heart of this dialog is the DoWorkClass object.
         ' Without that we may as well go home since there is no work to be done!
         '
-        If IsNothing(DoWorkClass) Then
+        If IsNothing(m_DoWorkClass) Then
             MsgBox("Launch()" & vbCrLf & "The class reference is not valid!",, "VProgressBar Class")
             Exit Sub
             '
@@ -84,30 +84,6 @@ Public Class dlgVProgressBar
         StartTimer()
         '
     End Sub
-    'Public Sub Launch(ByRef theDoWorkClass As Object)
-    '    '
-    '    ' The heart of this dialog is the DoWorkClass object.
-    '    ' Without that we may as well go home since there is no work to be done!
-    '    '
-    '    If IsNothing(theDoWorkClass) Then
-    '        MsgBox("Launch()" & vbCrLf & "The class reference is not valid!",, "VProgressBar Class")
-    '        Exit Sub
-    '        '
-    '    End If
-    '    '
-    '    ' Save the reference
-    '    '
-    '    DoWorkClass = theDoWorkClass
-    '    '
-    '    ' Fire the event that calls the DoWork method of the DoWork Class
-    '    '
-    '    BackgroundWorker1.RunWorkerAsync()
-    '    '
-    '    ' Starting the timer causes the progress bar to advance.
-    '    '
-    '    StartTimer()
-    '    '
-    'End Sub
     '
     ' ***********************************************
     ' *****     Start Timer
@@ -115,14 +91,14 @@ Public Class dlgVProgressBar
     '
     Public Sub StartTimer()
         '
-        '
+        ' Starts the timer
         '
         Timer1.Enabled = True
         '
     End Sub
     '
     ' ***********************************************
-    ' *****     Kill Timer
+    ' *****     Kill Timer()
     ' ***********************************************
     '
     Private Sub KillTimer()
@@ -133,12 +109,64 @@ Public Class dlgVProgressBar
         '
     End Sub
     '
+    ' ***********************************************
+    ' *****     Set Do Work Class()
+    ' ***********************************************
+    '
+    Friend WithEvents m_DoWorkClass As Object
+    Public Sub SetDoWorkClass(ByRef DoWorkClass As Object)
+        ' 
+        ' Set the pointer to the DoWorkClass
+        '       Used by BackgroundWorker1_DoWork
+        m_DoWorkClass = DoWorkClass
+        '
+        ' Add an event handler for the particular DoWorkClass
+        '     Note that this is a hack that will require adding a test for every DoWorkClass that we create.
+        '
+        If m_DoWorkClass.ToString().Contains("HGIReportProcessor") Then
+            AddHandler CType(m_DoWorkClass, HGIReportProcessor).DoWorkEvent, AddressOf DoWorkEventHandlingFunction
+            '
+        End If
+        '
+    End Sub
+
+    '
     ' **********************************************
     ' ****
     ' ******    Events
     ' ****
     ' **********************************************
-    ' 
+    '    
+    '
+    ' ***********************************************
+    ' *****     DoWork Event Handling Function
+    ' ***********************************************
+    '
+    Private Sub DoWorkEventHandlingFunction(ByVal sender As Object, ByVal e As VDoWorkEventArgs)
+        Select Case e.EventType
+            Case VDoWorkEventArgTypes.Informational
+                InfoMessage = e.Message
+                '
+            Case VDoWorkEventArgTypes.ErrorCondition
+                If e.EventType = VDoWorkEventArgTypes.ErrorCondition Then
+                    If MsgBox("An error occured." & vbCrLf & e.Message & vbCrLf & "Continue?", MsgBoxStyle.YesNo, "") = MsgBoxResult.No Then
+                        Close()
+                        '
+                    End If
+                End If
+                '
+            Case VDoWorkEventArgTypes.Termination
+                AnnouncementText = e.Message
+                '
+            Case Else
+                ' Do Nothing
+                '
+        End Select
+        If e.EventType = VDoWorkEventArgTypes.Informational Then
+            '
+        End If
+        '
+    End Sub
     '
     ' ***********************************************
     ' *****     Timer 1_Tick
@@ -146,11 +174,16 @@ Public Class dlgVProgressBar
     '
     Private Sub timer1_Tick(ByVal sender As Object, ByVal e As EventArgs) Handles Timer1.Tick
         '
+        ' Display the informational messages, if any.
+        '
+        lblStatus.Text = InfoMessage
+        '
         ' Stop the timer if the report is imported
         '
         If IsWorkCompleted Then
             KillTimer()
             ProgressBarAdv1.Visible = False
+            lblStatus.Visible = False
             lblAnnouncement.Text = AnnouncementText
             lblAnnouncement.Visible = AnnouncementVisible
             btnOK.Enabled = True
@@ -175,7 +208,7 @@ Public Class dlgVProgressBar
         '
         ' Call the DoWork method in the DoWork Class.
         '
-        DoWorkClass.DoWork()
+        m_DoWorkClass.DoWork()
         '
     End Sub
     '
@@ -209,23 +242,10 @@ Public Class dlgVProgressBar
     ' ****
     ' **********************************************
     ' 
-    Private m_DoWorkClass As Object
     Private m_IsWorkCompleted As Boolean
     Private m_AnnouncementVisible As Boolean
     Private m_AnnouncementText As String = ""
-    '
-    ' ***********************************************
-    ' *****     CallBack
-    ' ***********************************************
-    '
-    Public Property DoWorkClass As Object
-        Get
-            Return m_DoWorkClass
-        End Get
-        Set(value As Object)
-            m_DoWorkClass = value
-        End Set
-    End Property
+    Private m_InfoMessage As String = ""
     '
     ' ***********************************************
     ' *****     Is Work Completed?
@@ -272,10 +292,10 @@ Public Class dlgVProgressBar
     '
     Public Property RunningStatusVisible As String
         Get
-            Return tbStatus.Visible
+            Return lblStatus.Visible
         End Get
         Set(value As String)
-            tbStatus.Visible = value
+            lblStatus.Visible = value
         End Set
     End Property
     '
@@ -289,6 +309,19 @@ Public Class dlgVProgressBar
         End Get
         Set(value As String)
             m_AnnouncementText = value
+        End Set
+    End Property
+    '
+    ' ***********************************************
+    ' *****     Informational Message
+    ' ***********************************************
+    '
+    Public Property InfoMessage As String
+        Get
+            Return m_InfoMessage
+        End Get
+        Set(value As String)
+            m_InfoMessage = value
         End Set
     End Property
 End Class
