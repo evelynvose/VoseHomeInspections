@@ -119,24 +119,18 @@ Public Class dlgVProgressBar
     ' *****     Set Do Work Class()
     ' ***********************************************
     '
-    Friend WithEvents m_DoWorkClass As Object
-    Public Sub SetDoWorkClass(ByRef DoWorkClass As Object) Implements IDoWorkManager.SetDoWorkClass
+    Friend WithEvents m_DoWorkClass As VDoWork
+    Public Sub SetDoWorkClass(ByRef DoWorkClass As VDoWork) Implements IDoWorkManager.SetDoWorkClass
         ' 
         ' Set the pointer to the DoWorkClass
         '       Used by BackgroundWorker1_DoWork
+        '
         m_DoWorkClass = DoWorkClass
         '
         ' Add an event handler for the particular DoWorkClass
         '     Note that this is a hack that will require adding a test for every DoWorkClass that we create.
         '
-        If m_DoWorkClass.ToString().Contains("HGIReportProcessor") Then
-            AddHandler CType(m_DoWorkClass, HGIReportProcessor).RaiseDoWorkEvent, AddressOf DoWorkEventHandlingFunction
-            '
-        End If
-        If m_DoWorkClass.ToString().Contains("HGIReportInfoRepository") Then
-            AddHandler CType(m_DoWorkClass, HGIReportInfoRepository).RaiseDoWorkEvent, AddressOf DoWorkEventHandlingFunction
-            '
-        End If
+        AddHandler CType(m_DoWorkClass, VDoWork).DoWorkEvent, AddressOf DoWorkEventHandlingFunction
         '
     End Sub
 
@@ -203,7 +197,7 @@ Public Class dlgVProgressBar
             btnOK.Enabled = True
             '
         Else
-            If ProgressBarAdv1.Value < 200 Then
+            If ProgressBarAdv1.Value < 100 Then
                 ProgressBarAdv1.Value += 1
                 '
             Else

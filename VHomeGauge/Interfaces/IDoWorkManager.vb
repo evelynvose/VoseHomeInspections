@@ -9,7 +9,7 @@ Public Interface IDoWorkManager
     ' ****
     ' **********************************************
     '    
-    Sub SetDoWorkClass(ByRef DoWorkClass As Object)
+    Sub SetDoWorkClass(ByRef DoWorkClass As VDoWork)
     Sub LaunchDoWork()
     Sub DoWorkEventHandlingFunction(ByVal sender As Object, ByVal e As VDoWorkEventArgs)
     '

@@ -1,7 +1,6 @@
 ﻿Imports System.Xml
 Imports System.IO
-'
-' TODO Update the project flowchart.
+Imports SyncfusionWindowsFormsApplication1
 '
 ' **********************************************
 ' ****
@@ -16,7 +15,7 @@ Imports System.IO
 ' prior to the background processor invoking DoWork() method.
 '
 Public Class HGIReportProcessor
-    Implements IDoWorkWorker
+    Inherits VDoWork
     '
     ' **********************************************
     ' ****
@@ -26,33 +25,20 @@ Public Class HGIReportProcessor
     ' 
     '
     ' ***********************************************
-    ' *****     New ()
-    ' ***********************************************
-    '
-    Public Sub New()
-        ' 
-        ' This redundant variable assignment serves more to document how this
-        ' critical flag serves this class than it is a necessary assignment (compiler will initialize anyawy)
-        '
-        IsReportPathValid = False
-        '
-    End Sub
-    '
-    ' ***********************************************
     ' *****     New (FileInfo)
     ' ***********************************************
     '
     Private m_FileInfo As FileInfo
-    Public Sub New(ByVal theReportFullName As FileInfo)
+    Public Sub New(ByVal theReportFileInfo As FileInfo)
         '
         ' Raise an event if the report path doesn't resolve to a report file
         '
-        m_FileInfo = theReportFullName
+        m_FileInfo = theReportFileInfo
         IsReportPathValid = True
         '
         ' Validate the report path
         '
-        If IsNothing(theReportFullName) OrElse theReportFullName.Name = "" Then
+        If IsNothing(theReportFileInfo) OrElse theReportFileInfo.Name = "" Then
             LastErrorMessage = "Can't process the report." & vbCrLf & "The report path is empty!"
             IsReportPathValid = False
             '
@@ -60,7 +46,7 @@ Public Class HGIReportProcessor
         '
         ' An HGI report file name must end in hr5 so this processor can understand its format and contents.
         '
-        If Not theReportFullName.Name.ToLower.Contains(".hr5".ToLower) Then
+        If Not theReportFileInfo.Name.ToLower.Contains(".hr5".ToLower) Then
             LastErrorMessage = "Can't process the report." & vbCrLf & "The file name doesn't end in .hr5!"
             IsReportPathValid = False
             '
@@ -69,7 +55,7 @@ Public Class HGIReportProcessor
         ' Continue or exit depending on whether or not the report path is valid
         '
         If Not IsReportPathValid Then
-            RaiseEvent RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.ErrorCondition, LastErrorMessage))
+            RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.ErrorCondition, LastErrorMessage))
             '
         End If
         '
@@ -86,7 +72,7 @@ Public Class HGIReportProcessor
     ' *****     DoWork
     ' ***********************************************
     '
-    Public Sub DoWork() Implements IDoWorkWorker.DoWork
+    Protected Overrides Sub TheDoWorkMethod()
         '
         ' This method serves solely to expose the report processor method and is
         '      a Vose requirement for vProgressBar.
@@ -95,10 +81,15 @@ Public Class HGIReportProcessor
         '
         ' Set the terrmination Message
         '
-        RaiseEvent RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Termination, "Success!"))
-        '
-    End Sub
-    '
+        Dim sTerminationMessage As String
+        If ErrorList.Count = 0 Then
+            sTerminationMessage = "Success!"
+
+        Else
+            sTerminationMessage = "Succes, but with errors!"
+        End If
+        RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Termination, sTerminationMessage))        '
+    End Sub    '
     ' ***********************************************
     ' *****     Process The Report ()
     ' ***********************************************
@@ -170,7 +161,7 @@ Public Class HGIReportProcessor
             'Error trapping
             '
             LastErrorMessage = "btnOpen_Click" & vbCrLf & ex.Message
-            RaiseEvent RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.ErrorCondition, LastErrorMessage))
+            RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.ErrorCondition, LastErrorMessage))
             Return False
             '
         End Try
@@ -192,7 +183,7 @@ Public Class HGIReportProcessor
         '
         ' Progress Update
         '
-        RaiseEvent RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, "Parsing report information.."))
+        RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, "Parsing report information.."))
         '
         ' Report Basic Information
         '
@@ -215,7 +206,7 @@ Public Class HGIReportProcessor
         '
         ' Progress Update
         '
-        RaiseEvent RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, "Parsing inspection address.."))
+        RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, "Parsing inspection address.."))
         '
         ' Inspection Address
         '
@@ -252,7 +243,7 @@ Public Class HGIReportProcessor
         '
         ' Progress Update
         '
-        RaiseEvent RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, "Parsing inspector information.."))
+        RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, "Parsing inspector information.."))
         '
         '
         '
@@ -277,14 +268,14 @@ Public Class HGIReportProcessor
         Dim parser As New XMLParser(node)
         If parser.GetPropertyValue("prop[@name='CGuid']") = "" Then
             LastErrorMessage = "The report client does not have a GUID."
-            RaiseEvent RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.ErrorCondition, LastErrorMessage))
+            RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.ErrorCondition, LastErrorMessage))
             Exit Sub
             '
         End If
         '
         ' Progress Update
         '
-        RaiseEvent RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, "Parsing client information.."))
+        RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, "Parsing client information.."))
         '
         ' Convert the string representation of the HG Report GUID to a GUID struct
         '
@@ -385,7 +376,7 @@ Public Class HGIReportProcessor
         '
         ' Progress Update
         '
-        RaiseEvent RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, "Parsing agent information.."))
+        RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, "Parsing agent information.."))
         '
         ' Get the HGI assigned Agent Guid, bail if not found or is invalid
         '
@@ -396,7 +387,7 @@ Public Class HGIReportProcessor
             '
         Catch ex As Exception
             LastErrorMessage = "ParseAgentInformationFromNode" & vbCrLf & ex.Message
-            RaiseEvent RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.ErrorCondition, LastErrorMessage))
+            RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.ErrorCondition, LastErrorMessage))
             Exit Sub
             '
         End Try
@@ -446,19 +437,13 @@ Public Class HGIReportProcessor
             Catch ex As Exception
                 '
                 LastErrorMessage = "ParseAgentInformationFromNode()" & vbCrLf & ex.Message
-                RaiseEvent RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.ErrorCondition, LastErrorMessage))
+                RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.ErrorCondition, LastErrorMessage))
                 '
             End Try
             '
         End With
         '
     End Sub
-    '
-    ' ***********************************************
-    ' *****      HGI Report Processor Event
-    ' ***********************************************
-    ' 
-    Public Event RaiseDoWorkEvent(ByVal sender As Object, ByVal theEventArgs As VDoWorkEventArgs) Implements IDoWorkWorker.RaiseDoWorkEvent
     '
     ' **********************************************
     ' ****
@@ -468,13 +453,12 @@ Public Class HGIReportProcessor
     '
     Private m_ReportID As Guid = Guid.Empty
     Private m_IsReportPathValid As Boolean
-    Private m_LastErrorMessage As String = ""
     '
     ' ***********************************************
     ' *****      Is Report Path Valid
     ' ***********************************************
     ' 
-    Public Property IsReportPathValid As Boolean
+    Private Property IsReportPathValid As Boolean
         Get
             Return m_IsReportPathValid
         End Get
@@ -482,21 +466,6 @@ Public Class HGIReportProcessor
             m_IsReportPathValid = value
         End Set
     End Property
-    '
-    ' ***********************************************
-    ' *****      Last Error Message
-    ' ***********************************************
-    ' 
-    Public Property LastErrorMessage As String Implements IDoWorkWorker.LastErrorMessage
-        Get
-            Return m_LastErrorMessage
-        End Get
-        Set(value As String)
-            m_LastErrorMessage = value
-        End Set
-    End Property
-
-    '
 
 End Class
 

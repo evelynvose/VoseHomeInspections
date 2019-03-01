@@ -114,54 +114,58 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HGIReportInfoRepository.vb" />
+    <Compile Include="DoWork.vb" />
+    <Compile Include="BO_Role\RoleInfo.vb" />
+    <Compile Include="BO_Role\RoleInfoADO.vb" />
+    <Compile Include="BO_Role\RoleInfoRepository.vb" />
+    <Compile Include="HGI Specific\HGIReportInfoRepository.vb" />
     <Compile Include="Interfaces\IDoWorkWorker.vb" />
     <Compile Include="Interfaces\IDoWorkManager.vb" />
     <Compile Include="VDoWorkEventArgs.vb" />
-    <Compile Include="Dialogs\dlgVProgressBar.Designer.vb">
+    <Compile Include="UI_Dialogs\dlgVProgressBar.Designer.vb">
       <DependentUpon>dlgVProgressBar.vb</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\dlgVProgressBar.vb">
+    <Compile Include="UI_Dialogs\dlgVProgressBar.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ReportInfo.vb" />
-    <Compile Include="HGIReportProcessor.vb" />
-    <Compile Include="Dialogs\dlgReportInDb.Designer.vb">
+    <Compile Include="BO_Report\ReportInfo.vb" />
+    <Compile Include="HGI Specific\HGIReportProcessor.vb" />
+    <Compile Include="UI_Dialogs\dlgReportInDb.Designer.vb">
       <DependentUpon>dlgReportInDb.vb</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\dlgReportInDb.vb">
+    <Compile Include="UI_Dialogs\dlgReportInDb.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PersonFaxPhone.vb" />
-    <Compile Include="PersonWorkPhone.vb" />
-    <Compile Include="PersonHomePhone.vb" />
-    <Compile Include="PersonMobilePhone.vb" />
-    <Compile Include="CompanyFaxPhone.vb" />
-    <Compile Include="CompanyDirectPhone.vb" />
-    <Compile Include="CompanyMobilePhone.vb" />
-    <Compile Include="CompanyMainPhone.vb" />
-    <Compile Include="PhoneADO.vb" />
-    <Compile Include="PhoneData.vb" />
-    <Compile Include="Inspector.vb" />
-    <Compile Include="Agent.vb" />
-    <Compile Include="Client.vb" />
-    <Compile Include="PersonADO.vb" />
-    <Compile Include="PersonData.vb" />
-    <Compile Include="EmailAddress.vb" />
-    <Compile Include="EmailAddressADO.vb" />
-    <Compile Include="EmailAddressData.vb" />
-    <Compile Include="AddressData.vb" />
-    <Compile Include="AddressADO.vb" />
-    <Compile Include="InspectionAddress.vb" />
-    <Compile Include="ReportADO.vb" />
-    <Compile Include="ReportData.vb" />
-    <Compile Include="CompanyAddress.vb" />
-    <Compile Include="ClientAddress.vb" />
-    <Compile Include="InspectionReport.vb" />
-    <Compile Include="ReportPerson.vb" />
-    <Compile Include="ReportClient.vb" />
-    <Compile Include="ClientRepository.vb" />
-    <Compile Include="AgentRepository.vb" />
+    <Compile Include="BO_Phone\PersonFaxPhone.vb" />
+    <Compile Include="BO_Phone\PersonWorkPhone.vb" />
+    <Compile Include="BO_Phone\PersonHomePhone.vb" />
+    <Compile Include="BO_Phone\PersonMobilePhone.vb" />
+    <Compile Include="BO_Phone\CompanyFaxPhone.vb" />
+    <Compile Include="BO_Phone\CompanyDirectPhone.vb" />
+    <Compile Include="BO_Phone\CompanyMobilePhone.vb" />
+    <Compile Include="BO_Phone\CompanyMainPhone.vb" />
+    <Compile Include="BO_Phone\PhoneADO.vb" />
+    <Compile Include="BO_Phone\PhoneData.vb" />
+    <Compile Include="BO_Person\Inspector.vb" />
+    <Compile Include="BO_Person\Agent.vb" />
+    <Compile Include="BO_Person\Client.vb" />
+    <Compile Include="BO_Person\PersonADO.vb" />
+    <Compile Include="BO_Person\PersonData.vb" />
+    <Compile Include="BO_Email\EmailAddress.vb" />
+    <Compile Include="BO_Email\EmailAddressADO.vb" />
+    <Compile Include="BO_Email\EmailAddressData.vb" />
+    <Compile Include="BO_Address\AddressData.vb" />
+    <Compile Include="BO_Address\AddressADO.vb" />
+    <Compile Include="BO_Address\InspectionAddress.vb" />
+    <Compile Include="BO_Report\ReportADO.vb" />
+    <Compile Include="BO_Report\ReportData.vb" />
+    <Compile Include="BO_Address\CompanyAddress.vb" />
+    <Compile Include="BO_Address\ClientAddress.vb" />
+    <Compile Include="BO_Report\InspectionReport.vb" />
+    <Compile Include="BO_Report\ReportPerson.vb" />
+    <Compile Include="BO_Report\ReportClient.vb" />
+    <Compile Include="BO_Person\ClientRepository.vb" />
+    <Compile Include="BO_Person\AgentRepository.vb" />
     <Compile Include="VReportsSchema.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -170,35 +174,34 @@
     <Compile Include="VReportsSchema.vb">
       <DependentUpon>VReportsSchema.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmReportBrowser.Designer.vb">
+    <Compile Include="UI_Forms\frmReportBrowser.Designer.vb">
       <DependentUpon>frmReportBrowser.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmReportBrowser.vb">
+    <Compile Include="UI_Forms\frmReportBrowser.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmClient.Designer.vb">
+    <Compile Include="UI_Forms\frmClient.Designer.vb">
       <DependentUpon>frmClient.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmClient.vb">
+    <Compile Include="UI_Forms\frmClient.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmPeopleInfo.Designer.vb">
+    <Compile Include="UI_Forms\frmPeopleInfo.Designer.vb">
       <DependentUpon>frmPeopleInfo.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmPeopleInfo.vb">
+    <Compile Include="UI_Forms\frmPeopleInfo.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Person.vb" />
+    <Compile Include="BO_Person\Person.vb" />
     <Compile Include="Helper Classes.vb" />
-    <Compile Include="PictureFilter.vb" />
-    <Compile Include="PeopleRepository.vb" />
-    <Compile Include="PictureRepository.vb" />
-    <Compile Include="SerialNumber.vb" />
-    <Compile Include="PictureInfo.vb" />
-    <Compile Include="Forms\frmMain.designer.vb">
+    <Compile Include="BO_Picture\PictureFilter.vb" />
+    <Compile Include="BO_Person\PeopleRepository.vb" />
+    <Compile Include="BO_Picture\PictureRepository.vb" />
+    <Compile Include="BO_Picture\PictureInfo.vb" />
+    <Compile Include="UI_Forms\frmMain.designer.vb">
       <DependentUpon>frmMain.vb</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmMain.vb">
+    <Compile Include="UI_Forms\frmMain.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -219,13 +222,13 @@
     <Compile Include="Settings.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Dialogs\dlgVProgressBar.resx">
+    <EmbeddedResource Include="UI_Dialogs\dlgVProgressBar.resx">
       <DependentUpon>dlgVProgressBar.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\dlgReportInDb.resx">
+    <EmbeddedResource Include="UI_Dialogs\dlgReportInDb.resx">
       <DependentUpon>dlgReportInDb.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmMain.resx">
+    <EmbeddedResource Include="UI_Forms\frmMain.resx">
       <DependentUpon>frmMain.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -234,13 +237,13 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmPeopleInfo.resx">
+    <EmbeddedResource Include="UI_Forms\frmPeopleInfo.resx">
       <DependentUpon>frmPeopleInfo.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmClient.resx">
+    <EmbeddedResource Include="UI_Forms\frmClient.resx">
       <DependentUpon>frmClient.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmReportBrowser.resx">
+    <EmbeddedResource Include="UI_Forms\frmReportBrowser.resx">
       <DependentUpon>frmReportBrowser.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
@@ -269,6 +272,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="BO_Company\" />
     <Folder Include="My Project\DataSources\" />
   </ItemGroup>
   <ItemGroup>

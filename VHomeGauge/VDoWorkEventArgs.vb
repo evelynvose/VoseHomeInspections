@@ -5,8 +5,6 @@
 ' ****
 ' **********************************************
 ' 
-Imports SyncfusionWindowsFormsApplication1
-
 Public Class VDoWorkEventArgs
     Inherits EventArgs
     '

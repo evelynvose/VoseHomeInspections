@@ -6,10 +6,8 @@
 ' ****
 ' **********************************************
 ' 
-Imports SyncfusionWindowsFormsApplication1
-
 Public Class HGIReportInfoRepository
-    Implements IDoWorkWorker
+    Inherits VDoWork
     '
     ' **********************************************
     ' ****
@@ -17,8 +15,6 @@ Public Class HGIReportInfoRepository
     ' ****
     ' **********************************************
     ' 
-
-
     '
     ' **********************************************
     ' ****
@@ -28,10 +24,10 @@ Public Class HGIReportInfoRepository
     ' 
     '
     ' ***********************************************
-    ' *****     DoWork
+    ' *****     The Do Work Method
     ' ***********************************************
     '
-    Public Sub DoWork() Implements IDoWorkWorker.DoWork
+    Protected Overrides Sub TheDoWorkMethod()
         '
         ' This method serves solely to expose the report processor method and is
         '      a Vose requirement for vProgressBar.
@@ -40,8 +36,14 @@ Public Class HGIReportInfoRepository
         '
         ' Set the terrmination Message
         '
-        LastErrorMessage = "Success!"
-        RaiseEvent RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Termination, LastErrorMessage))
+        Dim sTerminationMessage As String
+        If ErrorList.Count = 0 Then
+            sTerminationMessage = "Success!"
+
+        Else
+            sTerminationMessage = "Succes, but with errors!"
+        End If
+        RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Termination, sTerminationMessage))
         '
     End Sub
     '  
@@ -67,13 +69,13 @@ Public Class HGIReportInfoRepository
                 '
                 Dim theReportFile As New ReportInfo
                 theReportFile.SetPath(f)        ' set the path, which kicks off an XML file parser to fill the FileInfo's data from the report.
-                RaiseEvent RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, theReportFile.ReportFullName))
+                RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, theReportFile.ReportFullName))
                 m_ReportInfoRepository.Add(theReportFile)
                 '
             Next
         Catch ex As Exception
             LastErrorMessage = "BuildReportRepository()" & vbCrLf & ex.Message
-            RaiseEvent RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.ErrorCondition, LastErrorMessage))
+            RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.ErrorCondition, LastErrorMessage))
             '
         End Try
         '
@@ -81,43 +83,19 @@ Public Class HGIReportInfoRepository
     '
     ' **********************************************
     ' ****
-    ' ******    Events
-    ' ****
-    ' **********************************************
-    ' 
-    Public Event RaiseDoWorkEvent(sender As Object, theEventArgs As VDoWorkEventArgs) Implements IDoWorkWorker.RaiseDoWorkEvent
-    '
-    ' **********************************************
-    ' ****
     ' ******    Properties
     ' ****
     ' **********************************************
     '
-    Private m_LastErrorMessage As String = ""
     Private m_ReportInfoRepository As IList(Of ReportInfo)
-    '
+    '  
+    ' ***********************************************    
+    ' *****      Report Info Repository
     ' ***********************************************
-    ' *****     Last Error Message
-    ' ***********************************************
-    '
-    Property LastErrorMessage As String Implements IDoWorkWorker.LastErrorMessage
-        Get
-            Return m_LastErrorMessage
-        End Get
-        Set(value As String)
-            m_LastErrorMessage = value
-        End Set
-    End Property
-    '
-    ' ***********************************************
-    ' *****     Report Info Repository
-    ' ***********************************************
-    '
+    '    
     Public ReadOnly Property ReportInfoRepository As IList(Of ReportInfo)
         Get
             Return m_ReportInfoRepository
         End Get
     End Property
-
-
 End Class

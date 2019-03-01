@@ -7,6 +7,9 @@
     ' **********************************************
     '    
     Sub DoWork()
+    Sub TheDoWorkMethod()
+    Sub RaiseDoWorkEvent(sender As Object, theEventArgs As VDoWorkEventArgs)
+    '
     '
     ' **********************************************
     ' ****
@@ -14,7 +17,7 @@
     ' ****
     ' **********************************************
     '    
-    Event RaiseDoWorkEvent(ByVal sender As Object, ByVal theEventArgs As VDoWorkEventArgs)
+    Event DoWorkEvent(ByVal sender As Object, ByVal theEventArgs As VDoWorkEventArgs)
     '
     ' **********************************************
     ' ****
@@ -23,5 +26,6 @@
     ' **********************************************
     '    
     Property LastErrorMessage As String
+    ReadOnly Property ErrorList As IList(Of String)
     '
 End Interface
