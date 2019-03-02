@@ -121,7 +121,7 @@ Public MustInherit Class AddressADO
                     End If
 
                 Catch ex As Exception
-                    MsgBox("LoadByID()" & vbCrLf & ex.Message,, "AddressADO Class")
+                    MsgBox("LoadByID()" & vbCrLf & ex.Message)
 
                 End Try
             End Using 'dt
@@ -152,7 +152,7 @@ Public MustInherit Class AddressADO
                             ta.FillByPersonIDAndType(dt, aFkId, AddressType)
 
                         Case Else
-                            MsgBox("LoadByFkAndType()" & vbCrLf & String.Format("There wans't a case for %s", AddressType),, "AddressADO Class")
+                            MsgBox("LoadByFkAndType()" & vbCrLf & String.Format("There wans't a case for %s", AddressType))
                             ObjectState = ObjectStates.ErrorCondition
                             Return ObjectState
 
@@ -165,7 +165,7 @@ Public MustInherit Class AddressADO
                     End If
 
                 Catch ex As Exception
-                    MsgBox("LoadByIDAndAddressType()" & vbCrLf & ex.Message,, "AddressADO Class")
+                    MsgBox("LoadByIDAndAddressType()" & vbCrLf & ex.Message)
 
                 End Try
             End Using 'dt
@@ -246,7 +246,7 @@ Public MustInherit Class AddressADO
         ' Test the flags
         '
         If Not bRule_1_Met OrElse Not bRule_2_Met OrElse Not bRule_3_Met Then
-            MsgBox(sMessage,, "AddressADO Class")
+            MsgBox(sMessage)
             Return False
 
         End If
@@ -292,7 +292,7 @@ Public MustInherit Class AddressADO
                     ta.Update(dt)
                     IsDirty = False
                 Catch ex As Exception
-                    MsgBox("Update()" & vbCrLf & ex.Message,, "AddressADO Class")
+                    MsgBox("Update()" & vbCrLf & ex.Message)
 
                 End Try
 

@@ -184,7 +184,7 @@ Public MustInherit Class EmailAddressADO
                     End If
 
                 Catch ex As Exception
-                    MsgBox("LoadByID()" & vbCrLf & ex.Message,, "AddressADO Class")
+                    MsgBox("LoadByID()" & vbCrLf & ex.Message)
 
                 End Try
             End Using 'dt
@@ -214,7 +214,7 @@ Public MustInherit Class EmailAddressADO
                     End If
 
                 Catch ex As Exception
-                    MsgBox("LoadByPersonIDAndEmailAddressType()" & vbCrLf & ex.Message,, "EmailAddressADO Class")
+                    MsgBox("LoadByPersonIDAndEmailAddressType()" & vbCrLf & ex.Message)
 
                 End Try
             End Using 'dt
@@ -295,7 +295,7 @@ Public MustInherit Class EmailAddressADO
         ' Test the flags
         '
         If Not bRule_1_Met OrElse Not bRule_2_Met OrElse Not bRule_3_Met Then
-            MsgBox("Rule Check" & vbCrLf & sMessage,, "EmailAddressADO Class")
+            MsgBox("Rule Check" & vbCrLf & sMessage)
             Return False
 
         End If
@@ -341,7 +341,7 @@ Public MustInherit Class EmailAddressADO
                     ta.Update(dt)
                     IsDirty = False
                 Catch ex As Exception
-                    MsgBox("Update()" & vbCrLf & ex.Message,, "EmailAddressADO Class")
+                    MsgBox("Update()" & vbCrLf & ex.Message)
 
                 End Try
 

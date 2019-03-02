@@ -6,6 +6,7 @@
 ' **********************************************
 ' 
 Public MustInherit Class EmailAddressData
+    Inherits VObject
     '
     ' **********************************************
     ' ****
@@ -13,13 +14,18 @@ Public MustInherit Class EmailAddressData
     ' ****
     ' **********************************************
     ' 
-    Friend Sub New()
+    '
+    ' ***********************************************
+    ' *****     #New()
+    ' ***********************************************
+    '
+    Protected Sub New()
         Initialize()
 
     End Sub
     '
     ' ***********************************************
-    ' *****     Initialize
+    ' *****     -Initialize()
     ' ***********************************************
     '
     Private Sub Initialize()
@@ -27,11 +33,10 @@ Public MustInherit Class EmailAddressData
     End Sub
     '
     ' ***********************************************
-    ' *****     Set Data From Row
+    ' *****     #SetDataFromRow(object):Integer
     ' ***********************************************
     '
-    Friend Function SetDataFromRow(ByRef row As vreportsDataSet.EmailAddressRow) As ObjectStates
-
+    Protected Function SetDataFromRow(ByRef row As vreportsDataSet.EmailAddressRow) As ObjectStates
         Try
             With row
                 EmailAddressID = .ID
@@ -40,21 +45,26 @@ Public MustInherit Class EmailAddressData
                 EmailAddressType = .EmailType
 
             End With
+            '
+            ' Copying into the properties caused the dirty flag to be set.  Not dirty so reset the flag.
+            '
+            IsDirty = False
+            '
         Catch ex As Exception
             MsgBox("SetDataFromRow()" & vbCrLf & "Error setting the row in Address()!")
             m_ObjectState = ObjectStates.ErrorCondition
-
+            '
         End Try
-
+        '
         Return m_ObjectState
-
+        '
     End Function
     '
     ' ***********************************************
     ' *****     Set Row From Data
     ' ***********************************************
     '
-    Protected Friend Function SetRowFromData(ByRef row As vreportsDataSet.EmailAddressRow) As Boolean
+    Protected Function SetRowFromData(ByRef row As vreportsDataSet.EmailAddressRow) As Boolean
         Dim bFlag As Boolean = True
         '
         Try
@@ -160,7 +170,7 @@ Public MustInherit Class EmailAddressData
     ' ObjectState, is an internal state indicator, that controls program flow depending on state cases.
     '              This property is not exposed, but instead, its states may be exposed by named properties, i.e., IsNew
     '
-    Protected Friend Property ObjectState As ObjectStates
+    Protected Property ObjectState As ObjectStates
         Get
             Return m_ObjectState
         End Get
@@ -178,7 +188,7 @@ Public MustInherit Class EmailAddressData
     '
     ' PersonID, this is a GUID that serves as a foreign key tag.
     '
-    Protected Friend Property PersonID As Guid
+    Protected Property PersonID As Guid
         Get
             Return m_PersonID
         End Get
@@ -209,11 +219,13 @@ End Class
 ' ****
 ' **********************************************
 ' 
-Public Enum EmailAddressTypes
+Public Enum EmailAddressTypes As Integer
+    Unassigned = -1
+    Null
     Primary
     Second
     Third
-
+    '
 End Enum
 
 

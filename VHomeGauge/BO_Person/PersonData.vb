@@ -14,7 +14,7 @@ Public MustInherit Class PersonData
     ' ****
     ' **********************************************
     ' 
-    Friend Sub New()
+    Protected Sub New()
         Initialize()
 
     End Sub
@@ -28,11 +28,10 @@ Public MustInherit Class PersonData
     End Sub
     '
     ' ***********************************************
-    ' *****     Set Data From Row
+    ' *****     #SetDataFromRow(object):integer
     ' ***********************************************
     '
-    Friend Function SetDataFromRow(ByRef row As vreportsDataSet.PersonRow) As ObjectStates
-
+    Protected Function SetDataFromRow(ByRef row As vreportsDataSet.PersonRow) As ObjectStates
         Try
             With row
                 PersonID = .ID
@@ -44,7 +43,7 @@ Public MustInherit Class PersonData
                 '
             End With
             '
-            ' The properties will set the dirty flag, but we're not dirty so set it back to false!
+            ' Copying into the properties caused the dirty flag to be set.  Not dirty so reset the flag.
             '
             IsDirty = False
             '
@@ -62,7 +61,7 @@ Public MustInherit Class PersonData
     ' *****     Set Row From Data
     ' ***********************************************
     '
-    Protected Friend Function SetRowFromData(ByRef row As vreportsDataSet.PersonRow) As Boolean
+    Protected Function SetRowFromData(ByRef row As vreportsDataSet.PersonRow) As Boolean
         Dim bFlag As Boolean = True
         '
         Try
@@ -165,7 +164,7 @@ Public MustInherit Class PersonData
     ' ObjectState, is an internal state indicator, that controls program flow depending on state cases.
     '              This property is not exposed, but instead, its states may be exposed by named properties, i.e., IsNew
     '
-    Protected Friend Property ObjectState As ObjectStates
+    Protected Property ObjectState As ObjectStates
         Get
             Return m_ObjectState
         End Get
@@ -237,23 +236,26 @@ End Class
 ' ****
 ' **********************************************
 ' 
-Public Enum PersonTypes ' Must match database!
+Public Enum PersonTypes As Integer ' Must match database!
+    Unassigned = 1
+    Null
     Client
     Agent
     Inspector
-
-End Enum
-
-Public Enum PersonRoles As Integer ' Must match database!
-    Unassigned = 0
-    Client
-    BuyerAgent
-    Seller
-    ListingAgent
-    AgencyCoordinator
-    Attorney
     '
 End Enum
+
+'Public Enum PersonRoles As Integer ' Must match database!
+'    Unassigned = -1
+'    Null
+'    Client
+'    BuyerAgent
+'    Seller
+'    ListingAgent
+'    AgencyCoordinator
+'    Attorney
+'    '
+'End Enum
 
 
 

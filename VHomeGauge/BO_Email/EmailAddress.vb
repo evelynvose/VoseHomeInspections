@@ -38,7 +38,7 @@ Public Class EmailAddress
         ' that the AddressType is other than Residential, this is an invalid object.
         '
         If EmailAddressType <> EmailAddressTypes.Primary Then
-            MsgBox("New(anID)" & vbCrLf & "Not a valid AddressType!",, "EmailAddress Class")
+            MsgBox("New(anID)" & vbCrLf & "Not a valid AddressType!")
 
         End If
     End Sub
@@ -55,7 +55,7 @@ Public Class EmailAddress
         ' that the AddressType is other than Residential, this is an invalid object.
         '
         If emailaddresstype <> EmailAddressTypes.Primary Then
-            MsgBox("New(anID, emailaddresstype)" & vbCrLf & "Not a valid AddressType!",, "EmailAddress Class")
+            MsgBox("New(anID, emailaddresstype)" & vbCrLf & "Not a valid AddressType!")
 
         End If
     End Sub

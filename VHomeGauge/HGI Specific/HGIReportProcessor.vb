@@ -373,7 +373,7 @@ Public Class HGIReportProcessor
             With theRole
                 .PersonID = thePersonID
                 .ReportID = m_ReportID
-                .RoleLutID = PersonRoles.Client
+                .RoleLutID = RoleTypes.Client
                 .Update()
                 '
             End With
@@ -431,13 +431,13 @@ Public Class HGIReportProcessor
                     Case "PRole"
                         Select Case node.FirstChild.Value
                             Case "Buyer Agent"
-                                theRole.RoleLutID = PersonRoles.BuyerAgent
+                                theRole.RoleLutID = RoleTypes.BuyerAgent
                                 '
                             Case "Listing Agent"
-                                theRole.RoleLutID = PersonRoles.ListingAgent
+                                theRole.RoleLutID = RoleTypes.ListingAgent
                                 '
                             Case "Agency Coordinator"
-                                theRole.RoleLutID = PersonRoles.AgencyCoordinator
+                                theRole.RoleLutID = RoleTypes.AgencyCoordinator
                                 '
                             Case Else
                                 theRole.RoleLutID = -1

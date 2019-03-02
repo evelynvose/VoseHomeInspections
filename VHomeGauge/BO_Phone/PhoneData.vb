@@ -6,6 +6,7 @@
 ' **********************************************
 ' 
 Public MustInherit Class PhoneData
+    Inherits VObject
     '
     ' **********************************************
     ' ****
@@ -13,7 +14,7 @@ Public MustInherit Class PhoneData
     ' ****
     ' **********************************************
     ' 
-    Friend Sub New()
+    Protected Sub New()
         Initialize()
 
     End Sub
@@ -27,11 +28,10 @@ Public MustInherit Class PhoneData
     End Sub
     '
     ' ***********************************************
-    ' *****     Set Data From Row
+    ' *****     #SetDataFromRow(object):integer
     ' ***********************************************
     '
-    Friend Function SetDataFromRow(ByRef row As vreportsDataSet.PhoneRow) As ObjectStates
-
+    Protected Function SetDataFromRow(ByRef row As vreportsDataSet.PhoneRow) As ObjectStates
         Try
             With row
                 PhoneID = .ID
@@ -39,23 +39,28 @@ Public MustInherit Class PhoneData
                 PersonID = .PersonID
                 CompanyID = .CompanyID
                 PhoneType = .PhoneType
-
+                '
             End With
+            '
+            ' Copying into the properties caused the dirty flag to be set.  Not dirty so reset the flag.
+            '
+            IsDirty = False
+            '
         Catch ex As Exception
             MsgBox("SetDataFromRow()" & vbCrLf & "Error setting the row in Phone()!")
             m_ObjectState = ObjectStates.ErrorCondition
-
+            '
         End Try
-
+        '
         Return m_ObjectState
-
+        '
     End Function
     '
     ' ***********************************************
     ' *****     Set Row From Data
     ' ***********************************************
     '
-    Protected Friend Function SetRowFromData(ByRef row As vreportsDataSet.PhoneRow) As Boolean
+    Protected Function SetRowFromData(ByRef row As vreportsDataSet.PhoneRow) As Boolean
         Dim bFlag As Boolean = True
         '
         Try
@@ -171,7 +176,7 @@ Public MustInherit Class PhoneData
     ' ObjectState, is an internal state indicator, that controls program flow depending on state cases.
     '              This property is not exposed, but instead, its states may be exposed by named properties, i.e., IsNew
     '
-    Protected Friend Property ObjectState As ObjectStates
+    Protected Property ObjectState As ObjectStates
         Get
             Return m_ObjectState
         End Get
@@ -190,7 +195,7 @@ Public MustInherit Class PhoneData
     '
     ' PersonID, this is a GUID that serves as a foreign key tag.
     '
-    Protected Friend Property PersonID As Guid
+    Protected Property PersonID As Guid
         Get
             Return m_PersonID
         End Get
@@ -233,7 +238,9 @@ End Class
 ' ****
 ' **********************************************
 ' 
-Public Enum PhoneTypes
+Public Enum PhoneTypes As Integer
+    Unassigned = -1
+    Null
     PersonMobile
     PersonHome
     PersonWork
@@ -242,7 +249,7 @@ Public Enum PhoneTypes
     CompanyMain
     CompanyDirect
     CompanyFax
-
+    '
 End Enum
 
 

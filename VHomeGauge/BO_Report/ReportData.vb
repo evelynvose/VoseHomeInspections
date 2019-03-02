@@ -5,8 +5,6 @@
 ' ****
 ' **********************************************
 ' 
-Imports SyncfusionWindowsFormsApplication1
-
 Public MustInherit Class ReportData
     Inherits VObject
     '
@@ -16,7 +14,7 @@ Public MustInherit Class ReportData
     ' ****
     ' **********************************************
     ' 
-    Friend Sub New()
+    Protected Sub New()
         Initialize()
 
     End Sub
@@ -37,11 +35,10 @@ Public MustInherit Class ReportData
     End Sub
     '
     ' ***********************************************
-    ' *****     Set Data From Row
+    ' *****     #SetDataFromRow(object):integer
     ' ***********************************************
     '
-    Protected Friend Function SetDataFromRow(ByRef row As vreportsDataSet.ReportMasterRow) As ObjectStates
-
+    Protected Function SetDataFromRow(ByRef row As vreportsDataSet.ReportMasterRow) As ObjectStates
         Try
             With row
                 ReportID = .ID
@@ -53,24 +50,28 @@ Public MustInherit Class ReportData
                 SpecialNotes = .SpecialNotes
                 AppointmentID = .AppointmentID
                 ReportType = .ReportType
-
+                '
             End With
-
+            '
+            ' Copying into the properties caused the dirty flag to be set.  Not dirty so reset the flag.
+            '
+            IsDirty = False
+            '
         Catch ex As Exception
             MsgBox("SetDataFromRow()" & vbCrLf & ex.Message)
             ObjectState = ObjectStates.ErrorCondition
-
+            '
         End Try
-
+        '
         Return ObjectState
-
+        '
     End Function
     '
     ' ***********************************************
     ' *****     Set Row From Data
     ' ***********************************************
     '
-    Protected Friend Function SetRowFromData(ByRef row As vreportsDataSet.ReportMasterRow) As Boolean
+    Protected Function SetRowFromData(ByRef row As vreportsDataSet.ReportMasterRow) As Boolean
         Dim bFlag As Boolean = True
         '
         Try
@@ -128,7 +129,7 @@ Public MustInherit Class ReportData
     '
     ' ReportID, which is the primary key
     '
-    Protected Friend Property ReportID As Guid
+    Protected Property ReportID As Guid
         Get
             Return m_ReportID
         End Get
@@ -301,9 +302,13 @@ End Class
 ' ****
 ' ******    Globals
 ' ****
-' ****
-Public Enum ReportTypes
+' **********************************************
+Public Enum ReportTypes As Integer
+    Unassigned = -1
+    Null
     HomeInspection
-
+    CommercialInspection
+    MoldInspection
+    '
 End Enum
 

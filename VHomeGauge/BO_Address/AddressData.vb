@@ -6,6 +6,7 @@
 ' **********************************************
 ' 
 Public MustInherit Class AddressData
+    Inherits VObject
     '
     ' **********************************************
     ' ****
@@ -13,7 +14,7 @@ Public MustInherit Class AddressData
     ' ****
     ' **********************************************
     ' 
-    Friend Sub New()
+    Protected Sub New()
         Initialize()
 
     End Sub
@@ -27,10 +28,10 @@ Public MustInherit Class AddressData
     End Sub
     '
     ' ***********************************************
-    ' *****     Set Data From Row
+    ' *****     #SetDataFromRow(object):Integer
     ' ***********************************************
     '
-    Friend Function SetDataFromRow(ByRef row As vreportsDataSet.AddressRow) As ObjectStates
+    Protected Function SetDataFromRow(ByRef row As vreportsDataSet.AddressRow) As ObjectStates
 
         Try
             With row
@@ -46,23 +47,28 @@ Public MustInherit Class AddressData
                 ReportID = .ReportID
                 CompanyID = .CompanyID
                 AddressType = .AddressType
-
+                '
             End With
+            '
+            ' Copying into the properties caused the dirty flag to be set.  Not dirty so reset the flag.
+            '
+            IsDirty = False
+            '
         Catch ex As Exception
-            MsgBox("SetDataFromRow()" & vbCrLf & "Error setting the row in Address()!",, "AddressData Class")
+            MsgBox("SetDataFromRow()" & vbCrLf & "Error setting the row in Address()!")
             m_ObjectState = ObjectStates.ErrorCondition
-
+            '
         End Try
 
         Return m_ObjectState
-
+        '
     End Function
     '
     ' ***********************************************
     ' *****     Set Row From Data
     ' ***********************************************
     '
-    Protected Friend Function SetRowFromData(ByRef row As vreportsDataSet.AddressRow) As Boolean
+    Protected Function SetRowFromData(ByRef row As vreportsDataSet.AddressRow) As Boolean
         Dim bFlag As Boolean = True
         '
         Try
@@ -83,7 +89,7 @@ Public MustInherit Class AddressData
             End With
 
         Catch ex As Exception
-            MsgBox("SetRowFromData()" & vbCrLf & ex.Message,, "AddressData Class")
+            MsgBox("SetRowFromData()" & vbCrLf & ex.Message)
             bFlag = False
 
         End Try
@@ -171,7 +177,7 @@ Public MustInherit Class AddressData
     ' ObjectState, is an internal state indicator, that controls program flow depending on state cases.
     '              This property is not exposed, but instead, its states may be exposed by named properties, i.e., IsNew
     '
-    Protected Friend Property ObjectState As ObjectStates
+    Protected Property ObjectState As ObjectStates
         Get
             Return m_ObjectState
         End Get
@@ -197,7 +203,7 @@ Public MustInherit Class AddressData
     '
     ' PersonID, this is a GUID that serves as a foreign key tag.
     '
-    Protected Friend Property PersonID As Guid
+    Protected Property PersonID As Guid
         Get
             Return m_PersonID
         End Get
@@ -325,11 +331,13 @@ End Class
 ' ****
 ' **********************************************
 ' 
-Public Enum AddressTypes ' Must match database!
+Public Enum AddressTypes As Integer ' Must match database!
+    Unassigned = -1
+    Null
     Residential
     JobSite
     Company
-
+    '
 End Enum
 
 

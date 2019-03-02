@@ -14,9 +14,9 @@ Public Class RoleInfoData
     ' ****
     ' **********************************************
     ' 
-    Friend Sub New()
+    Protected Sub New()
         Initialize()
-
+        '
     End Sub
     '
     ' ***********************************************
@@ -28,11 +28,10 @@ Public Class RoleInfoData
     End Sub
     '
     ' ***********************************************
-    ' *****     Set Data From Row
+    ' *****     #SetDataFromRow(object):integer
     ' ***********************************************
     '
-    Friend Function SetDataFromRow(ByRef row As vreportsDataSet.RoleInfoRow) As ObjectStates
-
+    Protected Function SetDataFromRow(ByRef row As vreportsDataSet.RoleInfoRow) As ObjectStates
         Try
             With row
                 RoleInfoID = .ID
@@ -41,21 +40,26 @@ Public Class RoleInfoData
                 RoleLutID = .RoleLutID
                 '
             End With
+            '
+            ' Copying into the properties caused the dirty flag to be set.  Not dirty so reset the flag.
+            '
+            IsDirty = False
+            '
         Catch ex As Exception
             MsgBox(ex)
             m_ObjectState = ObjectStates.ErrorCondition
-
+            '
         End Try
-
+        '
         Return m_ObjectState
-
+        '
     End Function
     '
     ' ***********************************************
-    ' *****     Set Row From Data
+    ' *****     #SetRowFromData(object):boolean
     ' ***********************************************
     '
-    Protected Friend Function SetRowFromData(ByRef row As vreportsDataSet.RoleInfoRow) As Boolean
+    Protected Function SetRowFromData(ByRef row As vreportsDataSet.RoleInfoRow) As Boolean
         Dim bFlag As Boolean = True
         '
         Try
@@ -95,13 +99,17 @@ Public Class RoleInfoData
         NewRecord
         ExistingRecord
         ErrorCondition
-
+        '
     End Enum
     '
     ' Encapsulated Data
     '
     Private m_IsDirty As Boolean
     '
+    ' ***********************************************
+    ' *****     +IsDirty(boolean):boolean
+    ' ***********************************************
+    '    '
     ' IsDirty, is a flag that reflects whether or not the Set has been called, meaning (most of the time) that the data has changed.
     '          It is noteworthy that no comparisions are done so the mere call of Set sets this flag to True.
     '
@@ -115,6 +123,10 @@ Public Class RoleInfoData
     End Property
     Private m_ObjectState As ObjectStates
     '
+    ' ***********************************************
+    ' *****     +IsNew(boolean):boolean
+    ' ***********************************************
+    '   
     ' IsNew, is an interpreted flag that let's the caller know if the object has never been saved to the dB
     '
     Public ReadOnly Property IsNew As Boolean
@@ -126,10 +138,14 @@ Public Class RoleInfoData
         End Get
     End Property
     '
+    ' ***********************************************
+    ' *****     #ObjectState(integer):integer
+    ' ***********************************************
+    '
     ' ObjectState, is an internal state indicator, that controls program flow depending on state cases.
     '              This property is not exposed, but instead, its states may be exposed by named properties, i.e., IsNew
     '
-    Protected Friend Property ObjectState As ObjectStates
+    Protected Property ObjectState As ObjectStates
         Get
             Return m_ObjectState
         End Get
@@ -148,7 +164,9 @@ Public Class RoleInfoData
     Private m_RoleLutID As Integer
     Private m_RoleName As String = ""
     '
-    ' RoleInfoID which is the primary key
+    ' ***********************************************
+    ' *****     +RoleInfoID(integer):integer
+    ' ***********************************************
     '
     Public Property RoleInfoID As Integer
         Get
@@ -160,7 +178,9 @@ Public Class RoleInfoData
         End Set
     End Property
     '
-    ' RoleLutID which is the primary key
+    ' ***********************************************
+    ' *****     +RoleLutID(integer):integer
+    ' ***********************************************
     '
     Public Property RoleLutID As Integer
         Get
@@ -172,9 +192,11 @@ Public Class RoleInfoData
         End Set
     End Property
     '
-    ' PersonID, this is a GUID that serves as a foreign key.
+    ' ***********************************************
+    ' *****     +PersonID(struct):struct
+    ' ***********************************************
     '
-    Protected Friend Property PersonID As Guid
+    Public Property PersonID As Guid
         Get
             Return m_PersonID
         End Get
@@ -184,7 +206,9 @@ Public Class RoleInfoData
         End Set
     End Property
     '
-    ' ReportID, this is a GUID that serves as a foreign key.
+    ' ***********************************************
+    ' *****     +ReportID(struct):struct
+    ' ***********************************************
     '
     Public Property ReportID As Guid
         Get
@@ -197,7 +221,25 @@ Public Class RoleInfoData
     End Property
     '
 End Class
-
+'///////////////////////////////////////////// END OF CLASS //////////////////////////////////////////////
+'
+' **********************************************
+' ****
+' ******    Globals
+' ****
+' **********************************************
+' 
+Public Enum RoleTypes As Integer ' Must match database!
+    Unassigned = -1
+    Null
+    Client
+    BuyerAgent
+    Seller
+    ListingAgent
+    AgencyCoordinator
+    Attorney
+    '
+End Enum
 
 
 

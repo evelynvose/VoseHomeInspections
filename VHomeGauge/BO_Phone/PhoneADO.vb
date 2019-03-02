@@ -129,7 +129,7 @@ Public MustInherit Class PhoneADO
                     End If
 
                 Catch ex As Exception
-                    MsgBox("LoadByPhoneID()" & vbCrLf & ex.Message,, "PhoneADO Class")
+                    MsgBox("LoadByPhoneID()" & vbCrLf & ex.Message)
 
                 End Try
             End Using 'dt
@@ -157,7 +157,7 @@ Public MustInherit Class PhoneADO
                             ta.FillByPersonIDAndPhoneType(dt, aFkId, PhoneType)
 
                         Case Else
-                            MsgBox("LoadByFkAndPhoneType()" & vbCrLf & String.Format("There wans't a case for {0}", PhoneType),, "PhoneADO Class")
+                            MsgBox("LoadByFkAndPhoneType()" & vbCrLf & String.Format("There wans't a case for {0}", PhoneType))
                             ObjectState = ObjectStates.ErrorCondition
                             Return ObjectState
 
@@ -170,7 +170,7 @@ Public MustInherit Class PhoneADO
                     End If
 
                 Catch ex As Exception
-                    MsgBox("LoadByIDAndPhoneType()" & vbCrLf & ex.Message,, "PhoneADO Class")
+                    MsgBox("LoadByIDAndPhoneType()" & vbCrLf & ex.Message)
 
                 End Try
             End Using 'dt
@@ -251,7 +251,7 @@ Public MustInherit Class PhoneADO
         ' Test the flags
         '
         If Not bRule_1_Met OrElse Not bRule_2_Met OrElse Not bRule_3_Met Then
-            MsgBox(sMessage,, "PhoneADO Class")
+            MsgBox(sMessage)
             Return False
 
         End If
@@ -297,7 +297,7 @@ Public MustInherit Class PhoneADO
                     ta.Update(dt)
                     IsDirty = False
                 Catch ex As Exception
-                    MsgBox("Update()" & vbCrLf & ex.Message,, "PhoneADO Class")
+                    MsgBox("Update()" & vbCrLf & ex.Message)
 
                 End Try
 

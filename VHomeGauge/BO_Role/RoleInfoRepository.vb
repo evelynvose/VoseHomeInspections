@@ -41,7 +41,7 @@ Public Class RoleInfoRepository
                 Try
                     ta.Fill(dt)
                     For Each row As vreportsDataSet.RoleInfoRow In dt.Rows
-                        Dim newRoleInfo As New RoleInfoData
+                        Dim newRoleInfo As New RoleInfo
                         With newRoleInfo
                             .RoleInfoID = row.ID
                             .PersonID = row.PersonID
@@ -85,7 +85,7 @@ Public Class RoleInfoRepository
     End Property
     '
     ' ***********************************************
-    ' *****     RoleInfoRepps():object
+    ' *****     +RoleInfoRepps():object
     ' ***********************************************
     '
     Public ReadOnly Property RoleInfoRepos As IList(Of RoleInfoData)
@@ -93,4 +93,5 @@ Public Class RoleInfoRepository
             Return m_RoleInfoRepos
         End Get
     End Property
+    '
 End Class

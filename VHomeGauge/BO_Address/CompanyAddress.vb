@@ -37,7 +37,7 @@ Public Class CompanyAddress
         ' There are 3 cases: 1) Exists, 2) Doesn't exist but we can create one, or 3) error
         '
         If ObjectState = ObjectStates.ErrorCondition Then
-            MsgBox("New(id)" & vbCrLf & "The object is in an error condition!",, "CompanyAddress Class")
+            MsgBox("New(id)" & vbCrLf & "The object is in an error condition!")
 
         End If
 
