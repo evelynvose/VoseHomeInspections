@@ -151,7 +151,7 @@ Public MustInherit Class PersonADO
 
                     End If
                 Catch ex As Exception
-                    MsgBox("SetTypeByFK()" & vbCrLf & "Error in PersionID lookup",, "PersonADO Class")
+                    MsgBox(ex)
 
                 End Try
             End Using 'dt
@@ -173,7 +173,7 @@ Public MustInherit Class PersonADO
                     If dt.Count > 0 Then Return True
                     '
                 Catch ex As Exception
-                    MsgBox("Find() by person ID" & vbCrLf & ex.Message,, "PersonADO Class")
+                    ' Interaction.MsgBox("Find()" & vbCrLf & ex.Message,, "PersonADO Class")
                     '
                 End Try
             End Using
@@ -195,7 +195,7 @@ Public MustInherit Class PersonADO
                     If dt.Count > 0 Then Return True
                     '
                 Catch ex As Exception
-                    MsgBox("Find() by person ID" & vbCrLf & ex.Message,, "PersonADO Class")
+                    ' Interaction.MsgBox("Find() by person ID" & vbCrLf & ex.Message,, "PersonADO Class")
                     '
                 End Try
             End Using
@@ -224,7 +224,7 @@ Public MustInherit Class PersonADO
                     End If
 
                 Catch ex As Exception
-                    MsgBox("LoadByID()" & vbCrLf & ex.Message,, "PersonADO Class")
+                    MsgBox(ex)
 
                 End Try
             End Using 'dt
@@ -254,7 +254,7 @@ Public MustInherit Class PersonADO
                     End If
 
                 Catch ex As Exception
-                    MsgBox("LoadByIDAndPersonType()" & vbCrLf & ex.Message,, "PersonADO Class")
+                    MsgBox(ex)
 
                 End Try
             End Using 'dt
@@ -275,7 +275,7 @@ Public MustInherit Class PersonADO
         Dim NameParts() As String = thename.Split(" ")
         If NameParts.Count = 0 OrElse NameParts.Count = 1 Then
 
-            MsgBox("LoadByName()" & vbCrLf & String.Format("Just one name given where First and Last are needed: %s ", thename),, "PersonADO Class")
+            MsgBox("LoadByName()" & vbCrLf & String.Format("Just one name given where First and Last are needed: %s ", thename))
             ObjectState = ObjectStates.ErrorCondition
             Return ObjectState
 
@@ -302,7 +302,7 @@ Public MustInherit Class PersonADO
                     End If
 
                 Catch ex As Exception
-                    MsgBox("LoadByIDAndPersonType()" & vbCrLf & ex.Message,, "PersonADO Class")
+                    MsgBox(ex)
 
                 End Try
             End Using 'dt
@@ -374,7 +374,7 @@ Public MustInherit Class PersonADO
         ' Test the flags
         '
         If Not bRule_1_Met OrElse Not bRule_2_Met OrElse Not bRule_3_Met Then
-            MsgBox(sMessage,, "PersonADO Class")
+            MsgBox(sMessage)
             Return False
 
         End If
@@ -420,7 +420,7 @@ Public MustInherit Class PersonADO
                     ta.Update(dt)
                     IsDirty = False
                 Catch ex As Exception
-                    MsgBox("Update()" & vbCrLf & ex.Message,, "PersonADO Class")
+                    MsgBox(ex)
 
                 End Try
 

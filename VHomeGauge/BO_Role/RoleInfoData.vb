@@ -5,7 +5,7 @@
 ' ****
 ' **********************************************
 ' 
-Public MustInherit Class PersonData
+Public Class RoleInfoData
     Inherits VObject
     '
     ' **********************************************
@@ -31,51 +31,42 @@ Public MustInherit Class PersonData
     ' *****     Set Data From Row
     ' ***********************************************
     '
-    Friend Function SetDataFromRow(ByRef row As vreportsDataSet.PersonRow) As ObjectStates
+    Friend Function SetDataFromRow(ByRef row As vreportsDataSet.RoleInfoRow) As ObjectStates
 
         Try
             With row
-                PersonID = .ID
-                FirstName = .FirstName
-                LastName = .LastName
-                UserName = .HGUserName
-                ' Role = .Role
-                PersonType = .PersonType
+                RoleInfoID = .ID
+                PersonID = .PersonID
+                ReportID = .ReportID
+                RoleLutID = .RoleLutID
                 '
             End With
-            '
-            ' The properties will set the dirty flag, but we're not dirty so set it back to false!
-            '
-            IsDirty = False
-            '
         Catch ex As Exception
             MsgBox(ex)
             m_ObjectState = ObjectStates.ErrorCondition
-            '
+
         End Try
-        '
+
         Return m_ObjectState
-        '
+
     End Function
     '
     ' ***********************************************
     ' *****     Set Row From Data
     ' ***********************************************
     '
-    Protected Friend Function SetRowFromData(ByRef row As vreportsDataSet.PersonRow) As Boolean
+    Protected Friend Function SetRowFromData(ByRef row As vreportsDataSet.RoleInfoRow) As Boolean
         Dim bFlag As Boolean = True
         '
         Try
             With row
-                .ID = PersonID
-                .FirstName = FirstName
-                .LastName = LastName
-                .HGUserName = UserName
-                ' .Role = Role
-                .PersonType = PersonType
+                .ID = RoleInfoID
+                .PersonID = PersonID
+                .ReportID = ReportID
+                .RoleLutID = RoleLutID
                 '
             End With
-            '
+
         Catch ex As Exception
             MsgBox(ex)
             bFlag = False
@@ -85,7 +76,6 @@ Public MustInherit Class PersonData
         Return bFlag
 
     End Function
-    '
     '
     '
     ' **********************************************
@@ -111,32 +101,6 @@ Public MustInherit Class PersonData
     ' Encapsulated Data
     '
     Private m_IsDirty As Boolean
-    Private m_PersonID As Guid = Guid.Empty
-    Private m_PersonType As PersonTypes = "-1"
-    '
-    ' AddressID, which is the primary key
-    '
-    Public Property PersonID As Guid
-        Get
-            Return m_PersonID
-        End Get
-        Set(value As Guid)
-            m_PersonID = value
-            m_IsDirty = True
-        End Set
-    End Property
-    '
-    ' Address Type, all biz objects using this design pattern have a type, even if it has just one type
-    '
-    Public Property PersonType As PersonTypes
-        Get
-            Return m_PersonType
-        End Get
-        Set(value As PersonTypes)
-            m_PersonType = value
-            m_IsDirty = True
-        End Set
-    End Property
     '
     ' IsDirty, is a flag that reflects whether or not the Set has been called, meaning (most of the time) that the data has changed.
     '          It is noteworthy that no comparisions are done so the mere call of Set sets this flag to True.
@@ -173,87 +137,67 @@ Public MustInherit Class PersonData
             m_ObjectState = value
         End Set
     End Property
-
     '
     ' ***********************************************
     ' *****     Implementation Specific Encapsulated Data
     ' ***********************************************
     '
-    Private m_FirstName As String = ""
-    Private m_LastName As String = ""
-    Private m_UserName As String = ""
-    ' Private m_Role As Integer = -1
+    Private m_RoleInfoID As Integer
+    Private m_PersonID As Guid = Guid.Empty
+    Private m_ReportID As Guid = Guid.Empty
+    Private m_RoleLutID As Integer
+    Private m_RoleName As String = ""
     '
-    ' FirstName
+    ' RoleInfoID which is the primary key
     '
-    Public Property FirstName As String
+    Public Property RoleInfoID As Integer
         Get
-            Return m_FirstName
+            Return m_RoleInfoID
         End Get
-        Set(value As String)
-            m_FirstName = value
+        Set(value As Integer)
+            m_RoleInfoID = value
+            m_IsDirty = True
         End Set
     End Property
     '
-    ' LastName
+    ' RoleLutID which is the primary key
     '
-
-    Public Property LastName As String
+    Public Property RoleLutID As Integer
         Get
-            Return m_LastName
+            Return m_RoleLutID
         End Get
-        Set(value As String)
-            m_LastName = value
+        Set(value As Integer)
+            m_RoleLutID = value
+            m_IsDirty = True
         End Set
     End Property
     '
-    ' UserName, for now this is the HGI User Name, but may be a VHI user name in the future
+    ' PersonID, this is a GUID that serves as a foreign key.
     '
-    Public Property UserName As String
+    Protected Friend Property PersonID As Guid
         Get
-            Return m_UserName
+            Return m_PersonID
         End Get
-        Set(value As String)
-            m_UserName = value
+        Set(value As Guid)
+            m_PersonID = value
+            m_IsDirty = True
         End Set
     End Property
     '
-    ' Role, you can think of this as a person subtype
+    ' ReportID, this is a GUID that serves as a foreign key.
     '
-    '    Public Property Role As Integer
-    '        Get
-    '            Return m_Role
-    '        End Get
-    '        Set(value As Integer)
-    '            m_Role = value
-    '        End Set
-    '    End Property
+    Public Property ReportID As Guid
+        Get
+            Return m_ReportID
+        End Get
+        Set(value As Guid)
+            m_ReportID = value
+            m_IsDirty = True
+        End Set
+    End Property
+    '
 End Class
-'///////////////////////////////////////////// END OF CLASS //////////////////////////////////////////////
-'
-' **********************************************
-' ****
-' ******    Globals
-' ****
-' **********************************************
-' 
-Public Enum PersonTypes ' Must match database!
-    Client
-    Agent
-    Inspector
 
-End Enum
-
-Public Enum PersonRoles As Integer ' Must match database!
-    Unassigned = 0
-    Client
-    BuyerAgent
-    Seller
-    ListingAgent
-    AgencyCoordinator
-    Attorney
-    '
-End Enum
 
 
 

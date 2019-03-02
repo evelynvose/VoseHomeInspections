@@ -69,7 +69,7 @@ Public Class HGIReportInfoRepository
                 '
                 Dim theReportFile As New ReportInfo
                 theReportFile.SetPath(f)        ' set the path, which kicks off an XML file parser to fill the FileInfo's data from the report.
-                RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, theReportFile.ReportFullName))
+                RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, theReportFile.ReportNumber & " " & theReportFile.Version))
                 m_ReportInfoRepository.Add(theReportFile)
                 '
             Next

@@ -1561,8 +1561,6 @@ Partial Public Class vreportsDataSet
         
         Private columnHGUserName As Global.System.Data.DataColumn
         
-        Private columnRole As Global.System.Data.DataColumn
-        
         Private columnPersonType As Global.System.Data.DataColumn
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -1634,14 +1632,6 @@ Partial Public Class vreportsDataSet
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
-        Public ReadOnly Property RoleColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnRole
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Public ReadOnly Property PersonTypeColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnPersonType
@@ -1685,9 +1675,9 @@ Partial Public Class vreportsDataSet
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
-        Public Overloads Function AddPersonRow(ByVal ID As System.Guid, ByVal FirstName As String, ByVal LastName As String, ByVal HGUserName As String, ByVal Role As Integer, ByVal PersonType As Integer) As PersonRow
+        Public Overloads Function AddPersonRow(ByVal ID As System.Guid, ByVal FirstName As String, ByVal LastName As String, ByVal HGUserName As String, ByVal PersonType As Integer) As PersonRow
             Dim rowPersonRow As PersonRow = CType(Me.NewRow,PersonRow)
-            Dim columnValuesArray() As Object = New Object() {ID, FirstName, LastName, HGUserName, Role, PersonType}
+            Dim columnValuesArray() As Object = New Object() {ID, FirstName, LastName, HGUserName, PersonType}
             rowPersonRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowPersonRow)
             Return rowPersonRow
@@ -1720,7 +1710,6 @@ Partial Public Class vreportsDataSet
             Me.columnFirstName = MyBase.Columns("FirstName")
             Me.columnLastName = MyBase.Columns("LastName")
             Me.columnHGUserName = MyBase.Columns("HGUserName")
-            Me.columnRole = MyBase.Columns("Role")
             Me.columnPersonType = MyBase.Columns("PersonType")
         End Sub
         
@@ -1735,8 +1724,6 @@ Partial Public Class vreportsDataSet
             MyBase.Columns.Add(Me.columnLastName)
             Me.columnHGUserName = New Global.System.Data.DataColumn("HGUserName", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnHGUserName)
-            Me.columnRole = New Global.System.Data.DataColumn("Role", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnRole)
             Me.columnPersonType = New Global.System.Data.DataColumn("PersonType", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnPersonType)
             Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnID}, true))
@@ -1744,7 +1731,6 @@ Partial Public Class vreportsDataSet
             Me.columnID.Unique = true
             Me.columnFirstName.MaxLength = 255
             Me.columnLastName.MaxLength = 255
-            Me.columnRole.DefaultValue = CType(-1,Integer)
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -2558,7 +2544,7 @@ Partial Public Class vreportsDataSet
         
         Private columnPersonID As Global.System.Data.DataColumn
         
-        Private columnRoleID As Global.System.Data.DataColumn
+        Private columnRoleLutID As Global.System.Data.DataColumn
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
@@ -2621,9 +2607,9 @@ Partial Public Class vreportsDataSet
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
-        Public ReadOnly Property RoleIDColumn() As Global.System.Data.DataColumn
+        Public ReadOnly Property RoleLutIDColumn() As Global.System.Data.DataColumn
             Get
-                Return Me.columnRoleID
+                Return Me.columnRoleLutID
             End Get
         End Property
         
@@ -2664,9 +2650,9 @@ Partial Public Class vreportsDataSet
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
-        Public Overloads Function AddRoleInfoRow(ByVal ReportID As System.Guid, ByVal PersonID As System.Guid, ByVal RoleID As Integer) As RoleInfoRow
+        Public Overloads Function AddRoleInfoRow(ByVal ReportID As System.Guid, ByVal PersonID As System.Guid, ByVal RoleLutID As Integer) As RoleInfoRow
             Dim rowRoleInfoRow As RoleInfoRow = CType(Me.NewRow,RoleInfoRow)
-            Dim columnValuesArray() As Object = New Object() {Nothing, ReportID, PersonID, RoleID}
+            Dim columnValuesArray() As Object = New Object() {Nothing, ReportID, PersonID, RoleLutID}
             rowRoleInfoRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowRoleInfoRow)
             Return rowRoleInfoRow
@@ -2698,7 +2684,7 @@ Partial Public Class vreportsDataSet
             Me.columnID = MyBase.Columns("ID")
             Me.columnReportID = MyBase.Columns("ReportID")
             Me.columnPersonID = MyBase.Columns("PersonID")
-            Me.columnRoleID = MyBase.Columns("RoleID")
+            Me.columnRoleLutID = MyBase.Columns("RoleLutID")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -2710,8 +2696,8 @@ Partial Public Class vreportsDataSet
             MyBase.Columns.Add(Me.columnReportID)
             Me.columnPersonID = New Global.System.Data.DataColumn("PersonID", GetType(Global.System.Guid), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnPersonID)
-            Me.columnRoleID = New Global.System.Data.DataColumn("RoleID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnRoleID)
+            Me.columnRoleLutID = New Global.System.Data.DataColumn("RoleLutID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnRoleLutID)
             Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnID}, true))
             Me.columnID.AutoIncrement = true
             Me.columnID.AutoIncrementSeed = -1
@@ -3779,21 +3765,6 @@ Partial Public Class vreportsDataSet
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
-        Public Property Role() As Integer
-            Get
-                Try 
-                    Return CType(Me(Me.tablePerson.RoleColumn),Integer)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'Role' in table 'Person' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tablePerson.RoleColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Public Property PersonType() As Integer
             Get
                 Try 
@@ -3841,18 +3812,6 @@ Partial Public Class vreportsDataSet
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Public Sub SetHGUserNameNull()
             Me(Me.tablePerson.HGUserNameColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
-        Public Function IsRoleNull() As Boolean
-            Return Me.IsNull(Me.tablePerson.RoleColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
-        Public Sub SetRoleNull()
-            Me(Me.tablePerson.RoleColumn) = Global.System.Convert.DBNull
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -4277,16 +4236,16 @@ Partial Public Class vreportsDataSet
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
-        Public Property RoleID() As Integer
+        Public Property RoleLutID() As Integer
             Get
                 Try 
-                    Return CType(Me(Me.tableRoleInfo.RoleIDColumn),Integer)
+                    Return CType(Me(Me.tableRoleInfo.RoleLutIDColumn),Integer)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'RoleID' in table 'RoleInfo' is DBNull.", e)
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'RoleLutID' in table 'RoleInfo' is DBNull.", e)
                 End Try
             End Get
             Set
-                Me(Me.tableRoleInfo.RoleIDColumn) = value
+                Me(Me.tableRoleInfo.RoleLutIDColumn) = value
             End Set
         End Property
         
@@ -4316,14 +4275,14 @@ Partial Public Class vreportsDataSet
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
-        Public Function IsRoleIDNull() As Boolean
-            Return Me.IsNull(Me.tableRoleInfo.RoleIDColumn)
+        Public Function IsRoleLutIDNull() As Boolean
+            Return Me.IsNull(Me.tableRoleInfo.RoleLutIDColumn)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
-        Public Sub SetRoleIDNull()
-            Me(Me.tableRoleInfo.RoleIDColumn) = Global.System.Convert.DBNull
+        Public Sub SetRoleLutIDNull()
+            Me(Me.tableRoleInfo.RoleLutIDColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     
@@ -6657,16 +6616,14 @@ Namespace vreportsDataSetTableAdapters
             tableMapping.ColumnMappings.Add("FirstName", "FirstName")
             tableMapping.ColumnMappings.Add("LastName", "LastName")
             tableMapping.ColumnMappings.Add("HGUserName", "HGUserName")
-            tableMapping.ColumnMappings.Add("Role", "Role")
             tableMapping.ColumnMappings.Add("PersonType", "PersonType")
             Me._adapter.TableMappings.Add(tableMapping)
             Me._adapter.DeleteCommand = New Global.System.Data.OleDb.OleDbCommand()
             Me._adapter.DeleteCommand.Connection = Me.Connection
             Me._adapter.DeleteCommand.CommandText = "DELETE FROM `Person` WHERE ((`ID` = ?) AND ((? = 1 AND `FirstName` IS NULL) OR (`"& _ 
                 "FirstName` = ?)) AND ((? = 1 AND `LastName` IS NULL) OR (`LastName` = ?)) AND (("& _ 
-                "? = 1 AND `HGUserName` IS NULL) OR (`HGUserName` = ?)) AND ((? = 1 AND `Role` IS"& _ 
-                " NULL) OR (`Role` = ?)) AND ((? = 1 AND `PersonType` IS NULL) OR (`PersonType` ="& _ 
-                " ?)))"
+                "? = 1 AND `HGUserName` IS NULL) OR (`HGUserName` = ?)) AND ((? = 1 AND `PersonTy"& _ 
+                "pe` IS NULL) OR (`PersonType` = ?)))"
             Me._adapter.DeleteCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_ID", Global.System.Data.OleDb.OleDbType.Guid, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ID", Global.System.Data.DataRowVersion.Original, false, Nothing))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_FirstName", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "FirstName", Global.System.Data.DataRowVersion.Original, true, Nothing))
@@ -6675,35 +6632,30 @@ Namespace vreportsDataSetTableAdapters
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_LastName", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "LastName", Global.System.Data.DataRowVersion.Original, false, Nothing))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_HGUserName", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "HGUserName", Global.System.Data.DataRowVersion.Original, true, Nothing))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_HGUserName", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "HGUserName", Global.System.Data.DataRowVersion.Original, false, Nothing))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_Role", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Role", Global.System.Data.DataRowVersion.Original, true, Nothing))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_Role", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Role", Global.System.Data.DataRowVersion.Original, false, Nothing))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_PersonType", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "PersonType", Global.System.Data.DataRowVersion.Original, true, Nothing))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_PersonType", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "PersonType", Global.System.Data.DataRowVersion.Original, false, Nothing))
             Me._adapter.InsertCommand = New Global.System.Data.OleDb.OleDbCommand()
             Me._adapter.InsertCommand.Connection = Me.Connection
-            Me._adapter.InsertCommand.CommandText = "INSERT INTO `Person` (`ID`, `FirstName`, `LastName`, `HGUserName`, `Role`, `Perso"& _ 
-                "nType`) VALUES (?, ?, ?, ?, ?, ?)"
+            Me._adapter.InsertCommand.CommandText = "INSERT INTO `Person` (`ID`, `FirstName`, `LastName`, `HGUserName`, `PersonType`) "& _ 
+                "VALUES (?, ?, ?, ?, ?)"
             Me._adapter.InsertCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("ID", Global.System.Data.OleDb.OleDbType.Guid, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ID", Global.System.Data.DataRowVersion.Current, false, Nothing))
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("FirstName", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "FirstName", Global.System.Data.DataRowVersion.Current, false, Nothing))
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("LastName", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "LastName", Global.System.Data.DataRowVersion.Current, false, Nothing))
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("HGUserName", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "HGUserName", Global.System.Data.DataRowVersion.Current, false, Nothing))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Role", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Role", Global.System.Data.DataRowVersion.Current, false, Nothing))
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("PersonType", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "PersonType", Global.System.Data.DataRowVersion.Current, false, Nothing))
             Me._adapter.UpdateCommand = New Global.System.Data.OleDb.OleDbCommand()
             Me._adapter.UpdateCommand.Connection = Me.Connection
             Me._adapter.UpdateCommand.CommandText = "UPDATE `Person` SET `ID` = ?, `FirstName` = ?, `LastName` = ?, `HGUserName` = ?, "& _ 
-                "`Role` = ?, `PersonType` = ? WHERE ((`ID` = ?) AND ((? = 1 AND `FirstName` IS NU"& _ 
-                "LL) OR (`FirstName` = ?)) AND ((? = 1 AND `LastName` IS NULL) OR (`LastName` = ?"& _ 
-                ")) AND ((? = 1 AND `HGUserName` IS NULL) OR (`HGUserName` = ?)) AND ((? = 1 AND "& _ 
-                "`Role` IS NULL) OR (`Role` = ?)) AND ((? = 1 AND `PersonType` IS NULL) OR (`Pers"& _ 
-                "onType` = ?)))"
+                "`PersonType` = ? WHERE ((`ID` = ?) AND ((? = 1 AND `FirstName` IS NULL) OR (`Fir"& _ 
+                "stName` = ?)) AND ((? = 1 AND `LastName` IS NULL) OR (`LastName` = ?)) AND ((? ="& _ 
+                " 1 AND `HGUserName` IS NULL) OR (`HGUserName` = ?)) AND ((? = 1 AND `PersonType`"& _ 
+                " IS NULL) OR (`PersonType` = ?)))"
             Me._adapter.UpdateCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("ID", Global.System.Data.OleDb.OleDbType.Guid, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ID", Global.System.Data.DataRowVersion.Current, false, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("FirstName", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "FirstName", Global.System.Data.DataRowVersion.Current, false, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("LastName", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "LastName", Global.System.Data.DataRowVersion.Current, false, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("HGUserName", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "HGUserName", Global.System.Data.DataRowVersion.Current, false, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Role", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Role", Global.System.Data.DataRowVersion.Current, false, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("PersonType", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "PersonType", Global.System.Data.DataRowVersion.Current, false, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_ID", Global.System.Data.OleDb.OleDbType.Guid, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ID", Global.System.Data.DataRowVersion.Original, false, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_FirstName", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "FirstName", Global.System.Data.DataRowVersion.Original, true, Nothing))
@@ -6712,8 +6664,6 @@ Namespace vreportsDataSetTableAdapters
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_LastName", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "LastName", Global.System.Data.DataRowVersion.Original, false, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_HGUserName", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "HGUserName", Global.System.Data.DataRowVersion.Original, true, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_HGUserName", Global.System.Data.OleDb.OleDbType.VarWChar, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "HGUserName", Global.System.Data.DataRowVersion.Original, false, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_Role", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Role", Global.System.Data.DataRowVersion.Original, true, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_Role", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "Role", Global.System.Data.DataRowVersion.Original, false, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_PersonType", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "PersonType", Global.System.Data.DataRowVersion.Original, true, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_PersonType", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "PersonType", Global.System.Data.DataRowVersion.Original, false, Nothing))
         End Sub
@@ -6735,8 +6685,8 @@ Namespace vreportsDataSetTableAdapters
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(1) = New Global.System.Data.OleDb.OleDbCommand()
             Me._commandCollection(1).Connection = Me.Connection
-            Me._commandCollection(1).CommandText = "SELECT * FROM Person WHERE (FirstName = ?) AND  (LastName = ?) AND (PersonType = "& _ 
-                "?)"
+            Me._commandCollection(1).CommandText = "SELECT * FROM Person WHERE (FirstName = ?) AND (LastName = ?) AND (PersonType = ?"& _ 
+                ")"
             Me._commandCollection(1).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(1).Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("FirstName", Global.System.Data.OleDb.OleDbType.WChar, 255, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "FirstName", Global.System.Data.DataRowVersion.Current, false, Nothing))
             Me._commandCollection(1).Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("LastName", Global.System.Data.OleDb.OleDbType.WChar, 255, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "LastName", Global.System.Data.DataRowVersion.Current, false, Nothing))
@@ -6957,7 +6907,7 @@ Namespace vreportsDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, true)>  _
-        Public Overloads Overridable Function Delete(ByVal Original_ID As Global.System.Nullable(Of Global.System.Guid), ByVal Original_FirstName As String, ByVal Original_LastName As String, ByVal Original_HGUserName As String, ByVal Original_Role As Global.System.Nullable(Of Integer), ByVal Original_PersonType As Integer) As Integer
+        Public Overloads Overridable Function Delete(ByVal Original_ID As Global.System.Nullable(Of Global.System.Guid), ByVal Original_FirstName As String, ByVal Original_LastName As String, ByVal Original_HGUserName As String, ByVal Original_PersonType As Integer) As Integer
             If (Original_ID.HasValue = true) Then
                 Me.Adapter.DeleteCommand.Parameters(0).Value = CType(Original_ID.Value,System.Guid)
             Else
@@ -6983,15 +6933,8 @@ Namespace vreportsDataSetTableAdapters
                 Me.Adapter.DeleteCommand.Parameters(5).Value = CType(0,Object)
                 Me.Adapter.DeleteCommand.Parameters(6).Value = CType(Original_HGUserName,String)
             End If
-            If (Original_Role.HasValue = true) Then
-                Me.Adapter.DeleteCommand.Parameters(7).Value = CType(0,Object)
-                Me.Adapter.DeleteCommand.Parameters(8).Value = CType(Original_Role.Value,Integer)
-            Else
-                Me.Adapter.DeleteCommand.Parameters(7).Value = CType(1,Object)
-                Me.Adapter.DeleteCommand.Parameters(8).Value = Global.System.DBNull.Value
-            End If
-            Me.Adapter.DeleteCommand.Parameters(9).Value = CType(0,Object)
-            Me.Adapter.DeleteCommand.Parameters(10).Value = CType(Original_PersonType,Integer)
+            Me.Adapter.DeleteCommand.Parameters(7).Value = CType(0,Object)
+            Me.Adapter.DeleteCommand.Parameters(8).Value = CType(Original_PersonType,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.DeleteCommand.Connection.State
             If ((Me.Adapter.DeleteCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -7011,7 +6954,7 @@ Namespace vreportsDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, true)>  _
-        Public Overloads Overridable Function Insert(ByVal ID As Global.System.Nullable(Of Global.System.Guid), ByVal FirstName As String, ByVal LastName As String, ByVal HGUserName As String, ByVal Role As Global.System.Nullable(Of Integer), ByVal PersonType As Integer) As Integer
+        Public Overloads Overridable Function Insert(ByVal ID As Global.System.Nullable(Of Global.System.Guid), ByVal FirstName As String, ByVal LastName As String, ByVal HGUserName As String, ByVal PersonType As Integer) As Integer
             If (ID.HasValue = true) Then
                 Me.Adapter.InsertCommand.Parameters(0).Value = CType(ID.Value,System.Guid)
             Else
@@ -7032,12 +6975,7 @@ Namespace vreportsDataSetTableAdapters
             Else
                 Me.Adapter.InsertCommand.Parameters(3).Value = CType(HGUserName,String)
             End If
-            If (Role.HasValue = true) Then
-                Me.Adapter.InsertCommand.Parameters(4).Value = CType(Role.Value,Integer)
-            Else
-                Me.Adapter.InsertCommand.Parameters(4).Value = Global.System.DBNull.Value
-            End If
-            Me.Adapter.InsertCommand.Parameters(5).Value = CType(PersonType,Integer)
+            Me.Adapter.InsertCommand.Parameters(4).Value = CType(PersonType,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.InsertCommand.Connection.State
             If ((Me.Adapter.InsertCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -7057,7 +6995,7 @@ Namespace vreportsDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
-        Public Overloads Overridable Function Update(ByVal ID As Global.System.Nullable(Of Global.System.Guid), ByVal FirstName As String, ByVal LastName As String, ByVal HGUserName As String, ByVal Role As Global.System.Nullable(Of Integer), ByVal PersonType As Integer, ByVal Original_ID As Global.System.Nullable(Of Global.System.Guid), ByVal Original_FirstName As String, ByVal Original_LastName As String, ByVal Original_HGUserName As String, ByVal Original_Role As Global.System.Nullable(Of Integer), ByVal Original_PersonType As Integer) As Integer
+        Public Overloads Overridable Function Update(ByVal ID As Global.System.Nullable(Of Global.System.Guid), ByVal FirstName As String, ByVal LastName As String, ByVal HGUserName As String, ByVal PersonType As Integer, ByVal Original_ID As Global.System.Nullable(Of Global.System.Guid), ByVal Original_FirstName As String, ByVal Original_LastName As String, ByVal Original_HGUserName As String, ByVal Original_PersonType As Integer) As Integer
             If (ID.HasValue = true) Then
                 Me.Adapter.UpdateCommand.Parameters(0).Value = CType(ID.Value,System.Guid)
             Else
@@ -7078,46 +7016,34 @@ Namespace vreportsDataSetTableAdapters
             Else
                 Me.Adapter.UpdateCommand.Parameters(3).Value = CType(HGUserName,String)
             End If
-            If (Role.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(4).Value = CType(Role.Value,Integer)
-            Else
-                Me.Adapter.UpdateCommand.Parameters(4).Value = Global.System.DBNull.Value
-            End If
-            Me.Adapter.UpdateCommand.Parameters(5).Value = CType(PersonType,Integer)
+            Me.Adapter.UpdateCommand.Parameters(4).Value = CType(PersonType,Integer)
             If (Original_ID.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(6).Value = CType(Original_ID.Value,System.Guid)
+                Me.Adapter.UpdateCommand.Parameters(5).Value = CType(Original_ID.Value,System.Guid)
             Else
-                Me.Adapter.UpdateCommand.Parameters(6).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(5).Value = Global.System.DBNull.Value
             End If
             If (Original_FirstName Is Nothing) Then
                 Throw New Global.System.ArgumentNullException("Original_FirstName")
             Else
-                Me.Adapter.UpdateCommand.Parameters(7).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(8).Value = CType(Original_FirstName,String)
+                Me.Adapter.UpdateCommand.Parameters(6).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(7).Value = CType(Original_FirstName,String)
             End If
             If (Original_LastName Is Nothing) Then
-                Me.Adapter.UpdateCommand.Parameters(9).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(10).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(8).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(9).Value = Global.System.DBNull.Value
             Else
-                Me.Adapter.UpdateCommand.Parameters(9).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(10).Value = CType(Original_LastName,String)
+                Me.Adapter.UpdateCommand.Parameters(8).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(9).Value = CType(Original_LastName,String)
             End If
             If (Original_HGUserName Is Nothing) Then
-                Me.Adapter.UpdateCommand.Parameters(11).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(12).Value = Global.System.DBNull.Value
+                Me.Adapter.UpdateCommand.Parameters(10).Value = CType(1,Object)
+                Me.Adapter.UpdateCommand.Parameters(11).Value = Global.System.DBNull.Value
             Else
-                Me.Adapter.UpdateCommand.Parameters(11).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(12).Value = CType(Original_HGUserName,String)
+                Me.Adapter.UpdateCommand.Parameters(10).Value = CType(0,Object)
+                Me.Adapter.UpdateCommand.Parameters(11).Value = CType(Original_HGUserName,String)
             End If
-            If (Original_Role.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(13).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(14).Value = CType(Original_Role.Value,Integer)
-            Else
-                Me.Adapter.UpdateCommand.Parameters(13).Value = CType(1,Object)
-                Me.Adapter.UpdateCommand.Parameters(14).Value = Global.System.DBNull.Value
-            End If
-            Me.Adapter.UpdateCommand.Parameters(15).Value = CType(0,Object)
-            Me.Adapter.UpdateCommand.Parameters(16).Value = CType(Original_PersonType,Integer)
+            Me.Adapter.UpdateCommand.Parameters(12).Value = CType(0,Object)
+            Me.Adapter.UpdateCommand.Parameters(13).Value = CType(Original_PersonType,Integer)
             Dim previousConnectionState As Global.System.Data.ConnectionState = Me.Adapter.UpdateCommand.Connection.State
             If ((Me.Adapter.UpdateCommand.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -7137,8 +7063,8 @@ Namespace vreportsDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
-        Public Overloads Overridable Function Update(ByVal FirstName As String, ByVal LastName As String, ByVal HGUserName As String, ByVal Role As Global.System.Nullable(Of Integer), ByVal PersonType As Integer, ByVal Original_ID As Global.System.Nullable(Of Global.System.Guid), ByVal Original_FirstName As String, ByVal Original_LastName As String, ByVal Original_HGUserName As String, ByVal Original_Role As Global.System.Nullable(Of Integer), ByVal Original_PersonType As Integer) As Integer
-            Return Me.Update(Original_ID, FirstName, LastName, HGUserName, Role, PersonType, Original_ID, Original_FirstName, Original_LastName, Original_HGUserName, Original_Role, Original_PersonType)
+        Public Overloads Overridable Function Update(ByVal FirstName As String, ByVal LastName As String, ByVal HGUserName As String, ByVal PersonType As Integer, ByVal Original_ID As Global.System.Nullable(Of Global.System.Guid), ByVal Original_FirstName As String, ByVal Original_LastName As String, ByVal Original_HGUserName As String, ByVal Original_PersonType As Integer) As Integer
+            Return Me.Update(Original_ID, FirstName, LastName, HGUserName, PersonType, Original_ID, Original_FirstName, Original_LastName, Original_HGUserName, Original_PersonType)
         End Function
     End Class
     
@@ -8410,45 +8336,46 @@ Namespace vreportsDataSetTableAdapters
             tableMapping.ColumnMappings.Add("ID", "ID")
             tableMapping.ColumnMappings.Add("ReportID", "ReportID")
             tableMapping.ColumnMappings.Add("PersonID", "PersonID")
-            tableMapping.ColumnMappings.Add("RoleID", "RoleID")
+            tableMapping.ColumnMappings.Add("RoleID", "RoleLutID")
+            tableMapping.ColumnMappings.Add("RoleLutID", "RoleLutID")
             Me._adapter.TableMappings.Add(tableMapping)
             Me._adapter.DeleteCommand = New Global.System.Data.OleDb.OleDbCommand()
             Me._adapter.DeleteCommand.Connection = Me.Connection
             Me._adapter.DeleteCommand.CommandText = "DELETE FROM `RoleInfo` WHERE ((`ID` = ?) AND ((? = 1 AND `ReportID` IS NULL) OR ("& _ 
                 "`ReportID` = ?)) AND ((? = 1 AND `PersonID` IS NULL) OR (`PersonID` = ?)) AND (("& _ 
-                "? = 1 AND `RoleID` IS NULL) OR (`RoleID` = ?)))"
+                "? = 1 AND `RoleLutID` IS NULL) OR (`RoleLutID` = ?)))"
             Me._adapter.DeleteCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_ID", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ID", Global.System.Data.DataRowVersion.Original, false, Nothing))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_ReportID", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ReportID", Global.System.Data.DataRowVersion.Original, true, Nothing))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_ReportID", Global.System.Data.OleDb.OleDbType.Guid, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ReportID", Global.System.Data.DataRowVersion.Original, false, Nothing))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_PersonID", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "PersonID", Global.System.Data.DataRowVersion.Original, true, Nothing))
             Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_PersonID", Global.System.Data.OleDb.OleDbType.Guid, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "PersonID", Global.System.Data.DataRowVersion.Original, false, Nothing))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_RoleID", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "RoleID", Global.System.Data.DataRowVersion.Original, true, Nothing))
-            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_RoleID", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "RoleID", Global.System.Data.DataRowVersion.Original, false, Nothing))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_RoleLutID", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "RoleLutID", Global.System.Data.DataRowVersion.Original, true, Nothing))
+            Me._adapter.DeleteCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_RoleLutID", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "RoleLutID", Global.System.Data.DataRowVersion.Original, false, Nothing))
             Me._adapter.InsertCommand = New Global.System.Data.OleDb.OleDbCommand()
             Me._adapter.InsertCommand.Connection = Me.Connection
-            Me._adapter.InsertCommand.CommandText = "INSERT INTO `RoleInfo` (`ReportID`, `PersonID`, `RoleID`) VALUES (?, ?, ?)"
+            Me._adapter.InsertCommand.CommandText = "INSERT INTO `RoleInfo` (`ReportID`, `PersonID`, `RoleLutID`) VALUES (?, ?, ?)"
             Me._adapter.InsertCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("ReportID", Global.System.Data.OleDb.OleDbType.Guid, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ReportID", Global.System.Data.DataRowVersion.Current, false, Nothing))
             Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("PersonID", Global.System.Data.OleDb.OleDbType.Guid, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "PersonID", Global.System.Data.DataRowVersion.Current, false, Nothing))
-            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("RoleID", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "RoleID", Global.System.Data.DataRowVersion.Current, false, Nothing))
+            Me._adapter.InsertCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("RoleLutID", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "RoleLutID", Global.System.Data.DataRowVersion.Current, false, Nothing))
             Me._adapter.UpdateCommand = New Global.System.Data.OleDb.OleDbCommand()
             Me._adapter.UpdateCommand.Connection = Me.Connection
-            Me._adapter.UpdateCommand.CommandText = "UPDATE `RoleInfo` SET `ReportID` = ?, `PersonID` = ?, `RoleID` = ? WHERE ((`ID` ="& _ 
-                " ?) AND ((? = 1 AND `ReportID` IS NULL) OR (`ReportID` = ?)) AND ((? = 1 AND `Pe"& _ 
-                "rsonID` IS NULL) OR (`PersonID` = ?)) AND ((? = 1 AND `RoleID` IS NULL) OR (`Rol"& _ 
-                "eID` = ?)))"
+            Me._adapter.UpdateCommand.CommandText = "UPDATE `RoleInfo` SET `ReportID` = ?, `PersonID` = ?, `RoleLutID` = ? WHERE ((`ID"& _ 
+                "` = ?) AND ((? = 1 AND `ReportID` IS NULL) OR (`ReportID` = ?)) AND ((? = 1 AND "& _ 
+                "`PersonID` IS NULL) OR (`PersonID` = ?)) AND ((? = 1 AND `RoleLutID` IS NULL) OR"& _ 
+                " (`RoleLutID` = ?)))"
             Me._adapter.UpdateCommand.CommandType = Global.System.Data.CommandType.Text
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("ReportID", Global.System.Data.OleDb.OleDbType.Guid, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ReportID", Global.System.Data.DataRowVersion.Current, false, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("PersonID", Global.System.Data.OleDb.OleDbType.Guid, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "PersonID", Global.System.Data.DataRowVersion.Current, false, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("RoleID", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "RoleID", Global.System.Data.DataRowVersion.Current, false, Nothing))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("RoleLutID", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "RoleLutID", Global.System.Data.DataRowVersion.Current, false, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_ID", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ID", Global.System.Data.DataRowVersion.Original, false, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_ReportID", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ReportID", Global.System.Data.DataRowVersion.Original, true, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_ReportID", Global.System.Data.OleDb.OleDbType.Guid, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ReportID", Global.System.Data.DataRowVersion.Original, false, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_PersonID", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "PersonID", Global.System.Data.DataRowVersion.Original, true, Nothing))
             Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_PersonID", Global.System.Data.OleDb.OleDbType.Guid, 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "PersonID", Global.System.Data.DataRowVersion.Original, false, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_RoleID", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "RoleID", Global.System.Data.DataRowVersion.Original, true, Nothing))
-            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_RoleID", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "RoleID", Global.System.Data.DataRowVersion.Original, false, Nothing))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("IsNull_RoleLutID", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "RoleLutID", Global.System.Data.DataRowVersion.Original, true, Nothing))
+            Me._adapter.UpdateCommand.Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("Original_RoleLutID", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "RoleLutID", Global.System.Data.DataRowVersion.Original, false, Nothing))
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -8464,11 +8391,11 @@ Namespace vreportsDataSetTableAdapters
             Me._commandCollection = New Global.System.Data.OleDb.OleDbCommand(1) {}
             Me._commandCollection(0) = New Global.System.Data.OleDb.OleDbCommand()
             Me._commandCollection(0).Connection = Me.Connection
-            Me._commandCollection(0).CommandText = "SELECT * FROM RoleInfo"
+            Me._commandCollection(0).CommandText = "SELECT        ID, ReportID, PersonID, RoleLutID"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            RoleInfo"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(1) = New Global.System.Data.OleDb.OleDbCommand()
             Me._commandCollection(1).Connection = Me.Connection
-            Me._commandCollection(1).CommandText = "SELECT * FROM RoleInfo WHERE (ID = ?)"
+            Me._commandCollection(1).CommandText = "SELECT ID, PersonID, ReportID, RoleLutID FROM RoleInfo WHERE (ID = ?)"
             Me._commandCollection(1).CommandType = Global.System.Data.CommandType.Text
             Me._commandCollection(1).Parameters.Add(New Global.System.Data.OleDb.OleDbParameter("ID", Global.System.Data.OleDb.OleDbType.[Integer], 0, Global.System.Data.ParameterDirection.Input, CType(0,Byte), CType(0,Byte), "ID", Global.System.Data.DataRowVersion.Current, false, Nothing))
         End Sub
@@ -8555,7 +8482,7 @@ Namespace vreportsDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Delete, true)>  _
-        Public Overloads Overridable Function Delete(ByVal Original_ID As Integer, ByVal Original_ReportID As Global.System.Nullable(Of Global.System.Guid), ByVal Original_PersonID As Global.System.Nullable(Of Global.System.Guid), ByVal Original_RoleID As Global.System.Nullable(Of Integer)) As Integer
+        Public Overloads Overridable Function Delete(ByVal Original_ID As Integer, ByVal Original_ReportID As Global.System.Nullable(Of Global.System.Guid), ByVal Original_PersonID As Global.System.Nullable(Of Global.System.Guid), ByVal Original_RoleLutID As Global.System.Nullable(Of Integer)) As Integer
             Me.Adapter.DeleteCommand.Parameters(0).Value = CType(Original_ID,Integer)
             If (Original_ReportID.HasValue = true) Then
                 Me.Adapter.DeleteCommand.Parameters(1).Value = CType(0,Object)
@@ -8571,9 +8498,9 @@ Namespace vreportsDataSetTableAdapters
                 Me.Adapter.DeleteCommand.Parameters(3).Value = CType(1,Object)
                 Me.Adapter.DeleteCommand.Parameters(4).Value = Global.System.DBNull.Value
             End If
-            If (Original_RoleID.HasValue = true) Then
+            If (Original_RoleLutID.HasValue = true) Then
                 Me.Adapter.DeleteCommand.Parameters(5).Value = CType(0,Object)
-                Me.Adapter.DeleteCommand.Parameters(6).Value = CType(Original_RoleID.Value,Integer)
+                Me.Adapter.DeleteCommand.Parameters(6).Value = CType(Original_RoleLutID.Value,Integer)
             Else
                 Me.Adapter.DeleteCommand.Parameters(5).Value = CType(1,Object)
                 Me.Adapter.DeleteCommand.Parameters(6).Value = Global.System.DBNull.Value
@@ -8597,7 +8524,7 @@ Namespace vreportsDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Insert, true)>  _
-        Public Overloads Overridable Function Insert(ByVal ReportID As Global.System.Nullable(Of Global.System.Guid), ByVal PersonID As Global.System.Nullable(Of Global.System.Guid), ByVal RoleID As Global.System.Nullable(Of Integer)) As Integer
+        Public Overloads Overridable Function Insert(ByVal ReportID As Global.System.Nullable(Of Global.System.Guid), ByVal PersonID As Global.System.Nullable(Of Global.System.Guid), ByVal RoleLutID As Global.System.Nullable(Of Integer)) As Integer
             If (ReportID.HasValue = true) Then
                 Me.Adapter.InsertCommand.Parameters(0).Value = CType(ReportID.Value,System.Guid)
             Else
@@ -8608,8 +8535,8 @@ Namespace vreportsDataSetTableAdapters
             Else
                 Me.Adapter.InsertCommand.Parameters(1).Value = Global.System.DBNull.Value
             End If
-            If (RoleID.HasValue = true) Then
-                Me.Adapter.InsertCommand.Parameters(2).Value = CType(RoleID.Value,Integer)
+            If (RoleLutID.HasValue = true) Then
+                Me.Adapter.InsertCommand.Parameters(2).Value = CType(RoleLutID.Value,Integer)
             Else
                 Me.Adapter.InsertCommand.Parameters(2).Value = Global.System.DBNull.Value
             End If
@@ -8632,7 +8559,7 @@ Namespace vreportsDataSetTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Update, true)>  _
-        Public Overloads Overridable Function Update(ByVal ReportID As Global.System.Nullable(Of Global.System.Guid), ByVal PersonID As Global.System.Nullable(Of Global.System.Guid), ByVal RoleID As Global.System.Nullable(Of Integer), ByVal Original_ID As Integer, ByVal Original_ReportID As Global.System.Nullable(Of Global.System.Guid), ByVal Original_PersonID As Global.System.Nullable(Of Global.System.Guid), ByVal Original_RoleID As Global.System.Nullable(Of Integer)) As Integer
+        Public Overloads Overridable Function Update(ByVal ReportID As Global.System.Nullable(Of Global.System.Guid), ByVal PersonID As Global.System.Nullable(Of Global.System.Guid), ByVal RoleLutID As Global.System.Nullable(Of Integer), ByVal Original_ID As Integer, ByVal Original_ReportID As Global.System.Nullable(Of Global.System.Guid), ByVal Original_PersonID As Global.System.Nullable(Of Global.System.Guid), ByVal Original_RoleLutID As Global.System.Nullable(Of Integer)) As Integer
             If (ReportID.HasValue = true) Then
                 Me.Adapter.UpdateCommand.Parameters(0).Value = CType(ReportID.Value,System.Guid)
             Else
@@ -8643,8 +8570,8 @@ Namespace vreportsDataSetTableAdapters
             Else
                 Me.Adapter.UpdateCommand.Parameters(1).Value = Global.System.DBNull.Value
             End If
-            If (RoleID.HasValue = true) Then
-                Me.Adapter.UpdateCommand.Parameters(2).Value = CType(RoleID.Value,Integer)
+            If (RoleLutID.HasValue = true) Then
+                Me.Adapter.UpdateCommand.Parameters(2).Value = CType(RoleLutID.Value,Integer)
             Else
                 Me.Adapter.UpdateCommand.Parameters(2).Value = Global.System.DBNull.Value
             End If
@@ -8663,9 +8590,9 @@ Namespace vreportsDataSetTableAdapters
                 Me.Adapter.UpdateCommand.Parameters(6).Value = CType(1,Object)
                 Me.Adapter.UpdateCommand.Parameters(7).Value = Global.System.DBNull.Value
             End If
-            If (Original_RoleID.HasValue = true) Then
+            If (Original_RoleLutID.HasValue = true) Then
                 Me.Adapter.UpdateCommand.Parameters(8).Value = CType(0,Object)
-                Me.Adapter.UpdateCommand.Parameters(9).Value = CType(Original_RoleID.Value,Integer)
+                Me.Adapter.UpdateCommand.Parameters(9).Value = CType(Original_RoleLutID.Value,Integer)
             Else
                 Me.Adapter.UpdateCommand.Parameters(8).Value = CType(1,Object)
                 Me.Adapter.UpdateCommand.Parameters(9).Value = Global.System.DBNull.Value

@@ -69,7 +69,7 @@ Partial Class frmReportBrowser
         'scSlab.Panel2
         '
         Me.scSlab.Panel2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.scSlab.Panel2.BackgroundColor = New Syncfusion.Drawing.BrushInfo(System.Drawing.Color.WhiteSmoke)
+        Me.scSlab.Panel2.BackgroundColor = New Syncfusion.Drawing.BrushInfo(Syncfusion.Drawing.GradientStyle.Vertical, System.Drawing.Color.White, System.Drawing.Color.White)
         Me.scSlab.Panel2.Controls.Add(Me.btnOpenHG)
         Me.scSlab.Panel2.Controls.Add(Me.btnGear)
         Me.scSlab.Panel2.Controls.Add(Me.bthRefreshDb)

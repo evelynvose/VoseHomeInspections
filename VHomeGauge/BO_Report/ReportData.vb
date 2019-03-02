@@ -8,6 +8,7 @@
 Imports SyncfusionWindowsFormsApplication1
 
 Public MustInherit Class ReportData
+    Inherits VObject
     '
     ' **********************************************
     ' ****
@@ -56,7 +57,7 @@ Public MustInherit Class ReportData
             End With
 
         Catch ex As Exception
-            MsgBox("SetDataFromRow()" & vbCrLf & ex.Message,, "Report Data Class")
+            MsgBox("SetDataFromRow()" & vbCrLf & ex.Message)
             ObjectState = ObjectStates.ErrorCondition
 
         End Try
@@ -87,7 +88,7 @@ Public MustInherit Class ReportData
             End With
 
         Catch ex As Exception
-            MsgBox("SetRowFromData()" & vbCrLf & ex.Message,, "ReportData Class")
+            MsgBox("SetRowFromData()" & vbCrLf & ex.Message)
             bFlag = False
 
         End Try

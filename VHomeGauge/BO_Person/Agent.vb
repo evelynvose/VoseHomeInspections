@@ -38,7 +38,7 @@ Public Class Agent
         ' is not found, a new record is seeded. We do this because HGI creates its own GUID.
         '
         If ObjectState = ObjectStates.ErrorCondition Then
-            MsgBox("New(AgentID)" & vbCrLf & "Not a valid Agent type or GUID!",, "Agent Class")
+            MsgBox("New(AgentID)" & vbCrLf & "Not a valid Agent type or GUID!")
 
         End If
     End Sub
@@ -55,7 +55,7 @@ Public Class Agent
         ' and the name string is not empty or nothing, then a new record is seeded.
         '
         If ObjectState = ObjectStates.ErrorCondition Then
-            MsgBox("New(fullname)" & vbCrLf & "Not a valid two or three part name!",, "Agent Class")
+            MsgBox("New(fullname)" & vbCrLf & "Not a valid two or three part name!")
 
         End If
     End Sub

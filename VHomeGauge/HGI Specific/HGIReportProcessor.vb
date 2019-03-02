@@ -362,6 +362,26 @@ Public Class HGIReportProcessor
             '
         End If
         '
+        ' ***********************************************
+        ' *****     Client's Role
+        ' ***********************************************
+        '
+        ' Since this is an HG report, all clients are in the Buyer's role
+        '
+        Dim theRole As New RoleInfo
+        Try
+            With theRole
+                .PersonID = thePersonID
+                .ReportID = m_ReportID
+                .RoleLutID = PersonRoles.Client
+                .Update()
+                '
+            End With
+            '
+        Catch ex As Exception
+            MsgBox(ex)
+            '
+        End Try
     End Sub
     '
     ' ***********************************************
@@ -395,6 +415,7 @@ Public Class HGIReportProcessor
         ' We probably have a valid Guid so we can instantiate the Agent Object and save the agent to the dB
         '
         Dim theAgent As New Agent(tempGuid)
+        Dim theRole As New RoleInfo
         With theAgent
             For Each node As XmlNode In theParentNode.ChildNodes
                 Select Case node.Name
@@ -410,16 +431,16 @@ Public Class HGIReportProcessor
                     Case "PRole"
                         Select Case node.FirstChild.Value
                             Case "Buyer Agent"
-                                .Role = PersonRoles.BuyerAgent
+                                theRole.RoleLutID = PersonRoles.BuyerAgent
                                 '
                             Case "Listing Agent"
-                                .Role = PersonRoles.SellerAgent
+                                theRole.RoleLutID = PersonRoles.ListingAgent
                                 '
                             Case "Agency Coordinator"
-                                .Role = PersonRoles.AgencyCoordinator
+                                theRole.RoleLutID = PersonRoles.AgencyCoordinator
                                 '
                             Case Else
-                                .Role = -1
+                                theRole.RoleLutID = -1
                                 '
                         End Select
                         '
@@ -434,6 +455,19 @@ Public Class HGIReportProcessor
             Try
                 .Update()
                 '
+                Try
+                    With theRole
+                        .PersonID = tempGuid
+                        .ReportID = m_ReportID
+                        .Update()
+                        '
+                    End With
+                    '
+                Catch ex As Exception
+                    LastErrorMessage = "ParseAgentInformationFromNode()" & vbCrLf & ex.Message
+                    RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.ErrorCondition, LastErrorMessage))
+                    '
+                End Try
             Catch ex As Exception
                 '
                 LastErrorMessage = "ParseAgentInformationFromNode()" & vbCrLf & ex.Message

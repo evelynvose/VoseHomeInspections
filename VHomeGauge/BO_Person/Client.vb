@@ -38,7 +38,7 @@ Public Class Client
         ' is not found, a new record is seeded. We do this because HGI creates its own GUID.
         '
         If ObjectState = ObjectStates.ErrorCondition Then
-            MsgBox("New(ClientID)" & vbCrLf & "Not a valid Client type or GUID!",, "Client Class")
+            MsgBox("New(ClientID)" & vbCrLf & "Not a valid Client type or GUID!")
 
         End If
     End Sub
@@ -55,7 +55,7 @@ Public Class Client
         ' and the name string is not empty or nothing, then a new record is seeded.
         '
         If ObjectState = ObjectStates.ErrorCondition Then
-            MsgBox("New(fullname)" & vbCrLf & "Not a valid two or three part name!",, "Client Class")
+            MsgBox("New(fullname)" & vbCrLf & "Not a valid two or three part name!")
 
         End If
     End Sub

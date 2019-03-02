@@ -6,6 +6,7 @@
 ' **********************************************
 ' 
 Public MustInherit Class VDoWork
+    Inherits VObject
     Implements IDoWorkWorker
     '
     ' **********************************************

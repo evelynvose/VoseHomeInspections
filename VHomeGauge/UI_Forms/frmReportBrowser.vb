@@ -123,6 +123,16 @@ Public Class frmReportBrowser
         MsgBox("Feature not yet implemented!",, "Report Browser")
         '
     End Sub
+
+    Private Sub btnGear_Click(sender As Object, e As EventArgs) Handles btnGear.Click
+        Dim newRoleInfoRepository As RoleInfoRepository
+        '
+        ' This will cause the objects internal Intialize() to be called, thus loading the roleinfo table into memory.
+        '
+        newRoleInfoRepository = New RoleInfoRepository
+
+
+    End Sub
     '
     ' **********************************************
     ' ****

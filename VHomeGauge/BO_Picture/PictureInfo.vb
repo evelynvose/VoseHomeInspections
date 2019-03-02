@@ -46,16 +46,6 @@ Public Class PictureInfo
     ' ****
     ' **********************************************
     '
-    Public ReadOnly Property ID As String
-        Get
-            Dim theSerialNumber As New SerialNumber
-            Return theSerialNumber.Generate
-        End Get
-    End Property
-
-
-
-
     Private m_Path As String
     Public Property Path As String
         Get

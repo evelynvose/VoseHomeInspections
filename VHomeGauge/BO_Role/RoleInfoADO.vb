@@ -6,7 +6,7 @@
 ' **********************************************
 ' 
 Public MustInherit Class RoleInfoADO
-    Inherits RoleInfo
+    Inherits RoleInfoData
     '
     ' **********************************************
     ' ****
@@ -14,7 +14,7 @@ Public MustInherit Class RoleInfoADO
     ' ****
     ' **********************************************
     ' 
-    Friend Sub New(ByVal RoleInfoId As Integer)
+    Friend Sub New()
         MyBase.New()
 
         ' Tell the world that this is a new record
@@ -57,7 +57,7 @@ Public MustInherit Class RoleInfoADO
                     End If
 
                 Catch ex As Exception
-                    MsgBox("LoadByRoleInfoID()" & vbCrLf & ex.Message,, "RoleInfoADO Class")
+                    MsgBox("LoadByRoleInfoID()" & vbCrLf & ex.Message)
 
                 End Try
             End Using 'dt
@@ -74,7 +74,7 @@ Public MustInherit Class RoleInfoADO
     ' An RoleInfo object in the database is only valid under these conditions:
     ' A. Must not be in an error condition.
     '
-    ' 1) It has a RoleInfoID
+    ' ////// 1) It has a RoleInfoID ///// Noooooooo..... autonumber.....
     ' 2) It has both a ReportID and a PersonID
     ' 3) It has a RoleLutID
     '
@@ -93,7 +93,7 @@ Public MustInherit Class RoleInfoADO
         ' Rule 1
         '
         If RoleInfoID < 1 Then
-            bRule_1_Met = False
+            ' bRule_1_Met = False
             '
         End If
         '
@@ -107,7 +107,7 @@ Public MustInherit Class RoleInfoADO
         '
         ' Rule 3
         '
-        If RoleLutID < 1 Then
+        If RoleLutID < 0 Then
             bRule_3_Met = False
             '
         End If
@@ -125,7 +125,7 @@ Public MustInherit Class RoleInfoADO
             sMessage &= "The RoleInfo isn't tagged with both foreign keys."
 
         End If
-        If Not bRule_2_Met Then
+        If Not bRule_3_Met Then
             sMessage &= vbCrLf
             sMessage &= "The RoleLut isn't tagged with a valid foreign key."
 
@@ -134,7 +134,7 @@ Public MustInherit Class RoleInfoADO
         ' Test the flags
         '
         If Not bRule_1_Met OrElse Not bRule_2_Met OrElse Not bRule_3_Met Then
-            MsgBox(sMessage,, "RoleInfoADO Class")
+            MsgBox(sMessage)
             Return False
 
         End If
@@ -180,7 +180,7 @@ Public MustInherit Class RoleInfoADO
                     ta.Update(dt)
                     IsDirty = False
                 Catch ex As Exception
-                    MsgBox("Update()" & vbCrLf & ex.Message,, "RoleADO Class")
+                    MsgBox("Update()" & vbCrLf & ex.Message)
 
                 End Try
 

@@ -114,8 +114,10 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DoWork.vb" />
     <Compile Include="BO_Role\RoleInfo.vb" />
+    <Compile Include="VObject.vb" />
+    <Compile Include="DoWork.vb" />
+    <Compile Include="BO_Role\RoleInfoData.vb" />
     <Compile Include="BO_Role\RoleInfoADO.vb" />
     <Compile Include="BO_Role\RoleInfoRepository.vb" />
     <Compile Include="HGI Specific\HGIReportInfoRepository.vb" />
