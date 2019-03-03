@@ -6,7 +6,7 @@
 ' **********************************************
 '
 Public Class Client
-    Inherits PersonADO
+    Inherits Person
     '
     ' **********************************************
     ' ****
@@ -20,10 +20,11 @@ Public Class Client
     '   
     Public Sub New()
         MyBase.New()
-
-        ' This is what makes this a valid Agent Person
+        '
+        ' Set the PersonType
+        '
         PersonType = PersonTypes.Client
-
+        '
     End Sub
     '
     ' ***********************************************
@@ -41,6 +42,11 @@ Public Class Client
             MsgBox("New(ClientID)" & vbCrLf & "Not a valid Client type or GUID!")
 
         End If
+        '
+        ' Set the PersonType
+        '
+        PersonType = PersonTypes.Client
+        '
     End Sub
     '
     ' ***********************************************
@@ -58,5 +64,10 @@ Public Class Client
             MsgBox("New(fullname)" & vbCrLf & "Not a valid two or three part name!")
 
         End If
+        '
+        ' Set the PersonType
+        '
+        PersonType = PersonTypes.Client
+        '
     End Sub
 End Class

@@ -6,7 +6,7 @@
 ' **********************************************
 '
 Public Class Inspector
-    Inherits PersonADO
+    Inherits Person
     '
     ' **********************************************
     ' ****
@@ -39,8 +39,13 @@ Public Class Inspector
         '
         If ObjectState = ObjectStates.ErrorCondition Then
             MsgBox("New(inspectorID)" & vbCrLf & "Not a valid inspector type or GUID!")
-
+            '
         End If
+        '
+        ' Set the type of person
+        '
+        PersonType = PersonTypes.Inspector
+        '
     End Sub
     '
     ' ***********************************************

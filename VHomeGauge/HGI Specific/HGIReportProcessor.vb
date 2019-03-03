@@ -160,7 +160,7 @@ Public Class HGIReportProcessor
             '
             'Error trapping
             '
-            LastErrorMessage = "btnOpen_Click" & vbCrLf & ex.Message
+            LastErrorMessage = "ProcessTheReport()" & vbCrLf & ex.Message
             RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.ErrorCondition, LastErrorMessage))
             Return False
             '
@@ -174,6 +174,7 @@ Public Class HGIReportProcessor
     ' *****      Parse Report Information From Node
     ' ***********************************************
     ' 
+    Private WithEvents m_Report As InspectionReport
     Private Sub ParseReportInformationFromNode(ByVal node As XmlNode)
         '
         ' Error Checking
@@ -188,9 +189,9 @@ Public Class HGIReportProcessor
         ' Report Basic Information
         '
         Dim parser As New XMLParser(node)
-        Dim theReport As InspectionReport
-        theReport = New InspectionReport(m_ReportID)
-        With theReport
+        m_Report = New InspectionReport(m_ReportID)
+        AddHandler m_Report.VEvent, AddressOf VEvent_Handler
+        With m_Report
             If IsDate(parser.GetPropertyValue("RIDate")) Then
                 .InspectionDate = Date.Parse(parser.GetPropertyValue("prop[@name='RIDate']"))
 
@@ -212,6 +213,7 @@ Public Class HGIReportProcessor
         '
         Dim theInspectionAddress As InspectionAddress
         theInspectionAddress = New InspectionAddress(m_ReportID)
+        AddHandler theInspectionAddress.VEvent, AddressOf VEvent_Handler
         With theInspectionAddress
             .Address1 = parser.GetPropertyValue("prop[@name='RIAddress1']")
             .Address2 = parser.GetPropertyValue("prop[@name='RIAddress2']")
@@ -249,6 +251,7 @@ Public Class HGIReportProcessor
         '
         Dim parser As New XMLParser(node)
         Dim theInspector As New Inspector(parser.GetPropertyValue("prop[@name='RIInspector']"))
+        AddHandler theInspector.VEvent, AddressOf VEvent_Handler
         theInspector.Update()
         '
     End Sub
@@ -286,6 +289,7 @@ Public Class HGIReportProcessor
         ' ***********************************************
         '
         Dim theClient As New Client(thePersonID)
+        AddHandler theClient.VEvent, AddressOf VEvent_Handler
         With theClient
             .FirstName = parser.GetPropertyValue("prop[@name='CFName1']")
             .LastName = parser.GetPropertyValue("prop[@name='CLName1']")
@@ -302,6 +306,7 @@ Public Class HGIReportProcessor
         ' to type the object.
         '
         Dim theClientAddress As ClientAddress = New ClientAddress(thePersonID)
+        AddHandler theClientAddress.VEvent, AddressOf VEvent_Handler
         With theClientAddress
             .Address1 = parser.GetPropertyValue("prop[@name='CAddress']")
             .Address2 = parser.GetPropertyValue("prop[@name='CAddress2']")
@@ -318,25 +323,37 @@ Public Class HGIReportProcessor
         ' *****      Mobile Phone
         ' ***********************************************
         '
-        Dim theMobilePhone As New PersonMobilePhone(thePersonID)
-        theMobilePhone.Number = parser.GetPropertyValue("prop[@name='CMobilePhone']")
-        theMobilePhone.Update()
+        If parser.GetPropertyValue("prop[@name='CMobilePhone']") <> "" Then
+            Dim theMobilePhone As New PersonMobilePhone(thePersonID)
+            AddHandler theMobilePhone.VEvent, AddressOf VEvent_Handler
+            theMobilePhone.Number = parser.GetPropertyValue("prop[@name='CMobilePhone']")
+            theMobilePhone.Update()
+            '
+        End If
         '
         ' ***********************************************
         ' *****      Home Phone
         ' ***********************************************
         '
-        Dim theHomePhone As New PersonHomePhone(thePersonID)
-        theHomePhone.Number = parser.GetPropertyValue("prop[@name='CHomePhone']")
-        theHomePhone.Update()
+        If parser.GetPropertyValue("prop[@name='CHomePhone']") <> "" Then
+            Dim theHomePhone As New PersonHomePhone(thePersonID)
+            AddHandler theHomePhone.VEvent, AddressOf VEvent_Handler
+            theHomePhone.Number = parser.GetPropertyValue("prop[@name='CHomePhone']")
+            theHomePhone.Update()
+            '
+        End If
         '
         ' ***********************************************
         ' *****      Work Phone
         ' ***********************************************
         '
-        Dim theWorkPhone As New PersonWorkPhone(thePersonID)
-        theWorkPhone.Number = parser.GetPropertyValue("prop[@name='CWorkPhone']")
-        theWorkPhone.Update()
+        If parser.GetPropertyValue("prop[@name='CWorkPhone']") <> "" Then
+            Dim theWorkPhone As New PersonWorkPhone(thePersonID)
+            AddHandler theWorkPhone.VEvent, AddressOf VEvent_Handler
+            theWorkPhone.Number = parser.GetPropertyValue("prop[@name='CWorkPhone']")
+            theWorkPhone.Update()
+            '
+        End If
         '
         ' ***********************************************
         ' *****     Primary Email Address
@@ -345,6 +362,7 @@ Public Class HGIReportProcessor
         If parser.GetPropertyValue("prop[@name='CEmail']") <> "" Then
             Dim thePrimaryEmailAddress As EmailAddress
             thePrimaryEmailAddress = New EmailAddress(thePersonID, EmailAddressTypes.Primary)
+            AddHandler thePrimaryEmailAddress.VEvent, AddressOf VEvent_Handler
             thePrimaryEmailAddress.URL = parser.GetPropertyValue("prop[@name='CEmail']")
             thePrimaryEmailAddress.Update()
             '
@@ -357,6 +375,7 @@ Public Class HGIReportProcessor
         If parser.GetPropertyValue("prop[@name='CEmail2']") <> "" Then
             Dim theSecondEmailAddress As EmailAddress
             theSecondEmailAddress = New EmailAddress(thePersonID, EmailAddressTypes.Second)
+            AddHandler theSecondEmailAddress.VEvent, AddressOf VEvent_Handler
             theSecondEmailAddress.URL = parser.GetPropertyValue("prop[@name='CEmail2']")
             theSecondEmailAddress.Update()
             '
@@ -368,20 +387,22 @@ Public Class HGIReportProcessor
         '
         ' Since this is an HG report, all clients are in the Buyer's role
         '
-        Dim theRole As New RoleInfo
-        Try
-            With theRole
-                .PersonID = thePersonID
-                .ReportID = m_ReportID
-                .RoleLutID = RoleTypes.Client
-                .Update()
+        If RoleInfo.Find(theClient, m_Report) = 0 Then
+            Dim theRole As New RoleInfo
+            Try
+                With theRole
+                    .PersonID = thePersonID
+                    .ReportID = m_ReportID
+                    .RoleLutID = RoleTypes.Client
+                    .Update()
+                    '
+                End With
                 '
-            End With
-            '
-        Catch ex As Exception
-            MsgBox(ex)
-            '
-        End Try
+            Catch ex As Exception
+                MsgBox(ex)
+                '
+            End Try
+        End If
     End Sub
     '
     ' ***********************************************
@@ -416,6 +437,8 @@ Public Class HGIReportProcessor
         '
         Dim theAgent As New Agent(tempGuid)
         Dim theRole As New RoleInfo
+        AddHandler theAgent.VEvent, AddressOf VEvent_Handler
+        AddHandler theAgent.VEvent, AddressOf VEvent_Handler
         With theAgent
             For Each node As XmlNode In theParentNode.ChildNodes
                 Select Case node.Name
@@ -456,12 +479,14 @@ Public Class HGIReportProcessor
                 .Update()
                 '
                 Try
-                    With theRole
-                        .PersonID = tempGuid
-                        .ReportID = m_ReportID
-                        .Update()
-                        '
-                    End With
+                    If RoleInfo.Find(theAgent, m_Report) = 0 Then
+                        With theRole
+                            .PersonID = tempGuid
+                            .ReportID = m_ReportID
+                            .Update()
+                            '
+                        End With
+                    End If
                     '
                 Catch ex As Exception
                     LastErrorMessage = "ParseAgentInformationFromNode()" & vbCrLf & ex.Message
@@ -477,6 +502,15 @@ Public Class HGIReportProcessor
             '
         End With
         '
+    End Sub
+    '
+    ' ***********************************************
+    ' *****      -VEvent(object, object)
+    ' ***********************************************
+    ' 
+    Private Sub VEvent_Handler(sender As Object, e As VEventArgs)
+        RaiseVEvent(sender, e)
+
     End Sub
     '
     ' **********************************************

@@ -10,7 +10,7 @@ Public MustInherit Class EmailAddressADO
     '
     ' **********************************************
     ' ****
-    ' ******    Constructor/Destructor
+    ' ******    Constructor
     ' ****
     ' **********************************************
     ' 
@@ -112,15 +112,6 @@ Public MustInherit Class EmailAddressADO
         EmailAddressID = Guid.NewGuid()
         EmailAddressType = theemailaddresstype
         ObjectState = ObjectStates.NewRecord
-
-    End Sub
-    '
-    ' ***********************************************
-    ' *****     Finalize
-    ' ***********************************************
-    '
-    Protected Overrides Sub Finalize()
-        Update()
 
     End Sub
     '

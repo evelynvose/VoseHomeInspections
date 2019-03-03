@@ -10,24 +10,21 @@ Public MustInherit Class RoleInfoADO
     '
     ' **********************************************
     ' ****
-    ' ******    Constructor/Destructor
+    ' ******    Constructor
     ' ****
     ' **********************************************
     ' 
-    Friend Sub New()
+    '
+    ' ***********************************************
+    ' *****     #New()
+    ' ***********************************************
+    '
+    Protected Sub New()
         MyBase.New()
-
+        '
         ' Tell the world that this is a new record
+        '
         ObjectState = ObjectStates.NewRecord
-
-    End Sub
-    '
-    ' ***********************************************
-    ' *****     Finalize
-    ' ***********************************************
-    '
-    Protected Overrides Sub Finalize()
-        Update()
 
     End Sub
     '
@@ -39,7 +36,7 @@ Public MustInherit Class RoleInfoADO
     ' 
     '
     ' ***********************************************
-    ' *****     Load By PhoneID
+    ' *****     -LoadByID(integer):integer
     ' ***********************************************
     '
     Private Function LoadByID(ByVal id As Integer) As ObjectStates
@@ -53,22 +50,72 @@ Public MustInherit Class RoleInfoADO
                     If dt.Count > 0 Then
                         SetDataFromRow(dt.Rows(0))
                         ObjectState = ObjectStates.ExistingRecord
-
+                        '
                     End If
-
+                    '
                 Catch ex As Exception
                     MsgBox("LoadByRoleInfoID()" & vbCrLf & ex.Message)
-
+                    '
                 End Try
             End Using 'dt
         End Using 'ta
-
+        '
         Return ObjectState
-
+        '
     End Function
     '
     ' ***********************************************
-    ' *****     Phone Rule Check
+    ' *****     -Find(object):guid
+    ' ***********************************************
+    '
+    Shared Function Find(ByVal theID As Integer) As Integer
+        Using ta As vreportsDataSetTableAdapters.RoleInfoTableAdapter = New vreportsDataSetTableAdapters.RoleInfoTableAdapter
+            Using dt As vreportsDataSet.RoleInfoDataTable = New vreportsDataSet.RoleInfoDataTable
+                Try
+                    ta.FillByRoleInfoID(dt, theID)
+                    If dt.Rows.Count > 0 Then
+                        Return dt.Rows(0).Item("ID")
+                    End If
+                    '
+                Catch ex As Exception
+                    ' MsgBox("Find(Person)" & vbCrLf & ex.Message)
+                    '
+                End Try
+                '
+            End Using 'dt
+        End Using 'ta
+        '
+        Return 0
+        '
+    End Function
+    '
+    ' ***********************************************
+    ' *****     -Find(object, object):guid
+    ' ***********************************************
+    '
+    Shared Function Find(ByVal thePerson As Person, ByVal theReport As Report) As Integer
+        Using ta As vreportsDataSetTableAdapters.RoleInfoTableAdapter = New vreportsDataSetTableAdapters.RoleInfoTableAdapter
+            Using dt As vreportsDataSet.RoleInfoDataTable = New vreportsDataSet.RoleInfoDataTable
+                Try
+                    ta.FillByReportIDAndPersonID(dt, theReport.ReportID, thePerson.PersonID)
+                    If dt.Rows.Count > 0 Then
+                        Return dt.Rows(0).Item("ID")
+                    End If
+                    '
+                Catch ex As Exception
+                    ' MsgBox("Find(Person)" & vbCrLf & ex.Message)
+                    '
+                End Try
+                '
+            End Using 'dt
+        End Using 'ta
+        '
+        Return 0
+        '
+    End Function
+    '
+    ' ***********************************************
+    ' *****     -RoleRuleCheck():boolean
     ' ***********************************************
     '
     ' An RoleInfo object in the database is only valid under these conditions:
@@ -118,17 +165,17 @@ Public MustInherit Class RoleInfoADO
         If Not bRule_1_Met Then
             sMessage &= vbCrLf
             sMessage &= "The RoleInfoID is invalid."
-
+            '
         End If
         If Not bRule_2_Met Then
             sMessage &= vbCrLf
             sMessage &= "The RoleInfo isn't tagged with both foreign keys."
-
+            '
         End If
         If Not bRule_3_Met Then
             sMessage &= vbCrLf
             sMessage &= "The RoleLut isn't tagged with a valid foreign key."
-
+            '
         End If
         '
         ' Test the flags
@@ -136,17 +183,17 @@ Public MustInherit Class RoleInfoADO
         If Not bRule_1_Met OrElse Not bRule_2_Met OrElse Not bRule_3_Met Then
             MsgBox(sMessage)
             Return False
-
+            '
         End If
         '
         ' Success!
         '
         Return True
-
+        '
     End Function
     '
     ' ***********************************************
-    ' *****     Update
+    ' *****     +Update():boolean
     ' ***********************************************
     '
     Public Function Update() As Boolean
@@ -156,7 +203,7 @@ Public MustInherit Class RoleInfoADO
         '
         If Not RoleRuleCheck() Then
             Return False
-
+            '
         End If
         '
         ' Passed the rule check, so update the record
@@ -167,28 +214,28 @@ Public MustInherit Class RoleInfoADO
                 ta.FillByRoleInfoID(dt, RoleInfoID)
                 If dt.Count = 0 Then
                     row = dt.NewRoleInfoRow
-
+                    '
                 Else
                     row = dt.Rows(0)
-
+                    '
                 End If
-
+                '
                 SetRowFromData(row)
-
+                '
                 Try
                     If dt.Count = 0 Then dt.AddRoleInfoRow(row)
                     ta.Update(dt)
                     IsDirty = False
                 Catch ex As Exception
                     MsgBox("Update()" & vbCrLf & ex.Message)
-
+                    '
                 End Try
-
+                '
             End Using 'ta
         End Using ' dt
-
+        '
         Return IsDirty
-
+        '
     End Function
     '
     ' **********************************************

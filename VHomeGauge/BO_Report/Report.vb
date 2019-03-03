@@ -4,18 +4,18 @@
 ' ******    Class
 ' ****
 ' **********************************************
-'    
-' This passthrough class provides a generic level of abstraction.
 ' 
-Public MustInherit Class Person
-    Inherits PersonADO
+' This passthrough class provides a generic level of abstraction.
+'
+Public MustInherit Class Report
+    Inherits ReportADO
     '
     ' **********************************************
     ' ****
     ' ******    Constructor
     ' ****
     ' **********************************************
-    '     
+    '      
     ' ***********************************************
     ' *****     #New()
     ' ***********************************************
@@ -24,22 +24,13 @@ Public MustInherit Class Person
         MyBase.New()
         '
     End Sub
-    ' 
+    '
     ' ***********************************************
-    ' *****     #New(guid, PersonTypes)
+    ' *****     #New(guid)
     ' ***********************************************
-    '   
-    Protected Sub New(ByVal AgentID As Guid, ByVal theType As PersonTypes)
-        MyBase.New(AgentID, theType)
-        '
-    End Sub
-    ' 
-    ' ***********************************************
-    ' *****     #New(string, PersonTypes)
-    ' ***********************************************
-    '   
-    Protected Sub New(ByVal thefullname As String, ByVal theType As PersonTypes)
-        MyBase.New(thefullname, theType)
+    '
+    Protected Sub New(ByVal anID As Guid)
+        MyBase.New(anID)
         '
     End Sub
 End Class

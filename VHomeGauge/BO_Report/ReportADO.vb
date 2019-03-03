@@ -10,7 +10,7 @@ Public MustInherit Class ReportADO
     '
     ' **********************************************
     ' ****
-    ' ******    Constructor/Destructor
+    ' ******    Constructor
     ' ****
     ' **********************************************
     ' 
@@ -90,15 +90,6 @@ Public MustInherit Class ReportADO
         ReportID = Guid.NewGuid()
         ReportType = ReportTypes.HomeInspection
         ObjectState = ObjectStates.NewRecord
-
-    End Sub
-    '
-    ' ***********************************************
-    ' *****     Finalize
-    ' ***********************************************
-    '
-    Protected Overrides Sub Finalize()
-        Update()
 
     End Sub
     '

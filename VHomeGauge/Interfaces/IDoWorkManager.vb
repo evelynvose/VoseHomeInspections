@@ -11,7 +11,7 @@ Public Interface IDoWorkManager
     '    
     Sub SetDoWorkClass(ByRef DoWorkClass As VDoWork)
     Sub LaunchDoWork()
-    Sub DoWorkEventHandlingFunction(ByVal sender As Object, ByVal e As VDoWorkEventArgs)
+    Sub DoWorkEvent_Handler(ByVal sender As Object, ByVal e As VDoWorkEventArgs)
     '
     ' **********************************************
     ' ****

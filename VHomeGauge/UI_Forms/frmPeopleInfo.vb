@@ -21,8 +21,8 @@ Public Class frmPeopleInfo
     ' *****
     ' ***********************************************
     '
-    Private m_PersonInfo As Person
-    Public Sub New(ByRef thePerson As Person)
+    Private m_PersonInfo As PersonInfo
+    Public Sub New(ByRef thePerson As PersonInfo)
 
         ' This call is required by the designer.
         InitializeComponent()

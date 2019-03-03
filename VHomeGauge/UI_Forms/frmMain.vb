@@ -330,7 +330,7 @@ Public Class frmMain
     ' ***********************************************
     '
     Private Sub dgPeopleInfo_Click(sender As Object, e As EventArgs) Handles dgPeopleInfo.SelectionChanged
-        Dim frmPeopleInfo As New frmPeopleInfo(TryCast(dgPeopleInfo.SelectedItem, Person))
+        Dim frmPeopleInfo As New frmPeopleInfo(TryCast(dgPeopleInfo.SelectedItem, PersonInfo))
         frmPeopleInfo.ShowDialog()
 
     End Sub

@@ -112,15 +112,6 @@ Public MustInherit Class PersonADO
 
     End Sub
     '
-    ' ***********************************************
-    ' *****     Finalize
-    ' ***********************************************
-    '
-    Protected Overrides Sub Finalize()
-        Update()
-
-    End Sub
-    '
     ' **********************************************
     ' ****
     ' ******    Methods

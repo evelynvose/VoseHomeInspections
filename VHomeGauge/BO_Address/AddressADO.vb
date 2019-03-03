@@ -10,7 +10,7 @@ Public MustInherit Class AddressADO
     '
     ' **********************************************
     ' ****
-    ' ******    Constructor/Destructor
+    ' ******    Constructor
     ' ****
     ' **********************************************
     ' 
@@ -83,15 +83,6 @@ Public MustInherit Class AddressADO
 
         End Select
         ObjectState = ObjectStates.NewRecord
-
-    End Sub
-    '
-    ' ***********************************************
-    ' *****     Finalize
-    ' ***********************************************
-    '
-    Protected Overrides Sub Finalize()
-        Update()
 
     End Sub
     '

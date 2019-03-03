@@ -237,7 +237,7 @@ End Class
 ' **********************************************
 ' 
 Public Enum PersonTypes As Integer ' Must match database!
-    Unassigned = 1
+    Unassigned = -1
     Null
     Client
     Agent

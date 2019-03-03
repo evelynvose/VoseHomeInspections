@@ -130,7 +130,8 @@ Public Class dlgVProgressBar
         ' Add an event handler for the particular DoWorkClass
         '     Note that this is a hack that will require adding a test for every DoWorkClass that we create.
         '
-        AddHandler CType(m_DoWorkClass, VDoWork).DoWorkEvent, AddressOf DoWorkEventHandlingFunction
+        AddHandler m_DoWorkClass.DoWorkEvent, AddressOf DoWorkEvent_Handler
+        AddHandler m_DoWorkClass.VEvent, AddressOf VEvent_Handler
         '
     End Sub
 
@@ -146,7 +147,7 @@ Public Class dlgVProgressBar
     ' *****     DoWork Event Handling Function
     ' ***********************************************
     '
-    Private Sub DoWorkEventHandlingFunction(ByVal sender As Object, ByVal e As VDoWorkEventArgs) Implements IDoWorkManager.DoWorkEventHandlingFunction
+    Private Sub DoWorkEvent_Handler(ByVal sender As Object, ByVal e As VDoWorkEventArgs) Implements IDoWorkManager.DoWorkEvent_Handler
         Select Case e.EventType
             Case VDoWorkEventArgTypes.Informational
                 InfoMessage = e.Message
@@ -169,6 +170,15 @@ Public Class dlgVProgressBar
         If e.EventType = VDoWorkEventArgTypes.Informational Then
             '
         End If
+        '
+    End Sub
+    '
+    ' ***********************************************
+    ' *****     -VEvent_Handler(object, object)
+    ' ***********************************************
+    '
+    Private Sub VEvent_Handler(ByVal sender As Object, ByVal e As VEventArgs)
+        MsgBox(e.Message)
         '
     End Sub
     '

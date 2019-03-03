@@ -6,7 +6,7 @@
 ' **********************************************
 ' 
 Public Class InspectionReport
-    Inherits ReportADO
+    Inherits Report
     '
     ' **********************************************
     ' ****

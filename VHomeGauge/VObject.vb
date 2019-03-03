@@ -87,6 +87,14 @@ Public MustInherit Class VObject
         '
     End Sub
     '
+    ' ***********************************************
+    ' *****      #RaiseEvent(object, object)
+    ' ***********************************************
+    ' 
+    Protected Sub RaiseVEvent(ByVal sender As Object, ByVal e As VEventArgs)
+        RaiseEvent VEvent(sender, e)
+    End Sub
+    '
     ' **********************************************
     ' ****
     ' ******    Events

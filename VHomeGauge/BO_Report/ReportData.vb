@@ -85,17 +85,17 @@ Public MustInherit Class ReportData
                 .SpecialNotes = SpecialNotes
                 .AppointmentID = AppointmentID
                 .ReportType = ReportType
-
+                '
             End With
-
+            '
         Catch ex As Exception
             MsgBox("SetRowFromData()" & vbCrLf & ex.Message)
             bFlag = False
-
+            '
         End Try
-
+        '
         Return bFlag
-
+        '
     End Function
     '
     '
@@ -129,7 +129,7 @@ Public MustInherit Class ReportData
     '
     ' ReportID, which is the primary key
     '
-    Protected Property ReportID As Guid
+    Public Property ReportID As Guid
         Get
             Return m_ReportID
         End Get
@@ -167,10 +167,10 @@ Public MustInherit Class ReportData
     '
     Public ReadOnly Property IsNew As Boolean
         Get
-            If m_ObjectState = ObjectStates.NewRecord Then Return True
-
+            If m_ObjectState = ObjectStates.NewRecord Then
+                Return True
+            End If
             Return False
-
         End Get
     End Property
     '

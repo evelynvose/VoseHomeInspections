@@ -32,7 +32,7 @@ Public MustInherit Class PeopleRepository
     ' ****
     ' **********************************************
     ' 
-    Public Function GetList() As BindingList(Of Person)
+    Public Function GetList() As BindingList(Of PersonInfo)
 
         ' Let's make sure we don't keep adding and adding to the list!
         If IsLoaded Then
@@ -57,7 +57,7 @@ Public MustInherit Class PeopleRepository
         While Not reader.EndOfStream
             Dim splitArray() As String = reader.ReadLine.Split(",")
 
-            Dim thePerson As New Person
+            Dim thePerson As New PersonInfo
             Try
                 With thePerson
                     .FirstName = CType(splitArray(0), String)
@@ -138,14 +138,14 @@ Public MustInherit Class PeopleRepository
         End Set
     End Property
 
-    Private m_list As BindingList(Of Person)
-    Protected Friend Property PeopleList As IList(Of Person)
+    Private m_list As BindingList(Of PersonInfo)
+    Protected Friend Property PeopleList As IList(Of PersonInfo)
         Get
-            If IsNothing(m_list) Then m_list = New BindingList(Of Person)()
+            If IsNothing(m_list) Then m_list = New BindingList(Of PersonInfo)()
             Return m_list
         End Get
-        Set(value As IList(Of Person))
-            If IsNothing(value) Then value = New BindingList(Of Person)()
+        Set(value As IList(Of PersonInfo))
+            If IsNothing(value) Then value = New BindingList(Of PersonInfo)()
             m_list = value
         End Set
     End Property

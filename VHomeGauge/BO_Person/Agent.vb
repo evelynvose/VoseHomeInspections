@@ -6,7 +6,7 @@
 ' **********************************************
 '
 Public Class Agent
-    Inherits PersonADO
+    Inherits Person
     '
     ' **********************************************
     ' ****
@@ -20,10 +20,11 @@ Public Class Agent
     '   
     Public Sub New()
         MyBase.New()
-
-        ' This is what makes this a valid Agent Person
+        '
+        ' Set the PersonType
+        '
         PersonType = PersonTypes.Agent
-
+        '
     End Sub
     '
     ' ***********************************************
@@ -39,8 +40,13 @@ Public Class Agent
         '
         If ObjectState = ObjectStates.ErrorCondition Then
             MsgBox("New(AgentID)" & vbCrLf & "Not a valid Agent type or GUID!")
-
+            '
         End If
+        '
+        ' Set the PersonType
+        '
+        PersonType = PersonTypes.Agent
+        '
     End Sub
     '
     ' ***********************************************
@@ -56,8 +62,13 @@ Public Class Agent
         '
         If ObjectState = ObjectStates.ErrorCondition Then
             MsgBox("New(fullname)" & vbCrLf & "Not a valid two or three part name!")
-
+            '
         End If
+        '
+        ' Set the PersonType
+        '
+        PersonType = PersonTypes.Agent
+        '
     End Sub
 
 

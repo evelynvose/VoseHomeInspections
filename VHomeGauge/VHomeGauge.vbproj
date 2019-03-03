@@ -114,9 +114,11 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BO_Person\Person.vb" />
+    <Compile Include="BO_Report\Report.vb" />
     <Compile Include="BO_Role\RoleInfo.vb" />
     <Compile Include="VObject.vb" />
-    <Compile Include="DoWork.vb" />
+    <Compile Include="VDoWork.vb" />
     <Compile Include="BO_Role\RoleInfoData.vb" />
     <Compile Include="BO_Role\RoleInfoADO.vb" />
     <Compile Include="BO_Role\RoleInfoRepository.vb" />
@@ -194,7 +196,7 @@
     <Compile Include="UI_Forms\frmPeopleInfo.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BO_Person\Person.vb" />
+    <Compile Include="PersonInfo.vb" />
     <Compile Include="Helper Classes.vb" />
     <Compile Include="BO_Picture\PictureFilter.vb" />
     <Compile Include="BO_Person\PeopleRepository.vb" />

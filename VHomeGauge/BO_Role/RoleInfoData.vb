@@ -5,7 +5,7 @@
 ' ****
 ' **********************************************
 ' 
-Public Class RoleInfoData
+Public MustInherit Class RoleInfoData
     Inherits VObject
     '
     ' **********************************************
@@ -20,11 +20,11 @@ Public Class RoleInfoData
     End Sub
     '
     ' ***********************************************
-    ' *****     Initialize
+    ' *****     -Initialize()
     ' ***********************************************
     '
     Private Sub Initialize()
-
+        '
     End Sub
     '
     ' ***********************************************
@@ -70,15 +70,15 @@ Public Class RoleInfoData
                 .RoleLutID = RoleLutID
                 '
             End With
-
+            '
         Catch ex As Exception
             MsgBox(ex)
             bFlag = False
-
+            '
         End Try
-
+        '
         Return bFlag
-
+        '
     End Function
     '
     '
