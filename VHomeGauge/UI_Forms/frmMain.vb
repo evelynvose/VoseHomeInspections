@@ -237,7 +237,6 @@ Public Class frmMain
         End If
 
     End Sub
-
     '
     ' ***********************************************
     ' *****     Picture Browser Button Event Handler
@@ -326,7 +325,6 @@ Public Class frmMain
     '
     ' ***********************************************
     ' *****     People Data Grid Event
-    ' *****    
     ' ***********************************************
     '
     Private Sub dgPeopleInfo_Click(sender As Object, e As EventArgs) Handles dgPeopleInfo.SelectionChanged
@@ -337,7 +335,6 @@ Public Class frmMain
     '
     ' ***********************************************
     ' *****     Right Splitter Moved
-    ' *****    
     ' ***********************************************
     '
     Private Sub scTabs_SplitterMoved(sender As Object, e As SplitterMoveEventArgs) Handles scTabs.SplitterMoved
@@ -347,12 +344,21 @@ Public Class frmMain
     '
     ' ***********************************************
     ' *****     Left Splitter Moved
-    ' *****    
     ' ***********************************************
     '
     Private Sub scControlsBase_SplitterMoved(sender As Object, e As SplitterMoveEventArgs) Handles scControlsBase.SplitterMoved
         My.Settings.SplitterLeftDistance = e.NewSplitPosition.X
 
+    End Sub
+    '
+    ' ***********************************************
+    ' *****     -miMainFileProperties_Click(object, EventArgs)
+    ' ***********************************************
+    '
+    Private Sub miMainFileProperties_Click(sender As Object, e As EventArgs) Handles miMainFileProperties.Click
+        Dim thePropertiesDialog As New dlgMainFileProperties
+        thePropertiesDialog.ShowDialog()
+        '
     End Sub
     '
 #End Region

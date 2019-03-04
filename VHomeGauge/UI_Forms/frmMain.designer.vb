@@ -45,8 +45,10 @@ Partial Class frmMain
         Dim GridTextColumn3 As Syncfusion.WinForms.DataGrid.GridTextColumn = New Syncfusion.WinForms.DataGrid.GridTextColumn()
         Me.scSlab = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
         Me.scFoundation = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
-        Me.rbBanner = New Syncfusion.Windows.Forms.Tools.RibbonControlAdv()
-        Me.ToolStripTabItem2 = New Syncfusion.Windows.Forms.Tools.ToolStripTabItem()
+        Me.tsMain = New System.Windows.Forms.MenuStrip()
+        Me.miMainFile = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.miMainFileProperties = New System.Windows.Forms.ToolStripMenuItem()
         Me.scControlsBase = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
         Me.scReport = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
         Me.btnAreas = New Syncfusion.Windows.Forms.ButtonAdv()
@@ -76,7 +78,9 @@ Partial Class frmMain
         Me.sbPanCapsLock = New Syncfusion.Windows.Forms.Tools.StatusBarAdvPanel()
         Me.sbPanNumLock = New Syncfusion.Windows.Forms.Tools.StatusBarAdvPanel()
         Me.sbPanInsLock = New Syncfusion.Windows.Forms.Tools.StatusBarAdvPanel()
+        Me.ToolStripTabItem2 = New Syncfusion.Windows.Forms.Tools.ToolStripTabItem()
         Me.ToolStripTabItem1 = New Syncfusion.Windows.Forms.Tools.ToolStripTabItem()
+        Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         CType(Me.scSlab, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.scSlab.Panel1.SuspendLayout()
         Me.scSlab.Panel2.SuspendLayout()
@@ -85,8 +89,7 @@ Partial Class frmMain
         Me.scFoundation.Panel1.SuspendLayout()
         Me.scFoundation.Panel2.SuspendLayout()
         Me.scFoundation.SuspendLayout()
-        CType(Me.rbBanner, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.rbBanner.SuspendLayout()
+        Me.tsMain.SuspendLayout()
         CType(Me.scControlsBase, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.scControlsBase.Panel1.SuspendLayout()
         Me.scControlsBase.Panel2.SuspendLayout()
@@ -133,7 +136,8 @@ Partial Class frmMain
         Me.scSlab.BeforeTouchSize = 7
         Me.scSlab.Dock = System.Windows.Forms.DockStyle.Fill
         Me.scSlab.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.scSlab.Location = New System.Drawing.Point(5, 0)
+        Me.scSlab.Location = New System.Drawing.Point(0, 0)
+        Me.scSlab.Margin = New System.Windows.Forms.Padding(0)
         Me.scSlab.Name = "scSlab"
         Me.scSlab.Orientation = System.Windows.Forms.Orientation.Vertical
         '
@@ -144,7 +148,7 @@ Partial Class frmMain
         'scSlab.Panel2
         '
         Me.scSlab.Panel2.Controls.Add(Me.sbStatusBar)
-        Me.scSlab.Size = New System.Drawing.Size(1098, 639)
+        Me.scSlab.Size = New System.Drawing.Size(1108, 639)
         Me.scSlab.SplitterDistance = 607
         Me.scSlab.TabIndex = 1
         '
@@ -153,67 +157,54 @@ Partial Class frmMain
         Me.scFoundation.BeforeTouchSize = 7
         Me.scFoundation.Dock = System.Windows.Forms.DockStyle.Fill
         Me.scFoundation.Location = New System.Drawing.Point(0, 0)
+        Me.scFoundation.Margin = New System.Windows.Forms.Padding(0)
         Me.scFoundation.Name = "scFoundation"
         Me.scFoundation.Orientation = System.Windows.Forms.Orientation.Vertical
         '
         'scFoundation.Panel1
         '
-        Me.scFoundation.Panel1.Controls.Add(Me.rbBanner)
+        Me.scFoundation.Panel1.Controls.Add(Me.tsMain)
         '
         'scFoundation.Panel2
         '
         Me.scFoundation.Panel2.Controls.Add(Me.scControlsBase)
-        Me.scFoundation.Size = New System.Drawing.Size(1098, 607)
-        Me.scFoundation.SplitterDistance = 78
+        Me.scFoundation.Size = New System.Drawing.Size(1108, 607)
+        Me.scFoundation.SplitterDistance = 26
         Me.scFoundation.TabIndex = 0
         '
-        'rbBanner
+        'tsMain
         '
-        Me.rbBanner.Dock = Syncfusion.Windows.Forms.Tools.DockStyleEx.Fill
-        Me.rbBanner.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.rbBanner.Header.AddMainItem(ToolStripTabItem2)
-        Me.rbBanner.Location = New System.Drawing.Point(0, 0)
-        Me.rbBanner.MenuButtonFont = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.rbBanner.MenuButtonText = ""
-        Me.rbBanner.MenuButtonWidth = 56
-        Me.rbBanner.MenuColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(114, Byte), Integer), CType(CType(198, Byte), Integer))
-        Me.rbBanner.Name = "rbBanner"
-        Me.rbBanner.OfficeColorScheme = Syncfusion.Windows.Forms.Tools.ToolStripEx.ColorScheme.Managed
+        Me.tsMain.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.tsMain.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tsMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.miMainFile})
+        Me.tsMain.Location = New System.Drawing.Point(0, 0)
+        Me.tsMain.Name = "tsMain"
+        Me.tsMain.Padding = New System.Windows.Forms.Padding(0)
+        Me.tsMain.Size = New System.Drawing.Size(1108, 26)
+        Me.tsMain.TabIndex = 0
         '
-        'rbBanner.OfficeMenu
+        'miMainFile
         '
-        Me.rbBanner.OfficeMenu.Name = "OfficeMenu"
-        Me.rbBanner.OfficeMenu.ShowItemToolTips = True
-        Me.rbBanner.OfficeMenu.Size = New System.Drawing.Size(12, 65)
-        Me.rbBanner.QuickPanelImageLayout = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.rbBanner.RibbonHeaderImage = Syncfusion.Windows.Forms.Tools.RibbonHeaderImage.None
-        Me.rbBanner.RibbonStyle = Syncfusion.Windows.Forms.Tools.RibbonStyle.Office2016
-        Me.rbBanner.SelectedTab = Me.ToolStripTabItem2
-        Me.rbBanner.ShowQuickItemsDropDownButton = False
-        Me.rbBanner.ShowRibbonDisplayOptionButton = False
-        Me.rbBanner.Size = New System.Drawing.Size(1098, 78)
-        Me.rbBanner.SystemText.QuickAccessDialogDropDownName = "Start menu"
-        Me.rbBanner.SystemText.RenameDisplayLabelText = "&Display Name:"
-        Me.rbBanner.TabIndex = 0
+        Me.miMainFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripSeparator1, Me.miMainFileProperties})
+        Me.miMainFile.Name = "miMainFile"
+        Me.miMainFile.Size = New System.Drawing.Size(37, 26)
+        Me.miMainFile.Text = "File"
         '
-        'ToolStripTabItem2
+        'ToolStripSeparator1
         '
-        Me.ToolStripTabItem2.Name = "ToolStripTabItem2"
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(177, 6)
         '
-        'rbBanner.RibbonPanel1
+        'miMainFileProperties
         '
-        Me.ToolStripTabItem2.Panel.Name = "RibbonPanel1"
-        Me.ToolStripTabItem2.Panel.ScrollPosition = 0
-        Me.ToolStripTabItem2.Panel.TabIndex = 3
-        Me.ToolStripTabItem2.Panel.Text = "Properties"
-        Me.ToolStripTabItem2.Position = 0
-        Me.ToolStripTabItem2.Size = New System.Drawing.Size(75, 30)
-        Me.ToolStripTabItem2.Tag = "2"
-        Me.ToolStripTabItem2.Text = "Properties"
+        Me.miMainFileProperties.Image = Global.SyncfusionWindowsFormsApplication1.My.Resources.Resources._property
+        Me.miMainFileProperties.Name = "miMainFileProperties"
+        Me.miMainFileProperties.Size = New System.Drawing.Size(180, 22)
+        Me.miMainFileProperties.Text = "Properties"
         '
         'scControlsBase
         '
-        Me.scControlsBase.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.scControlsBase.BackColor = System.Drawing.Color.LightSteelBlue
         Me.scControlsBase.BeforeTouchSize = 7
         Me.scControlsBase.Dock = System.Windows.Forms.DockStyle.Fill
         Me.scControlsBase.Location = New System.Drawing.Point(0, 0)
@@ -228,12 +219,13 @@ Partial Class frmMain
         '
         Me.scControlsBase.Panel2.Controls.Add(Me.scTabs)
         Me.scControlsBase.Panel2MinSize = 50
-        Me.scControlsBase.Size = New System.Drawing.Size(1098, 522)
-        Me.scControlsBase.SplitterDistance = 173
+        Me.scControlsBase.Size = New System.Drawing.Size(1108, 574)
+        Me.scControlsBase.SplitterDistance = 174
         Me.scControlsBase.TabIndex = 3
         '
         'scReport
         '
+        Me.scReport.BackColor = System.Drawing.Color.LightSteelBlue
         Me.scReport.BeforeTouchSize = 7
         Me.scReport.Dock = System.Windows.Forms.DockStyle.Fill
         Me.scReport.FixedPanel = Syncfusion.Windows.Forms.Tools.Enums.FixedPanel.Panel1
@@ -256,7 +248,7 @@ Partial Class frmMain
         '
         Me.scReport.Panel2.Controls.Add(Me.tvAreaNavigator)
         Me.scReport.Panel2MinSize = 50
-        Me.scReport.Size = New System.Drawing.Size(173, 522)
+        Me.scReport.Size = New System.Drawing.Size(174, 574)
         Me.scReport.SplitterDistance = 200
         Me.scReport.TabIndex = 0
         Me.scReport.ThemesEnabled = True
@@ -267,13 +259,13 @@ Partial Class frmMain
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnAreas.Appearance = Syncfusion.Windows.Forms.ButtonAppearance.Metro
         Me.btnAreas.BackColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(165, Byte), Integer), CType(CType(220, Byte), Integer))
-        Me.btnAreas.BeforeTouchSize = New System.Drawing.Size(173, 40)
+        Me.btnAreas.BeforeTouchSize = New System.Drawing.Size(174, 40)
         Me.btnAreas.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnAreas.ForeColor = System.Drawing.Color.White
         Me.btnAreas.IsBackStageButton = False
         Me.btnAreas.Location = New System.Drawing.Point(0, 160)
         Me.btnAreas.Name = "btnAreas"
-        Me.btnAreas.Size = New System.Drawing.Size(173, 40)
+        Me.btnAreas.Size = New System.Drawing.Size(174, 40)
         Me.btnAreas.TabIndex = 4
         Me.btnAreas.Text = "Areas"
         Me.btnAreas.UseVisualStyle = True
@@ -284,13 +276,13 @@ Partial Class frmMain
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnGeneralInfo.Appearance = Syncfusion.Windows.Forms.ButtonAppearance.Metro
         Me.btnGeneralInfo.BackColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(165, Byte), Integer), CType(CType(220, Byte), Integer))
-        Me.btnGeneralInfo.BeforeTouchSize = New System.Drawing.Size(173, 40)
+        Me.btnGeneralInfo.BeforeTouchSize = New System.Drawing.Size(174, 40)
         Me.btnGeneralInfo.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnGeneralInfo.ForeColor = System.Drawing.Color.White
         Me.btnGeneralInfo.IsBackStageButton = False
         Me.btnGeneralInfo.Location = New System.Drawing.Point(0, 120)
         Me.btnGeneralInfo.Name = "btnGeneralInfo"
-        Me.btnGeneralInfo.Size = New System.Drawing.Size(173, 40)
+        Me.btnGeneralInfo.Size = New System.Drawing.Size(174, 40)
         Me.btnGeneralInfo.TabIndex = 3
         Me.btnGeneralInfo.Text = "General Info"
         Me.btnGeneralInfo.UseVisualStyle = True
@@ -301,13 +293,13 @@ Partial Class frmMain
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnMiscellaneous.Appearance = Syncfusion.Windows.Forms.ButtonAppearance.Metro
         Me.btnMiscellaneous.BackColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(165, Byte), Integer), CType(CType(220, Byte), Integer))
-        Me.btnMiscellaneous.BeforeTouchSize = New System.Drawing.Size(173, 40)
+        Me.btnMiscellaneous.BeforeTouchSize = New System.Drawing.Size(174, 40)
         Me.btnMiscellaneous.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnMiscellaneous.ForeColor = System.Drawing.Color.White
         Me.btnMiscellaneous.IsBackStageButton = False
         Me.btnMiscellaneous.Location = New System.Drawing.Point(0, 80)
         Me.btnMiscellaneous.Name = "btnMiscellaneous"
-        Me.btnMiscellaneous.Size = New System.Drawing.Size(173, 40)
+        Me.btnMiscellaneous.Size = New System.Drawing.Size(174, 40)
         Me.btnMiscellaneous.TabIndex = 2
         Me.btnMiscellaneous.Text = "Miscellaneous"
         Me.btnMiscellaneous.UseVisualStyle = True
@@ -318,13 +310,13 @@ Partial Class frmMain
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnReportInfo.Appearance = Syncfusion.Windows.Forms.ButtonAppearance.Metro
         Me.btnReportInfo.BackColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(165, Byte), Integer), CType(CType(220, Byte), Integer))
-        Me.btnReportInfo.BeforeTouchSize = New System.Drawing.Size(173, 40)
+        Me.btnReportInfo.BeforeTouchSize = New System.Drawing.Size(174, 40)
         Me.btnReportInfo.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnReportInfo.ForeColor = System.Drawing.Color.White
         Me.btnReportInfo.IsBackStageButton = False
         Me.btnReportInfo.Location = New System.Drawing.Point(0, 40)
         Me.btnReportInfo.Name = "btnReportInfo"
-        Me.btnReportInfo.Size = New System.Drawing.Size(173, 40)
+        Me.btnReportInfo.Size = New System.Drawing.Size(174, 40)
         Me.btnReportInfo.TabIndex = 1
         Me.btnReportInfo.Text = "ReportInfo"
         Me.btnReportInfo.UseVisualStyle = True
@@ -335,13 +327,13 @@ Partial Class frmMain
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnCustomer.Appearance = Syncfusion.Windows.Forms.ButtonAppearance.Metro
         Me.btnCustomer.BackColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(165, Byte), Integer), CType(CType(220, Byte), Integer))
-        Me.btnCustomer.BeforeTouchSize = New System.Drawing.Size(173, 40)
+        Me.btnCustomer.BeforeTouchSize = New System.Drawing.Size(174, 40)
         Me.btnCustomer.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btnCustomer.ForeColor = System.Drawing.Color.White
         Me.btnCustomer.IsBackStageButton = False
         Me.btnCustomer.Location = New System.Drawing.Point(0, 0)
         Me.btnCustomer.Name = "btnCustomer"
-        Me.btnCustomer.Size = New System.Drawing.Size(173, 40)
+        Me.btnCustomer.Size = New System.Drawing.Size(174, 40)
         Me.btnCustomer.TabIndex = 0
         Me.btnCustomer.Text = "Customer"
         Me.btnCustomer.UseVisualStyle = True
@@ -349,10 +341,11 @@ Partial Class frmMain
         'tvAreaNavigator
         '
         Me.tvAreaNavigator.AccelerateScrolling = Syncfusion.Windows.Forms.AccelerateScrollingBehavior.Immediate
+        Me.tvAreaNavigator.BackColor = System.Drawing.Color.WhiteSmoke
         TreeNodeAdvStyleInfo1.EnsureDefaultOptionedChild = True
         TreeNodeAdvStyleInfo1.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tvAreaNavigator.BaseStylePairs.AddRange(New Syncfusion.Windows.Forms.Tools.StyleNamePair() {New Syncfusion.Windows.Forms.Tools.StyleNamePair("Standard", TreeNodeAdvStyleInfo1)})
-        Me.tvAreaNavigator.BeforeTouchSize = New System.Drawing.Size(173, 315)
+        Me.tvAreaNavigator.BeforeTouchSize = New System.Drawing.Size(174, 367)
         Me.tvAreaNavigator.Border3DStyle = System.Windows.Forms.Border3DStyle.Flat
         Me.tvAreaNavigator.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.tvAreaNavigator.Dock = System.Windows.Forms.DockStyle.Fill
@@ -443,7 +436,7 @@ Partial Class frmMain
         TreeNodeAdv5.Text = "Exterior"
         Me.tvAreaNavigator.Nodes.AddRange(New Syncfusion.Windows.Forms.Tools.TreeNodeAdv() {TreeNodeAdv1, TreeNodeAdv5})
         Me.tvAreaNavigator.SelectedNodeForeColor = System.Drawing.SystemColors.HighlightText
-        Me.tvAreaNavigator.Size = New System.Drawing.Size(173, 315)
+        Me.tvAreaNavigator.Size = New System.Drawing.Size(174, 367)
         Me.tvAreaNavigator.TabIndex = 0
         Me.tvAreaNavigator.Text = "TreeViewAdv1"
         '
@@ -459,20 +452,23 @@ Partial Class frmMain
         '
         'scTabs
         '
-        Me.scTabs.BeforeTouchSize = 7
+        Me.scTabs.BeforeTouchSize = 5
         Me.scTabs.Dock = System.Windows.Forms.DockStyle.Fill
         Me.scTabs.Location = New System.Drawing.Point(0, 0)
         Me.scTabs.Name = "scTabs"
         '
         'scTabs.Panel1
         '
+        Me.scTabs.Panel1.BackColor = System.Drawing.Color.WhiteSmoke
         Me.scTabs.Panel1.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.scTabs.Panel1.Margin = New System.Windows.Forms.Padding(0)
         '
         'scTabs.Panel2
         '
         Me.scTabs.Panel2.Controls.Add(Me.scLists)
-        Me.scTabs.Size = New System.Drawing.Size(918, 522)
-        Me.scTabs.SplitterDistance = 700
+        Me.scTabs.Size = New System.Drawing.Size(927, 574)
+        Me.scTabs.SplitterDistance = 706
+        Me.scTabs.SplitterWidth = 5
         Me.scTabs.TabIndex = 0
         '
         'scLists
@@ -495,14 +491,15 @@ Partial Class frmMain
         'scLists.Panel2
         '
         Me.scLists.Panel2.Controls.Add(Me.tcFilmstrip)
-        Me.scLists.Size = New System.Drawing.Size(211, 522)
+        Me.scLists.Size = New System.Drawing.Size(216, 574)
         Me.scLists.SplitterDistance = 50
         Me.scLists.TabIndex = 0
         '
         'tcFilmstrip
         '
         Me.tcFilmstrip.ActiveTabForeColor = System.Drawing.Color.Empty
-        Me.tcFilmstrip.BeforeTouchSize = New System.Drawing.Size(211, 515)
+        Me.tcFilmstrip.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.tcFilmstrip.BeforeTouchSize = New System.Drawing.Size(216, 567)
         Me.tcFilmstrip.CloseButtonForeColor = System.Drawing.Color.Empty
         Me.tcFilmstrip.CloseButtonHoverForeColor = System.Drawing.Color.Empty
         Me.tcFilmstrip.CloseButtonPressedForeColor = System.Drawing.Color.Empty
@@ -514,7 +511,7 @@ Partial Class frmMain
         Me.tcFilmstrip.Name = "tcFilmstrip"
         Me.tcFilmstrip.SeparatorColor = System.Drawing.SystemColors.ControlDark
         Me.tcFilmstrip.ShowSeparator = False
-        Me.tcFilmstrip.Size = New System.Drawing.Size(211, 515)
+        Me.tcFilmstrip.Size = New System.Drawing.Size(216, 567)
         Me.tcFilmstrip.TabIndex = 0
         '
         'tabPictures
@@ -525,7 +522,7 @@ Partial Class frmMain
         Me.tabPictures.Location = New System.Drawing.Point(1, 25)
         Me.tabPictures.Name = "tabPictures"
         Me.tabPictures.ShowCloseButton = True
-        Me.tabPictures.Size = New System.Drawing.Size(208, 488)
+        Me.tabPictures.Size = New System.Drawing.Size(213, 540)
         Me.tabPictures.TabIndex = 1
         Me.tabPictures.Text = "Pictures"
         Me.tabPictures.ThemesEnabled = False
@@ -549,8 +546,8 @@ Partial Class frmMain
         'spPictreControls.Panel2
         '
         Me.spPictreControls.Panel2.Controls.Add(Me.dgFilmstrip)
-        Me.spPictreControls.Size = New System.Drawing.Size(208, 488)
-        Me.spPictreControls.SplitterDistance = 32
+        Me.spPictreControls.Size = New System.Drawing.Size(213, 540)
+        Me.spPictreControls.SplitterDistance = 35
         Me.spPictreControls.SplitterWidth = 1
         Me.spPictreControls.TabIndex = 0
         Me.spPictreControls.Text = "SplitContainerAdv1"
@@ -561,7 +558,7 @@ Partial Class frmMain
         Me.cbPhotoLocker.BackColor = System.Drawing.Color.FromArgb(CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer), CType(CType(212, Byte), Integer))
         Me.cbPhotoLocker.BeforeTouchSize = New System.Drawing.Size(121, 21)
         Me.cbPhotoLocker.FlatStyle = Syncfusion.Windows.Forms.Tools.ComboFlatStyle.Flat
-        Me.cbPhotoLocker.Location = New System.Drawing.Point(84, 6)
+        Me.cbPhotoLocker.Location = New System.Drawing.Point(89, 6)
         Me.cbPhotoLocker.Name = "cbPhotoLocker"
         Me.cbPhotoLocker.Size = New System.Drawing.Size(121, 21)
         Me.cbPhotoLocker.Style = Syncfusion.Windows.Forms.VisualStyle.Office2016DarkGray
@@ -584,6 +581,7 @@ Partial Class frmMain
         '
         Me.dgFilmstrip.AccessibleName = "Table"
         Me.dgFilmstrip.AutoGenerateColumns = False
+        Me.dgFilmstrip.BackColor = System.Drawing.Color.WhiteSmoke
         GridImageColumn1.AllowEditing = False
         GridImageColumn1.AllowGrouping = False
         GridImageColumn1.AllowResizing = True
@@ -601,7 +599,7 @@ Partial Class frmMain
         Me.dgFilmstrip.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgFilmstrip.Location = New System.Drawing.Point(0, 0)
         Me.dgFilmstrip.Name = "dgFilmstrip"
-        Me.dgFilmstrip.Size = New System.Drawing.Size(208, 455)
+        Me.dgFilmstrip.Size = New System.Drawing.Size(213, 504)
         Me.dgFilmstrip.Style.Border3DStyle = System.Windows.Forms.Border3DStyle.Flat
         Me.dgFilmstrip.Style.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.dgFilmstrip.TabIndex = 0
@@ -614,7 +612,7 @@ Partial Class frmMain
         Me.tabPeople.Location = New System.Drawing.Point(1, 25)
         Me.tabPeople.Name = "tabPeople"
         Me.tabPeople.ShowCloseButton = True
-        Me.tabPeople.Size = New System.Drawing.Size(208, 488)
+        Me.tabPeople.Size = New System.Drawing.Size(213, 540)
         Me.tabPeople.TabIndex = 2
         Me.tabPeople.Text = "People"
         Me.tabPeople.ThemesEnabled = False
@@ -638,8 +636,8 @@ Partial Class frmMain
         'scPeopleControls.Panel2
         '
         Me.scPeopleControls.Panel2.Controls.Add(Me.dgPeopleInfo)
-        Me.scPeopleControls.Size = New System.Drawing.Size(208, 488)
-        Me.scPeopleControls.SplitterDistance = 32
+        Me.scPeopleControls.Size = New System.Drawing.Size(213, 540)
+        Me.scPeopleControls.SplitterDistance = 35
         Me.scPeopleControls.SplitterWidth = 1
         Me.scPeopleControls.TabIndex = 0
         '
@@ -694,14 +692,14 @@ Partial Class frmMain
         Me.dgPeopleInfo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgPeopleInfo.Location = New System.Drawing.Point(0, 0)
         Me.dgPeopleInfo.Name = "dgPeopleInfo"
-        Me.dgPeopleInfo.Size = New System.Drawing.Size(208, 455)
+        Me.dgPeopleInfo.Size = New System.Drawing.Size(213, 504)
         Me.dgPeopleInfo.TabIndex = 1
         '
         'sbStatusBar
         '
         Me.sbStatusBar.Alignment = Syncfusion.Windows.Forms.Tools.FlowAlignment.Far
         Me.sbStatusBar.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.sbStatusBar.BeforeTouchSize = New System.Drawing.Size(1098, 28)
+        Me.sbStatusBar.BeforeTouchSize = New System.Drawing.Size(1108, 28)
         Me.sbStatusBar.BorderSingle = System.Windows.Forms.ButtonBorderStyle.None
         Me.sbStatusBar.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.sbStatusBar.Controls.Add(Me.sbPanelTemplateIcon)
@@ -717,7 +715,7 @@ Partial Class frmMain
         Me.sbStatusBar.Location = New System.Drawing.Point(0, -3)
         Me.sbStatusBar.Name = "sbStatusBar"
         Me.sbStatusBar.Padding = New System.Windows.Forms.Padding(3)
-        Me.sbStatusBar.Size = New System.Drawing.Size(1098, 28)
+        Me.sbStatusBar.Size = New System.Drawing.Size(1108, 28)
         Me.sbStatusBar.Spacing = New System.Drawing.Size(2, 2)
         Me.sbStatusBar.TabIndex = 1
         Me.sbStatusBar.ThemesEnabled = True
@@ -730,7 +728,7 @@ Partial Class frmMain
         Me.sbPanelTemplateIcon.BorderSingle = System.Windows.Forms.ButtonBorderStyle.None
         Me.sbPanelTemplateIcon.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.sbPanelTemplateIcon.Icon = CType(resources.GetObject("sbPanelTemplateIcon.Icon"), System.Drawing.Icon)
-        Me.sbPanelTemplateIcon.Location = New System.Drawing.Point(368, 2)
+        Me.sbPanelTemplateIcon.Location = New System.Drawing.Point(381, 2)
         Me.sbPanelTemplateIcon.Margin = New System.Windows.Forms.Padding(0)
         Me.sbPanelTemplateIcon.Name = "sbPanelTemplateIcon"
         Me.sbPanelTemplateIcon.Size = New System.Drawing.Size(24, 24)
@@ -750,7 +748,7 @@ Partial Class frmMain
         Me.sbPanTemplatePath.CustomOFFText = ""
         Me.sbPanTemplatePath.CustomONText = ""
         Me.sbPanTemplatePath.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.sbPanTemplatePath.Location = New System.Drawing.Point(394, 2)
+        Me.sbPanTemplatePath.Location = New System.Drawing.Point(407, 2)
         Me.sbPanTemplatePath.Margin = New System.Windows.Forms.Padding(0)
         Me.sbPanTemplatePath.Name = "sbPanTemplatePath"
         Me.sbPanTemplatePath.Size = New System.Drawing.Size(257, 24)
@@ -767,7 +765,7 @@ Partial Class frmMain
         Me.sbPanelReportIcon.BorderSingle = System.Windows.Forms.ButtonBorderStyle.None
         Me.sbPanelReportIcon.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.sbPanelReportIcon.Icon = CType(resources.GetObject("sbPanelReportIcon.Icon"), System.Drawing.Icon)
-        Me.sbPanelReportIcon.Location = New System.Drawing.Point(653, 2)
+        Me.sbPanelReportIcon.Location = New System.Drawing.Point(666, 2)
         Me.sbPanelReportIcon.Margin = New System.Windows.Forms.Padding(0)
         Me.sbPanelReportIcon.Name = "sbPanelReportIcon"
         Me.sbPanelReportIcon.Size = New System.Drawing.Size(24, 24)
@@ -786,7 +784,7 @@ Partial Class frmMain
         Me.sbPanReportPath.CustomOFFText = ""
         Me.sbPanReportPath.CustomONText = ""
         Me.sbPanReportPath.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.sbPanReportPath.Location = New System.Drawing.Point(679, 2)
+        Me.sbPanReportPath.Location = New System.Drawing.Point(692, 2)
         Me.sbPanReportPath.Margin = New System.Windows.Forms.Padding(0)
         Me.sbPanReportPath.Name = "sbPanReportPath"
         Me.sbPanReportPath.Size = New System.Drawing.Size(240, 24)
@@ -805,7 +803,7 @@ Partial Class frmMain
         Me.sbPanCapsLock.CustomOFFText = "CAPS"
         Me.sbPanCapsLock.CustomONText = "CAPS"
         Me.sbPanCapsLock.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.sbPanCapsLock.Location = New System.Drawing.Point(921, 2)
+        Me.sbPanCapsLock.Location = New System.Drawing.Point(934, 2)
         Me.sbPanCapsLock.Margin = New System.Windows.Forms.Padding(0)
         Me.sbPanCapsLock.Name = "sbPanCapsLock"
         Me.sbPanCapsLock.Size = New System.Drawing.Size(52, 24)
@@ -824,7 +822,7 @@ Partial Class frmMain
         Me.sbPanNumLock.CustomOFFText = "NUM"
         Me.sbPanNumLock.CustomONText = "NUM"
         Me.sbPanNumLock.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.sbPanNumLock.Location = New System.Drawing.Point(975, 2)
+        Me.sbPanNumLock.Location = New System.Drawing.Point(988, 2)
         Me.sbPanNumLock.Margin = New System.Windows.Forms.Padding(0)
         Me.sbPanNumLock.Name = "sbPanNumLock"
         Me.sbPanNumLock.Size = New System.Drawing.Size(52, 24)
@@ -843,13 +841,28 @@ Partial Class frmMain
         Me.sbPanInsLock.CustomOFFText = "INS"
         Me.sbPanInsLock.CustomONText = "INS"
         Me.sbPanInsLock.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.sbPanInsLock.Location = New System.Drawing.Point(1029, 2)
+        Me.sbPanInsLock.Location = New System.Drawing.Point(1042, 2)
         Me.sbPanInsLock.Margin = New System.Windows.Forms.Padding(0)
         Me.sbPanInsLock.Name = "sbPanInsLock"
         Me.sbPanInsLock.Size = New System.Drawing.Size(52, 24)
         Me.sbPanInsLock.TabIndex = 2
         Me.sbPanInsLock.Text = "INS"
         Me.sbPanInsLock.ThemesEnabled = True
+        '
+        'ToolStripTabItem2
+        '
+        Me.ToolStripTabItem2.Name = "ToolStripTabItem2"
+        '
+        '
+        '
+        Me.ToolStripTabItem2.Panel.Name = "RibbonPanel1"
+        Me.ToolStripTabItem2.Panel.ScrollPosition = 0
+        Me.ToolStripTabItem2.Panel.TabIndex = 3
+        Me.ToolStripTabItem2.Panel.Text = "Properties"
+        Me.ToolStripTabItem2.Position = -1
+        Me.ToolStripTabItem2.Size = New System.Drawing.Size(75, 30)
+        Me.ToolStripTabItem2.Tag = "2"
+        Me.ToolStripTabItem2.Text = "Properties"
         '
         'ToolStripTabItem1
         '
@@ -866,17 +879,27 @@ Partial Class frmMain
         Me.ToolStripTabItem1.Tag = "1"
         Me.ToolStripTabItem1.Text = "ToolStripTabItem1"
         '
+        'ContextMenuStrip1
+        '
+        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(61, 4)
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.CaptionBarColor = System.Drawing.Color.LightSteelBlue
+        Me.CaptionButtonColor = System.Drawing.Color.Black
+        Me.CaptionButtonHoverColor = System.Drawing.Color.DimGray
+        Me.CaptionFont = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ClientSize = New System.Drawing.Size(1108, 639)
         Me.Controls.Add(Me.scSlab)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True
+        Me.MainMenuStrip = Me.tsMain
+        Me.MetroColor = System.Drawing.Color.LightSteelBlue
         Me.Name = "frmMain"
-        Me.Padding = New System.Windows.Forms.Padding(5, 0, 5, 0)
         Me.ShowIcon = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Vose Home Gauge"
@@ -885,12 +908,12 @@ Partial Class frmMain
         CType(Me.scSlab, System.ComponentModel.ISupportInitialize).EndInit()
         Me.scSlab.ResumeLayout(False)
         Me.scFoundation.Panel1.ResumeLayout(False)
+        Me.scFoundation.Panel1.PerformLayout()
         Me.scFoundation.Panel2.ResumeLayout(False)
         CType(Me.scFoundation, System.ComponentModel.ISupportInitialize).EndInit()
         Me.scFoundation.ResumeLayout(False)
-        CType(Me.rbBanner, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.rbBanner.ResumeLayout(False)
-        Me.rbBanner.PerformLayout()
+        Me.tsMain.ResumeLayout(False)
+        Me.tsMain.PerformLayout()
         Me.scControlsBase.Panel1.ResumeLayout(False)
         Me.scControlsBase.Panel2.ResumeLayout(False)
         CType(Me.scControlsBase, System.ComponentModel.ISupportInitialize).EndInit()
@@ -947,7 +970,6 @@ Partial Class frmMain
     Friend WithEvents tvAreaNavigator As Tools.TreeViewAdv
     Friend WithEvents scTabs As Tools.SplitContainerAdv
     Friend WithEvents scLists As Tools.SplitContainerAdv
-    Friend WithEvents rbBanner As Tools.RibbonControlAdv
     Friend WithEvents ToolStripTabItem2 As Tools.ToolStripTabItem
     Friend WithEvents ToolStripTabItem1 As Tools.ToolStripTabItem
     Friend WithEvents tcFilmstrip As Tools.TabControlAdv
@@ -969,4 +991,9 @@ Partial Class frmMain
     Private WithEvents sbPanCapsLock As Tools.StatusBarAdvPanel
     Private WithEvents sbPanNumLock As Tools.StatusBarAdvPanel
     Private WithEvents sbPanInsLock As Tools.StatusBarAdvPanel
+    Friend WithEvents tsMain As MenuStrip
+    Friend WithEvents miMainFile As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
+    Friend WithEvents miMainFileProperties As ToolStripMenuItem
+    Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
 End Class

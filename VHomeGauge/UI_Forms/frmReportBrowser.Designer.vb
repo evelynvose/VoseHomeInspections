@@ -33,7 +33,7 @@ Partial Class frmReportBrowser
         Dim GridTextColumn8 As Syncfusion.WinForms.DataGrid.GridTextColumn = New Syncfusion.WinForms.DataGrid.GridTextColumn()
         Me.scSlab = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
         Me.scReportGrid = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
-        Me.labOpenReportInstructions = New Syncfusion.Windows.Forms.Tools.AutoLabel()
+        Me.tbFileSelectInstructions = New System.Windows.Forms.TextBox()
         Me.dgReports = New Syncfusion.WinForms.DataGrid.SfDataGrid()
         Me.btnOpenHG = New Syncfusion.Windows.Forms.ButtonAdv()
         Me.btnGear = New Syncfusion.Windows.Forms.ButtonAdv()
@@ -53,6 +53,7 @@ Partial Class frmReportBrowser
         '
         'scSlab
         '
+        Me.scSlab.BackColor = System.Drawing.Color.WhiteSmoke
         Me.scSlab.BeforeTouchSize = 1
         Me.scSlab.Dock = System.Windows.Forms.DockStyle.Fill
         Me.scSlab.FixedPanel = Syncfusion.Windows.Forms.Tools.Enums.FixedPanel.Panel2
@@ -92,31 +93,32 @@ Partial Class frmReportBrowser
         '
         'scReportGrid.Panel1
         '
+        Me.scReportGrid.Panel1.BackColor = System.Drawing.Color.WhiteSmoke
         Me.scReportGrid.Panel1.BackgroundColor = New Syncfusion.Drawing.BrushInfo(Syncfusion.Drawing.GradientStyle.Vertical, System.Drawing.Color.White, System.Drawing.Color.White)
-        Me.scReportGrid.Panel1.Controls.Add(Me.labOpenReportInstructions)
+        Me.scReportGrid.Panel1.Controls.Add(Me.tbFileSelectInstructions)
         '
         'scReportGrid.Panel2
         '
         Me.scReportGrid.Panel2.BackgroundColor = New Syncfusion.Drawing.BrushInfo(Syncfusion.Drawing.GradientStyle.Vertical, System.Drawing.Color.White, System.Drawing.Color.White)
         Me.scReportGrid.Panel2.Controls.Add(Me.dgReports)
         Me.scReportGrid.Size = New System.Drawing.Size(705, 525)
-        Me.scReportGrid.SplitterDistance = 89
+        Me.scReportGrid.SplitterDistance = 44
         Me.scReportGrid.SplitterWidth = 1
         Me.scReportGrid.Style = Syncfusion.Windows.Forms.Tools.Enums.Style.Metro
         Me.scReportGrid.TabIndex = 0
         '
-        'labOpenReportInstructions
+        'tbFileSelectInstructions
         '
-        Me.labOpenReportInstructions.AutoSize = False
-        Me.labOpenReportInstructions.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.labOpenReportInstructions.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.labOpenReportInstructions.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.labOpenReportInstructions.Location = New System.Drawing.Point(0, 0)
-        Me.labOpenReportInstructions.Name = "labOpenReportInstructions"
-        Me.labOpenReportInstructions.Size = New System.Drawing.Size(705, 89)
-        Me.labOpenReportInstructions.TabIndex = 0
-        Me.labOpenReportInstructions.Text = "Select A Report to Open" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Click on a header to sort the reports" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
-        Me.labOpenReportInstructions.TextAlign = System.Drawing.ContentAlignment.BottomLeft
+        Me.tbFileSelectInstructions.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.tbFileSelectInstructions.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.tbFileSelectInstructions.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tbFileSelectInstructions.Location = New System.Drawing.Point(0, 0)
+        Me.tbFileSelectInstructions.Multiline = True
+        Me.tbFileSelectInstructions.Name = "tbFileSelectInstructions"
+        Me.tbFileSelectInstructions.ReadOnly = True
+        Me.tbFileSelectInstructions.Size = New System.Drawing.Size(705, 44)
+        Me.tbFileSelectInstructions.TabIndex = 0
+        Me.tbFileSelectInstructions.Text = "Select a row to open." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Click a header to sort."
         '
         'dgReports
         '
@@ -167,7 +169,7 @@ Partial Class frmReportBrowser
         Me.dgReports.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgReports.Location = New System.Drawing.Point(0, 0)
         Me.dgReports.Name = "dgReports"
-        Me.dgReports.Size = New System.Drawing.Size(705, 435)
+        Me.dgReports.Size = New System.Drawing.Size(705, 480)
         Me.dgReports.Style.Border3DStyle = System.Windows.Forms.Border3DStyle.Flat
         Me.dgReports.TabIndex = 0
         Me.dgReports.Text = "SfDataGrid1"
@@ -262,6 +264,7 @@ Partial Class frmReportBrowser
         CType(Me.scSlab, System.ComponentModel.ISupportInitialize).EndInit()
         Me.scSlab.ResumeLayout(False)
         Me.scReportGrid.Panel1.ResumeLayout(False)
+        Me.scReportGrid.Panel1.PerformLayout()
         Me.scReportGrid.Panel2.ResumeLayout(False)
         CType(Me.scReportGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.scReportGrid.ResumeLayout(False)
@@ -272,11 +275,11 @@ Partial Class frmReportBrowser
 
     Friend WithEvents scSlab As Syncfusion.Windows.Forms.Tools.SplitContainerAdv
     Friend WithEvents scReportGrid As Syncfusion.Windows.Forms.Tools.SplitContainerAdv
-    Friend WithEvents labOpenReportInstructions As Syncfusion.Windows.Forms.Tools.AutoLabel
     Friend WithEvents dgReports As Syncfusion.WinForms.DataGrid.SfDataGrid
     Friend WithEvents btnOpenHG As Syncfusion.Windows.Forms.ButtonAdv
     Friend WithEvents btnGear As Syncfusion.Windows.Forms.ButtonAdv
     Friend WithEvents bthRefreshDb As Syncfusion.Windows.Forms.ButtonAdv
     Friend WithEvents btnOpenDb As Syncfusion.Windows.Forms.ButtonAdv
     Friend WithEvents btnImport As Syncfusion.Windows.Forms.ButtonAdv
+    Friend WithEvents tbFileSelectInstructions As TextBox
 End Class

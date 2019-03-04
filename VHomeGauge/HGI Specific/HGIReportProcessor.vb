@@ -161,7 +161,7 @@ Public Class HGIReportProcessor
             'Error trapping
             '
             LastErrorMessage = "ProcessTheReport()" & vbCrLf & ex.Message
-            RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.ErrorCondition, LastErrorMessage))
+            ' RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.ErrorCondition, LastErrorMessage))
             Return False
             '
         End Try

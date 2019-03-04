@@ -40,5 +40,20 @@
     <Setting Name="HomeGaugeReportsPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\Users\Evie.4HI-VM3\Documents\HomeGauge\Reports</Value>
     </Setting>
+    <Setting Name="LogInErrorFile" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="VerboseVEvents" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="DeveloperCompanyName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Vose Home Inspections, LLC</Value>
+    </Setting>
+    <Setting Name="DeveloperAppName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">VHomeGauge</Value>
+    </Setting>
+    <Setting Name="LogInEventFile" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -150,6 +150,60 @@ Namespace My
                 Me("HomeGaugeReportsPath") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property LogInErrorFile() As Boolean
+            Get
+                Return CType(Me("LogInErrorFile"),Boolean)
+            End Get
+            Set
+                Me("LogInErrorFile") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property VerboseVEvents() As Boolean
+            Get
+                Return CType(Me("VerboseVEvents"),Boolean)
+            End Get
+            Set
+                Me("VerboseVEvents") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Vose Home Inspections, LLC")>  _
+        Public ReadOnly Property DeveloperCompanyName() As String
+            Get
+                Return CType(Me("DeveloperCompanyName"),String)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("VHomeGauge")>  _
+        Public ReadOnly Property DeveloperAppName() As String
+            Get
+                Return CType(Me("DeveloperAppName"),String)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property LogInEventFile() As Boolean
+            Get
+                Return CType(Me("LogInEventFile"),Boolean)
+            End Get
+            Set
+                Me("LogInEventFile") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

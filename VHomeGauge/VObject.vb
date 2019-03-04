@@ -5,6 +5,12 @@
 ' ****
 ' **********************************************
 ' 
+' This class hijacks MsgBox from non-UI objects and raises an event
+'      in its place.  VEvent args contains a flag, that if set instructs the UI
+'      to display the message.
+'      A local flag, when set, will cause the object to display a standard message box.
+'      This flag has a lifetime of the object. It is useful for debugging subclassed objects.
+'
 Public MustInherit Class VObject
     '
     ' **********************************************
@@ -13,77 +19,124 @@ Public MustInherit Class VObject
     ' ****
     ' **********************************************
     ' 
+    Protected Sub New()
+        ' Do nothing on purpose!
+    End Sub
     '
     ' **********************************************
     ' ****
     ' ******    Methods
     ' ****
     ' **********************************************
-    ' 
+    '
     '
     ' ***********************************************
-    ' *****     +MsgBox(message, verbose):object
+    ' *****     +MsgBox(string, bool):object
     ' ***********************************************
     '
-    ' This function is meant to steer messages to an event or display a message box.
-    '         The default is to an event, the desired behavior is that a UI form handles I/O not a VObject class.
-    '         However, there are times during debugging where displaying a msgbox from within a VObject class is just plain handy!
+    ' Sets a flag in VEventArgs for the UI to show the message
+    '      to the user.
     '
-    Public Function MsgBox(ByVal message As String, ByVal verbose As Boolean) As MsgBoxResult
+    Public Sub MsgBox(ByVal message As String, ByVal showme As Boolean)
         '
-        Me.Message = message
-        Me.Verbose = verbose
-        VMsgBox()
-        Return MsgBoxResult
+        ' Display a traditional MsgBox
         '
-    End Function
+        If IsDebugFlag Then
+            Interaction.MsgBox(message)
+            '
+        End If
+        '
+        ' Write an Event
+        '
+        If DoLogInEvents Then
+            Dim erlog As New VErrorLogger
+            erlog.WriteToEventLog(message)
+            '
+        End If
+        '
+        ' Write to Error File
+        '
+        If DoLogInFile Then
+            Dim erLog As New VErrorLogger
+            Dim stkTrace As New StackTrace
+            erLog.WriteToErrorLog(message, stkTrace.ToString, My.Settings.DeveloperAppName)
+            '
+        End If
+        '
+        ' Always raise an event
+        '
+        RaiseVEvent(Me, New VEventArgs(message, showme))
+        '
+    End Sub
     '
     ' ***********************************************
     ' *****     +MsgBox(object):object
     ' ***********************************************
     '
-    Public Function MsgBox(ByVal e As Exception) As MsgBoxResult
+    Public Sub MsgBox(ByVal e As Exception)
         '
-        Me.Message = e.Message
-        Verbose = True
-        VMsgBox()
-        Return MsgBoxResult
+        ' Display a traditional MsgBox
         '
-    End Function
+        If IsDebugFlag Then
+            Interaction.MsgBox(e.Message)
+            '
+        End If
+        '
+        ' Write an Event
+        '
+        If DoLogInEvents Then
+            Dim erlog As New VErrorLogger
+            erlog.WriteToEventLog(e.Message)
+            '
+        End If
+        '
+        ' Write to Error File
+        '
+        If DoLogInFile Then
+            Dim erLog As New VErrorLogger
+            erLog.WriteToErrorLog(e.Message, e.StackTrace, My.Settings.DeveloperAppName)
+            '
+        End If
+        '
+        ' Always raise an event
+        '
+        RaiseVEvent(Me, New VEventArgs(e.Message & vbCrLf & "Stack Trace: " & e.StackTrace))
+        '
+    End Sub
     '
     ' ***********************************************
     ' *****     +MsgBox(message):object
     ' ***********************************************
     '
-    Public Function MsgBox(ByVal message As String) As MsgBoxResult
+    Public Sub MsgBox(ByVal message As String)
         '
-        Me.Message = message
-        Verbose = True
-        VMsgBox()
-        Return MsgBoxResult
+        ' Display a traditional MsgBox
         '
-    End Function
-    '
-    ' ***********************************************
-    ' *****     -VMsgBox() 
-    ' ***********************************************
-    '
-    Private Sub VMsgBox()
-        '
-        ' The defult result is Ignore since chances are we want to raise an event and don't care about user choices.
-        '
-        MsgBoxResult = MsgBoxResult.Ignore
-        '
-        ' So, if the verbose flag is set, then we will show a message box and ask for user input.
-        '     Otherwise, we raise an event and let the UI figure it out!
-        '
-        If Verbose Then
-            MsgBoxResult = Interaction.MsgBox(Message,, "VHomeGauge")
-            '
-        Else
-            RaiseEvent VEvent(Me, New VEventArgs(Message))
+        If IsDebugFlag Then
+            Interaction.MsgBox(message)
             '
         End If
+        '
+        ' Write an Event
+        '
+        If DoLogInEvents Then
+            Dim erlog As New VErrorLogger
+            erlog.WriteToEventLog(message)
+            '
+        End If
+        '
+        ' Write to Error File
+        '
+        If DoLogInFile Then
+            Dim erLog As New VErrorLogger
+            Dim stkTrace As New StackTrace
+            erLog.WriteToErrorLog(message, stkTrace.ToString, My.Settings.DeveloperAppName)
+            '
+        End If
+        '
+        ' Always raise an event
+        '
+        RaiseVEvent(Me, New VEventArgs(message))
         '
     End Sub
     '
@@ -118,33 +171,19 @@ Public MustInherit Class VObject
     ' ****
     ' **********************************************
     '
-    Private m_Verbose As Boolean
-    Private m_MsgBoxResult As MsgBoxResult
-    Private m_Message As String
+    Private m_AllEvents As IList(Of VEventArgs) = New List(Of VEventArgs)
+    Private m_IsDebugFlag As Boolean
     '
     ' ***********************************************
-    ' *****     +Verbose(Boolean):Boolean 
+    ' *****     +IsVerbose(Boolean):Boolean 
     ' ***********************************************
     '
-    Public Property Verbose As Boolean
+    Public Property IsVerbose As Boolean
         Get
-            Return m_Verbose
+            Return My.Settings.VerboseVEvents
         End Get
         Set(value As Boolean)
-            m_Verbose = value
-        End Set
-    End Property
-    '
-    ' ***********************************************
-    ' *****     +MsgBoxResult(object):object 
-    ' ***********************************************
-    '
-    Public Property MsgBoxResult As MsgBoxResult
-        Get
-            Return m_MsgBoxResult
-        End Get
-        Set(value As MsgBoxResult)
-            m_MsgBoxResult = value
+            My.Settings.VerboseVEvents = value
         End Set
     End Property
     '
@@ -152,12 +191,78 @@ Public MustInherit Class VObject
     ' *****     +Message(string):string 
     ' ***********************************************
     '
+    ' The last message in the list of VEventArgs
+    '
     Public Property Message As String
         Get
-            Return m_Message
+            If AllEvents.Count > 0 Then
+                Return AllEvents(AllEvents.Count - 1).Message
+            End If
+            Return ""
         End Get
         Set(value As String)
-            m_Message = value
+            AllEvents.Add(New VEventArgs(value))
+        End Set
+    End Property
+    '
+    ' ***********************************************
+    ' *****     +AllEvents(ilist):ilist 
+    ' ***********************************************
+    '
+    ' This is a list of all of the events that occured during the life of this object.
+    '      Typically used for debugging purposes.
+    '
+    Public Property AllEvents As IList(Of VEventArgs)
+        Get
+            Return m_AllEvents
+        End Get
+        Set(value As IList(Of VEventArgs))
+            m_AllEvents = value
+        End Set
+    End Property
+    '
+    ' ***********************************************
+    ' *****     +IsLogFile(boolean):boolean 
+    ' ***********************************************
+    '
+    ' If set, the events are written to the log file in the application's launch folder
+    '
+    Public Property DoLogInFile As Boolean
+        Get
+            Return My.Settings.LogInErrorFile
+        End Get
+        Set(value As Boolean)
+            My.Settings.LogInErrorFile = value
+        End Set
+    End Property
+    '
+    ' ***********************************************
+    ' *****     +DoLogEvents(boolean):boolean 
+    ' ***********************************************
+    '
+    ' If set, the events are sent to the application event file in WinOS
+    '
+    Public Property DoLogInEvents As Boolean
+        Get
+            Return My.Settings.LogInEventFile
+        End Get
+        Set(value As Boolean)
+            My.Settings.LogInEventFile = value
+        End Set
+    End Property
+    '
+    ' ***********************************************
+    ' *****     +IsDebugFlag(boolean):boolean 
+    ' ***********************************************
+    '
+    ' If set, the events are displayed as a standard MsgBox
+    '
+    Public Property IsDebugFlag As Boolean
+        Get
+            Return m_IsDebugFlag
+        End Get
+        Set(value As Boolean)
+            m_IsDebugFlag = value
         End Set
     End Property
     '
@@ -191,7 +296,7 @@ Public Class VEventArgs
     '
     Public Sub New(ByVal message As String)
         Me.Message = message
-        Me.Verbose = False
+        Me.IsShowMe = False
         '
     End Sub
     '
@@ -201,7 +306,7 @@ Public Class VEventArgs
     '
     Public Sub New(ByVal message As String, ByVal showme As Boolean)
         Me.Message = message
-        Me.Verbose = showme
+        Me.IsShowMe = showme
         '
     End Sub
     '
@@ -212,18 +317,18 @@ Public Class VEventArgs
     ' **********************************************
     '
     Private m_Message As String = ""
-    Private m_Verbose As Boolean
+    Private m_IsShowMe As Boolean
     '
     ' ***********************************************
-    ' *****     +Verbose(Boolean):Boolean
+    ' *****     +IsVerbose(Boolean):Boolean
     ' ***********************************************
     '
-    Public Property Verbose As Boolean
+    Public Property IsShowMe As Boolean
         Get
-            Return m_Verbose
+            Return m_IsShowMe
         End Get
         Set(value As Boolean)
-            m_Verbose = value
+            m_IsShowMe = value
         End Set
     End Property
     '

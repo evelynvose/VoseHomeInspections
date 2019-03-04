@@ -46,21 +46,18 @@ Partial Class dlgVProgressBar
         Me.ProgressBarAdv1.ForegroundImage = Nothing
         Me.ProgressBarAdv1.GradientEndColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(165, Byte), Integer), CType(CType(220, Byte), Integer))
         Me.ProgressBarAdv1.GradientStartColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(165, Byte), Integer), CType(CType(220, Byte), Integer))
-        Me.ProgressBarAdv1.Location = New System.Drawing.Point(17, 16)
+        Me.ProgressBarAdv1.Location = New System.Drawing.Point(16, 17)
         Me.ProgressBarAdv1.MultipleColors = New System.Drawing.Color() {System.Drawing.Color.Empty}
         Me.ProgressBarAdv1.Name = "ProgressBarAdv1"
         Me.ProgressBarAdv1.ProgressStyle = Syncfusion.Windows.Forms.Tools.ProgressBarStyles.Metro
         Me.ProgressBarAdv1.SegmentWidth = 12
-        Me.ProgressBarAdv1.Size = New System.Drawing.Size(330, 23)
+        Me.ProgressBarAdv1.Size = New System.Drawing.Size(330, 27)
         Me.ProgressBarAdv1.TabIndex = 0
         Me.ProgressBarAdv1.TextVisible = False
         Me.ProgressBarAdv1.ThemesEnabled = True
         Me.ProgressBarAdv1.WaitingGradientWidth = 400
         '
         'Timer1
-        '
-        '
-        'BackgroundWorker1
         '
         '
         'btnOK
@@ -78,7 +75,7 @@ Partial Class dlgVProgressBar
         'lblAnnouncement
         '
         Me.lblAnnouncement.BackgroundColor = New Syncfusion.Drawing.BrushInfo()
-        Me.lblAnnouncement.BeforeTouchSize = New System.Drawing.Size(289, 36)
+        Me.lblAnnouncement.BeforeTouchSize = New System.Drawing.Size(289, 44)
         Me.lblAnnouncement.BorderAppearance = System.Windows.Forms.BorderStyle.None
         Me.lblAnnouncement.BorderColor = System.Drawing.Color.Transparent
         Me.lblAnnouncement.BorderSides = CType(((((System.Windows.Forms.Border3DSide.Left Or System.Windows.Forms.Border3DSide.Top) _
@@ -86,9 +83,9 @@ Partial Class dlgVProgressBar
             Or System.Windows.Forms.Border3DSide.Bottom) _
             Or System.Windows.Forms.Border3DSide.Middle), System.Windows.Forms.Border3DSide)
         Me.lblAnnouncement.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblAnnouncement.Location = New System.Drawing.Point(38, 9)
+        Me.lblAnnouncement.Location = New System.Drawing.Point(37, 8)
         Me.lblAnnouncement.Name = "lblAnnouncement"
-        Me.lblAnnouncement.Size = New System.Drawing.Size(289, 36)
+        Me.lblAnnouncement.Size = New System.Drawing.Size(289, 44)
         Me.lblAnnouncement.TabIndex = 2
         Me.lblAnnouncement.Text = "Success!"
         Me.lblAnnouncement.TextAlign = System.Drawing.ContentAlignment.MiddleCenter

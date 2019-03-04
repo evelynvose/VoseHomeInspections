@@ -155,7 +155,7 @@ Public Class dlgVProgressBar
             Case VDoWorkEventArgTypes.ErrorCondition
                 If e.EventType = VDoWorkEventArgTypes.ErrorCondition Then
                     If MsgBox("An error occured." & vbCrLf & e.Message & vbCrLf & "Continue?", MsgBoxStyle.YesNo, "") = MsgBoxResult.No Then
-                        Close()
+                        EmergencyCloseFlag = True
                         '
                     End If
                 End If
@@ -194,7 +194,7 @@ Public Class dlgVProgressBar
         '
         ' Stop the timer if the report is imported
         '
-        If IsWorkCompleted Then
+        If IsWorkCompleted OrElse EmergencyCloseFlag Then
             KillTimer()
             ProgressBarAdv1.Visible = False
             lblStatus.Visible = False
@@ -266,6 +266,7 @@ Public Class dlgVProgressBar
     Private m_AnnouncementVisible As Boolean
     Private m_AnnouncementText As String = ""
     Private m_InfoMessage As String = ""
+    Private m_EmergencyCloseFlag As Boolean
     '
     ' ***********************************************
     ' *****     Is Work Completed?
@@ -342,6 +343,21 @@ Public Class dlgVProgressBar
         End Get
         Set(value As String)
             m_InfoMessage = value
+        End Set
+    End Property
+    '
+    ' ***********************************************
+    ' *****     -EmergencyCloseFlag(bool):bool
+    ' ***********************************************
+    '
+    ' Set by an event from one of the VObjects
+    '
+    Private Property EmergencyCloseFlag As Boolean
+        Get
+            Return m_EmergencyCloseFlag
+        End Get
+        Set(value As Boolean)
+            m_EmergencyCloseFlag = value
         End Set
     End Property
 End Class

@@ -117,6 +117,13 @@
     <Compile Include="BO_Person\Person.vb" />
     <Compile Include="BO_Report\Report.vb" />
     <Compile Include="BO_Role\RoleInfo.vb" />
+    <Compile Include="UI_Dialogs\dlgMainFileProperties.Designer.vb">
+      <DependentUpon>dlgMainFileProperties.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UI_Dialogs\dlgMainFileProperties.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VErrorLogger.vb" />
     <Compile Include="VObject.vb" />
     <Compile Include="VDoWork.vb" />
     <Compile Include="BO_Role\RoleInfoData.vb" />
@@ -226,6 +233,9 @@
     <Compile Include="Settings.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="UI_Dialogs\dlgMainFileProperties.resx">
+      <DependentUpon>dlgMainFileProperties.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI_Dialogs\dlgVProgressBar.resx">
       <DependentUpon>dlgVProgressBar.vb</DependentUpon>
     </EmbeddedResource>
@@ -290,6 +300,7 @@
     <Content Include="Resources\client.png" />
     <Content Include="Images\rep.png" />
     <Content Include="Resources\gear.png" />
+    <None Include="Resources\property.png" />
     <Content Include="Resources\ReportPath.ico" />
     <Content Include="Resources\TemplatePath.ico" />
     <Content Include="VReports.accdb">
