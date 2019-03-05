@@ -68,6 +68,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Vsa, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
     <Reference Include="Syncfusion.Compression.Base, Version=16.4460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="Syncfusion.Core.WinForms, Version=16.4460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="Syncfusion.Data.WinForms, Version=16.4460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
@@ -75,6 +76,9 @@
     <Reference Include="Syncfusion.Grid.Base, Version=16.4460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
     <Reference Include="Syncfusion.Grid.Windows, Version=16.4460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
     <Reference Include="Syncfusion.GridCommon.WinForms, Version=16.4460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.HTMLUI.Base, Version=16.4460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
+    <Reference Include="Syncfusion.HTMLUI.Windows, Version=16.4460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
+    <Reference Include="Syncfusion.Scripting.Base, Version=16.4460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="Syncfusion.SfDataGrid.WinForms, Version=16.4460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
     <Reference Include="Syncfusion.SfInput.WinForms, Version=16.4460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89" />
     <Reference Include="Syncfusion.SfListView.WinForms, Version=16.4460.0.42, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL" />
@@ -117,10 +121,21 @@
     <Compile Include="BO_Person\Person.vb" />
     <Compile Include="BO_Report\Report.vb" />
     <Compile Include="BO_Role\RoleInfo.vb" />
+    <Compile Include="HGI Report BO\RConnectorInfo.vb" />
+    <Compile Include="HGI Report BO\RConnectorInfoADO.vb" />
+    <Compile Include="HGI Report BO\RConnectorRepositoryADO.vb" />
+    <Compile Include="HGI Report BO\RConnectorInfoData.vb" />
+    <Compile Include="HGI Report BO\RConnectors.vb" />
     <Compile Include="UI_Dialogs\dlgMainFileProperties.Designer.vb">
       <DependentUpon>dlgMainFileProperties.vb</DependentUpon>
     </Compile>
     <Compile Include="UI_Dialogs\dlgMainFileProperties.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI_Dialogs\dlgTemplateConnectors.Designer.vb">
+      <DependentUpon>dlgTemplateConnectors.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UI_Dialogs\dlgTemplateConnectors.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="VErrorLogger.vb" />
@@ -236,6 +251,9 @@
     <EmbeddedResource Include="UI_Dialogs\dlgMainFileProperties.resx">
       <DependentUpon>dlgMainFileProperties.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI_Dialogs\dlgTemplateConnectors.resx">
+      <DependentUpon>dlgTemplateConnectors.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI_Dialogs\dlgVProgressBar.resx">
       <DependentUpon>dlgVProgressBar.vb</DependentUpon>
     </EmbeddedResource>
@@ -301,7 +319,9 @@
     <Content Include="Images\rep.png" />
     <Content Include="Resources\gear.png" />
     <None Include="Resources\property.png" />
+    <None Include="Resources\plus.png" />
     <Content Include="Resources\ReportPath.ico" />
+    <None Include="Resources\scissors.png" />
     <Content Include="Resources\TemplatePath.ico" />
     <Content Include="VReports.accdb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

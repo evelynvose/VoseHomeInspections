@@ -361,6 +361,16 @@ Public Class frmMain
         '
     End Sub
     '
+    ' ***********************************************
+    ' *****     -miMainTemplateConnectors_Click(object, EventArgs)
+    ' ***********************************************
+    '
+    Private Sub miMainTemplateConnectors_Click(sender As Object, e As EventArgs) Handles miMainTemplateConnectors.Click
+        Dim theConnectorsDialog As New dlgTemplateConnectors
+        theConnectorsDialog.ShowDialog()
+        '
+    End Sub
+    '
 #End Region
 End Class
 #End Region

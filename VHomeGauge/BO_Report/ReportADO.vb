@@ -270,7 +270,7 @@ Public MustInherit Class ReportADO
     End Function
     '
     ' ***********************************************
-    ' *****     Address Rule Check
+    ' *****      Rule Check
     ' ***********************************************
     '
     ' An address object in the database is only valid under these conditions:

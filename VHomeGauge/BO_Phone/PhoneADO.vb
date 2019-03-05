@@ -233,7 +233,7 @@ Public MustInherit Class PhoneADO
             sMessage &= "The Phone isn't tagged with at least one valid foreign key."
 
         End If
-        If Not bRule_2_Met Then
+        If Not bRule_3_Met Then
             sMessage &= vbCrLf
             sMessage &= "The Phone isn't tagged with a valid primary key."
 
