@@ -121,21 +121,21 @@
     <Compile Include="BO_Person\Person.vb" />
     <Compile Include="BO_Report\Report.vb" />
     <Compile Include="BO_Role\RoleInfo.vb" />
-    <Compile Include="HGI Report BO\RConnectorInfo.vb" />
-    <Compile Include="HGI Report BO\RConnectorInfoADO.vb" />
-    <Compile Include="HGI Report BO\RConnectorRepositoryADO.vb" />
-    <Compile Include="HGI Report BO\RConnectorInfoData.vb" />
-    <Compile Include="HGI Report BO\RConnectors.vb" />
+    <Compile Include="BO_Connector\RConnectorInfo.vb" />
+    <Compile Include="BO_Connector\RConnectorInfoADO.vb" />
+    <Compile Include="BO_Connector\RConnectorRepositoryADO.vb" />
+    <Compile Include="BO_Connector\RConnectorInfoData.vb" />
+    <Compile Include="BO_Connector\RConnectors.vb" />
     <Compile Include="UI_Dialogs\dlgMainFileProperties.Designer.vb">
       <DependentUpon>dlgMainFileProperties.vb</DependentUpon>
     </Compile>
     <Compile Include="UI_Dialogs\dlgMainFileProperties.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI_Dialogs\dlgTemplateConnectors.Designer.vb">
-      <DependentUpon>dlgTemplateConnectors.vb</DependentUpon>
+    <Compile Include="UI_Dialogs\dlgConnectors.Designer.vb">
+      <DependentUpon>dlgConnectors.vb</DependentUpon>
     </Compile>
-    <Compile Include="UI_Dialogs\dlgTemplateConnectors.vb">
+    <Compile Include="UI_Dialogs\dlgConnectors.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="VErrorLogger.vb" />
@@ -251,8 +251,8 @@
     <EmbeddedResource Include="UI_Dialogs\dlgMainFileProperties.resx">
       <DependentUpon>dlgMainFileProperties.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI_Dialogs\dlgTemplateConnectors.resx">
-      <DependentUpon>dlgTemplateConnectors.vb</DependentUpon>
+    <EmbeddedResource Include="UI_Dialogs\dlgConnectors.resx">
+      <DependentUpon>dlgConnectors.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI_Dialogs\dlgVProgressBar.resx">
       <DependentUpon>dlgVProgressBar.vb</DependentUpon>

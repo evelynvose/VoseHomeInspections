@@ -180,13 +180,15 @@ Public MustInherit Class RConnectorInfoADO
     ' ***********************************************
     '
     Public Function Update() As Boolean
-        If Not IsDirty Then Return IsDirty ' nothing to save or update
+        If Not IsDirty AndAlso Not IsDeleted Then Return False ' nothing to save or update
         '
         ' Run the rule check
         '
-        If Not RuleCheck() Then
-            Return False
-
+        If Not IsDirty Then
+            If Not RuleCheck() Then
+                Return False
+                '
+            End If
         End If
         '
         ' Passed the rule check, so update the record
@@ -207,6 +209,7 @@ Public MustInherit Class RConnectorInfoADO
                 '
                 Try
                     If dt.Count = 0 Then dt.AddRConnectorsRow(row)
+                    If IsDeleted Then row.Delete()
                     ta.Update(dt)
                     IsDirty = False
                     '
@@ -231,5 +234,20 @@ Public MustInherit Class RConnectorInfoADO
     ' ***********************************************
     ' *****     Encapsulated Members
     ' ***********************************************
+    '
+    Private m_IsDeleted As Boolean
+    '
+    ' ***********************************************
+    ' *****     +IsDeleted(bool):bool
+    ' ***********************************************
+    '
+    Public Property IsDeleted As Boolean
+        Get
+            Return m_IsDeleted
+        End Get
+        Set(value As Boolean)
+            m_IsDeleted = value
+        End Set
+    End Property
     '
 End Class
