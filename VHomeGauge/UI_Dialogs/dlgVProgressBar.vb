@@ -32,10 +32,11 @@ Public Class dlgVProgressBar
         ProgressBarAdv1.Visible = True
         lblStatus.Text = ""
         lblStatus.Visible = False
-        btnOK.Visible = False
-        btnOK.Enabled = False
+        btnOK.Visible = True
+        btnOK.Enabled = True
         lblAnnouncement.Text = ""
         lblAnnouncement.Visible = False
+        StartPosition = FormStartPosition.CenterParent
         '
         ' Add the requisite ManagerDoWork event handler
         '

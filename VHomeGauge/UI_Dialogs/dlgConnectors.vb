@@ -1,5 +1,6 @@
 ﻿Imports Syncfusion.Windows.Forms
 Imports Syncfusion.WinForms.DataGrid.Events
+Imports System.IO
 '
 ' **********************************************
 ' ****
@@ -17,7 +18,7 @@ Public Class dlgConnectors
     ' **********************************************
     '
     ' ***********************************************
-    ' *****     +Load(object, EventArgs)
+    ' *****     -Load(object, EventArgs)
     ' ***********************************************
     '
     Private m_ConnectorsRepos As New RConnectors
@@ -27,17 +28,19 @@ Public Class dlgConnectors
     End Sub
     '
     ' ***********************************************
-    ' *****     +OK_Click(object, EventArgs)
+    ' *****     -OK_Click(object, EventArgs)
     ' ***********************************************
     '
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
+        Cursor = Cursors.WaitCursor
         m_ConnectorsRepos.Update()
+        Cursor = Cursors.Default
         Close()
         '
     End Sub
     '
     ' ***********************************************
-    ' *****     +Cancel_Click(object, EventArgs)
+    ' *****     -Cancel_Click(object, EventArgs)
     ' ***********************************************
     '
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
@@ -46,7 +49,7 @@ Public Class dlgConnectors
     End Sub
     '
     ' ***********************************************
-    ' *****     +Cancel_Click(object, EventArgs)
+    ' *****     -Cancel_Click(object, EventArgs)
     ' ***********************************************
     '
     Private Sub sfdgConnectors_RecordDeleting(sender As Object, e As RecordDeletingEventArgs) Handles sfdgConnectors.RecordDeleting
@@ -57,8 +60,16 @@ Public Class dlgConnectors
             '
             ' Do something to the object to delete it.
             '
-            theConnectorInfo.IsDeleted = True
-            theConnectorInfo.Update()
+            Cursor = Cursors.WaitCursor
+            Try
+                theConnectorInfo.IsDeleted = True
+                theConnectorInfo.Update()
+                '
+            Catch ex As Exception
+                '
+            Finally
+                Cursor = Cursors.Default
+            End Try
             '
         Else
             e.Cancel = True
@@ -66,4 +77,47 @@ Public Class dlgConnectors
         End If
     End Sub
     '
+    ' ***********************************************
+    ' *****     -btnGear_Click(object, EventArgs)
+    ' ***********************************************
+    '
+    ' Browse for the template file
+    '
+    Private Sub btnGear_Click(sender As Object, e As EventArgs) Handles btnGear.Click
+        Dim OpenFileDialog1 = New OpenFileDialog With {
+           .CheckFileExists = True,
+           .CheckPathExists = True,
+           .DefaultExt = "ht5",
+           .FileName = "",
+           .Filter = "Template Files (*.ht5)|*.ht5|All Files (*.*)|*.*",
+           .Multiselect = False
+       }
+        '
+        ' Set up the worker thread and launch the progress bar
+        '
+        If OpenFileDialog1.ShowDialog = DialogResult.OK Then
+            Dim thePB As New dlgVProgressBar
+            With thePB
+                .StartPosition = FormStartPosition.CenterParent
+                .SetDoWorkClass(New HGIConnectorImport(New FileInfo(OpenFileDialog1.FileName)))
+                .Text = "Import Connectors"
+                .AnnouncementVisible = False
+                .RunningStatusVisible = True
+                .OKButtonVisible = False
+                .LaunchDoWork()
+                .ShowDialog()
+                '
+            End With
+        End If
+        '
+        ' reload from the dB
+        '
+        Cursor = Cursors.WaitCursor
+        Application.DoEvents()
+        m_ConnectorsRepos = New RConnectors
+        sfdgConnectors.DataSource = Nothing
+        sfdgConnectors.DataSource = m_ConnectorsRepos.GetRepos
+        Cursor = Cursors.Default
+        '
+    End Sub
 End Class

@@ -19,7 +19,7 @@ Public MustInherit Class RConnectorInfoADO
     ' ***********************************************
     '
     Public Sub New()
-        ' Do Nothing on purpose!
+        IsNew = True
         '
     End Sub
     ' 
@@ -29,6 +29,7 @@ Public MustInherit Class RConnectorInfoADO
     '
     Protected Sub New(ByVal theID As Guid)
         If IsNothing(theID) Then theID = Guid.Empty
+        IsNew = True
         Load(theID)
         '
     End Sub
@@ -52,6 +53,7 @@ Public MustInherit Class RConnectorInfoADO
                     If dt.Rows.Count > 0 Then
                         LoadDataFromRow(dt.Rows(0))
                         IsDirty = False ' Info properties always set dirty flag so reset it.
+                        IsNew = False   ' We're new only if load is never called
                         '
                     End If
                 Catch ex As Exception
@@ -101,7 +103,7 @@ Public MustInherit Class RConnectorInfoADO
             Using dt As New vreportsDataSet.RConnectorsDataTable
                 Try
                     If IsNothing(s) Then s = ""
-                    ta.FillByID(dt, s)
+                    ta.FillByXValue(dt, s)
                     If dt.Rows.Count > 0 Then
                         Return True
                         '
@@ -184,7 +186,7 @@ Public MustInherit Class RConnectorInfoADO
         '
         ' Run the rule check
         '
-        If Not IsDirty Then
+        If IsDirty Then
             If Not RuleCheck() Then
                 Return False
                 '
@@ -196,12 +198,17 @@ Public MustInherit Class RConnectorInfoADO
         Using ta = New vreportsDataSetTableAdapters.RConnectorsTableAdapter
             Using dt = New vreportsDataSet.RConnectorsDataTable
                 Dim row As vreportsDataSet.RConnectorsRow
-                ta.FillByID(dt, ID)
-                If dt.Count = 0 Then
+                If Not IsNew() Then
+                    ta.FillByID(dt, ID)
+                    If dt.Count = 0 Then
+                        row = dt.NewRConnectorsRow
+                        '
+                    Else
+                        row = dt.Rows(0)
+                        '
+                    End If
+                Else ' is new connector
                     row = dt.NewRConnectorsRow
-                    '
-                Else
-                    row = dt.Rows(0)
                     '
                 End If
                 '
@@ -236,6 +243,7 @@ Public MustInherit Class RConnectorInfoADO
     ' ***********************************************
     '
     Private m_IsDeleted As Boolean
+    Private m_IsNew As Boolean
     '
     ' ***********************************************
     ' *****     +IsDeleted(bool):bool
@@ -247,6 +255,19 @@ Public MustInherit Class RConnectorInfoADO
         End Get
         Set(value As Boolean)
             m_IsDeleted = value
+        End Set
+    End Property
+    '
+    ' ***********************************************
+    ' *****     +IsNew(bool):bool
+    ' ***********************************************
+    '
+    Public Property IsNew As Boolean
+        Get
+            Return m_IsNew
+        End Get
+        Set(value As Boolean)
+            m_IsNew = value
         End Set
     End Property
     '

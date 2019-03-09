@@ -31,6 +31,7 @@ Partial Class dlgConnectors
         Me.btnCancel = New Syncfusion.Windows.Forms.ButtonAdv()
         Me.btnOK = New Syncfusion.Windows.Forms.ButtonAdv()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.btnGear = New Syncfusion.Windows.Forms.ButtonAdv()
         CType(Me.spSlab, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.spSlab.Panel1.SuspendLayout()
         Me.spSlab.Panel2.SuspendLayout()
@@ -59,8 +60,8 @@ Partial Class dlgConnectors
         '
         Me.spSlab.Panel2.BackColor = System.Drawing.SystemColors.Window
         Me.spSlab.Panel2.Controls.Add(Me.spFoundation)
-        Me.spSlab.Size = New System.Drawing.Size(269, 433)
-        Me.spSlab.SplitterDistance = 51
+        Me.spSlab.Size = New System.Drawing.Size(269, 591)
+        Me.spSlab.SplitterDistance = 69
         Me.spSlab.SplitterWidth = 1
         Me.spSlab.TabIndex = 0
         '
@@ -73,7 +74,7 @@ Partial Class dlgConnectors
         Me.txtInstructions.Multiline = True
         Me.txtInstructions.Name = "txtInstructions"
         Me.txtInstructions.ReadOnly = True
-        Me.txtInstructions.Size = New System.Drawing.Size(269, 51)
+        Me.txtInstructions.Size = New System.Drawing.Size(269, 69)
         Me.txtInstructions.TabIndex = 3
         Me.txtInstructions.Text = "" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "List of words used when building comments  to connect sentence fragments togeth" &
     "er."
@@ -92,11 +93,12 @@ Partial Class dlgConnectors
         '
         'spFoundation.Panel2
         '
+        Me.spFoundation.Panel2.Controls.Add(Me.btnGear)
         Me.spFoundation.Panel2.Controls.Add(Me.btnCancel)
         Me.spFoundation.Panel2.Controls.Add(Me.btnOK)
         Me.spFoundation.Panel2MinSize = 40
-        Me.spFoundation.Size = New System.Drawing.Size(269, 381)
-        Me.spFoundation.SplitterDistance = 332
+        Me.spFoundation.Size = New System.Drawing.Size(269, 521)
+        Me.spFoundation.SplitterDistance = 453
         Me.spFoundation.SplitterWidth = 1
         Me.spFoundation.TabIndex = 0
         '
@@ -114,50 +116,61 @@ Partial Class dlgConnectors
         Me.sfdgConnectors.Dock = System.Windows.Forms.DockStyle.Fill
         Me.sfdgConnectors.Location = New System.Drawing.Point(0, 0)
         Me.sfdgConnectors.Name = "sfdgConnectors"
-        Me.sfdgConnectors.Size = New System.Drawing.Size(269, 332)
+        Me.sfdgConnectors.Size = New System.Drawing.Size(269, 453)
         Me.sfdgConnectors.TabIndex = 0
         '
         'btnCancel
         '
-        Me.btnCancel.BeforeTouchSize = New System.Drawing.Size(75, 23)
+        Me.btnCancel.BeforeTouchSize = New System.Drawing.Size(75, 33)
         Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.btnCancel.IsBackStageButton = False
-        Me.btnCancel.Location = New System.Drawing.Point(157, 13)
+        Me.btnCancel.Location = New System.Drawing.Point(119, 16)
         Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(75, 23)
+        Me.btnCancel.Size = New System.Drawing.Size(75, 33)
         Me.btnCancel.TabIndex = 1
         Me.btnCancel.Text = "Cancel"
         '
         'btnOK
         '
-        Me.btnOK.BeforeTouchSize = New System.Drawing.Size(75, 23)
+        Me.btnOK.BeforeTouchSize = New System.Drawing.Size(75, 33)
         Me.btnOK.IsBackStageButton = False
-        Me.btnOK.Location = New System.Drawing.Point(35, 13)
+        Me.btnOK.Location = New System.Drawing.Point(23, 16)
         Me.btnOK.Name = "btnOK"
-        Me.btnOK.Size = New System.Drawing.Size(75, 23)
+        Me.btnOK.Size = New System.Drawing.Size(75, 33)
         Me.btnOK.TabIndex = 0
         Me.btnOK.Text = "OK"
         '
         'ContextMenuStrip1
         '
+        Me.ContextMenuStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
         Me.ContextMenuStrip1.Size = New System.Drawing.Size(61, 4)
         '
-        'dlgTemplateConnectors
+        'btnGear
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.btnGear.BeforeTouchSize = New System.Drawing.Size(33, 33)
+        Me.btnGear.Image = Global.SyncfusionWindowsFormsApplication1.My.Resources.Resources.gear1
+        Me.btnGear.IsBackStageButton = False
+        Me.btnGear.Location = New System.Drawing.Point(214, 16)
+        Me.btnGear.Name = "btnGear"
+        Me.btnGear.Size = New System.Drawing.Size(33, 33)
+        Me.btnGear.TabIndex = 2
+        '
+        'dlgConnectors
+        '
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 23.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CaptionBarColor = System.Drawing.SystemColors.ActiveCaption
         Me.CaptionButtonColor = System.Drawing.SystemColors.InactiveCaptionText
         Me.CaptionButtonHoverColor = System.Drawing.Color.Red
         Me.CaptionFont = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.CaptionForeColor = System.Drawing.SystemColors.InactiveCaptionText
-        Me.ClientSize = New System.Drawing.Size(269, 433)
+        Me.ClientSize = New System.Drawing.Size(269, 591)
         Me.Controls.Add(Me.spSlab)
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MetroColor = System.Drawing.SystemColors.ActiveCaption
-        Me.Name = "dlgTemplateConnectors"
+        Me.Name = "dlgConnectors"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
         Me.ShowMaximizeBox = False
@@ -186,4 +199,5 @@ Partial Class dlgConnectors
     Friend WithEvents btnOK As Syncfusion.Windows.Forms.ButtonAdv
     Friend WithEvents txtInstructions As TextBox
     Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
+    Friend WithEvents btnGear As Syncfusion.Windows.Forms.ButtonAdv
 End Class

@@ -29,7 +29,6 @@ Public Class frmReportBrowser
         Dim theHGIReportInfoReposirory As New HGIReportInfoRepository
         Dim theVProgressBar As New dlgVProgressBar
         With theVProgressBar
-            .StartPosition = FormStartPosition.CenterParent
             .SetDoWorkClass(theHGIReportInfoReposirory)
             .Text = "Build Report Info Repository"
             .AnnouncementVisible = False

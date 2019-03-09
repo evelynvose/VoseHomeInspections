@@ -366,8 +366,10 @@ Public Class frmMain
     ' ***********************************************
     '
     Private Sub miMainTemplateConnectors_Click(sender As Object, e As EventArgs) Handles miMainTemplateConnectors.Click
+        Cursor = Cursors.WaitCursor
         Dim theConnectorsDialog As New dlgConnectors
         theConnectorsDialog.ShowDialog()
+        Cursor = Cursors.Default
         '
     End Sub
     '

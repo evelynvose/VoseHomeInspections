@@ -126,6 +126,7 @@
     <Compile Include="BO_Connector\RConnectorRepositoryADO.vb" />
     <Compile Include="BO_Connector\RConnectorInfoData.vb" />
     <Compile Include="BO_Connector\RConnectors.vb" />
+    <Compile Include="HGI Specific\HGIConnectorImport.vb" />
     <Compile Include="UI_Dialogs\dlgMainFileProperties.Designer.vb">
       <DependentUpon>dlgMainFileProperties.vb</DependentUpon>
     </Compile>
