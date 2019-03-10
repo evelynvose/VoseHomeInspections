@@ -5,13 +5,13 @@
 ' ****
 ' **********************************************
 '
-Imports SyncfusionWindowsFormsApplication1.vreportsDataSet
-Imports SyncfusionWindowsFormsApplication1.vreportsDataSetTableAdapters
-'
 ' This is a report database controller class. It provides a highly typed interface
 ' to the database.
 '
-Public MustInherit Class RConnectorsRepositoryADO
+Imports SyncfusionWindowsFormsApplication1.VRepSmartTextDataSet
+Imports SyncfusionWindowsFormsApplication1.VRepSmartTextDataSetTableAdapters
+
+Public MustInherit Class RSmartTextKeysRepositoryADO
     Inherits VObject    ' everybody inherits VObject
     '
     ' **********************************************
@@ -40,7 +40,7 @@ Public MustInherit Class RConnectorsRepositoryADO
     ' ***********************************************
     '
     Private Sub Initialize()
-        m_Repository = New List(Of RConnectorInfoData)
+        m_Repository = New List(Of RSmartTextKeyInfoData)
         '
     End Sub
     ' 
@@ -48,19 +48,19 @@ Public MustInherit Class RConnectorsRepositoryADO
     ' *****     -GetRepos():IList
     ' ***********************************************
     '
-    Private m_Repository As IList(Of RConnectorInfoData)
-    Public Function GetRepos() As IList(Of RConnectorInfoData)
+    Private m_Repository As IList(Of RSmartTextKeyInfoData)
+    Public Function GetRepos() As IList(Of RSmartTextKeyInfoData)
         '
         ' Always generate a database refresh
         '
-        m_Repository = New List(Of RConnectorInfoData)
-        Using ta As New RConnectorsTableAdapter
-            Using dt As New RConnectorsDataTable
+        m_Repository = New List(Of RSmartTextKeyInfoData)
+        Using ta As New SmartTextKeysTableAdapter
+            Using dt As New SmartTextKeysDataTable
                 Try
                     ta.Fill(dt)
-                    For Each row As vreportsDataSet.RConnectorsRow In dt.Rows
-                        Dim NewConnector As New RConnectorInfo(row.ID)
-                        m_Repository.Add(NewConnector)
+                    For Each row As SmartTextKeysRow In dt.Rows
+                        Dim NewSmartTextKey As New RSmartTextKey(row.ID)
+                        m_Repository.Add(NewSmartTextKey)
                         '
                     Next
                 Catch ex As Exception
@@ -78,14 +78,14 @@ Public MustInherit Class RConnectorsRepositoryADO
     End Function
     ' 
     ' ***********************************************
-    ' *****     +Find(guid):RConnectorInfo
+    ' *****     +Find(guid):RSmartTextKeyInfo
     ' ***********************************************
     '
-    Public Function Find(ByVal theID As Guid) As RConnectorInfoData
-        Dim theRConnectorInfo As RConnectorInfoData = Nothing
+    Public Function Find(ByVal theID As Guid) As RSmartTextKeyInfoData
+        Dim theRSmartTextKeyInfo As RSmartTextKeyInfoData = Nothing
         '
         If IsNothing(m_Repository) Then Return Nothing
-        For Each rinfo As RConnectorInfoData In m_Repository
+        For Each rinfo As RSmartTextKeyInfoData In m_Repository
             If rinfo.ID.Equals(theID) Then
                 Return rinfo
                 '
@@ -95,16 +95,16 @@ Public MustInherit Class RConnectorsRepositoryADO
     End Function
     ' 
     ' ***********************************************
-    ' *****     -Find(srting):RConnectorInfo
+    ' *****     -Find(srting):RSmartTextKeyInfo
     ' ***********************************************
     '
-    Public Function Find(ByVal s As String) As RConnectorInfoData
-        Dim theRConnectorInfo As RConnectorInfoData = Nothing
+    Public Function Find(ByVal key As String) As RSmartTextKeyInfoData
+        Dim theRSmartTextKeyInfo As RSmartTextKeyInfoData = Nothing
         '
         If IsNothing(m_Repository) Then Return Nothing
-        For Each rinfo As RConnectorInfoData In m_Repository
-            If rinfo.XValue = s Then
-                Return rinfo
+        For Each rowInfo As RSmartTextKeyInfoData In m_Repository
+            If rowInfo.Key = key Then
+                Return rowInfo
                 '
             End If
         Next
@@ -117,8 +117,8 @@ Public MustInherit Class RConnectorsRepositoryADO
     '
     Public Function Update() As Boolean
         Dim bFlag As Boolean
-        For Each info As RConnectorInfo In m_Repository
-            bFlag = info.Update()
+        For Each info As RSmartTextKey In m_Repository
+            info.Update()
             '
         Next
         Return bFlag

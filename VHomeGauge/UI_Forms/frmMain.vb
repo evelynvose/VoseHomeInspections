@@ -373,6 +373,18 @@ Public Class frmMain
         '
     End Sub
     '
+    ' ***********************************************
+    ' *****     -miMainTemplateSmartText_Click(object, EventArgs)
+    ' ***********************************************
+    '
+    Private Sub miMainTemplateSmartText_Click(sender As Object, e As EventArgs) Handles miMainTemplateSmartText.Click
+        Cursor = Cursors.WaitCursor
+        Dim theSmartTextDialog As New dlgSmartText
+        theSmartTextDialog.ShowDialog()
+        Cursor = Cursors.Default
+        '
+    End Sub
+    '
 #End Region
 End Class
 #End Region

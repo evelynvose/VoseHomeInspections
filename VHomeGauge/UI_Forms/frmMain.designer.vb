@@ -25,6 +25,7 @@ Partial Class frmMain
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim miMainTemplate As System.Windows.Forms.ToolStripMenuItem
         Dim TreeNodeAdvStyleInfo1 As Syncfusion.Windows.Forms.Tools.TreeNodeAdvStyleInfo = New Syncfusion.Windows.Forms.Tools.TreeNodeAdvStyleInfo()
         Dim TreeNodeAdv1 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
         Dim TreeNodeAdv2 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
@@ -43,7 +44,7 @@ Partial Class frmMain
         Dim GridTextColumn1 As Syncfusion.WinForms.DataGrid.GridTextColumn = New Syncfusion.WinForms.DataGrid.GridTextColumn()
         Dim GridTextColumn2 As Syncfusion.WinForms.DataGrid.GridTextColumn = New Syncfusion.WinForms.DataGrid.GridTextColumn()
         Dim GridTextColumn3 As Syncfusion.WinForms.DataGrid.GridTextColumn = New Syncfusion.WinForms.DataGrid.GridTextColumn()
-        Dim miMainTemplate As System.Windows.Forms.ToolStripMenuItem
+        Me.miMainTemplateConnectors = New System.Windows.Forms.ToolStripMenuItem()
         Me.scSlab = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
         Me.scFoundation = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
         Me.tsMain = New System.Windows.Forms.MenuStrip()
@@ -83,7 +84,7 @@ Partial Class frmMain
         Me.ToolStripTabItem1 = New Syncfusion.Windows.Forms.Tools.ToolStripTabItem()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.HtmluiControl1 = New Syncfusion.Windows.Forms.HTMLUI.HTMLUIControl()
-        Me.miMainTemplateConnectors = New System.Windows.Forms.ToolStripMenuItem()
+        Me.miMainTemplateSmartText = New System.Windows.Forms.ToolStripMenuItem()
         miMainTemplate = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.scSlab, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.scSlab.Panel1.SuspendLayout()
@@ -135,6 +136,19 @@ Partial Class frmMain
         CType(Me.sbPanInsLock, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.HtmluiControl1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
+        '
+        'miMainTemplate
+        '
+        miMainTemplate.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.miMainTemplateConnectors, Me.miMainTemplateSmartText})
+        miMainTemplate.Name = "miMainTemplate"
+        miMainTemplate.Size = New System.Drawing.Size(68, 26)
+        miMainTemplate.Text = "Template"
+        '
+        'miMainTemplateConnectors
+        '
+        Me.miMainTemplateConnectors.Name = "miMainTemplateConnectors"
+        Me.miMainTemplateConnectors.Size = New System.Drawing.Size(180, 22)
+        Me.miMainTemplateConnectors.Text = "Connectors"
         '
         'scSlab
         '
@@ -198,13 +212,13 @@ Partial Class frmMain
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(177, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(124, 6)
         '
         'miMainFileProperties
         '
         Me.miMainFileProperties.Image = Global.SyncfusionWindowsFormsApplication1.My.Resources.Resources._property
         Me.miMainFileProperties.Name = "miMainFileProperties"
-        Me.miMainFileProperties.Size = New System.Drawing.Size(180, 22)
+        Me.miMainFileProperties.Size = New System.Drawing.Size(127, 22)
         Me.miMainFileProperties.Text = "Properties"
         '
         'scControlsBase
@@ -900,18 +914,11 @@ Partial Class frmMain
         Me.HtmluiControl1.TabIndex = 2
         Me.HtmluiControl1.Text = "HtmluiControl1"
         '
-        'miMainTemplate
+        'miMainTemplateSmartText
         '
-        miMainTemplate.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.miMainTemplateConnectors})
-        miMainTemplate.Name = "miMainTemplate"
-        miMainTemplate.Size = New System.Drawing.Size(68, 26)
-        miMainTemplate.Text = "Template"
-        '
-        'miMainTemplateConnectors
-        '
-        Me.miMainTemplateConnectors.Name = "miMainTemplateConnectors"
-        Me.miMainTemplateConnectors.Size = New System.Drawing.Size(180, 22)
-        Me.miMainTemplateConnectors.Text = "Connectors"
+        Me.miMainTemplateSmartText.Name = "miMainTemplateSmartText"
+        Me.miMainTemplateSmartText.Size = New System.Drawing.Size(180, 22)
+        Me.miMainTemplateSmartText.Text = "Smart Text"
         '
         'frmMain
         '
@@ -1030,4 +1037,5 @@ Partial Class frmMain
     Friend WithEvents ContextMenuStrip1 As ContextMenuStrip
     Friend WithEvents HtmluiControl1 As HTMLUI.HTMLUIControl
     Friend WithEvents miMainTemplateConnectors As ToolStripMenuItem
+    Friend WithEvents miMainTemplateSmartText As ToolStripMenuItem
 End Class

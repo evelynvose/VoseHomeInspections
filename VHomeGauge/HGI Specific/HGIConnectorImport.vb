@@ -87,7 +87,7 @@ Public Class HGIConnectorImport
             If Not IsNothing(nodelist) AndAlso nodelist.Count > 0 Then
                 nodelist = nodelist.Item(0).ChildNodes
                 For Each node As XmlNode In nodelist
-                    If Not IsNothing(node.FirstChild.Value) AndAlso Not RConnectorInfo.Find(node.FirstChild.Value) Then
+                    If Not IsNothing(node.FirstChild.Value) AndAlso Not RSmartTextValue.Find(node.FirstChild.Value) Then
                         Dim newConn As New RConnectorInfo
                         With newConn
                             .ID = Guid.NewGuid()
