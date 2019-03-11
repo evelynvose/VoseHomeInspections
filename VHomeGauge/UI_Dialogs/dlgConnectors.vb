@@ -28,7 +28,7 @@ Public Class dlgConnectors
     End Sub
     '
     ' ***********************************************
-    ' *****     -OK_Click(object, EventArgs)
+    ' *****     -btnOK_Click(object, EventArgs)
     ' ***********************************************
     '
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
@@ -40,7 +40,7 @@ Public Class dlgConnectors
     End Sub
     '
     ' ***********************************************
-    ' *****     -Cancel_Click(object, EventArgs)
+    ' *****     -btnCancel_Click(object, EventArgs)
     ' ***********************************************
     '
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
@@ -49,21 +49,22 @@ Public Class dlgConnectors
     End Sub
     '
     ' ***********************************************
-    ' *****     -Cancel_Click(object, EventArgs)
+    ' *****     -sfdgConnectors_RecordDeleting(object, EventArgs)
     ' ***********************************************
     '
     Private Sub sfdgConnectors_RecordDeleting(sender As Object, e As RecordDeletingEventArgs) Handles sfdgConnectors.RecordDeleting
-        Dim theConnectorInfo As RConnectorInfo
-        theConnectorInfo = CType(e.Items(0), RConnectorInfo)
-        Console.WriteLine(String.Format("Row is deleting: {0}, {1}", theConnectorInfo.XValue, theConnectorInfo.ID))
+        Dim theInfo As RConnectorInfo
+        theInfo = TryCast(e.Items(0), RConnectorInfo)
+        If IsNothing(theInfo) Then Exit Sub
+        ' Console.WriteLine(String.Format("Row is deleting: {0}, {1}", theConnectorInfo.XValue, theConnectorInfo.ID))
         If MsgBox("Delete this connector?", MsgBoxStyle.YesNo, "Delete Connector") = MsgBoxResult.Yes Then
             '
             ' Do something to the object to delete it.
             '
-            Cursor = Cursors.WaitCursor
+            ' Cursor = Cursors.WaitCursor
             Try
-                theConnectorInfo.IsDeleted = True
-                theConnectorInfo.Update()
+                theInfo.IsDeleted = True
+                theInfo.Update()
                 '
             Catch ex As Exception
                 '

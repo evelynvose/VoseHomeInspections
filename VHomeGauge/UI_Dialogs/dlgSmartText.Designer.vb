@@ -23,14 +23,17 @@ Partial Class dlgSmartText
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim GridTextColumn1 As Syncfusion.WinForms.DataGrid.GridTextColumn = New Syncfusion.WinForms.DataGrid.GridTextColumn()
+        Dim GridTextColumn2 As Syncfusion.WinForms.DataGrid.GridTextColumn = New Syncfusion.WinForms.DataGrid.GridTextColumn()
+        Dim GridTextColumn3 As Syncfusion.WinForms.DataGrid.GridTextColumn = New Syncfusion.WinForms.DataGrid.GridTextColumn()
         Me.scSlab = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
         Me.scFoundation = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
         Me.scSearch = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
         Me.lblSmartText = New Syncfusion.Windows.Forms.Tools.AutoLabel()
         Me.lblSearch = New Syncfusion.Windows.Forms.Tools.AutoLabel()
         Me.txtSearch = New Syncfusion.Windows.Forms.Tools.TextBoxExt()
-        Me.scSmartTextWords = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
-        Me.sfdgSmartTextWords = New Syncfusion.WinForms.DataGrid.SfDataGrid()
+        Me.scSmartTextKeys = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
+        Me.sfdgSmartTextKeys = New Syncfusion.WinForms.DataGrid.SfDataGrid()
         Me.scValues = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
         Me.lblSmartTextValues = New Syncfusion.Windows.Forms.Tools.AutoLabel()
         Me.scWhereUsed = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
@@ -38,7 +41,7 @@ Partial Class dlgSmartText
         Me.scWhereUsed2 = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
         Me.lblWhereUsed = New Syncfusion.Windows.Forms.Tools.AutoLabel()
         Me.sfdgWhereUsed = New Syncfusion.WinForms.DataGrid.SfDataGrid()
-        Me.btnOptions = New Syncfusion.Windows.Forms.ButtonAdv()
+        Me.btnGear = New Syncfusion.Windows.Forms.ButtonAdv()
         Me.btnCancel = New Syncfusion.Windows.Forms.ButtonAdv()
         Me.btnOK = New Syncfusion.Windows.Forms.ButtonAdv()
         CType(Me.scSlab, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -53,11 +56,11 @@ Partial Class dlgSmartText
         Me.scSearch.Panel2.SuspendLayout()
         Me.scSearch.SuspendLayout()
         CType(Me.txtSearch, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.scSmartTextWords, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.scSmartTextWords.Panel1.SuspendLayout()
-        Me.scSmartTextWords.Panel2.SuspendLayout()
-        Me.scSmartTextWords.SuspendLayout()
-        CType(Me.sfdgSmartTextWords, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.scSmartTextKeys, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.scSmartTextKeys.Panel1.SuspendLayout()
+        Me.scSmartTextKeys.Panel2.SuspendLayout()
+        Me.scSmartTextKeys.SuspendLayout()
+        CType(Me.sfdgSmartTextKeys, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.scValues, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.scValues.Panel1.SuspendLayout()
         Me.scValues.Panel2.SuspendLayout()
@@ -106,7 +109,7 @@ Partial Class dlgSmartText
         '
         'scFoundation.Panel2
         '
-        Me.scFoundation.Panel2.Controls.Add(Me.btnOptions)
+        Me.scFoundation.Panel2.Controls.Add(Me.btnGear)
         Me.scFoundation.Panel2.Controls.Add(Me.btnCancel)
         Me.scFoundation.Panel2.Controls.Add(Me.btnOK)
         Me.scFoundation.Size = New System.Drawing.Size(802, 581)
@@ -130,7 +133,7 @@ Partial Class dlgSmartText
         '
         'scSearch.Panel2
         '
-        Me.scSearch.Panel2.Controls.Add(Me.scSmartTextWords)
+        Me.scSearch.Panel2.Controls.Add(Me.scSmartTextKeys)
         Me.scSearch.Size = New System.Drawing.Size(802, 537)
         Me.scSearch.SplitterDistance = 40
         Me.scSearch.SplitterWidth = 1
@@ -164,34 +167,41 @@ Partial Class dlgSmartText
         Me.txtSearch.Size = New System.Drawing.Size(217, 22)
         Me.txtSearch.TabIndex = 0
         '
-        'scSmartTextWords
+        'scSmartTextKeys
         '
-        Me.scSmartTextWords.BeforeTouchSize = 1
-        Me.scSmartTextWords.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.scSmartTextWords.Location = New System.Drawing.Point(0, 0)
-        Me.scSmartTextWords.Name = "scSmartTextWords"
-        Me.scSmartTextWords.Orientation = System.Windows.Forms.Orientation.Vertical
+        Me.scSmartTextKeys.BeforeTouchSize = 1
+        Me.scSmartTextKeys.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.scSmartTextKeys.Location = New System.Drawing.Point(0, 0)
+        Me.scSmartTextKeys.Name = "scSmartTextKeys"
+        Me.scSmartTextKeys.Orientation = System.Windows.Forms.Orientation.Vertical
         '
-        'scSmartTextWords.Panel1
+        'scSmartTextKeys.Panel1
         '
-        Me.scSmartTextWords.Panel1.Controls.Add(Me.sfdgSmartTextWords)
+        Me.scSmartTextKeys.Panel1.Controls.Add(Me.sfdgSmartTextKeys)
         '
-        'scSmartTextWords.Panel2
+        'scSmartTextKeys.Panel2
         '
-        Me.scSmartTextWords.Panel2.Controls.Add(Me.scValues)
-        Me.scSmartTextWords.Size = New System.Drawing.Size(802, 496)
-        Me.scSmartTextWords.SplitterDistance = 200
-        Me.scSmartTextWords.SplitterWidth = 1
-        Me.scSmartTextWords.TabIndex = 0
+        Me.scSmartTextKeys.Panel2.Controls.Add(Me.scValues)
+        Me.scSmartTextKeys.Size = New System.Drawing.Size(802, 496)
+        Me.scSmartTextKeys.SplitterDistance = 200
+        Me.scSmartTextKeys.SplitterWidth = 1
+        Me.scSmartTextKeys.TabIndex = 0
         '
-        'sfdgSmartTextWords
+        'sfdgSmartTextKeys
         '
-        Me.sfdgSmartTextWords.AccessibleName = "Table"
-        Me.sfdgSmartTextWords.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.sfdgSmartTextWords.Location = New System.Drawing.Point(0, 0)
-        Me.sfdgSmartTextWords.Name = "sfdgSmartTextWords"
-        Me.sfdgSmartTextWords.Size = New System.Drawing.Size(802, 200)
-        Me.sfdgSmartTextWords.TabIndex = 0
+        Me.sfdgSmartTextKeys.AccessibleName = "Table"
+        Me.sfdgSmartTextKeys.AddNewRowPosition = Syncfusion.WinForms.DataGrid.Enums.RowPosition.Top
+        Me.sfdgSmartTextKeys.AddNewRowText = "Click here to add a new Key..."
+        Me.sfdgSmartTextKeys.AllowDeleting = True
+        Me.sfdgSmartTextKeys.AutoGenerateColumns = False
+        GridTextColumn1.HeaderText = "Key"
+        GridTextColumn1.MappingName = "Key"
+        Me.sfdgSmartTextKeys.Columns.Add(GridTextColumn1)
+        Me.sfdgSmartTextKeys.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.sfdgSmartTextKeys.Location = New System.Drawing.Point(0, 0)
+        Me.sfdgSmartTextKeys.Name = "sfdgSmartTextKeys"
+        Me.sfdgSmartTextKeys.Size = New System.Drawing.Size(802, 200)
+        Me.sfdgSmartTextKeys.TabIndex = 0
         '
         'scValues
         '
@@ -244,6 +254,13 @@ Partial Class dlgSmartText
         'sfdgSmartTextValues
         '
         Me.sfdgSmartTextValues.AccessibleName = "Table"
+        Me.sfdgSmartTextValues.AddNewRowPosition = Syncfusion.WinForms.DataGrid.Enums.RowPosition.Top
+        Me.sfdgSmartTextValues.AddNewRowText = "Click here to add a new Value..."
+        Me.sfdgSmartTextValues.AllowDeleting = True
+        Me.sfdgSmartTextValues.AutoGenerateColumns = False
+        GridTextColumn2.HeaderText = "Value"
+        GridTextColumn2.MappingName = "Value"
+        Me.sfdgSmartTextValues.Columns.Add(GridTextColumn2)
         Me.sfdgSmartTextValues.Dock = System.Windows.Forms.DockStyle.Fill
         Me.sfdgSmartTextValues.Location = New System.Drawing.Point(0, 0)
         Me.sfdgSmartTextValues.Name = "sfdgSmartTextValues"
@@ -281,22 +298,26 @@ Partial Class dlgSmartText
         'sfdgWhereUsed
         '
         Me.sfdgWhereUsed.AccessibleName = "Table"
+        Me.sfdgWhereUsed.AutoGenerateColumns = False
+        GridTextColumn3.HeaderText = "Where Used"
+        GridTextColumn3.MappingName = "WhereUsed"
+        Me.sfdgWhereUsed.Columns.Add(GridTextColumn3)
         Me.sfdgWhereUsed.Dock = System.Windows.Forms.DockStyle.Fill
         Me.sfdgWhereUsed.Location = New System.Drawing.Point(0, 0)
         Me.sfdgWhereUsed.Name = "sfdgWhereUsed"
         Me.sfdgWhereUsed.Size = New System.Drawing.Size(802, 78)
         Me.sfdgWhereUsed.TabIndex = 0
         '
-        'btnOptions
+        'btnGear
         '
-        Me.btnOptions.BeforeTouchSize = New System.Drawing.Size(30, 30)
-        Me.btnOptions.Image = Global.SyncfusionWindowsFormsApplication1.My.Resources.Resources.gear1
-        Me.btnOptions.IsBackStageButton = False
-        Me.btnOptions.Location = New System.Drawing.Point(717, 7)
-        Me.btnOptions.MetroColor = System.Drawing.SystemColors.ActiveCaption
-        Me.btnOptions.Name = "btnOptions"
-        Me.btnOptions.Size = New System.Drawing.Size(30, 30)
-        Me.btnOptions.TabIndex = 2
+        Me.btnGear.BeforeTouchSize = New System.Drawing.Size(30, 30)
+        Me.btnGear.Image = Global.SyncfusionWindowsFormsApplication1.My.Resources.Resources.gear1
+        Me.btnGear.IsBackStageButton = False
+        Me.btnGear.Location = New System.Drawing.Point(717, 7)
+        Me.btnGear.MetroColor = System.Drawing.SystemColors.ActiveCaption
+        Me.btnGear.Name = "btnGear"
+        Me.btnGear.Size = New System.Drawing.Size(30, 30)
+        Me.btnGear.TabIndex = 2
         '
         'btnCancel
         '
@@ -355,11 +376,11 @@ Partial Class dlgSmartText
         CType(Me.scSearch, System.ComponentModel.ISupportInitialize).EndInit()
         Me.scSearch.ResumeLayout(False)
         CType(Me.txtSearch, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.scSmartTextWords.Panel1.ResumeLayout(False)
-        Me.scSmartTextWords.Panel2.ResumeLayout(False)
-        CType(Me.scSmartTextWords, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.scSmartTextWords.ResumeLayout(False)
-        CType(Me.sfdgSmartTextWords, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.scSmartTextKeys.Panel1.ResumeLayout(False)
+        Me.scSmartTextKeys.Panel2.ResumeLayout(False)
+        CType(Me.scSmartTextKeys, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.scSmartTextKeys.ResumeLayout(False)
+        CType(Me.sfdgSmartTextKeys, System.ComponentModel.ISupportInitialize).EndInit()
         Me.scValues.Panel1.ResumeLayout(False)
         Me.scValues.Panel1.PerformLayout()
         Me.scValues.Panel2.ResumeLayout(False)
@@ -386,8 +407,8 @@ Partial Class dlgSmartText
     Friend WithEvents lblSmartText As Syncfusion.Windows.Forms.Tools.AutoLabel
     Friend WithEvents lblSearch As Syncfusion.Windows.Forms.Tools.AutoLabel
     Friend WithEvents txtSearch As Syncfusion.Windows.Forms.Tools.TextBoxExt
-    Friend WithEvents scSmartTextWords As Syncfusion.Windows.Forms.Tools.SplitContainerAdv
-    Friend WithEvents sfdgSmartTextWords As Syncfusion.WinForms.DataGrid.SfDataGrid
+    Friend WithEvents scSmartTextKeys As Syncfusion.Windows.Forms.Tools.SplitContainerAdv
+    Friend WithEvents sfdgSmartTextKeys As Syncfusion.WinForms.DataGrid.SfDataGrid
     Friend WithEvents scValues As Syncfusion.Windows.Forms.Tools.SplitContainerAdv
     Friend WithEvents lblSmartTextValues As Syncfusion.Windows.Forms.Tools.AutoLabel
     Friend WithEvents scWhereUsed As Syncfusion.Windows.Forms.Tools.SplitContainerAdv
@@ -395,7 +416,7 @@ Partial Class dlgSmartText
     Friend WithEvents scWhereUsed2 As Syncfusion.Windows.Forms.Tools.SplitContainerAdv
     Friend WithEvents lblWhereUsed As Syncfusion.Windows.Forms.Tools.AutoLabel
     Friend WithEvents sfdgWhereUsed As Syncfusion.WinForms.DataGrid.SfDataGrid
-    Friend WithEvents btnOptions As Syncfusion.Windows.Forms.ButtonAdv
+    Friend WithEvents btnGear As Syncfusion.Windows.Forms.ButtonAdv
     Friend WithEvents btnCancel As Syncfusion.Windows.Forms.ButtonAdv
     Friend WithEvents btnOK As Syncfusion.Windows.Forms.ButtonAdv
 End Class
