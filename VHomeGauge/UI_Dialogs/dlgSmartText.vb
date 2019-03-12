@@ -52,10 +52,10 @@ Public Class dlgSmartText
         '
         ' 
         '
-        Cursor = Cursors.WaitCursor
-        m_SmartTextKeysRepos.Update()
-        m_SmartTextValuesRepos.Update()
-        Cursor = Cursors.Default
+        ' Cursor = Cursors.WaitCursor
+        ' m_SmartTextKeysRepos.Update()
+        ' m_SmartTextValuesRepos.Update()
+        ' Cursor = Cursors.Default
         Close()
         '
     End Sub
@@ -76,7 +76,7 @@ Public Class dlgSmartText
     Private Sub sfdgSmartTextKeys_SelectionChanged(sender As Object, e As EventArgs) Handles sfdgSmartTextKeys.SelectionChanged
         '
         ' Get the selected row. It will be the RSmartTextKey object.
-        ' We want to  build th Values repository by FK, so we use the overloaded GetRepos() method
+        ' We want to  build the Values repository by FK, so we use the overloaded GetRepos() method
         '        
         Cursor = Cursors.WaitCursor
         Dim theSmartTextKey As RSmartTextKey = TryCast(sfdgSmartTextKeys.SelectedItem, RSmartTextKey)
@@ -100,7 +100,7 @@ Public Class dlgSmartText
             '
             ' Do something to the object to delete it.
             '
-            ' Cursor = Cursors.WaitCursor
+            Cursor = Cursors.WaitCursor
             Try
                 theInfo.IsDeleted = True
                 theInfo.Update()
@@ -109,6 +109,7 @@ Public Class dlgSmartText
                 '
             Finally
                 Cursor = Cursors.Default
+                '
             End Try
             '
         Else

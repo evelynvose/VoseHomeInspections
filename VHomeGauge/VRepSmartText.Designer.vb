@@ -240,7 +240,7 @@ Partial Public Class VRepSmartTextDataSet
         Me.tableSmartTextValues.Constraints.Add(fkc)
         fkc.AcceptRejectRule = Global.System.Data.AcceptRejectRule.None
         fkc.DeleteRule = Global.System.Data.Rule.Cascade
-        fkc.UpdateRule = Global.System.Data.Rule.Cascade
+        fkc.UpdateRule = Global.System.Data.Rule.None
         Me.relationFK_SmartTextKeys_SmartTextValues = New Global.System.Data.DataRelation("FK_SmartTextKeys_SmartTextValues", New Global.System.Data.DataColumn() {Me.tableSmartTextKeys.IDColumn}, New Global.System.Data.DataColumn() {Me.tableSmartTextValues.FK_KeyColumn}, false)
         Me.Relations.Add(Me.relationFK_SmartTextKeys_SmartTextValues)
     End Sub

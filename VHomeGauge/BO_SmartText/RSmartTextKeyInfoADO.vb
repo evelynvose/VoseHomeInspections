@@ -122,6 +122,64 @@ Public MustInherit Class RSmartTextKeyInfoADO
         End Using
         Return False
     End Function
+    ' 
+    ' ***********************************************
+    ' *****     +Delete()
+    ' ***********************************************
+    '
+    Public Sub Delete()
+        '
+        ' Permanently deletes the row from the dB by ID, and clears the data in this object.
+        '
+        ' Set up the parameter
+        '      
+        Dim theIdParam As New OleDb.OleDbParameter With {
+        .DbType = DbType.Guid,
+        .ParameterName = "@ID",
+        .Value = ID
+        }
+        '
+        ' Build the command
+        '
+        Dim theCommand As New OleDb.OleDbCommand With {
+                .CommandText = "DELETE FROM SMARTTEXTKEYS WHERE (ID = ?)",
+                .Connection = New OleDb.OleDbConnection(My.Settings.ConnectionString)
+            }
+        '
+        ' Add the parameter to the command
+        '
+        theCommand.Parameters.Add(theIdParam)
+        '
+        ' Execute the query
+        '
+        Try
+            theCommand.Connection.Open()
+            '
+            If theCommand.ExecuteNonQuery() > 0 Then
+                '
+                ' Set this object to its virgin state
+                '
+                ID = Guid.Empty
+                Key = ""
+                TS = Date.Now
+                IsDeleted = False
+                IsNew = True
+                IsDirty = False
+                '
+            Else
+                MsgBox(New Exception(String.Format("The delete operation failed for guid = {0}", ID)))
+                '
+            End If
+            '
+        Catch ex As Exception
+            MsgBox(ex)
+            '
+        Finally
+            theCommand.Connection.Close()
+            '
+        End Try
+        '
+    End Sub
     '
     ' ***********************************************
     ' *****     -RuleCheck():bool
@@ -186,6 +244,11 @@ Public MustInherit Class RSmartTextKeyInfoADO
     '
     Public Function Update() As Boolean
         If Not IsDirty AndAlso Not IsDeleted Then Return False ' nothing to save or update
+        If IsDeleted Then
+            Delete()
+            Return True
+            '
+        End If
         '
         ' Run the rule check
         '
@@ -219,7 +282,6 @@ Public MustInherit Class RSmartTextKeyInfoADO
                 '
                 Try
                     If dt.Count = 0 Then dt.AddSmartTextKeysRow(row)
-                    If IsDeleted Then row.Delete()
                     ta.Update(dt)
                     IsDirty = False
                     '
