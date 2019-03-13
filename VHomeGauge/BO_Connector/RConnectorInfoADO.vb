@@ -231,6 +231,65 @@ Public MustInherit Class RConnectorInfoADO
         Return IsDirty
         '
     End Function
+    ' 
+    ' ***********************************************
+    ' *****     +Delete()
+    ' ***********************************************
+    '
+    ' Permanently deletes the row from the dB by ID, and clears the data in this object.
+    '   '
+    Public Sub Delete()
+        '
+        ' Set up the parameter
+        '      
+        Dim theIdParam As New OleDb.OleDbParameter With {
+        .DbType = DbType.Guid,
+        .ParameterName = "@ID",
+        .Value = ID
+            }
+        '
+        ' Build the command
+        '
+        Dim theCommand As New OleDb.OleDbCommand With {
+                .CommandText = "DELETE FROM RCONNECTORS WHERE (ID = ?)",
+                .Connection = New OleDb.OleDbConnection(My.Settings.ConnectionString)
+            }
+        '
+        ' Add the parameter to the command
+        '
+        theCommand.Parameters.Add(theIdParam)
+        '
+        ' Execute the query
+        '
+        Try
+            theCommand.Connection.Open()
+            '
+            If theCommand.ExecuteNonQuery() > 0 Then
+                '
+                ' Set this object to its virgin state
+                '
+                ID = Guid.Empty
+                XNode = ""
+                XValue = ""
+                XParentNode = ""
+                IsDeleted = False
+                IsNew = True
+                IsDirty = False
+                '
+            Else
+                MsgBox(New Exception(String.Format("The delete operation failed for guid = {0}", ID)))
+                '
+            End If
+            '
+        Catch ex As Exception
+            MsgBox(ex)
+            '
+        Finally
+            theCommand.Connection.Close()
+            '
+        End Try
+        '
+    End Sub
     '
     ' **********************************************
     ' ****

@@ -64,7 +64,7 @@ Public Class dlgConnectors
             ' Cursor = Cursors.WaitCursor
             Try
                 theInfo.IsDeleted = True
-                theInfo.Update()
+                theInfo.Delete()
                 '
             Catch ex As Exception
                 '

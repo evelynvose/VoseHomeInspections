@@ -127,9 +127,9 @@ Public MustInherit Class RSmartTextKeyInfoADO
     ' *****     +Delete()
     ' ***********************************************
     '
+    ' Permanently deletes the row from the dB by ID, and clears the data in this object.
+    '   '
     Public Sub Delete()
-        '
-        ' Permanently deletes the row from the dB by ID, and clears the data in this object.
         '
         ' Set up the parameter
         '      
@@ -137,7 +137,7 @@ Public MustInherit Class RSmartTextKeyInfoADO
         .DbType = DbType.Guid,
         .ParameterName = "@ID",
         .Value = ID
-        }
+            }
         '
         ' Build the command
         '

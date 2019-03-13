@@ -1,6 +1,4 @@
-﻿Imports Syncfusion.Windows.Forms
-Imports Syncfusion.Windows.Forms.Tools.Events
-Imports Syncfusion.WinForms.DataGrid
+﻿
 '
 ' **********************************************
 ' ****
@@ -8,27 +6,42 @@ Imports Syncfusion.WinForms.DataGrid
 ' ****
 ' **********************************************
 ' 
-#Region "Main Form Class"
+Imports Syncfusion.Windows.Forms
+Imports Syncfusion.Windows.Forms.Tools.Events
+Imports Syncfusion.WinForms.DataGrid
+'
 Public Class frmMain
     Inherits MetroForm
     '
     ' ***********************************************
-    ' *****     Load
+    ' *****     -Main_Load(sender, e)
     ' ***********************************************
     '
-#Region "Load"
+    Private m_HasBeenLoaded As Boolean
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles Me.Load
+        '
+        ' This flag prevents the form from recycling
+        '
+        If m_HasBeenLoaded Then Exit Sub
+        m_HasBeenLoaded = True
+        '
         ' This allows the form to get keypresses.  This is needed for the NUMS lock and CAPS lock status  on the status bar.
         ' The two event handlers below won't be invoked unless this is set to true.
+        '
         Me.KeyPreview = True
-
-
-        ' Initialize the form
+        '
+        ' Initialize general
+        '
+        InitializeConnectionString()
+        '
+        ' Initialize the form elements
+        '
         InitializeSplitters()
         InitializeFilmstrip()
         InitializePeopleDataGrid()
-
+        '
         ' Add the open report browser form
+        '
         Dim f As New frmReportBrowser
         With f
             .TopLevel = False
@@ -37,13 +50,12 @@ Public Class frmMain
             f.Location = New Point(0, 0)
             f.WindowState = FormWindowState.Normal
             f.Visible = True
-
+            '
         End With
         scTabs.Panel1.Controls.Add(f)
         f.Dock = DockStyle.Fill
-
+        '
     End Sub
-#End Region
     '
     ' **********************************************
     ' ****
@@ -51,10 +63,8 @@ Public Class frmMain
     ' ****
     ' **********************************************
     ' 
-#Region "Methods"
-    '
     ' ***********************************************
-    ' *****     Initialize Splitters
+    ' *****     -InitializeSplitters()
     ' ***********************************************
     '
     Private m_IsSplittersInitialized As Boolean
@@ -87,7 +97,7 @@ Public Class frmMain
     End Sub
     '
     ' ***********************************************
-    ' *****     Initialize the Filmstrip
+    ' *****     -InitializeFilmstrip():bool
     ' ***********************************************
     '
     Private m_IsFilmstripInitialized As Boolean
@@ -134,7 +144,7 @@ Public Class frmMain
     End Sub
     '
     ' ***********************************************
-    ' *****     Initialize the People Data Grid
+    ' *****     -InitializePeopleDataGrid():bool
     ' ***********************************************
     '
     Private m_IsPeopleDataGridInitialized As Boolean
@@ -153,36 +163,49 @@ Public Class frmMain
         dgPeopleInfo.DataSource = New ClientRepository
 
     End Sub
-#End Region
-
+    '
+    ' ***********************************************
+    ' *****     -InitializeConnectionString()
+    ' ***********************************************
+    '
+    Private Sub InitializeConnectionString()
+        Dim ta As New vreportsDataSetTableAdapters.ReportMasterTableAdapter
+        Dim con As OleDb.OleDbConnection
+        con = ta.Connection
+        My.Settings.ConnectionString = con.ConnectionString
+        '
+    End Sub
     '
     ' **********************************************
     ' ****
     ' ******    Properties
     ' ****
     ' **********************************************
-    ' 
-#Region "Properties"
-
+    '
+    ' ***********************************************
+    ' *****     -m_PictureFilter():picturefilter
+    ' ***********************************************
+    '    
     Private m_PictureFilter As PictureFilter
     Public ReadOnly Property PictureFilter As PictureFilter
         Get
             Return m_PictureFilter
         End Get
     End Property
-#End Region
-
+    '
     ' **********************************************
     ' ****
     ' ******    Event Handlers
     ' ****
     ' **********************************************
     ' 
-#Region "Event Handlers"
-
     ' ***********************************************
     ' *****     Key Down Event Handler
     ' *****     Caps, Num and Insert key states
+    ' ***********************************************
+    '
+    ' ***********************************************
+    ' *****     -Main_KeyDown(sender, e):picturefilter
     ' ***********************************************
     '
     Private m_InsertOvrStateFlag As Boolean
@@ -239,7 +262,7 @@ Public Class frmMain
     End Sub
     '
     ' ***********************************************
-    ' *****     Picture Browser Button Event Handler
+    ' *****     -btnPictureBrowser_Click(sender, e)
     ' ***********************************************
     '
     Private Sub btnPictureBrowser_Click(sender As Object, e As EventArgs) Handles btnPictureBrowser.Click
@@ -275,7 +298,7 @@ Public Class frmMain
     End Sub
     '
     ' ***********************************************
-    ' *****     Photo Locker Drop Down Event Handler
+    ' *****     -cbPhotoLocker_SelectedIndexChanged(sender, e)
     ' *****     Loads new pictures into the filmstrip
     ' ***********************************************
     '
@@ -294,7 +317,7 @@ Public Class frmMain
     End Sub
     '
     ' ***********************************************
-    ' *****     Clients Event Handler
+    ' *****     -btnContactsClient_Click(sender, e)
     ' *****     Loads new clients into the contacts datagrid
     ' ***********************************************
     '
@@ -309,7 +332,7 @@ Public Class frmMain
     End Sub
     '
     ' ***********************************************
-    ' *****     Agents's Event Handler
+    ' *****     -btnContactsAgent_Click(sender, e)
     ' *****     Loads new clients into the contacts datagrid
     ' ***********************************************
     '
@@ -324,7 +347,7 @@ Public Class frmMain
     End Sub
     '
     ' ***********************************************
-    ' *****     People Data Grid Event
+    ' *****     -dgPeopleInfo_Click(sender, e)
     ' ***********************************************
     '
     Private Sub dgPeopleInfo_Click(sender As Object, e As EventArgs) Handles dgPeopleInfo.SelectionChanged
@@ -334,7 +357,7 @@ Public Class frmMain
     End Sub
     '
     ' ***********************************************
-    ' *****     Right Splitter Moved
+    ' *****     -scTabs_SplitterMoved(sender,e)
     ' ***********************************************
     '
     Private Sub scTabs_SplitterMoved(sender As Object, e As SplitterMoveEventArgs) Handles scTabs.SplitterMoved
@@ -343,7 +366,7 @@ Public Class frmMain
     End Sub
     '
     ' ***********************************************
-    ' *****     Left Splitter Moved
+    ' *****     -scControlsBase_SplitterMoved(sender, e)
     ' ***********************************************
     '
     Private Sub scControlsBase_SplitterMoved(sender As Object, e As SplitterMoveEventArgs) Handles scControlsBase.SplitterMoved
@@ -352,7 +375,7 @@ Public Class frmMain
     End Sub
     '
     ' ***********************************************
-    ' *****     -miMainFileProperties_Click(object, EventArgs)
+    ' *****     -miMainFileProperties_Click(sender, e)
     ' ***********************************************
     '
     Private Sub miMainFileProperties_Click(sender As Object, e As EventArgs) Handles miMainFileProperties.Click
@@ -362,7 +385,7 @@ Public Class frmMain
     End Sub
     '
     ' ***********************************************
-    ' *****     -miMainTemplateConnectors_Click(object, EventArgs)
+    ' *****     -miMainTemplateConnectors_Click(sender, e)
     ' ***********************************************
     '
     Private Sub miMainTemplateConnectors_Click(sender As Object, e As EventArgs) Handles miMainTemplateConnectors.Click
@@ -374,7 +397,7 @@ Public Class frmMain
     End Sub
     '
     ' ***********************************************
-    ' *****     -miMainTemplateSmartText_Click(object, EventArgs)
+    ' *****     -miMainTemplateSmartText_Click(sedner, e)
     ' ***********************************************
     '
     Private Sub miMainTemplateSmartText_Click(sender As Object, e As EventArgs) Handles miMainTemplateSmartText.Click
@@ -385,9 +408,7 @@ Public Class frmMain
         '
     End Sub
     '
-#End Region
 End Class
-#End Region
 
 
 

@@ -40,7 +40,8 @@ Public MustInherit Class RSmartTextValuesRepositoryADO
     ' ***********************************************
     '
     Private Sub Initialize()
-        m_Repository = New List(Of RSmartTextValueInfoData)
+        '
+        ' Do nothing on purpose!
         '
     End Sub
     ' 
@@ -48,8 +49,7 @@ Public MustInherit Class RSmartTextValuesRepositoryADO
     ' *****     -GetRepos():IList
     ' ***********************************************
     '
-    Private m_Repository As IList(Of RSmartTextValueInfoData)
-    Public Function GetRepos() As IList(Of RSmartTextValueInfoData)
+    Public Function GetRepos() As IList(Of RSmartTextValue)
         Dim sqlCommand As New OleDb.OleDbCommand With {
             .CommandText = "SELECT * FROM SmartTextValues"
         }
@@ -61,7 +61,7 @@ Public MustInherit Class RSmartTextValuesRepositoryADO
     ' *****     -GetRepos(RSmartTextKey):IList
     ' ***********************************************
     '
-    Public Function GetRepos(ByVal key As RSmartTextKey) As IList(Of RSmartTextValueInfoData)
+    Public Function GetRepos(ByVal key As RSmartTextKey) As IList(Of RSmartTextValue)
         Dim sCommand As String
         sCommand = "SELECT * FROM SmartTextValues WHERE (((SmartTextValues.[FK_KEY])={guid {?}}));"
         sCommand = sCommand.Replace("?", key.ID.ToString)
@@ -78,11 +78,10 @@ Public MustInherit Class RSmartTextValuesRepositoryADO
     ' *****     -GetRepos(OleDbCommand):IList
     ' ***********************************************
     '
-    Private Function GetRepos(ByVal myCommand As OleDb.OleDbCommand) As IList(Of RSmartTextValueInfoData)
+    Private Function GetRepos(ByVal myCommand As OleDb.OleDbCommand) As IList(Of RSmartTextValue)
         '
         ' Always generate a database refresh
         '
-        m_Repository = New List(Of RSmartTextValueInfoData)
         Using ta As New SmartTextValuesTableAdapter
             Using dt As New SmartTextValuesDataTable
                 Try
@@ -91,7 +90,7 @@ Public MustInherit Class RSmartTextValuesRepositoryADO
                     ta.Adapter.Fill(dt)
                     For Each row As SmartTextValuesRow In dt.Rows
                         Dim newRow As New RSmartTextValue(row.ID)
-                        m_Repository.Add(newRow)
+                        Repository.Add(newRow)
                         '
                     Next
                 Catch ex As Exception
@@ -105,18 +104,16 @@ Public MustInherit Class RSmartTextValuesRepositoryADO
             End Using
         End Using
         '
-        Return m_Repository
+        Return Repository
     End Function
     ' 
     ' ***********************************************
     ' *****     +Find(guid):RSmartTextValueInfo
     ' ***********************************************
     '
-    Public Function Find(ByVal theID As Guid) As RSmartTextValueInfoData
-        ' Dim theInfo As RSmartTextValueInfoData = Nothing
+    Public Function Find(ByVal theID As Guid) As RSmartTextValue
         '
-        If IsNothing(m_Repository) Then Return Nothing
-        For Each rowInfo As RSmartTextValueInfoData In m_Repository
+        For Each rowInfo As RSmartTextValue In Repository
             If rowInfo.ID.Equals(theID) Then
                 Return rowInfo
                 '
@@ -129,11 +126,9 @@ Public MustInherit Class RSmartTextValuesRepositoryADO
     ' *****     -Find(srting):RSmartTextValueInfo
     ' ***********************************************
     '
-    Public Function Find(ByVal value As String) As RSmartTextValueInfoData
-        ' Dim theRSmartTextValueInfo As RSmartTextValueInfoData = Nothing
+    Public Function Find(ByVal value As String) As RSmartTextValue
         '
-        If IsNothing(m_Repository) Then Return Nothing
-        For Each rowInfo As RSmartTextValueInfoData In m_Repository
+        For Each rowInfo As RSmartTextValue In Repository
             If rowInfo.Value = value Then
                 Return rowInfo
                 '
@@ -148,11 +143,32 @@ Public MustInherit Class RSmartTextValuesRepositoryADO
     '
     Public Function Update() As Boolean
         Dim bFlag As Boolean
-        For Each info As RSmartTextValue In m_Repository
-            info.Update()
+        For Each info As RSmartTextValue In Repository
+            If info.IsDeleted Then
+                Remove(info)
+                info.Delete()
+                '
+            Else
+                info.Update()
+                '
+            End If
             '
         Next
         Return bFlag
+    End Function
+    ' 
+    ' ***********************************************
+    ' *****     +Remove(RSmartTextKey):bool
+    ' ***********************************************
+    '
+    Public Function Remove(ByVal value As RSmartTextValue) As Boolean
+        If IsNothing(value) Then Return False
+        For i As Integer = Repository.Count - 1 To 0 Step -1
+            If Repository(i).ID = value.ID Then Repository.RemoveAt(i)
+            Return True
+            '
+        Next
+        Return False
     End Function
     '
     ' **********************************************
@@ -161,15 +177,32 @@ Public MustInherit Class RSmartTextValuesRepositoryADO
     ' ****
     ' **********************************************
     '
+    Private m_Repository As IList(Of RSmartTextValue)
+    '
     ' ***********************************************
-    ' *****     Encapsulated Members
+    ' *****     +Count():integer
     ' ***********************************************
     '
     Public ReadOnly Property Count As Integer
         Get
-            If IsNothing(m_Repository) Then Return 0
-            Return m_Repository.Count
+            Return Repository.Count
             '
         End Get
     End Property
+    '
+    ' ***********************************************
+    ' *****     +Repository():ilist
+    ' ***********************************************
+    '
+    Public ReadOnly Property Repository As IList(Of RSmartTextValue)
+        Get
+            If IsNothing(m_Repository) Then
+                m_Repository = New List(Of RSmartTextValue)
+                '
+            End If
+            Return m_Repository
+            '
+        End Get
+    End Property
+
 End Class

@@ -20,8 +20,8 @@ Public Class dlgSmartText
     ' ****
     ' **********************************************
     '
-    Private m_SmartTextKeysRepos As New RSmartTextKeys
-    Private m_SmartTextValuesRepos As RSmartTextValues
+    Private m_SmartTextKeys As New RSmartTextKeys
+    Private m_SmartTextValues As RSmartTextValues
     ' Private m_SmartTextWhereUsedRepos As New RSmartTextWhereUsed
     '
     Private Sub dlgSmartText_Load(sender As Object, e As EventArgs) Handles Me.Load
@@ -34,7 +34,7 @@ Public Class dlgSmartText
         '
         ' Load the Keys grid. The other grids will get loaded when a Key is selected.
         '
-        sfdgSmartTextKeys.DataSource = m_SmartTextKeysRepos.GetRepos
+        sfdgSmartTextKeys.DataSource = m_SmartTextKeys.GetRepos
         '
     End Sub
     '
@@ -53,8 +53,8 @@ Public Class dlgSmartText
         ' 
         '
         ' Cursor = Cursors.WaitCursor
-        ' m_SmartTextKeysRepos.Update()
-        ' m_SmartTextValuesRepos.Update()
+        ' m_SmartTextKeys.Update()
+        ' m_SmartTextValues.Update()
         ' Cursor = Cursors.Default
         Close()
         '
@@ -80,10 +80,12 @@ Public Class dlgSmartText
         '        
         Cursor = Cursors.WaitCursor
         Dim theSmartTextKey As RSmartTextKey = TryCast(sfdgSmartTextKeys.SelectedItem, RSmartTextKey)
-        If IsNothing(theSmartTextKey) Then Exit Sub
-        '
-        m_SmartTextValuesRepos = New RSmartTextValues
-        sfdgSmartTextValues.DataSource = m_SmartTextValuesRepos.GetRepos(theSmartTextKey)
+        sfdgSmartTextValues.DataSource = Nothing
+        If Not IsNothing(theSmartTextKey) Then
+            m_SmartTextValues = New RSmartTextValues
+            sfdgSmartTextValues.DataSource = m_SmartTextValues.GetRepos(theSmartTextKey)
+            '
+        End If
         Cursor = Cursors.Default
     End Sub
     '
@@ -102,8 +104,12 @@ Public Class dlgSmartText
             '
             Cursor = Cursors.WaitCursor
             Try
-                theInfo.IsDeleted = True
-                theInfo.Update()
+                m_SmartTextKeys.Remove(theInfo)
+                theInfo.Delete()
+                If sfdgSmartTextKeys.RowCount = 0 Then
+                    sfdgSmartTextValues.DataSource = Nothing
+                    '
+                End If
                 '
             Catch ex As Exception
                 '
@@ -133,8 +139,8 @@ Public Class dlgSmartText
             '
             ' Cursor = Cursors.WaitCursor
             Try
-                theInfo.IsDeleted = True
-                theInfo.Update()
+                m_SmartTextValues.Remove(theInfo)
+                theInfo.Delete()
                 '
             Catch ex As Exception
                 '

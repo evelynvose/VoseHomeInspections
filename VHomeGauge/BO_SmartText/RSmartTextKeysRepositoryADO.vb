@@ -40,7 +40,8 @@ Public MustInherit Class RSmartTextKeysRepositoryADO
     ' ***********************************************
     '
     Private Sub Initialize()
-        m_Repository = New List(Of RSmartTextKeyInfoData)
+        '
+        ' Do nothing on purpose!
         '
     End Sub
     ' 
@@ -48,19 +49,17 @@ Public MustInherit Class RSmartTextKeysRepositoryADO
     ' *****     -GetRepos():IList
     ' ***********************************************
     '
-    Private m_Repository As IList(Of RSmartTextKeyInfoData)
-    Public Function GetRepos() As IList(Of RSmartTextKeyInfoData)
+    Public Function GetRepos() As IList(Of RSmartTextKey)
         '
         ' Always generate a database refresh
         '
-        m_Repository = New List(Of RSmartTextKeyInfoData)
         Using ta As New SmartTextKeysTableAdapter
             Using dt As New SmartTextKeysDataTable
                 Try
                     ta.Fill(dt)
                     For Each row As SmartTextKeysRow In dt.Rows
                         Dim NewSmartTextKey As New RSmartTextKey(row.ID)
-                        m_Repository.Add(NewSmartTextKey)
+                        Repository.Add(NewSmartTextKey)
                         '
                     Next
                 Catch ex As Exception
@@ -74,18 +73,15 @@ Public MustInherit Class RSmartTextKeysRepositoryADO
             End Using
         End Using
         '
-        Return m_Repository
+        Return Repository
     End Function
     ' 
     ' ***********************************************
     ' *****     +Find(guid):RSmartTextKeyInfo
     ' ***********************************************
     '
-    Public Function Find(ByVal theID As Guid) As RSmartTextKeyInfoData
-        Dim theRSmartTextKeyInfo As RSmartTextKeyInfoData = Nothing
-        '
-        If IsNothing(m_Repository) Then Return Nothing
-        For Each rinfo As RSmartTextKeyInfoData In m_Repository
+    Public Function Find(ByVal theID As Guid) As RSmartTextKey
+        For Each rinfo As RSmartTextKey In Repository
             If rinfo.ID.Equals(theID) Then
                 Return rinfo
                 '
@@ -98,11 +94,8 @@ Public MustInherit Class RSmartTextKeysRepositoryADO
     ' *****     -Find(srting):RSmartTextKeyInfo
     ' ***********************************************
     '
-    Public Function Find(ByVal key As String) As RSmartTextKeyInfoData
-        Dim theRSmartTextKeyInfo As RSmartTextKeyInfoData = Nothing
-        '
-        If IsNothing(m_Repository) Then Return Nothing
-        For Each rowInfo As RSmartTextKeyInfoData In m_Repository
+    Public Function Find(ByVal key As String) As RSmartTextKey
+        For Each rowInfo As RSmartTextKey In Repository
             If rowInfo.Key = key Then
                 Return rowInfo
                 '
@@ -117,11 +110,32 @@ Public MustInherit Class RSmartTextKeysRepositoryADO
     '
     Public Function Update() As Boolean
         Dim bFlag As Boolean
-        For Each info As RSmartTextKey In m_Repository
-            info.Update()
+        For Each info As RSmartTextKey In Repository
+            If info.IsDeleted Then
+                Remove(info)
+                info.Delete()
+                '
+            Else
+                info.Update()
+                '
+            End If
             '
         Next
         Return bFlag
+    End Function
+    ' 
+    ' ***********************************************
+    ' *****     +Remove(RSmartTextKey):bool
+    ' ***********************************************
+    '
+    Public Function Remove(ByVal key As RSmartTextKey) As Boolean
+        If IsNothing(key) Then Return False
+        For i As Integer = Repository.Count - 1 To 0 Step -1
+            If Repository(i).ID = key.ID Then Repository.RemoveAt(i)
+            Return True
+            '
+        Next
+        Return False
     End Function
     '
     ' **********************************************
@@ -130,15 +144,31 @@ Public MustInherit Class RSmartTextKeysRepositoryADO
     ' ****
     ' **********************************************
     '
+    Private m_Repository As IList(Of RSmartTextKey)
+    '
     ' ***********************************************
-    ' *****     Encapsulated Members
+    ' *****     +Count():integer
     ' ***********************************************
     '
     Public ReadOnly Property Count As Integer
         Get
-            If IsNothing(m_Repository) Then Return 0
-            Return m_Repository.Count
+            Return Repository.Count
             '
         End Get
     End Property
+    '
+    ' ***********************************************
+    ' *****     +Count():integer
+    ' ***********************************************
+    '
+    Public ReadOnly Property Repository As IList(Of RSmartTextKey)
+        Get
+            If IsNothing(m_Repository) Then
+                m_Repository = New List(Of RSmartTextKey)
+            End If
+            Return m_Repository
+            '
+        End Get
+    End Property
+
 End Class
