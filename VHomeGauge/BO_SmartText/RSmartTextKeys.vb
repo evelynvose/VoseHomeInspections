@@ -9,7 +9,7 @@
 ' This is a named class.  It gives the generic report repository a common name identifier.
 '
 Public Class RSmartTextKeys
-    Inherits RSmartTextKeysRepositoryADO
+    Inherits RSmartTextKeysADO
     '
     ' **********************************************
     ' ****

@@ -5,13 +5,13 @@
 ' ****
 ' **********************************************
 '
+Imports SyncfusionWindowsFormsApplication1.vreportsDataSet
+Imports SyncfusionWindowsFormsApplication1.vreportsDataSetTableAdapters
+'
 ' This is a report database controller class. It provides a highly typed interface
 ' to the database.
 '
-Imports SyncfusionWindowsFormsApplication1.VRepSmartTextDataSet
-Imports SyncfusionWindowsFormsApplication1.VRepSmartTextDataSetTableAdapters
-
-Public MustInherit Class RSmartTextKeysRepositoryADO
+Public MustInherit Class RConnectorsRepositoryADO
     Inherits VObject    ' everybody inherits VObject
     '
     ' **********************************************
@@ -40,8 +40,7 @@ Public MustInherit Class RSmartTextKeysRepositoryADO
     ' ***********************************************
     '
     Private Sub Initialize()
-        '
-        ' Do nothing on purpose!
+        m_Repository = New List(Of RConnectorData)
         '
     End Sub
     ' 
@@ -49,17 +48,20 @@ Public MustInherit Class RSmartTextKeysRepositoryADO
     ' *****     -GetRepos():IList
     ' ***********************************************
     '
-    Public Function GetRepos() As IList(Of RSmartTextKey)
+    Private m_Repository As IList(Of RConnectorData)
+    '
+    Public Function GetRepos() As IList(Of RConnectorData)
         '
         ' Always generate a database refresh
         '
-        Using ta As New SmartTextKeysTableAdapter
-            Using dt As New SmartTextKeysDataTable
+        m_Repository = New List(Of RConnectorData)
+        Using ta As New RConnectorsTableAdapter
+            Using dt As New RConnectorsDataTable
                 Try
                     ta.Fill(dt)
-                    For Each row As SmartTextKeysRow In dt.Rows
-                        Dim NewSmartTextKey As New RSmartTextKey(row.ID)
-                        Repository.Add(NewSmartTextKey)
+                    For Each row As vreportsDataSet.RConnectorsRow In dt.Rows
+                        Dim newObject As New RConnector(row.ID)
+                        m_Repository.Add(newObject)
                         '
                     Next
                 Catch ex As Exception
@@ -73,15 +75,18 @@ Public MustInherit Class RSmartTextKeysRepositoryADO
             End Using
         End Using
         '
-        Return Repository
+        Return m_Repository
     End Function
     ' 
     ' ***********************************************
-    ' *****     +Find(guid):RSmartTextKeyInfo
+    ' *****     +Find(guid):RConnectorInfo
     ' ***********************************************
     '
-    Public Function Find(ByVal theID As Guid) As RSmartTextKey
-        For Each rinfo As RSmartTextKey In Repository
+    Public Function Find(ByVal theID As Guid) As RConnectorData
+        Dim theRConnectorInfo As RConnectorData = Nothing
+        '
+        If IsNothing(m_Repository) Then Return Nothing
+        For Each rinfo As RConnectorData In m_Repository
             If rinfo.ID.Equals(theID) Then
                 Return rinfo
                 '
@@ -91,13 +96,16 @@ Public MustInherit Class RSmartTextKeysRepositoryADO
     End Function
     ' 
     ' ***********************************************
-    ' *****     -Find(srting):RSmartTextKeyInfo
+    ' *****     -Find(srting):RConnectorInfo
     ' ***********************************************
     '
-    Public Function Find(ByVal key As String) As RSmartTextKey
-        For Each rowInfo As RSmartTextKey In Repository
-            If rowInfo.Key = key Then
-                Return rowInfo
+    Public Function Find(ByVal s As String) As RConnectorData
+        Dim theRConnectorInfo As RConnectorData = Nothing
+        '
+        If IsNothing(m_Repository) Then Return Nothing
+        For Each rinfo As RConnectorData In m_Repository
+            If rinfo.XValue = s Then
+                Return rinfo
                 '
             End If
         Next
@@ -110,32 +118,11 @@ Public MustInherit Class RSmartTextKeysRepositoryADO
     '
     Public Function Update() As Boolean
         Dim bFlag As Boolean
-        For Each info As RSmartTextKey In Repository
-            If info.IsDeleted Then
-                Remove(info)
-                info.Delete()
-                '
-            Else
-                info.Update()
-                '
-            End If
+        For Each info As RConnector In m_Repository
+            bFlag = info.Update()
             '
         Next
         Return bFlag
-    End Function
-    ' 
-    ' ***********************************************
-    ' *****     +Remove(RSmartTextKey):bool
-    ' ***********************************************
-    '
-    Public Function Remove(ByVal key As RSmartTextKey) As Boolean
-        If IsNothing(key) Then Return False
-        For i As Integer = Repository.Count - 1 To 0 Step -1
-            If Repository(i).ID = key.ID Then Repository.RemoveAt(i)
-            Return True
-            '
-        Next
-        Return False
     End Function
     '
     ' **********************************************
@@ -144,31 +131,15 @@ Public MustInherit Class RSmartTextKeysRepositoryADO
     ' ****
     ' **********************************************
     '
-    Private m_Repository As IList(Of RSmartTextKey)
-    '
     ' ***********************************************
-    ' *****     +Count():integer
+    ' *****     Encapsulated Members
     ' ***********************************************
     '
     Public ReadOnly Property Count As Integer
         Get
-            Return Repository.Count
+            If IsNothing(m_Repository) Then Return 0
+            Return m_Repository.Count
             '
         End Get
     End Property
-    '
-    ' ***********************************************
-    ' *****     +Count():integer
-    ' ***********************************************
-    '
-    Public ReadOnly Property Repository As IList(Of RSmartTextKey)
-        Get
-            If IsNothing(m_Repository) Then
-                m_Repository = New List(Of RSmartTextKey)
-            End If
-            Return m_Repository
-            '
-        End Get
-    End Property
-
 End Class

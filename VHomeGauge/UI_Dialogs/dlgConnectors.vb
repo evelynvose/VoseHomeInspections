@@ -53,8 +53,8 @@ Public Class dlgConnectors
     ' ***********************************************
     '
     Private Sub sfdgConnectors_RecordDeleting(sender As Object, e As RecordDeletingEventArgs) Handles sfdgConnectors.RecordDeleting
-        Dim theInfo As RConnectorInfo
-        theInfo = TryCast(e.Items(0), RConnectorInfo)
+        Dim theInfo As RConnector
+        theInfo = TryCast(e.Items(0), RConnector)
         If IsNothing(theInfo) Then Exit Sub
         ' Console.WriteLine(String.Format("Row is deleting: {0}, {1}", theConnectorInfo.XValue, theConnectorInfo.ID))
         If MsgBox("Delete this connector?", MsgBoxStyle.YesNo, "Delete Connector") = MsgBoxResult.Yes Then

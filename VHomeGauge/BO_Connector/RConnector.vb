@@ -7,8 +7,8 @@
 ' 
 ' This is a named class
 '
-Public Class RConnectorInfo
-    Inherits RConnectorInfoADO
+Public Class RConnector
+    Inherits RConnectorADO
     '
     ' **********************************************
     ' ****

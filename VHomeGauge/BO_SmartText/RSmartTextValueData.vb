@@ -5,12 +5,10 @@
 ' ****
 ' **********************************************
 '
-Imports System.ComponentModel
 Imports SyncfusionWindowsFormsApplication1.VRepSmartTextDataSet
 ' 
-Public MustInherit Class RSmartTextValueInfoData
+Public MustInherit Class RSmartTextValueData
     Inherits VObject
-    Implements IEditableObject
     '
     ' **********************************************
     ' ****
@@ -41,7 +39,7 @@ Public MustInherit Class RSmartTextValueInfoData
         With row
             ID = .ID
             Value = .SValue
-            FK_key = .FK_Key
+            FK_Key = .FK_Key
             TS = .TS
             '
         End With
@@ -60,52 +58,6 @@ Public MustInherit Class RSmartTextValueInfoData
             '
         End With
     End Sub
-    ' 
-    ' ***********************************************
-    ' *****     -IEditableObject_BeginEdit(SmartTextValuesRow)
-    ' ***********************************************
-    '
-    Private Sub IEditableObject_BeginEdit() Implements IEditableObject.BeginEdit
-        '
-        '  Copy all of the data to stored values
-        '
-        m_CloneMe = Me.MemberwiseClone
-        m_CloneMe.IsDirty = IsDirty
-        ' 
-    End Sub
-    ' 
-    ' ***********************************************
-    ' *****     -IEditableObject_EndEdit(SmartTextValuesRow)
-    ' ***********************************************
-    '
-    Private Sub IEditableObject_EndEdit() Implements IEditableObject.EndEdit
-        '
-        ' Clear stored values
-        '        
-        m_CloneMe = Nothing     ' Kill the clone
-        '
-    End Sub
-    ' 
-    ' ***********************************************
-    ' *****     -IEditableObject_CancelEdit(SmartTextValuesRow)
-    ' ***********************************************
-    '
-    Private Sub IEditableObject_CancelEdit() Implements IEditableObject.CancelEdit
-        '
-        ' Copy the data from stored values (restores original values)
-        '
-        If Not IsNothing(m_CloneMe) Then
-            With m_CloneMe
-                ID = .ID
-                Value = .Value
-                FK_key = .FK_key
-                TS = .TS
-                IsDirty = .IsDirty
-                '
-            End With
-        End If
-        '
-    End Sub
     '
     ' **********************************************
     ' ****
@@ -122,7 +74,6 @@ Public MustInherit Class RSmartTextValueInfoData
     Private m_Value As String = ""
     Private m_FK_Key As Guid = Guid.Empty
     Private m_TS As Date = Date.Now()
-    Private m_CloneMe As RSmartTextValueInfoData
     '
     ' ***********************************************
     ' *****     #IsDirty(string):string

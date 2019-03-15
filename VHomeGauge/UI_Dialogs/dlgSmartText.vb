@@ -161,8 +161,6 @@ Public Class dlgSmartText
     ' Browse for the template file
     '
     Private Sub btnGear_Click(sender As Object, e As EventArgs) Handles btnGear.Click
-        MsgBox("Not Implemented",, "Smart Text Options")
-        Exit Sub
         Dim OpenFileDialog1 = New OpenFileDialog With {
            .CheckFileExists = True,
            .CheckPathExists = True,
@@ -178,8 +176,8 @@ Public Class dlgSmartText
             Dim thePB As New dlgVProgressBar
             With thePB
                 .StartPosition = FormStartPosition.CenterParent
-                .SetDoWorkClass(New HGIConnectorImport(New FileInfo(OpenFileDialog1.FileName)))
-                .Text = "Import Connectors"
+                .SetDoWorkClass(New HGISmartTextImport(New FileInfo(OpenFileDialog1.FileName)))
+                .Text = "Import Smart Text"
                 .AnnouncementVisible = False
                 .RunningStatusVisible = True
                 .OKButtonVisible = False
@@ -192,10 +190,9 @@ Public Class dlgSmartText
         ' reload from the dB
         '
         Cursor = Cursors.WaitCursor
-        Application.DoEvents()
-        'm_ConnectorsRepos = New RConnectors
-        'sfdgConnectors.DataSource = Nothing
-        'sfdgConnectors.DataSource = m_ConnectorsRepos.GetRepos
+        m_SmartTextKeys = New RSmartTextKeys
+        sfdgSmartTextKeys.DataSource = m_SmartTextKeys.GetRepos
+        sfdgSmartTextValues.DataSource = Nothing
         Cursor = Cursors.Default
         '
     End Sub

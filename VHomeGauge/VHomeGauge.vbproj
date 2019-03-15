@@ -122,21 +122,22 @@
     <Compile Include="BO_Person\Person.vb" />
     <Compile Include="BO_Report\Report.vb" />
     <Compile Include="BO_Role\RoleInfo.vb" />
-    <Compile Include="BO_Connector\RConnectorInfo.vb" />
-    <Compile Include="BO_Connector\RConnectorInfoADO.vb" />
-    <Compile Include="BO_Connector\RConnectorRepositoryADO.vb" />
-    <Compile Include="BO_Connector\RConnectorInfoData.vb" />
+    <Compile Include="BO_Connector\RConnector.vb" />
+    <Compile Include="BO_Connector\RConnectorADO.vb" />
+    <Compile Include="BO_Connector\RConnectorsADO.vb" />
+    <Compile Include="BO_Connector\RConnectorData.vb" />
     <Compile Include="BO_Connector\RConnectors.vb" />
     <Compile Include="BO_SmartText\RSmartTextValue.vb" />
     <Compile Include="BO_SmartText\RSmartTextKey.vb" />
-    <Compile Include="BO_SmartText\RSmartTextValueInfoADO.vb" />
-    <Compile Include="BO_SmartText\RSmartTextKeyInfoADO.vb" />
-    <Compile Include="BO_SmartText\RSmartTextValueInfoData.vb" />
-    <Compile Include="BO_SmartText\RSmartTextKeyInfoData.vb" />
+    <Compile Include="BO_SmartText\RSmartTextValueADO.vb" />
+    <Compile Include="BO_SmartText\RSmartTextKeyADO.vb" />
+    <Compile Include="BO_SmartText\RSmartTextValueData.vb" />
+    <Compile Include="BO_SmartText\RSmartTextKeyData.vb" />
     <Compile Include="BO_SmartText\RSmartTextValues.vb" />
-    <Compile Include="BO_SmartText\RSmartTextValuesRepositoryADO.vb" />
-    <Compile Include="BO_SmartText\RSmartTextKeysRepositoryADO.vb" />
+    <Compile Include="BO_SmartText\RSmartTextValuesADO.vb" />
+    <Compile Include="BO_SmartText\RSmartTextKeysADO.vb" />
     <Compile Include="BO_SmartText\RSmartTextKeys.vb" />
+    <Compile Include="HGI Specific\HGISmartTextImport.vb" />
     <Compile Include="VRepSmartText.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

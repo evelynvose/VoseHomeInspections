@@ -1,13 +1,14 @@
-﻿Imports System.IO
-Imports System.Xml
-'
+﻿'
 ' **********************************************
 ' ****
 ' ******    Class
 ' ****
 ' **********************************************
 '
-Public Class HGIConnectorImport
+Imports System.IO
+Imports System.Xml
+'
+Public Class HGISmartTextImport
     Inherits VDoWork
     '
     ' **********************************************
@@ -82,23 +83,56 @@ Public Class HGIConnectorImport
             '
             ' Loop through the cons, determine if exists in db, if not then insert it.
             '
+            Dim sMessage As String  ' The current key/value pair message for the progress bar information post area
+            Dim sValueMessage As String ' Same as above but for a value
             Dim nodelist As XmlNodeList
-            nodelist = Xmld.SelectNodes("/template/cons")
+            nodelist = Xmld.SelectNodes("/template/st")
             If Not IsNothing(nodelist) AndAlso nodelist.Count > 0 Then
-                nodelist = nodelist.Item(0).ChildNodes
                 For Each node As XmlNode In nodelist
-                    If Not IsNothing(node.FirstChild.Value) AndAlso IsNothing(RConnector.Find(node.FirstChild.Value)) Then
-                        Dim newConn As New RConnector
-                        With newConn
-                            .ID = Guid.NewGuid()
-                            .XNode = node.Name
-                            .XValue = node.FirstChild.Value
-                            .XParentNode = node.ParentNode.Name
-                            .Update()
-                            '
-                        End With
+
+                    If Not IsNothing(node.Item("stKey")) AndAlso node.Item("stKey").InnerText <> "" Then ' not nothing or blank
+                        '
+                        ' Send progress information to the progress bar
+                        '
+                        sMessage = "Import: " & node.Item("stKey").InnerText
+                        RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, sMessage))
+                        '
+                        ' First import the key into the dB
+                        '   
+                        Dim theObject As RSmartTextKey
+                        theObject = RSmartTextKey.Find(node.Item("stKey").InnerText)
+                        If IsNothing(theObject) Then ' not a duplicate
+                            theObject = New RSmartTextKey
+                            With theObject
+                                .ID = Guid.NewGuid()
+                                .Key = node.Item("stKey").InnerText
+                                .Update()
+                                '
+                            End With
+                        End If
+                        '
+                        ' Second, inport the values into the dB
+                        '
+                        For Each childNode As XmlNode In node.ChildNodes
+                            If childNode.Name = "stVal" AndAlso childNode.InnerText <> "" Then
+                                '
+                                ' Update the message
+                                '                                    
+                                sValueMessage = String.Format("{0}, Value: {1}", sMessage, childNode.InnerText)
+                                RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, sValueMessage))
+                                '
+                                If IsNothing(RSmartTextValue.Find(childNode.InnerText)) Then
+                                    Dim newChildObject As New RSmartTextValue
+                                    With newChildObject
+                                        .ID = Guid.NewGuid()
+                                        .FK_Key = theObject.ID
+                                        .Value = childNode.InnerText
+                                        .Update()
+                                    End With
+                                End If
+                            End If
+                        Next
                     End If
-                    '
                 Next
             End If
         Catch ex As Exception

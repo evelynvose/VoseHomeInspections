@@ -5,8 +5,13 @@
 ' ****
 ' **********************************************
 ' 
-Public MustInherit Class RConnectorInfoADO
-    Inherits RConnectorInfoData
+Imports SyncfusionWindowsFormsApplication1.VRepSmartTextDataSet
+Imports SyncfusionWindowsFormsApplication1.VRepSmartTextDataSetTableAdapters
+Imports System.ComponentModel
+'
+Public MustInherit Class RSmartTextKeyADO
+    Inherits RSmartTextKeyData
+    Implements IEditableObject
     '
     ' **********************************************
     ' ****
@@ -46,8 +51,8 @@ Public MustInherit Class RConnectorInfoADO
     '
     Protected Sub Load(ByVal theID As Guid)
         If IsNothing(theID) Then theID = Guid.Empty
-        Using ta As New vreportsDataSetTableAdapters.RConnectorsTableAdapter
-            Using dt As New vreportsDataSet.RConnectorsDataTable
+        Using ta As New SmartTextKeysTableAdapter
+            Using dt As New SmartTextKeysDataTable
                 Try
                     ta.FillByID(dt, theID)
                     If dt.Rows.Count > 0 Then
@@ -69,56 +74,116 @@ Public MustInherit Class RConnectorInfoADO
     End Sub
     '
     ' ***********************************************
-    ' *****     +Find(guid):bool
+    ' *****     +Find(guid):RSmartTextKey
     ' ***********************************************
     '
-    Public Shared Function Find(ByVal theID As Guid) As Boolean
-        Using ta As New vreportsDataSetTableAdapters.RConnectorsTableAdapter
-            Using dt As New vreportsDataSet.RConnectorsDataTable
+    Public Shared Function Find(ByVal theID As Guid) As RSmartTextKey
+        Using ta As New SmartTextKeysTableAdapter
+            Using dt As New SmartTextKeysDataTable
                 Try
                     If IsNothing(theID) Then theID = Guid.NewGuid()
                     ta.FillByID(dt, theID)
                     If dt.Rows.Count > 0 Then
-                        Return True
+                        Dim theObject As New RSmartTextKey(CType(dt.Rows(0), VRepSmartTextDataSet.SmartTextKeysRow).ID)
+                        Return theObject
                         '
                     End If
                     '
                 Catch ex As Exception
                     '
-                    Return False
+                    Return Nothing
                     '
                 End Try
                 '
             End Using
         End Using
-        Return False
+        Return Nothing
     End Function
     ' 
     ' ***********************************************
-    ' *****     -Find(string):bool
+    ' *****     -Find(string):RSmartTextKey
     ' ***********************************************
     '
-    Public Shared Function Find(ByVal s As String) As Boolean
-        Using ta As New vreportsDataSetTableAdapters.RConnectorsTableAdapter
-            Using dt As New vreportsDataSet.RConnectorsDataTable
+    Public Shared Function Find(ByVal key As String) As RSmartTextKey
+        Using ta As New SmartTextKeysTableAdapter
+            Using dt As New SmartTextKeysDataTable
                 Try
-                    If IsNothing(s) Then s = ""
-                    ta.FillByXValue(dt, s)
+                    If IsNothing(key) Then key = ""
+                    ta.FillByKey(dt, key)
                     If dt.Rows.Count > 0 Then
-                        Return True
+                        Dim theObject As New RSmartTextKey(CType(dt.Rows(0), VRepSmartTextDataSet.SmartTextKeysRow).ID)
+                        Return theObject
                         '
                     End If
                     '
                 Catch ex As Exception
                     '
-                    Return False
+                    Return Nothing
                     '
                 End Try
                 '
             End Using
         End Using
-        Return False
+        Return Nothing
     End Function
+    ' 
+    ' ***********************************************
+    ' *****     +Delete()
+    ' ***********************************************
+    '
+    ' Permanently deletes the row from the dB by ID, and clears the data in this object.
+    '   '
+    Public Sub Delete()
+        '
+        ' Set up the parameter
+        '      
+        Dim theIdParam As New OleDb.OleDbParameter With {
+        .DbType = DbType.Guid,
+        .ParameterName = "@ID",
+        .Value = ID
+            }
+        '
+        ' Build the command
+        '
+        Dim theCommand As New OleDb.OleDbCommand With {
+                .CommandText = "DELETE FROM SMARTTEXTKEYS WHERE (ID = ?)",
+                .Connection = New OleDb.OleDbConnection(My.Settings.ConnectionString)
+            }
+        '
+        ' Add the parameter to the command
+        '
+        theCommand.Parameters.Add(theIdParam)
+        '
+        ' Execute the query
+        '
+        Try
+            theCommand.Connection.Open()
+            '
+            If theCommand.ExecuteNonQuery() > 0 Then
+                '
+                ' Set this object to its virgin state
+                '
+                ID = Guid.Empty
+                Key = ""
+                TS = Date.Now
+                IsDeleted = False
+                IsNew = True
+                IsDirty = False
+                '
+            Else
+                MsgBox(New Exception(String.Format("The delete operation failed for guid = {0}", ID)))
+                '
+            End If
+            '
+        Catch ex As Exception
+            MsgBox(ex)
+            '
+        Finally
+            theCommand.Connection.Close()
+            '
+        End Try
+        '
+    End Sub
     '
     ' ***********************************************
     ' *****     -RuleCheck():bool
@@ -138,7 +203,7 @@ Public MustInherit Class RConnectorInfoADO
         Dim bRule_1_Met As Boolean = True
         If IsNothing(ID) OrElse ID.Equals(Guid.Empty) Then
             sMessage &= vbCrLf
-            sMessage &= "PK is not valid."
+            sMessage &= "ID is not valid."
             bRule_1_Met = False
             '
         End If
@@ -146,7 +211,7 @@ Public MustInherit Class RConnectorInfoADO
         ' Rule 2
         '
         Dim bRule_2_Met As Boolean = True
-        If IsNothing(XNode) OrElse IsNothing(XValue) OrElse IsNothing(XParentNode) Then
+        If IsNothing(Key) OrElse IsNothing(TS) Then
             sMessage &= vbCrLf
             sMessage &= "One or more fields are not valid."
             bRule_2_Met = False
@@ -156,9 +221,9 @@ Public MustInherit Class RConnectorInfoADO
         ' Rule 3
         '
         Dim bRule_3_Met As Boolean = True
-        If XValue = "" Then
+        If Key = "" Then
             sMessage &= vbCrLf
-            sMessage &= "XValue can't be empty."
+            sMessage &= "Key can't be empty."
             bRule_3_Met = False
             '
         End If
@@ -183,6 +248,11 @@ Public MustInherit Class RConnectorInfoADO
     '
     Public Function Update() As Boolean
         If Not IsDirty AndAlso Not IsDeleted Then Return False ' nothing to save or update
+        If IsDeleted Then
+            Delete()
+            Return True
+            '
+        End If
         '
         ' Run the rule check
         '
@@ -195,28 +265,27 @@ Public MustInherit Class RConnectorInfoADO
         '
         ' Passed the rule check, so update the record
         '
-        Using ta = New vreportsDataSetTableAdapters.RConnectorsTableAdapter
-            Using dt = New vreportsDataSet.RConnectorsDataTable
-                Dim row As vreportsDataSet.RConnectorsRow
+        Using ta = New SmartTextKeysTableAdapter
+            Using dt = New SmartTextKeysDataTable
+                Dim row As SmartTextKeysRow
                 If Not IsNew() Then
                     ta.FillByID(dt, ID)
                     If dt.Count = 0 Then
-                        row = dt.NewRConnectorsRow
+                        row = dt.NewSmartTextKeysRow
                         '
                     Else
                         row = dt.Rows(0)
                         '
                     End If
                 Else ' is new connector
-                    row = dt.NewRConnectorsRow
+                    row = dt.NewSmartTextKeysRow
                     '
                 End If
                 '
                 LoadRowFromData(row)
                 '
                 Try
-                    If dt.Count = 0 Then dt.AddRConnectorsRow(row)
-                    If IsDeleted Then row.Delete()
+                    If dt.Count = 0 Then dt.AddSmartTextKeysRow(row)
                     ta.Update(dt)
                     IsDirty = False
                     '
@@ -233,61 +302,50 @@ Public MustInherit Class RConnectorInfoADO
     End Function
     ' 
     ' ***********************************************
-    ' *****     +Delete()
+    ' *****     -IEditableObject_BeginEdit(RSmartTextKeysRow)
     ' ***********************************************
     '
-    ' Permanently deletes the row from the dB by ID, and clears the data in this object.
-    '   '
-    Public Sub Delete()
+    Private m_CloneMe As RSmartTextKey
+    '
+    Private Sub IEditableObject_BeginEdit() Implements IEditableObject.BeginEdit
         '
-        ' Set up the parameter
-        '      
-        Dim theIdParam As New OleDb.OleDbParameter With {
-        .DbType = DbType.Guid,
-        .ParameterName = "@ID",
-        .Value = ID
-            }
+        '  Copy all of the data to stored values
         '
-        ' Build the command
+        m_CloneMe = Me.MemberwiseClone
+        m_CloneMe.IsDirty = IsDirty
+        ' 
+    End Sub
+    ' 
+    ' ***********************************************
+    ' *****     -IEditableObject_EndEdit(RSmartTextKeysRow)
+    ' ***********************************************
+    '
+    Private Sub IEditableObject_EndEdit() Implements IEditableObject.EndEdit
         '
-        Dim theCommand As New OleDb.OleDbCommand With {
-                .CommandText = "DELETE FROM RCONNECTORS WHERE (ID = ?)",
-                .Connection = New OleDb.OleDbConnection(My.Settings.ConnectionString)
-            }
+        ' Clear stored values and commit data
+        '        
+        m_CloneMe = Nothing     ' Kill the clone
+        Update()                  ' Commit data to dB, if IsDirty is set
         '
-        ' Add the parameter to the command
+    End Sub
+    ' 
+    ' ***********************************************
+    ' *****     -IEditableObject_CancelEdit(RSmartTextKeysRow)
+    ' ***********************************************
+    '
+    Private Sub IEditableObject_CancelEdit() Implements IEditableObject.CancelEdit
         '
-        theCommand.Parameters.Add(theIdParam)
+        ' Copy the data from stored values (restores original values)
         '
-        ' Execute the query
-        '
-        Try
-            theCommand.Connection.Open()
-            '
-            If theCommand.ExecuteNonQuery() > 0 Then
+        If Not IsNothing(m_CloneMe) Then
+            With m_CloneMe
+                ID = .ID
+                Key = .Key
+                TS = .TS
+                IsDirty = .IsDirty
                 '
-                ' Set this object to its virgin state
-                '
-                ID = Guid.Empty
-                XNode = ""
-                XValue = ""
-                XParentNode = ""
-                IsDeleted = False
-                IsNew = True
-                IsDirty = False
-                '
-            Else
-                MsgBox(New Exception(String.Format("The delete operation failed for guid = {0}", ID)))
-                '
-            End If
-            '
-        Catch ex As Exception
-            MsgBox(ex)
-            '
-        Finally
-            theCommand.Connection.Close()
-            '
-        End Try
+            End With
+        End If
         '
     End Sub
     '

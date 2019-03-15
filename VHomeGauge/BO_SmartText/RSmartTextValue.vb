@@ -8,7 +8,7 @@
 ' This is a named class
 '
 Public Class RSmartTextValue
-    Inherits RSmartTextValueInfoADO
+    Inherits RSmartTextValueADO
     '
     ' **********************************************
     ' ****

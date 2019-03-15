@@ -7,9 +7,11 @@
 ' 
 Imports SyncfusionWindowsFormsApplication1.VRepSmartTextDataSet
 Imports SyncfusionWindowsFormsApplication1.VRepSmartTextDataSetTableAdapters
-
-Public MustInherit Class RSmartTextValueInfoADO
-    Inherits RSmartTextValueInfoData
+Imports System.ComponentModel
+'
+Public MustInherit Class RSmartTextValueADO
+    Inherits RSmartTextValueData
+    Implements IEditableObject
     '
     ' **********************************************
     ' ****
@@ -72,55 +74,57 @@ Public MustInherit Class RSmartTextValueInfoADO
     End Sub
     '
     ' ***********************************************
-    ' *****     +Find(guid):bool
+    ' *****     +Find(guid):RSmartTextValue
     ' ***********************************************
     '
-    Public Shared Function Find(ByVal theID As Guid) As Boolean
+    Public Shared Function Find(ByVal theID As Guid) As RSmartTextValue
         Using ta As New SmartTextValuesTableAdapter
             Using dt As New SmartTextValuesDataTable
                 Try
                     If IsNothing(theID) Then theID = Guid.NewGuid()
-                    ta.FillById(dt, theID)
+                    ta.FillByID(dt, theID)
                     If dt.Rows.Count > 0 Then
-                        Return True
+                        Dim theObject As New RSmartTextValue(CType(dt.Rows(0), VRepSmartTextDataSet.SmartTextKeysRow).ID)
+                        Return theObject
                         '
                     End If
                     '
                 Catch ex As Exception
                     '
-                    Return False
+                    Return Nothing
                     '
                 End Try
                 '
             End Using
         End Using
-        Return False
+        Return Nothing
     End Function
     ' 
     ' ***********************************************
-    ' *****     -Find(string):bool
+    ' *****     -Find(string):RSmartTextValue
     ' ***********************************************
     '
-    Public Shared Function Find(ByVal value As String) As Boolean
+    Public Shared Function Find(ByVal value As String) As RSmartTextValue
         Using ta As New SmartTextValuesTableAdapter
             Using dt As New SmartTextValuesDataTable
                 Try
                     If IsNothing(value) Then value = ""
                     ta.FillByValue(dt, value)
                     If dt.Rows.Count > 0 Then
-                        Return True
+                        Dim theObject As New RSmartTextValue(CType(dt.Rows(0), VRepSmartTextDataSet.SmartTextKeysRow).ID)
+                        Return theObject
                         '
                     End If
                     '
                 Catch ex As Exception
                     '
-                    Return False
+                    Return Nothing
                     '
                 End Try
                 '
             End Using
         End Using
-        Return False
+        Return Nothing
     End Function
     '
     ' ***********************************************
@@ -305,6 +309,55 @@ Public MustInherit Class RSmartTextValueInfoADO
             theCommand.Connection.Close()
             '
         End Try
+        '
+    End Sub
+    ' 
+    ' ***********************************************
+    ' *****     -IEditableObject_BeginEdit(SmartTextValuesRow)
+    ' ***********************************************
+    '
+    Private m_CloneMe As RSmartTextValue
+    '
+    Private Sub IEditableObject_BeginEdit() Implements IEditableObject.BeginEdit
+        '
+        '  Copy all of the data to stored values
+        '
+        m_CloneMe = Me.MemberwiseClone
+        m_CloneMe.IsDirty = IsDirty
+        ' 
+    End Sub
+    ' 
+    ' ***********************************************
+    ' *****     -IEditableObject_EndEdit(SmartTextValuesRow)
+    ' ***********************************************
+    '
+    Private Sub IEditableObject_EndEdit() Implements IEditableObject.EndEdit
+        '
+        ' Clear stored values and commit data
+        '        
+        m_CloneMe = Nothing     ' Kill the clone
+        Update()                ' Commit the data to the dB if IsDirty is set
+        '
+    End Sub
+    ' 
+    ' ***********************************************
+    ' *****     -IEditableObject_CancelEdit(SmartTextValuesRow)
+    ' ***********************************************
+    '
+    Private Sub IEditableObject_CancelEdit() Implements IEditableObject.CancelEdit
+        '
+        ' Copy the data from stored values (restores original values)
+        '
+        If Not IsNothing(m_CloneMe) Then
+            With m_CloneMe
+                ID = .ID
+                Value = .Value
+                FK_Key = .FK_Key
+                TS = .TS
+                IsDirty = .IsDirty
+                '
+            End With
+        End If
         '
     End Sub
     '

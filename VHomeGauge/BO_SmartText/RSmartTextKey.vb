@@ -8,7 +8,7 @@
 ' This is a named class
 '
 Public Class RSmartTextKey
-    Inherits RSmartTextKeyInfoADO
+    Inherits RSmartTextKeyADO
     '
     ' **********************************************
     ' ****
