@@ -119,6 +119,11 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BO_Comment\RComment.vb" />
+    <Compile Include="BO_Comment\RCommentADO.vb" />
+    <Compile Include="BO_Comment\RCommentData.vb" />
+    <Compile Include="BO_Comment\RComments.vb" />
+    <Compile Include="BO_Comment\RCommentsADO.vb" />
     <Compile Include="BO_Person\Person.vb" />
     <Compile Include="BO_Report\Report.vb" />
     <Compile Include="BO_Role\RoleInfo.vb" />
@@ -137,7 +142,14 @@
     <Compile Include="BO_SmartText\RSmartTextValuesADO.vb" />
     <Compile Include="BO_SmartText\RSmartTextKeysADO.vb" />
     <Compile Include="BO_SmartText\RSmartTextKeys.vb" />
+    <Compile Include="HGI Specific\HGICommentImport.vb" />
     <Compile Include="HGI Specific\HGISmartTextImport.vb" />
+    <Compile Include="UI_Dialogs\dlgComments.Designer.vb">
+      <DependentUpon>dlgComments.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UI_Dialogs\dlgComments.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="VRepSmartText.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -216,13 +228,13 @@
     <Compile Include="BO_Report\ReportClient.vb" />
     <Compile Include="BO_Person\ClientRepository.vb" />
     <Compile Include="BO_Person\AgentRepository.vb" />
-    <Compile Include="VReportsSchema.Designer.vb">
+    <Compile Include="VReports.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>VReportsSchema.xsd</DependentUpon>
+      <DependentUpon>VReports.xsd</DependentUpon>
     </Compile>
-    <Compile Include="VReportsSchema.vb">
-      <DependentUpon>VReportsSchema.xsd</DependentUpon>
+    <Compile Include="VReports.vb">
+      <DependentUpon>VReports.xsd</DependentUpon>
     </Compile>
     <Compile Include="UI_Forms\frmReportBrowser.Designer.vb">
       <DependentUpon>frmReportBrowser.vb</DependentUpon>
@@ -246,8 +258,8 @@
     <Compile Include="Helper Classes.vb" />
     <Compile Include="BO_Picture\PictureFilter.vb" />
     <Compile Include="BO_Person\PeopleRepository.vb" />
-    <Compile Include="BO_Picture\PictureRepository.vb" />
-    <Compile Include="BO_Picture\PictureInfo.vb" />
+    <Compile Include="BO_Picture\Pictures.vb" />
+    <Compile Include="BO_Picture\Picture.vb" />
     <Compile Include="UI_Forms\frmMain.designer.vb">
       <DependentUpon>frmMain.vb</DependentUpon>
     </Compile>
@@ -272,6 +284,9 @@
     <Compile Include="Settings.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="UI_Dialogs\dlgComments.resx">
+      <DependentUpon>dlgComments.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI_Dialogs\dlgMainFileProperties.resx">
       <DependentUpon>dlgMainFileProperties.vb</DependentUpon>
     </EmbeddedResource>
@@ -329,16 +344,16 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="packages.config" />
-    <None Include="VReportsSchema.xsc">
-      <DependentUpon>VReportsSchema.xsd</DependentUpon>
+    <None Include="VReports.xsc">
+      <DependentUpon>VReports.xsd</DependentUpon>
     </None>
-    <None Include="VReportsSchema.xsd">
+    <None Include="VReports.xsd">
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>VReportsSchema.Designer.vb</LastGenOutput>
+      <LastGenOutput>VReports.Designer.vb</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="VReportsSchema.xss">
-      <DependentUpon>VReportsSchema.xsd</DependentUpon>
+    <None Include="VReports.xss">
+      <DependentUpon>VReports.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>

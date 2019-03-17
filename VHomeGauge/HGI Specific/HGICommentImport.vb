@@ -8,7 +8,7 @@
 Imports System.IO
 Imports System.Xml
 '
-Public Class HGISmartTextImport
+Public Class HGICommentImport
     Inherits VDoWork
     '
     ' **********************************************
@@ -84,54 +84,35 @@ Public Class HGISmartTextImport
             ' Loop through the cons, determine if exists in db, if not then insert it.
             '
             Dim sMessage As String  ' The current key/value pair message for the progress bar information post area
-            Dim sValueMessage As String ' Same as above but for a value
             Dim nodelist As XmlNodeList
-            nodelist = Xmld.SelectNodes("/template/st")
+            nodelist = Xmld.SelectNodes("/template/com")
             If Not IsNothing(nodelist) AndAlso nodelist.Count > 0 Then
                 For Each node As XmlNode In nodelist
-
-                    If Not IsNothing(node.Item("stKey")) AndAlso node.Item("stKey").InnerText <> "" Then ' not nothing or blank
+                    '
+                    Dim e As XmlAttribute
+                    e = node.Attributes("id")
+                    Dim s As String = e.Value
+                    If Not IsNothing(node.OuterXml) Then ' not nothing
                         '
                         ' Send progress information to the progress bar
                         '
-                        sMessage = "Import: " & node.Item("stKey").InnerText
+                        sMessage = "Import: " & node.Item("comName").InnerText
                         RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, sMessage))
                         '
                         ' First import the key into the dB
                         '   
-                        Dim theKey As RSmartTextKey
-                        theKey = RSmartTextKey.Find(node.Item("stKey").InnerText)
-                        If IsNothing(theKey) Then ' not a duplicate
-                            theKey = New RSmartTextKey
-                            With theKey
+                        Dim theComment As RComment
+                        theComment = RComment.Find(node.Item("comName").InnerText)
+                        If IsNothing(theComment) Then ' not a duplicate
+                            theComment = New RComment
+                            With theComment
                                 .ID = Guid.NewGuid()
-                                .Key = node.Item("stKey").InnerText
+                                .Name = node.Item("comName").InnerText
+                                .Text = node.Item("comText").InnerText
                                 .Update()
                                 '
                             End With
                         End If
-                        '
-                        ' Second, inport the values into the dB
-                        '
-                        For Each childNode As XmlNode In node.ChildNodes
-                            If childNode.Name = "stVal" AndAlso childNode.InnerText <> "" Then
-                                '
-                                ' Update the message
-                                '                                    
-                                sValueMessage = String.Format("{0}, Value: {1}", sMessage, childNode.InnerText)
-                                RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, sValueMessage))
-                                '
-                                If IsNothing(RSmartTextValue.Find(theKey, childNode.InnerText)) Then
-                                    Dim newChildObject As New RSmartTextValue
-                                    With newChildObject
-                                        .ID = Guid.NewGuid()
-                                        .FK_Key = theKey.ID
-                                        .Value = childNode.InnerText
-                                        .Update()
-                                    End With
-                                End If
-                            End If
-                        Next
                     End If
                 Next
             End If

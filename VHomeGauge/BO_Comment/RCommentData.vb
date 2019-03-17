@@ -6,9 +6,9 @@
 ' ****
 ' **********************************************
 ' 
-Imports SyncfusionWindowsFormsApplication1.VRepSmartTextDataSet
+Imports SyncfusionWindowsFormsApplication1.vreportsDataSet
 '
-Public MustInherit Class RSmartTextKeyData
+Public MustInherit Class RCommentData
     Inherits VObject
     '
     ' **********************************************
@@ -33,26 +33,28 @@ Public MustInherit Class RSmartTextKeyData
     ' **********************************************
     ' 
     ' ***********************************************
-    ' *****     #LoadDataFromRow(RSmartTextKeysRow)
+    ' *****     #LoadDataFromRow(RCommentsRow)
     ' ***********************************************
     '
-    Protected Sub LoadDataFromRow(ByVal row As SmartTextKeysRow)
+    Protected Sub LoadDataFromRow(ByVal row As CommentsRow)
         With row
             ID = .ID
-            Key = .Key
+            Name = .CName
+            Text = .CText
             TS = .TS
             '
         End With
     End Sub
     ' 
     ' ***********************************************
-    ' *****     #LoadRowFromData(RSmartTextKeysRow)
+    ' *****     #LoadRowFromData(RCommentsRow)
     ' ***********************************************
     '
-    Protected Sub LoadRowFromData(ByRef row As SmartTextKeysRow)
+    Protected Sub LoadRowFromData(ByRef row As CommentsRow)
         With row
             .ID = ID
-            .Key = Key
+            .CName = Name
+            .CText = Text
             .TS = TS
             '
         End With
@@ -70,19 +72,34 @@ Public MustInherit Class RSmartTextKeyData
     '
     Private m_IsDirty As Boolean
     Private m_ID As Guid = Guid.Empty
-    Private m_Key As String = ""
+    Private m_Name As String = ""
+    Private m_Text As String = ""
     Private m_TS As Date = Date.Now()
     '
     ' ***********************************************
-    ' *****     +Key(string):string
+    ' *****     +Name(string):string
     ' ***********************************************
     '
-    Public Property Key As String
+    Public Property Name As String
         Get
-            Return m_Key
+            Return m_Name
         End Get
         Set(value As String)
-            m_Key = value
+            m_Name = value
+            IsDirty = True
+        End Set
+    End Property
+    '
+    ' ***********************************************
+    ' *****     +Text(string):string
+    ' ***********************************************
+    '
+    Public Property Text As String
+        Get
+            Return m_Text
+        End Get
+        Set(value As String)
+            m_Text = value
             IsDirty = True
         End Set
     End Property
@@ -124,7 +141,7 @@ Public MustInherit Class RSmartTextKeyData
         End Get
         Set(value As Guid)
             m_ID = value
-            m_IsDirty = True
+            IsDirty = True
         End Set
     End Property
     '

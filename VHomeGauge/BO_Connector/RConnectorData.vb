@@ -139,6 +139,7 @@ Public MustInherit Class RConnectorData
         End Get
         Set(value As Guid)
             m_ID = value
+            m_IsDirty = True
         End Set
     End Property
     '

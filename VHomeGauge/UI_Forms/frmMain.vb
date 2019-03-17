@@ -18,6 +18,7 @@ Public Class frmMain
     ' ***********************************************
     '
     Private m_HasBeenLoaded As Boolean
+    '
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles Me.Load
         '
         ' This flag prevents the form from recycling
@@ -68,6 +69,7 @@ Public Class frmMain
     ' ***********************************************
     '
     Private m_IsSplittersInitialized As Boolean
+    '
     Private Sub InitializeSplitters()
         ' Stops repeated calls
         If m_IsSplittersInitialized Then
@@ -101,46 +103,51 @@ Public Class frmMain
     ' ***********************************************
     '
     Private m_IsFilmstripInitialized As Boolean
+    '
     Private Sub InitializeFilmstrip()
+        '
         ' Stops Repeated Calls
+        '
         If m_IsFilmstripInitialized Then
             MsgBox("Circular loads!")
             Exit Sub
+            '
         End If
         m_IsFilmstripInitialized = True
-
+        '
         ' This is where the picture's path are pulled from the directory and loaded and stored.
         ' Any path that goes in here will have its corresponding picture displayed in the first
         ' column of the dgHiInfo data grid
-        Dim thePictureRepository As New PictureRepository
-
+        '
         m_PictureFilter = New PictureFilter
         For Each s As String In My.Settings.PictureFilters
             m_PictureFilter.FilterList.Add(s)
-
+            '
         Next
-
-        ' Set dgPictureInfo data source to the default start up picture repository
-        dgFilmstrip.DataSource = thePictureRepository.GetPictureList("")
-
         With dgFilmstrip
-
             TryCast(.Columns("Picture"), GridImageColumn).ImageLayout = ImageLayout.Center
             TryCast(.Columns("Picture"), GridImageColumn).CellStyle.VerticalAlignment = VerticalAlignment.Center
             TryCast(.Columns("Picture"), GridImageColumn).CellStyle.HorizontalAlignment = HorizontalAlignment.Center
             TryCast(.Columns("Picture"), GridImageColumn).AllowResizing = True
             TryCast(.Columns("Picture"), GridImageColumn).ImageLayout = ImageLayout.Stretch
-
+            '
             ' row height set to an aspect ratio of the expected pictures
+            '
             TryCast(.Columns("Picture"), GridImageColumn).MinimumWidth = 160
             .RowHeight = 120
-
+            '
         End With
-
+        '
         ' Load the cbPhotLocker with the intial path
+        '
         cbPhotoLocker.Items.Clear()
         cbPhotoLocker.Items.Add(New PictureDirectory(My.Settings.DefaultPictureImagePath))
-
+        '
+        ' Set dgPictureInfo data source to the default start up picture repository
+        '
+        Dim theRepository = New Pictures
+        dgFilmstrip.DataSource = theRepository.GetPictureList("")
+        '
     End Sub
     '
     ' ***********************************************
@@ -148,6 +155,7 @@ Public Class frmMain
     ' ***********************************************
     '
     Private m_IsPeopleDataGridInitialized As Boolean
+    '
     Private Sub InitializePeopleDataGrid()
         ' Stops repeated calls
         If m_IsPeopleDataGridInitialized Then
@@ -187,6 +195,7 @@ Public Class frmMain
     ' ***********************************************
     '    
     Private m_PictureFilter As PictureFilter
+    '
     Public ReadOnly Property PictureFilter As PictureFilter
         Get
             Return m_PictureFilter
@@ -209,6 +218,7 @@ Public Class frmMain
     ' ***********************************************
     '
     Private m_InsertOvrStateFlag As Boolean
+    '
     Private Sub Main_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
         '
         ' CAPS Lock
@@ -311,7 +321,7 @@ Public Class frmMain
         Dim newPictureDirectoryInfo As PictureDirectory
         newPictureDirectoryInfo = cbPhotoLocker.Items(cbPhotoLocker.SelectedIndex)
 
-        Dim thePictureRepository As New PictureRepository
+        Dim thePictureRepository As New Pictures
         dgFilmstrip.DataSource = thePictureRepository.GetPictureList(newPictureDirectoryInfo.Path)
 
     End Sub
@@ -379,8 +389,8 @@ Public Class frmMain
     ' ***********************************************
     '
     Private Sub miMainFileProperties_Click(sender As Object, e As EventArgs) Handles miMainFileProperties.Click
-        Dim thePropertiesDialog As New dlgMainFileProperties
-        thePropertiesDialog.ShowDialog()
+        Dim theDialog As New dlgMainFileProperties
+        theDialog.ShowDialog()
         '
     End Sub
     '
@@ -390,8 +400,8 @@ Public Class frmMain
     '
     Private Sub miMainTemplateConnectors_Click(sender As Object, e As EventArgs) Handles miMainTemplateConnectors.Click
         Cursor = Cursors.WaitCursor
-        Dim theConnectorsDialog As New dlgConnectors
-        theConnectorsDialog.ShowDialog()
+        Dim theDialog As New dlgConnectors
+        theDialog.ShowDialog()
         Cursor = Cursors.Default
         '
     End Sub
@@ -402,8 +412,20 @@ Public Class frmMain
     '
     Private Sub miMainTemplateSmartText_Click(sender As Object, e As EventArgs) Handles miMainTemplateSmartText.Click
         Cursor = Cursors.WaitCursor
-        Dim theSmartTextDialog As New dlgSmartText
-        theSmartTextDialog.ShowDialog()
+        Dim theDialog As New dlgSmartText
+        theDialog.ShowDialog()
+        Cursor = Cursors.Default
+        '
+    End Sub
+    '
+    ' ***********************************************
+    ' *****     -CommentsToolStripMenuItem_Click(sedner, e)
+    ' ***********************************************
+    '
+    Private Sub CommentsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CommentsToolStripMenuItem.Click
+        Cursor = Cursors.WaitCursor
+        Dim theDialog As New dlgComments
+        theDialog.ShowDialog()
         Cursor = Cursors.Default
         '
     End Sub

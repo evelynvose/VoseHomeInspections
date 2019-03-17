@@ -22,6 +22,7 @@ Public Class dlgConnectors
     ' ***********************************************
     '
     Private m_ConnectorsRepos As New RConnectors
+    '
     Private Sub dlgTemplateConnectors_Load(sender As Object, e As EventArgs) Handles Me.Load
         sfdgConnectors.DataSource = m_ConnectorsRepos.GetRepos
         '
@@ -119,6 +120,30 @@ Public Class dlgConnectors
         sfdgConnectors.DataSource = Nothing
         sfdgConnectors.DataSource = m_ConnectorsRepos.GetRepos
         Cursor = Cursors.Default
+        '
+    End Sub
+    '
+    ' ***********************************************
+    ' *****     -sfdgSmartTextValuess_RowValidated(object, RowValidatedEventArgs)
+    ' ***********************************************
+    '
+    ' 1) Checks if the object is new and saves it to the dB
+    '
+    Private Sub sfdgConnectors_RowValidated(sender As Object, e As RowValidatedEventArgs) Handles sfdgConnectors.RowValidated
+        '
+        ' Check for new objects, give them an ID, and put into the dB
+        '
+        With CType(e.DataRow.RowData, RConnector)
+            If .IsNew AndAlso .ID.Equals(Guid.Empty) Then
+                .ID = Guid.NewGuid
+                '
+            End If
+            '
+            ' The object should be updated regardless of its new or just editing status
+            '
+            .Update()
+            '
+        End With
         '
     End Sub
 End Class

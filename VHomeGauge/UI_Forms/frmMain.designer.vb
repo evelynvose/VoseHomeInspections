@@ -45,6 +45,8 @@ Partial Class frmMain
         Dim GridTextColumn2 As Syncfusion.WinForms.DataGrid.GridTextColumn = New Syncfusion.WinForms.DataGrid.GridTextColumn()
         Dim GridTextColumn3 As Syncfusion.WinForms.DataGrid.GridTextColumn = New Syncfusion.WinForms.DataGrid.GridTextColumn()
         Me.miMainTemplateConnectors = New System.Windows.Forms.ToolStripMenuItem()
+        Me.miMainTemplateSmartText = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CommentsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.scSlab = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
         Me.scFoundation = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
         Me.tsMain = New System.Windows.Forms.MenuStrip()
@@ -84,7 +86,6 @@ Partial Class frmMain
         Me.ToolStripTabItem1 = New Syncfusion.Windows.Forms.Tools.ToolStripTabItem()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.HtmluiControl1 = New Syncfusion.Windows.Forms.HTMLUI.HTMLUIControl()
-        Me.miMainTemplateSmartText = New System.Windows.Forms.ToolStripMenuItem()
         miMainTemplate = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.scSlab, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.scSlab.Panel1.SuspendLayout()
@@ -139,7 +140,7 @@ Partial Class frmMain
         '
         'miMainTemplate
         '
-        miMainTemplate.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.miMainTemplateConnectors, Me.miMainTemplateSmartText})
+        miMainTemplate.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.miMainTemplateConnectors, Me.miMainTemplateSmartText, Me.CommentsToolStripMenuItem})
         miMainTemplate.Name = "miMainTemplate"
         miMainTemplate.Size = New System.Drawing.Size(68, 26)
         miMainTemplate.Text = "Template"
@@ -147,8 +148,20 @@ Partial Class frmMain
         'miMainTemplateConnectors
         '
         Me.miMainTemplateConnectors.Name = "miMainTemplateConnectors"
-        Me.miMainTemplateConnectors.Size = New System.Drawing.Size(180, 22)
+        Me.miMainTemplateConnectors.Size = New System.Drawing.Size(135, 22)
         Me.miMainTemplateConnectors.Text = "Connectors"
+        '
+        'miMainTemplateSmartText
+        '
+        Me.miMainTemplateSmartText.Name = "miMainTemplateSmartText"
+        Me.miMainTemplateSmartText.Size = New System.Drawing.Size(135, 22)
+        Me.miMainTemplateSmartText.Text = "Smart Text"
+        '
+        'CommentsToolStripMenuItem
+        '
+        Me.CommentsToolStripMenuItem.Name = "CommentsToolStripMenuItem"
+        Me.CommentsToolStripMenuItem.Size = New System.Drawing.Size(135, 22)
+        Me.CommentsToolStripMenuItem.Text = "Comments"
         '
         'scSlab
         '
@@ -193,7 +206,7 @@ Partial Class frmMain
         '
         'tsMain
         '
-        Me.tsMain.BackColor = System.Drawing.Color.LightSteelBlue
+        Me.tsMain.BackColor = System.Drawing.SystemColors.ActiveCaption
         Me.tsMain.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tsMain.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.miMainFile, miMainTemplate})
         Me.tsMain.Location = New System.Drawing.Point(0, 0)
@@ -914,18 +927,12 @@ Partial Class frmMain
         Me.HtmluiControl1.TabIndex = 2
         Me.HtmluiControl1.Text = "HtmluiControl1"
         '
-        'miMainTemplateSmartText
-        '
-        Me.miMainTemplateSmartText.Name = "miMainTemplateSmartText"
-        Me.miMainTemplateSmartText.Size = New System.Drawing.Size(180, 22)
-        Me.miMainTemplateSmartText.Text = "Smart Text"
-        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.LightSteelBlue
-        Me.CaptionBarColor = System.Drawing.Color.LightSteelBlue
+        Me.CaptionBarColor = System.Drawing.SystemColors.ActiveCaption
         Me.CaptionButtonColor = System.Drawing.Color.Black
         Me.CaptionButtonHoverColor = System.Drawing.Color.Red
         Me.CaptionFont = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -936,7 +943,7 @@ Partial Class frmMain
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True
         Me.MainMenuStrip = Me.tsMain
-        Me.MetroColor = System.Drawing.Color.LightSteelBlue
+        Me.MetroColor = System.Drawing.SystemColors.ActiveCaption
         Me.Name = "frmMain"
         Me.ShowIcon = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
@@ -1038,4 +1045,5 @@ Partial Class frmMain
     Friend WithEvents HtmluiControl1 As HTMLUI.HTMLUIControl
     Friend WithEvents miMainTemplateConnectors As ToolStripMenuItem
     Friend WithEvents miMainTemplateSmartText As ToolStripMenuItem
+    Friend WithEvents CommentsToolStripMenuItem As ToolStripMenuItem
 End Class

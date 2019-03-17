@@ -5,12 +5,12 @@
 ' ****
 ' **********************************************
 ' 
-Imports SyncfusionWindowsFormsApplication1.VRepSmartTextDataSet
-Imports SyncfusionWindowsFormsApplication1.VRepSmartTextDataSetTableAdapters
+Imports SyncfusionWindowsFormsApplication1.vreportsDataSet
+Imports SyncfusionWindowsFormsApplication1.vreportsDataSetTableAdapters
 Imports System.ComponentModel
 '
-Public MustInherit Class RSmartTextValueADO
-    Inherits RSmartTextValueData
+Public MustInherit Class RCommentADO
+    Inherits RCommentData
     Implements IEditableObject
     '
     ' **********************************************
@@ -51,8 +51,8 @@ Public MustInherit Class RSmartTextValueADO
     '
     Protected Sub Load(ByVal theID As Guid)
         If IsNothing(theID) Then theID = Guid.Empty
-        Using ta As New SmartTextValuesTableAdapter
-            Using dt As New SmartTextValuesDataTable
+        Using ta As New CommentsTableAdapter
+            Using dt As New CommentsDataTable
                 Try
                     ta.FillByID(dt, theID)
                     If dt.Rows.Count > 0 Then
@@ -74,17 +74,17 @@ Public MustInherit Class RSmartTextValueADO
     End Sub
     '
     ' ***********************************************
-    ' *****     +Find(guid):RSmartTextValue
+    ' *****     +Find(guid):RComment
     ' ***********************************************
     '
-    Public Shared Function Find(ByVal theID As Guid) As RSmartTextValue
-        Using ta As New SmartTextValuesTableAdapter
-            Using dt As New SmartTextValuesDataTable
+    Public Shared Function Find(ByVal theID As Guid) As RComment
+        Using ta As New CommentsTableAdapter
+            Using dt As New CommentsDataTable
                 Try
                     If IsNothing(theID) Then theID = Guid.NewGuid()
                     ta.FillByID(dt, theID)
                     If dt.Rows.Count > 0 Then
-                        Dim theObject As New RSmartTextValue(CType(dt.Rows(0), VRepSmartTextDataSet.SmartTextValuesRow).ID)
+                        Dim theObject As New RComment(CType(dt.Rows(0), CommentsRow).ID)
                         Return theObject
                         '
                     End If
@@ -101,17 +101,17 @@ Public MustInherit Class RSmartTextValueADO
     End Function
     ' 
     ' ***********************************************
-    ' *****     -Find(string):RSmartTextValue
+    ' *****     -Find(string):RComment
     ' ***********************************************
     '
-    Public Shared Function Find(ByVal value As String) As RSmartTextValue
-        Using ta As New SmartTextValuesTableAdapter
-            Using dt As New SmartTextValuesDataTable
+    Public Shared Function Find(ByVal name As String) As RComment
+        Using ta As New CommentsTableAdapter
+            Using dt As New CommentsDataTable
                 Try
-                    If IsNothing(value) Then value = ""
-                    ta.FillByValue(dt, value)
+                    If IsNothing(name) Then name = ""
+                    ta.FillByName(dt, name)
                     If dt.Rows.Count > 0 Then
-                        Dim theObject As New RSmartTextValue(CType(dt.Rows(0), VRepSmartTextDataSet.SmartTextValuesRow).ID)
+                        Dim theObject As New RComment(CType(dt.Rows(0), CommentsRow).ID)
                         Return theObject
                         '
                     End If
@@ -128,41 +128,63 @@ Public MustInherit Class RSmartTextValueADO
     End Function
     ' 
     ' ***********************************************
-    ' *****     -Find(SmartTextKey, value):RSmartTextValue
+    ' *****     +Delete()
     ' ***********************************************
     '
-    Public Shared Function Find(ByVal theKey As RSmartTextKey, ByVal value As String) As RSmartTextValue
+    ' Permanently deletes the row from the dB by ID, and clears the data in this object.
+    '   '
+    Public Sub Delete()
         '
-        ' Error Checking
+        ' Set up the parameter
+        '      
+        Dim theIdParam As New OleDb.OleDbParameter With {
+        .DbType = DbType.Guid,
+        .ParameterName = "@ID",
+        .Value = ID
+            }
         '
-        If IsNothing(theKey) OrElse IsNothing(value) Then
-            ' MyBase.MsgBox(New Exception("Either the Key and or the Value were not valid!"))
-            Return Nothing
+        ' Build the command
+        '
+        Dim theCommand As New OleDb.OleDbCommand With {
+                .CommandText = "DELETE FROM Comments WHERE (ID = ?)",
+                .Connection = New OleDb.OleDbConnection(My.Settings.ConnectionString)
+            }
+        '
+        ' Add the parameter to the command
+        '
+        theCommand.Parameters.Add(theIdParam)
+        '
+        ' Execute the query
+        '
+        Try
+            theCommand.Connection.Open()
             '
-        End If
-        '
-        ' Look it up
-        '
-        Using ta As New SmartTextValuesTableAdapter
-            Using dt As New SmartTextValuesDataTable
-                Try
-                    ta.FillByFKandValue(dt, theKey.ID, value)
-                    If dt.Rows.Count > 0 Then
-                        Dim theObject As New RSmartTextValue(CType(dt.Rows(0), VRepSmartTextDataSet.SmartTextValuesRow).ID)
-                        Return theObject
-                        '
-                    End If
-                    '
-                Catch ex As Exception
-                    '
-                    Return Nothing
-                    '
-                End Try
+            If theCommand.ExecuteNonQuery() > 0 Then
                 '
-            End Using
-        End Using
-        Return Nothing
-    End Function
+                ' Set this object to its virgin state
+                '
+                ID = Guid.Empty
+                Name = ""
+                Text = ""
+                TS = Date.Now
+                IsDeleted = False
+                IsNew = True
+                IsDirty = False
+                '
+            Else
+                MsgBox(New Exception(String.Format("The delete operation failed for guid = {0}", ID)))
+                '
+            End If
+            '
+        Catch ex As Exception
+            MsgBox(ex)
+            '
+        Finally
+            theCommand.Connection.Close()
+            '
+        End Try
+        '
+    End Sub
     '
     ' ***********************************************
     ' *****     -RuleCheck():bool
@@ -172,8 +194,7 @@ Public MustInherit Class RSmartTextValueADO
     '
     ' 1) It has a primary key and that key is guid.
     ' 2) All fields contain values.
-    ' 3) The Value field cannot be "" or Nothing
-    ' 4) The FK_Key field cannot be guid.empty
+    ' 3) The XValue field cannot be "" or Nothing
     '
     Private Function RuleCheck() As Boolean
         '
@@ -183,7 +204,7 @@ Public MustInherit Class RSmartTextValueADO
         Dim bRule_1_Met As Boolean = True
         If IsNothing(ID) OrElse ID.Equals(Guid.Empty) Then
             sMessage &= vbCrLf
-            sMessage &= "PK is not valid."
+            sMessage &= "ID is not valid."
             bRule_1_Met = False
             '
         End If
@@ -191,7 +212,7 @@ Public MustInherit Class RSmartTextValueADO
         ' Rule 2
         '
         Dim bRule_2_Met As Boolean = True
-        If IsNothing(Value) OrElse IsNothing(FK_Key) OrElse IsNothing(TS) Then
+        If IsNothing(Name) OrElse IsNothing(Text) OrElse IsNothing(TS) Then
             sMessage &= vbCrLf
             sMessage &= "One or more fields are not valid."
             bRule_2_Met = False
@@ -201,9 +222,9 @@ Public MustInherit Class RSmartTextValueADO
         ' Rule 3
         '
         Dim bRule_3_Met As Boolean = True
-        If Value = "" Then
+        If Name = "" Then
             sMessage &= vbCrLf
-            sMessage &= "Value can't be empty."
+            sMessage &= "Name can't be empty."
             bRule_3_Met = False
             '
         End If
@@ -211,9 +232,9 @@ Public MustInherit Class RSmartTextValueADO
         ' Rule 4
         '
         Dim bRule_4_Met As Boolean = True
-        If FK_Key.Equals(Guid.Empty) Then
+        If Text = "" Then
             sMessage &= vbCrLf
-            sMessage &= "FK_Key can't be empty or new."
+            sMessage &= "Text can't be empty."
             bRule_4_Met = False
             '
         End If
@@ -255,27 +276,27 @@ Public MustInherit Class RSmartTextValueADO
         '
         ' Passed the rule check, so update the record
         '
-        Using ta = New SmartTextValuesTableAdapter
-            Using dt = New SmartTextValuesDataTable
-                Dim row As SmartTextValuesRow
+        Using ta = New CommentsTableAdapter
+            Using dt = New CommentsDataTable
+                Dim row As CommentsRow
                 If Not IsNew() Then
                     ta.FillByID(dt, ID)
                     If dt.Count = 0 Then
-                        row = dt.NewSmartTextValuesRow
+                        row = dt.NewCommentsRow
                         '
                     Else
                         row = dt.Rows(0)
                         '
                     End If
-                Else ' is new SmartTextValue
-                    row = dt.NewSmartTextValuesRow
+                Else ' is new connector
+                    row = dt.NewCommentsRow
                     '
                 End If
                 '
                 LoadRowFromData(row)
                 '
                 Try
-                    If dt.Count = 0 Then dt.AddSmartTextValuesRow(row)
+                    If dt.Count = 0 Then dt.AddCommentsRow(row)
                     ta.Update(dt)
                     IsDirty = False
                     '
@@ -292,68 +313,10 @@ Public MustInherit Class RSmartTextValueADO
     End Function
     ' 
     ' ***********************************************
-    ' *****     +Delete()
+    ' *****     -IEditableObject_BeginEdit(RCommentsRow)
     ' ***********************************************
     '
-    ' Permanently deletes the row from the dB by ID, and clears the data in this object.
-    '   '
-    Public Sub Delete()
-        '
-        ' Set up the parameter
-        '      
-        Dim theIdParam As New OleDb.OleDbParameter With {
-        .DbType = DbType.Guid,
-        .ParameterName = "@ID",
-        .Value = ID
-            }
-        '
-        ' Build the command
-        '
-        Dim theCommand As New OleDb.OleDbCommand With {
-                .CommandText = "DELETE FROM SMARTTEXTVALUES WHERE (ID = ?)",
-                .Connection = New OleDb.OleDbConnection(My.Settings.ConnectionString)
-            }
-        '
-        ' Add the parameter to the command
-        '
-        theCommand.Parameters.Add(theIdParam)
-        '
-        ' Execute the query
-        '
-        Try
-            theCommand.Connection.Open()
-            '
-            If theCommand.ExecuteNonQuery() > 0 Then
-                '
-                ' Set this object to its virgin state
-                '
-                ID = Guid.Empty
-                Value = ""
-                TS = Date.Now
-                IsDeleted = False
-                IsNew = True
-                IsDirty = False
-                '
-            Else
-                MsgBox(New Exception(String.Format("The delete operation failed for guid = {0}", ID)))
-                '
-            End If
-            '
-        Catch ex As Exception
-            MsgBox(ex)
-            '
-        Finally
-            theCommand.Connection.Close()
-            '
-        End Try
-        '
-    End Sub
-    ' 
-    ' ***********************************************
-    ' *****     -IEditableObject_BeginEdit(SmartTextValuesRow)
-    ' ***********************************************
-    '
-    Private m_CloneMe As RSmartTextValue
+    Private m_CloneMe As RComment
     '
     Private Sub IEditableObject_BeginEdit() Implements IEditableObject.BeginEdit
         '
@@ -365,7 +328,7 @@ Public MustInherit Class RSmartTextValueADO
     End Sub
     ' 
     ' ***********************************************
-    ' *****     -IEditableObject_EndEdit(SmartTextValuesRow)
+    ' *****     -IEditableObject_EndEdit(RCommentsRow)
     ' ***********************************************
     '
     Private Sub IEditableObject_EndEdit() Implements IEditableObject.EndEdit
@@ -373,12 +336,12 @@ Public MustInherit Class RSmartTextValueADO
         ' Clear stored values and commit data
         '        
         m_CloneMe = Nothing     ' Kill the clone
-        Update()                ' Commit the data to the dB if IsDirty is set
+        Update()                  ' Commit data to dB, if IsDirty is set
         '
     End Sub
     ' 
     ' ***********************************************
-    ' *****     -IEditableObject_CancelEdit(SmartTextValuesRow)
+    ' *****     -IEditableObject_CancelEdit(RCommentsRow)
     ' ***********************************************
     '
     Private Sub IEditableObject_CancelEdit() Implements IEditableObject.CancelEdit
@@ -388,8 +351,8 @@ Public MustInherit Class RSmartTextValueADO
         If Not IsNothing(m_CloneMe) Then
             With m_CloneMe
                 ID = .ID
-                Value = .Value
-                FK_Key = .FK_Key
+                Name = .Name
+                Text = .Text
                 TS = .TS
                 IsDirty = .IsDirty
                 '

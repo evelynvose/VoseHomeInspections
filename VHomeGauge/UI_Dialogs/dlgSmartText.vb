@@ -36,6 +36,11 @@ Public Class dlgSmartText
         '
         sfdgSmartTextKeys.DataSource = m_SmartTextKeys.GetRepos
         '
+        ' Lock down values and where used grids
+        '
+        sfdgSmartTextValues.Enabled = False
+        sfdgWhereUsed.Enabled = False
+        '
     End Sub
     '
     ' **********************************************
@@ -84,6 +89,7 @@ Public Class dlgSmartText
         If Not IsNothing(theSmartTextKey) Then
             m_SmartTextValues = New RSmartTextValues
             sfdgSmartTextValues.DataSource = m_SmartTextValues.GetRepos(theSmartTextKey)
+            sfdgSmartTextValues.Enabled = True
             '
         End If
         Cursor = Cursors.Default
@@ -108,6 +114,7 @@ Public Class dlgSmartText
                 theInfo.Delete()
                 If sfdgSmartTextKeys.RowCount = 0 Then
                     sfdgSmartTextValues.DataSource = Nothing
+                    sfdgSmartTextValues.Enabled = False
                     '
                 End If
                 '
@@ -194,6 +201,64 @@ Public Class dlgSmartText
         sfdgSmartTextKeys.DataSource = m_SmartTextKeys.GetRepos
         sfdgSmartTextValues.DataSource = Nothing
         Cursor = Cursors.Default
+        '
+    End Sub
+    '
+    ' ***********************************************
+    ' *****     -sfdgSmartTextKeys_RowValidated(object, RowValidatedEventArgs)
+    ' ***********************************************
+    '
+    ' 1) Checks if the object is new and saves it to the dB
+    '
+    Private Sub sfdgSmartTextKeys_RowValidated(sender As Object, e As RowValidatedEventArgs) Handles sfdgSmartTextKeys.RowValidated
+        '
+        ' Check for new objects, give them an ID, and put into the dB
+        '
+        With CType(e.DataRow.RowData, RSmartTextKey)
+            If .IsNew AndAlso .ID.Equals(Guid.Empty) Then
+                .ID = Guid.NewGuid
+                '
+            End If
+            '
+            ' The object should be updated regardless of its new or just editing status
+            '
+            .Update()
+            '
+        End With
+        '
+    End Sub
+    '
+    ' ***********************************************
+    ' *****     -sfdgSmartTextValuess_RowValidated(object, RowValidatedEventArgs)
+    ' ***********************************************
+    '
+    ' 1) Checks if the object is new and saves it to the dB
+    '
+    Private Sub sfdgSmartTextValues_RowValidated(sender As Object, e As RowValidatedEventArgs) Handles sfdgSmartTextValues.RowValidated
+        '
+        ' Make sure a Key is selected so we can marry it to the new Value's FK_Key
+        '
+        Dim oSmarttextKey As RSmartTextKey = TryCast(sfdgSmartTextKeys.SelectedItem, RSmartTextKey)
+        If IsNothing(oSmarttextKey) Then
+            MsgBox("Can't add a Value if no Key is selected!",, "Smart Text")
+            Exit Sub
+            '
+        End If
+        '
+        ' Check for new objects, give them an ID, and put into the dB
+        '
+        With CType(e.DataRow.RowData, RSmartTextValue)
+            If .IsNew AndAlso .ID.Equals(Guid.Empty) Then
+                .ID = Guid.NewGuid
+                .FK_Key = oSmarttextKey.ID
+                '
+            End If
+            '
+            ' The object should be updated regardless of its new or just editing status
+            '
+            .Update()
+            '
+        End With
         '
     End Sub
     '
