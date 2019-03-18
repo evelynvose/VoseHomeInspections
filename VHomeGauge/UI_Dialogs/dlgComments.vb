@@ -72,13 +72,33 @@ Public Class dlgComments
         '
         If OpenFileDialog1.ShowDialog = DialogResult.OK Then
             Dim thePB As New dlgVProgressBar
+            '
+            ' Import Summary items first
+            '
+            With thePB
+                .StartPosition = FormStartPosition.CenterParent
+                .SetDoWorkClass(New HGISummaryImport(New FileInfo(OpenFileDialog1.FileName)))
+                .Text = "Import Summary"
+                .AnnouncementVisible = True
+                .RunningStatusVisible = True
+                .OKButtonVisible = True
+                .OKButtonText = "Cancel"
+                .LaunchDoWork()
+                .ShowDialog()
+                '
+            End With
+            '
+            ' Import the comments
+            '
+            thePB = New dlgVProgressBar
             With thePB
                 .StartPosition = FormStartPosition.CenterParent
                 .SetDoWorkClass(New HGICommentImport(New FileInfo(OpenFileDialog1.FileName)))
                 .Text = "Import Comments"
-                .AnnouncementVisible = False
+                .AnnouncementVisible = True
                 .RunningStatusVisible = True
-                .OKButtonVisible = False
+                .OKButtonVisible = True
+                .OKButtonText = "Cancel"
                 .LaunchDoWork()
                 .ShowDialog()
                 '

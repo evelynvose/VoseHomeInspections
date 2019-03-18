@@ -88,7 +88,8 @@ Public Class HGIReportProcessor
             sTerminationMessage = "Succes, but with errors!"
         End If
         RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Termination, sTerminationMessage))        '
-    End Sub    '
+    End Sub
+    '
     ' ***********************************************
     ' *****     Process The Report ()
     ' ***********************************************

@@ -9,8 +9,8 @@ Imports SyncfusionWindowsFormsApplication1.vreportsDataSet
 Imports SyncfusionWindowsFormsApplication1.vreportsDataSetTableAdapters
 Imports System.ComponentModel
 '
-Public MustInherit Class RCommentADO
-    Inherits RCommentData
+Public MustInherit Class RSummaryADO
+    Inherits RSummaryData
     Implements IEditableObject
     '
     ' **********************************************
@@ -51,8 +51,8 @@ Public MustInherit Class RCommentADO
     '
     Protected Sub Load(ByVal theID As Guid)
         If IsNothing(theID) Then theID = Guid.Empty
-        Using ta As New CommentsTableAdapter
-            Using dt As New CommentsDataTable
+        Using ta As New SummaryTableAdapter
+            Using dt As New SummaryDataTable
                 Try
                     ta.FillByID(dt, theID)
                     If dt.Rows.Count > 0 Then
@@ -74,17 +74,17 @@ Public MustInherit Class RCommentADO
     End Sub
     '
     ' ***********************************************
-    ' *****     +Find(guid):RComment
+    ' *****     +Find(guid):RSummary
     ' ***********************************************
     '
-    Public Shared Function Find(ByVal theID As Guid) As RComment
-        Using ta As New CommentsTableAdapter
-            Using dt As New CommentsDataTable
+    Public Shared Function Find(ByVal theID As Guid) As RSummary
+        Using ta As New SummaryTableAdapter
+            Using dt As New SummaryDataTable
                 Try
                     If IsNothing(theID) Then theID = Guid.NewGuid()
                     ta.FillByID(dt, theID)
                     If dt.Rows.Count > 0 Then
-                        Dim theObject As New RComment(CType(dt.Rows(0), CommentsRow).ID)
+                        Dim theObject As New RSummary(CType(dt.Rows(0), SummaryRow).ID)
                         Return theObject
                         '
                     End If
@@ -101,17 +101,17 @@ Public MustInherit Class RCommentADO
     End Function
     ' 
     ' ***********************************************
-    ' *****     -Find(string):RComment
+    ' *****     -Find(string):RSummary
     ' ***********************************************
     '
-    Public Shared Function Find(ByVal name As String) As RComment
-        Using ta As New CommentsTableAdapter
-            Using dt As New CommentsDataTable
+    Public Shared Function Find(ByVal name As String) As RSummary
+        Using ta As New SummaryTableAdapter
+            Using dt As New SummaryDataTable
                 Try
                     If IsNothing(name) Then name = ""
                     ta.FillByName(dt, name)
                     If dt.Rows.Count > 0 Then
-                        Dim theObject As New RComment(CType(dt.Rows(0), CommentsRow).ID)
+                        Dim theObject As New RSummary(CType(dt.Rows(0), SummaryRow).ID)
                         Return theObject
                         '
                     End If
@@ -146,7 +146,7 @@ Public MustInherit Class RCommentADO
         ' Build the command
         '
         Dim theCommand As New OleDb.OleDbCommand With {
-                .CommandText = "DELETE FROM Comments WHERE (ID = ?)",
+                .CommandText = "DELETE FROM Summary WHERE (ID = ?)",
                 .Connection = New OleDb.OleDbConnection(My.Settings.ConnectionString)
             }
         '
@@ -165,10 +165,9 @@ Public MustInherit Class RCommentADO
                 '
                 ID = Guid.Empty
                 Name = ""
-                Text = ""
-                TS = Date.Now
-                FK_SumID = Guid.Empty
-                Auto = False
+                Abbreviation = ""
+                FK_Footer = Guid.NewGuid
+                FK_Introduction = Guid.NewGuid
                 IsDeleted = False
                 IsNew = True
                 IsDirty = False
@@ -192,15 +191,9 @@ Public MustInherit Class RCommentADO
     ' *****     -RuleCheck():bool
     ' ***********************************************
     '
-    ' This row in the database is only valid under these conditions:
-    '
-    ' 1) It has a primary key and that key is guid.
-    ' 2) All fields contain values.
-    ' 3) The XValue field cannot be "" or Nothing
-    '
     Private Function RuleCheck() As Boolean
         '
-        ' Rule 1
+        ' Rule 1 - It has a primary key and that key is guid.
         '
         Dim sMessage As String = "Rule Check"
         Dim bRule_1_Met As Boolean = True
@@ -211,39 +204,19 @@ Public MustInherit Class RCommentADO
             '
         End If
         '
-        ' Rule 2
+        ' Rule 2 - The summary has a name
         '
         Dim bRule_2_Met As Boolean = True
-        If IsNothing(Name) OrElse IsNothing(Text) OrElse IsNothing(TS) Then
+        If IsNothing(Name) Then
             sMessage &= vbCrLf
-            sMessage &= "One or more fields are not valid."
+            sMessage &= "Name field is not valid."
             bRule_2_Met = False
-            '
-        End If
-        '
-        ' Rule 3
-        '
-        Dim bRule_3_Met As Boolean = True
-        If Name = "" Then
-            sMessage &= vbCrLf
-            sMessage &= "Name can't be empty."
-            bRule_3_Met = False
-            '
-        End If
-        '
-        ' Rule 4
-        '
-        Dim bRule_4_Met As Boolean = True
-        If Text = "" Then
-            sMessage &= vbCrLf
-            sMessage &= "Text can't be empty."
-            bRule_4_Met = False
             '
         End If
         '
         ' Test the flags
         '
-        If Not bRule_1_Met OrElse Not bRule_2_Met OrElse Not bRule_3_Met OrElse Not bRule_4_Met Then
+        If Not bRule_1_Met OrElse Not bRule_2_Met Then
             MsgBox(sMessage)
             Return False
             '
@@ -278,27 +251,27 @@ Public MustInherit Class RCommentADO
         '
         ' Passed the rule check, so update the record
         '
-        Using ta = New CommentsTableAdapter
-            Using dt = New CommentsDataTable
-                Dim row As CommentsRow
+        Using ta = New SummaryTableAdapter
+            Using dt = New SummaryDataTable
+                Dim row As SummaryRow
                 If Not IsNew() Then
                     ta.FillByID(dt, ID)
                     If dt.Count = 0 Then
-                        row = dt.NewCommentsRow
+                        row = dt.NewSummaryRow
                         '
                     Else
                         row = dt.Rows(0)
                         '
                     End If
                 Else ' is new connector
-                    row = dt.NewCommentsRow
+                    row = dt.NewSummaryRow
                     '
                 End If
                 '
                 LoadRowFromData(row)
                 '
                 Try
-                    If dt.Count = 0 Then dt.AddCommentsRow(row)
+                    If dt.Count = 0 Then dt.AddSummaryRow(row)
                     ta.Update(dt)
                     IsDirty = False
                     '
@@ -315,10 +288,10 @@ Public MustInherit Class RCommentADO
     End Function
     ' 
     ' ***********************************************
-    ' *****     -IEditableObject_BeginEdit(RCommentsRow)
+    ' *****     -IEditableObject_BeginEdit(RSummarysRow)
     ' ***********************************************
     '
-    Private m_CloneMe As RComment
+    Private m_CloneMe As RSummary
     '
     Private Sub IEditableObject_BeginEdit() Implements IEditableObject.BeginEdit
         '
@@ -330,7 +303,7 @@ Public MustInherit Class RCommentADO
     End Sub
     ' 
     ' ***********************************************
-    ' *****     -IEditableObject_EndEdit(RCommentsRow)
+    ' *****     -IEditableObject_EndEdit(RSummarysRow)
     ' ***********************************************
     '
     Private Sub IEditableObject_EndEdit() Implements IEditableObject.EndEdit
@@ -343,7 +316,7 @@ Public MustInherit Class RCommentADO
     End Sub
     ' 
     ' ***********************************************
-    ' *****     -IEditableObject_CancelEdit(RCommentsRow)
+    ' *****     -IEditableObject_CancelEdit(RSummarysRow)
     ' ***********************************************
     '
     Private Sub IEditableObject_CancelEdit() Implements IEditableObject.CancelEdit
@@ -354,10 +327,9 @@ Public MustInherit Class RCommentADO
             With m_CloneMe
                 ID = .ID
                 Name = .Name
-                Text = .Text
-                TS = .TS
-                FK_SumID = .FK_SumID
-                Auto = .Auto
+                Abbreviation = .Abbreviation
+                FK_Footer = .FK_Footer
+                FK_Introduction = .FK_Introduction
                 IsDirty = .IsDirty
                 '
             End With

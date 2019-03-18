@@ -8,7 +8,7 @@
 ' 
 Imports SyncfusionWindowsFormsApplication1.vreportsDataSet
 '
-Public MustInherit Class RCommentData
+Public MustInherit Class RSummaryData
     Inherits VObject
     '
     ' **********************************************
@@ -33,33 +33,31 @@ Public MustInherit Class RCommentData
     ' **********************************************
     ' 
     ' ***********************************************
-    ' *****     #LoadDataFromRow(RCommentsRow)
+    ' *****     #LoadDataFromRow(RSummarysRow)
     ' ***********************************************
     '
-    Protected Sub LoadDataFromRow(ByVal row As CommentsRow)
+    Protected Sub LoadDataFromRow(ByVal row As SummaryRow)
         With row
             ID = .ID
-            Name = .CName
-            Text = .CText
-            TS = .TS
-            FK_SumID = .FK_SumID
-            Auto = ._Auto
+            Name = .SName
+            Abbreviation = .Abbreviation
+            FK_Introduction = .FK_Introduction
+            m_FK_Footer = .FK_Footer
             '
         End With
     End Sub
     ' 
     ' ***********************************************
-    ' *****     #LoadRowFromData(RCommentsRow)
+    ' *****     #LoadRowFromData(RSummarysRow)
     ' ***********************************************
     '
-    Protected Sub LoadRowFromData(ByRef row As CommentsRow)
+    Protected Sub LoadRowFromData(ByRef row As SummaryRow)
         With row
             .ID = ID
-            .CName = Name
-            .CText = Text
-            .TS = TS
-            .FK_SumID = FK_SumID
-            ._Auto = Auto
+            .SName = Name
+            .Abbreviation = Abbreviation
+            .FK_Footer = FK_Footer
+            .FK_Introduction = FK_Introduction
             '
         End With
     End Sub
@@ -77,10 +75,9 @@ Public MustInherit Class RCommentData
     Private m_IsDirty As Boolean
     Private m_ID As Guid = Guid.Empty
     Private m_Name As String = ""
-    Private m_Text As String = ""
-    Private m_TS As Date = Date.Now()
-    Private m_FK_SumID As Guid = Guid.Empty
-    Private m_Auto As Boolean
+    Private m_Abbreviation As String = ""
+    Private m_FK_Introduction As Guid = Guid.Empty
+    Private m_FK_Footer As Guid = Guid.Empty
     '
     ' ***********************************************
     ' *****     +Name(string):string
@@ -97,29 +94,15 @@ Public MustInherit Class RCommentData
     End Property
     '
     ' ***********************************************
-    ' *****     +Text(string):string
+    ' *****     +Abbreviation(string):string
     ' ***********************************************
     '
-    Public Property Text As String
+    Public Property Abbreviation As String
         Get
-            Return m_Text
+            Return m_Abbreviation
         End Get
         Set(value As String)
-            m_Text = value
-            IsDirty = True
-        End Set
-    End Property
-    '
-    ' ***********************************************
-    ' *****     +TS(date):date
-    ' ***********************************************
-    '
-    Public Property TS As Date
-        Get
-            Return m_TS
-        End Get
-        Set(value As Date)
-            m_TS = value
+            m_Abbreviation = value
             IsDirty = True
         End Set
     End Property
@@ -152,29 +135,29 @@ Public MustInherit Class RCommentData
     End Property
     '
     ' ***********************************************
-    ' *****     +FK_SumID(guid):guid
+    ' *****     +FK_Introduction(guid):guid
     ' ***********************************************
     '
-    Public Property FK_SumID As Guid
+    Public Property FK_Introduction As Guid
         Get
-            Return m_FK_SumID
+            Return m_FK_Introduction
         End Get
         Set(value As Guid)
-            m_FK_SumID = value
+            m_FK_Introduction = value
             IsDirty = True
         End Set
     End Property
     '
     ' ***********************************************
-    ' *****     +Auto(bool):bool
+    ' *****     +FK_Footer(guid):guid
     ' ***********************************************
     '
-    Public Property Auto As Boolean
+    Public Property FK_Footer As Guid
         Get
-            Return m_Auto
+            Return m_FK_Footer
         End Get
-        Set(value As Boolean)
-            m_Auto = value
+        Set(value As Guid)
+            m_FK_Footer = value
             IsDirty = True
         End Set
     End Property

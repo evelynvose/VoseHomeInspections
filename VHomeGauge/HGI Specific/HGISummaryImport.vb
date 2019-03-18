@@ -8,7 +8,7 @@
 Imports System.IO
 Imports System.Xml
 '
-Public Class HGICommentImport
+Public Class HGISummaryImport
     Inherits VDoWork
     '
     ' **********************************************
@@ -59,7 +59,7 @@ Public Class HGICommentImport
     '
     Protected Overrides Sub TheDoWorkMethod()
         ProcessTheTemplate()
-        RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Termination, "Comment Import Complete"))
+        RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Termination, "Summary Import Complete"))
         '
     End Sub
     ' 
@@ -86,7 +86,7 @@ Public Class HGICommentImport
             '
             Dim sMessage As String  ' The current key/value pair message for the progress bar information post area
             Dim nodelist As XmlNodeList
-            nodelist = Xmld.SelectNodes("/template/com")
+            nodelist = Xmld.SelectNodes("/template/sum")
             If Not IsNothing(nodelist) AndAlso nodelist.Count > 0 Then
                 For Each node As XmlNode In nodelist
                     '  
@@ -97,9 +97,9 @@ Public Class HGICommentImport
                     Dim s As String = Guid.Empty.ToString           ' Preset to fail!
                     Dim a As XmlAttribute
                     a = node.Attributes("id")
-                    If Not IsNothing(a) Then            ' XmlDocument functions return empty objects!
-                        s = a.Value                     ' Take a chance on the attribute being formatted with a prefix
-                        s = s.Remove(0, "C-".Length)    ' and remove the prefix (if any).
+                    If Not IsNothing(a) Then                ' XmlDocument functions return empty objects!
+                        s = a.Value                         ' Take a chance on the attribute being formatted with a prefix
+                        s = s.Remove(0, "SUM-".Length)      ' and remove the prefix (if any).
                         '
                     End If
                     '
@@ -111,47 +111,39 @@ Public Class HGICommentImport
                         '
                         ' Not a valid Guid, so abort with and error message
                         '
-                        MsgBox(New Exception(String.Format("Comment: {0} is not a valid Guid!", g)))
+                        MsgBox(New Exception(String.Format("Summary: {0} is not a valid Guid!", g)))
                         '
                     Else
                         '
                         ' Send progress information to the progress bar
                         '
-                        sMessage = "Import: " & node.Item("comName").InnerText
+                        sMessage = "Import Summary: " & node.Item("sumName").InnerText
                         RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, sMessage))
                         '
                         ' Instantiate the object, SetAttr the variables and import to dB
                         '     Note: If the fields fail the object's rules test the object will not update the dB
                         '
-                        Dim theObject As RComment
-                        theObject = RComment.Find(g)    ' See if already in the dB
+                        Dim theObject As RSummary
+                        theObject = RSummary.Find(g)    ' See if already in the dB
                         If IsNothing(theObject) Then    ' not a duplicate, proceed
-                            theObject = New RComment
+                            theObject = New RSummary
                             With theObject
                                 .ID = g
-                                If Not IsNothing(node.Item("comName")) Then
-                                    .Name = node.Item("comName").InnerText
-                                    '
-                                End If
-                                If Not IsNothing(node.Item("comText")) Then
-                                    .Text = node.Item("comText").InnerText
-                                    '
-                                End If
-                                If Not IsNothing(node.Item("comAuto")) Then
-                                    If node.Item("comAuto").InnerText = "1" Then
-                                        .Auto = True
-                                        '
-                                    End If
-                                End If
-                                If Not IsNothing(node.Item("commentSumID")) Then
-                                    s = node.Item("commentSumID").InnerText
-                                    s = s.Remove(0, "SUM-".Length)
-                                    Guid.TryParse(s, .FK_SumID)
-                                    '
-                                End If
-
+                                .Name = node.Item("sumName").InnerText
+                                .Abbreviation = node.Item("sumAbbrev").InnerText
+                                '
+                                s = node.Item("sumFCID").InnerText
+                                s = s.Remove(0, "C-".Length)
+                                Dim gf As Guid
+                                Guid.TryParse(s, gf)
+                                .FK_Footer = gf
+                                '
+                                s = node.Item("sumICID").InnerText
+                                s = s.Remove(0, "C-".Length)
+                                Guid.TryParse(s, .FK_Introduction)
+                                '
                                 If Not .Update() Then ' send a message
-                                    MsgBox(New Exception(String.Format("Comment: {0}, {1}, {2} did not import. Check the rules!", g, .Name, .Text)))
+                                    MsgBox(New Exception(String.Format("Summary: {0}, {1}, {2} did not import. Check the rules!", g, .Name, .Abbreviation)))
                                     '
                                 End If
                                 '

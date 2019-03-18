@@ -46,12 +46,12 @@ Public Class dlgVProgressBar
     End Sub
     '
     ' ***********************************************
-    ' *****     Load
+    ' *****     -Load(object, EventArgs)
     ' ***********************************************
     '
     ' Private m_ReportProcessor As HGIReportProcessor
     Private Sub dlgReportImportProgressBar_Load(sender As Object, e As EventArgs) Handles Me.Load
-
+        ' Do nothing on purpose
     End Sub
     '
     ' **********************************************
@@ -63,7 +63,7 @@ Public Class dlgVProgressBar
     '
     '
     ' ***********************************************
-    ' *****     Report Is Imported
+    ' *****     +LanchDoWork()
     ' ***********************************************
     '
     ' This is the heart of this dialog's purpose. The user kicks off the
@@ -93,10 +93,10 @@ Public Class dlgVProgressBar
     End Sub
     '
     ' ***********************************************
-    ' *****     Start Timer
+    ' *****     -StartTimer()
     ' ***********************************************
     '
-    Public Sub StartTimer()
+    Private Sub StartTimer()
         '
         ' Starts the timer
         '
@@ -105,7 +105,7 @@ Public Class dlgVProgressBar
     End Sub
     '
     ' ***********************************************
-    ' *****     Kill Timer()
+    ' *****     -KillTimer()
     ' ***********************************************
     '
     Private Sub KillTimer()
@@ -117,10 +117,11 @@ Public Class dlgVProgressBar
     End Sub
     '
     ' ***********************************************
-    ' *****     Set Do Work Class()
+    ' *****     +SetDoWorkClass(VDoWork)
     ' ***********************************************
     '
     Friend WithEvents m_DoWorkClass As VDoWork
+    '
     Public Sub SetDoWorkClass(ByRef DoWorkClass As VDoWork) Implements IDoWorkManager.SetDoWorkClass
         ' 
         ' Set the pointer to the DoWorkClass
@@ -135,7 +136,6 @@ Public Class dlgVProgressBar
         AddHandler m_DoWorkClass.VEvent, AddressOf VEvent_Handler
         '
     End Sub
-
     '
     ' **********************************************
     ' ****
@@ -145,7 +145,7 @@ Public Class dlgVProgressBar
     '    
     '
     ' ***********************************************
-    ' *****     DoWork Event Handling Function
+    ' *****     -DoWorkEventHandlingFunction(object, VDoworkEventArgs)
     ' ***********************************************
     '
     Private Sub DoWorkEvent_Handler(ByVal sender As Object, ByVal e As VDoWorkEventArgs) Implements IDoWorkManager.DoWorkEvent_Handler
@@ -168,23 +168,23 @@ Public Class dlgVProgressBar
                 ' Do Nothing
                 '
         End Select
-        If e.EventType = VDoWorkEventArgTypes.Informational Then
+        '
+    End Sub
+    '
+    ' ***********************************************
+    ' *****     -VEvent_Handler(object, VEventArgs)
+    ' ***********************************************
+    '
+    Private Sub VEvent_Handler(ByVal sender As Object, ByVal e As VEventArgs)
+        If e.IsShowMe Then
+            MsgBox(e.Message)
             '
         End If
         '
     End Sub
     '
     ' ***********************************************
-    ' *****     -VEvent_Handler(object, object)
-    ' ***********************************************
-    '
-    Private Sub VEvent_Handler(ByVal sender As Object, ByVal e As VEventArgs)
-        MsgBox(e.Message)
-        '
-    End Sub
-    '
-    ' ***********************************************
-    ' *****     Timer 1_Tick
+    ' *****     -Timer1_Tick(object, EventArgs)
     ' ***********************************************
     '
     Private Sub timer1_Tick(ByVal sender As Object, ByVal e As EventArgs) Handles Timer1.Tick
@@ -201,6 +201,7 @@ Public Class dlgVProgressBar
             lblStatus.Visible = False
             lblAnnouncement.Text = AnnouncementText
             lblAnnouncement.Visible = AnnouncementVisible
+            OKButtonText = "OK"
             If Not OKButtonVisible Then
                 Close()
                 '
@@ -220,10 +221,11 @@ Public Class dlgVProgressBar
     End Sub
     '
     ' ***********************************************
-    ' *****     Background Worker 1_DoWork
+    ' *****     -BackgroundWorker1_DoWork(object, DoWorkEventArgs)
     ' ***********************************************
     '
     Private Event DoWorkEvent(ByVal sender As Object, ByVal e As DoWorkEventArgs) Implements IDoWorkManager.DoWorkEvent
+    '
     Private Sub BackgroundWorker1_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs)
         '
         ' Call the DoWork method in the DoWork Class.
@@ -233,10 +235,11 @@ Public Class dlgVProgressBar
     End Sub
     '
     ' ***********************************************
-    ' *****     Background Worker 1_RunWorkerCompleted
+    ' *****     -BackgroundWorker1_RunWorkerCompleted(object, RunWorkerCompletedEventArgs)
     ' ***********************************************
     '
     Private Event RunWorkerCompletedEvent(sender As Object, e As RunWorkerCompletedEventArgs) Implements IDoWorkManager.RunWorkerCompletedEvent
+    '
     Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs)
         '
         ' The next progress bar tick will note that the IsWorkCompleted flag is Ture and it will disable the timer.
@@ -246,7 +249,7 @@ Public Class dlgVProgressBar
     End Sub
     '
     ' ***********************************************
-    ' *****     btnOK Click
+    ' *****     -btnOK_Click(object, EventArgs)
     ' ***********************************************
     '
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click
@@ -270,7 +273,7 @@ Public Class dlgVProgressBar
     Private m_EmergencyCloseFlag As Boolean
     '
     ' ***********************************************
-    ' *****     Is Work Completed?
+    ' *****     -IsWorkCompleted(bool):bool)
     ' ***********************************************
     '
     Private Property IsWorkCompleted As Boolean Implements IDoWorkManager.IsWorkCompleted
@@ -283,7 +286,7 @@ Public Class dlgVProgressBar
     End Property
     '
     ' ***********************************************
-    ' *****     OK Button Visible
+    ' *****     +OKButtoVisible(bool):bool
     ' ***********************************************
     '
     Public Property OKButtonVisible As Boolean
@@ -296,7 +299,20 @@ Public Class dlgVProgressBar
     End Property
     '
     ' ***********************************************
-    ' *****     Announcement Label Visible
+    ' *****     +OKButtonText(string):string
+    ' ***********************************************
+    '
+    Public Property OKButtonText As String
+        Get
+            Return btnOK.Text
+        End Get
+        Set(value As String)
+            btnOK.Text = value
+        End Set
+    End Property
+    '
+    ' ***********************************************
+    ' *****     +AnnouncementLabelVisible(bool):bool
     ' ***********************************************
     '
     Public Property AnnouncementVisible As Boolean
@@ -309,7 +325,7 @@ Public Class dlgVProgressBar
     End Property
     '
     ' ***********************************************
-    ' *****     Running Status Visible
+    ' *****     +RunningStatusVisible(string):string
     ' ***********************************************
     '
     Public Property RunningStatusVisible As String
@@ -322,7 +338,7 @@ Public Class dlgVProgressBar
     End Property
     '
     ' ***********************************************
-    ' *****     Announcement Text
+    ' *****     +AnnouncementText(string):string
     ' ***********************************************
     '
     Public Property AnnouncementText As String
@@ -335,7 +351,7 @@ Public Class dlgVProgressBar
     End Property
     '
     ' ***********************************************
-    ' *****     Informational Message
+    ' *****     InformationalMessage(string):string
     ' ***********************************************
     '
     Public Property InfoMessage As String

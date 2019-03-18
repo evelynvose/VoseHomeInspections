@@ -58,6 +58,7 @@ Public Class HGIConnectorImport
     '
     Protected Overrides Sub TheDoWorkMethod()
         ProcessTheTemplate()
+        RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Termination, "Connector Import Complete"))
         '
     End Sub
     ' 

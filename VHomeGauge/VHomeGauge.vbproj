@@ -142,6 +142,12 @@
     <Compile Include="BO_SmartText\RSmartTextValuesADO.vb" />
     <Compile Include="BO_SmartText\RSmartTextKeysADO.vb" />
     <Compile Include="BO_SmartText\RSmartTextKeys.vb" />
+    <Compile Include="BO_Summary\RSummary.vb" />
+    <Compile Include="BO_Summary\RSummaryADO.vb" />
+    <Compile Include="BO_Summary\RSummaryData.vb" />
+    <Compile Include="BO_Summary\RSummarys.vb" />
+    <Compile Include="BO_Summary\RSummarysADO.vb" />
+    <Compile Include="HGI Specific\HGISummaryImport.vb" />
     <Compile Include="HGI Specific\HGICommentImport.vb" />
     <Compile Include="HGI Specific\HGISmartTextImport.vb" />
     <Compile Include="UI_Dialogs\dlgComments.Designer.vb">

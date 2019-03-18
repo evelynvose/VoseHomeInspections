@@ -59,6 +59,7 @@ Public Class HGISmartTextImport
     '
     Protected Overrides Sub TheDoWorkMethod()
         ProcessTheTemplate()
+        RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Termination, "Smart Text Import Complete"))
         '
     End Sub
     ' 
