@@ -26,24 +26,24 @@ Partial Class frmMain
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim miMainTemplate As System.Windows.Forms.ToolStripMenuItem
-        Dim TreeNodeAdvStyleInfo1 As Syncfusion.Windows.Forms.Tools.TreeNodeAdvStyleInfo = New Syncfusion.Windows.Forms.Tools.TreeNodeAdvStyleInfo()
-        Dim TreeNodeAdv1 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
-        Dim TreeNodeAdv2 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
-        Dim TreeNodeAdv3 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
-        Dim TreeNodeAdv4 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
-        Dim TreeNodeAdv5 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
-        Dim TreeNodeAdv6 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
-        Dim TreeNodeAdv7 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
-        Dim TreeNodeAdv8 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
-        Dim TreeNodeAdv9 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
-        Dim TreeNodeAdv10 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
-        Dim TreeNodeAdv11 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
-        Dim TreeNodeAdv12 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
+        Dim TreeNodeAdvStyleInfo2 As Syncfusion.Windows.Forms.Tools.TreeNodeAdvStyleInfo = New Syncfusion.Windows.Forms.Tools.TreeNodeAdvStyleInfo()
+        Dim TreeNodeAdv13 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
+        Dim TreeNodeAdv14 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
+        Dim TreeNodeAdv15 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
+        Dim TreeNodeAdv16 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
+        Dim TreeNodeAdv17 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
+        Dim TreeNodeAdv18 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
+        Dim TreeNodeAdv19 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
+        Dim TreeNodeAdv20 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
+        Dim TreeNodeAdv21 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
+        Dim TreeNodeAdv22 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
+        Dim TreeNodeAdv23 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
+        Dim TreeNodeAdv24 As Syncfusion.Windows.Forms.Tools.TreeNodeAdv = New Syncfusion.Windows.Forms.Tools.TreeNodeAdv()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
-        Dim GridImageColumn1 As Syncfusion.WinForms.DataGrid.GridImageColumn = New Syncfusion.WinForms.DataGrid.GridImageColumn()
-        Dim GridTextColumn1 As Syncfusion.WinForms.DataGrid.GridTextColumn = New Syncfusion.WinForms.DataGrid.GridTextColumn()
-        Dim GridTextColumn2 As Syncfusion.WinForms.DataGrid.GridTextColumn = New Syncfusion.WinForms.DataGrid.GridTextColumn()
-        Dim GridTextColumn3 As Syncfusion.WinForms.DataGrid.GridTextColumn = New Syncfusion.WinForms.DataGrid.GridTextColumn()
+        Dim GridImageColumn2 As Syncfusion.WinForms.DataGrid.GridImageColumn = New Syncfusion.WinForms.DataGrid.GridImageColumn()
+        Dim GridTextColumn4 As Syncfusion.WinForms.DataGrid.GridTextColumn = New Syncfusion.WinForms.DataGrid.GridTextColumn()
+        Dim GridTextColumn5 As Syncfusion.WinForms.DataGrid.GridTextColumn = New Syncfusion.WinForms.DataGrid.GridTextColumn()
+        Dim GridTextColumn6 As Syncfusion.WinForms.DataGrid.GridTextColumn = New Syncfusion.WinForms.DataGrid.GridTextColumn()
         Me.miMainTemplateConnectors = New System.Windows.Forms.ToolStripMenuItem()
         Me.miMainTemplateSmartText = New System.Windows.Forms.ToolStripMenuItem()
         Me.CommentsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -86,6 +86,8 @@ Partial Class frmMain
         Me.ToolStripTabItem1 = New Syncfusion.Windows.Forms.Tools.ToolStripTabItem()
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.HtmluiControl1 = New Syncfusion.Windows.Forms.HTMLUI.HTMLUIControl()
+        Me.SummariesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CatalogToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         miMainTemplate = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.scSlab, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.scSlab.Panel1.SuspendLayout()
@@ -140,7 +142,7 @@ Partial Class frmMain
         '
         'miMainTemplate
         '
-        miMainTemplate.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.miMainTemplateConnectors, Me.miMainTemplateSmartText, Me.CommentsToolStripMenuItem})
+        miMainTemplate.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CatalogToolStripMenuItem, Me.CommentsToolStripMenuItem, Me.miMainTemplateConnectors, Me.miMainTemplateSmartText, Me.SummariesToolStripMenuItem})
         miMainTemplate.Name = "miMainTemplate"
         miMainTemplate.Size = New System.Drawing.Size(68, 26)
         miMainTemplate.Text = "Template"
@@ -148,19 +150,19 @@ Partial Class frmMain
         'miMainTemplateConnectors
         '
         Me.miMainTemplateConnectors.Name = "miMainTemplateConnectors"
-        Me.miMainTemplateConnectors.Size = New System.Drawing.Size(135, 22)
+        Me.miMainTemplateConnectors.Size = New System.Drawing.Size(180, 22)
         Me.miMainTemplateConnectors.Text = "Connectors"
         '
         'miMainTemplateSmartText
         '
         Me.miMainTemplateSmartText.Name = "miMainTemplateSmartText"
-        Me.miMainTemplateSmartText.Size = New System.Drawing.Size(135, 22)
+        Me.miMainTemplateSmartText.Size = New System.Drawing.Size(180, 22)
         Me.miMainTemplateSmartText.Text = "Smart Text"
         '
         'CommentsToolStripMenuItem
         '
         Me.CommentsToolStripMenuItem.Name = "CommentsToolStripMenuItem"
-        Me.CommentsToolStripMenuItem.Size = New System.Drawing.Size(135, 22)
+        Me.CommentsToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.CommentsToolStripMenuItem.Text = "Comments"
         '
         'scSlab
@@ -374,9 +376,9 @@ Partial Class frmMain
         '
         Me.tvAreaNavigator.AccelerateScrolling = Syncfusion.Windows.Forms.AccelerateScrollingBehavior.Immediate
         Me.tvAreaNavigator.BackColor = System.Drawing.Color.WhiteSmoke
-        TreeNodeAdvStyleInfo1.EnsureDefaultOptionedChild = True
-        TreeNodeAdvStyleInfo1.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tvAreaNavigator.BaseStylePairs.AddRange(New Syncfusion.Windows.Forms.Tools.StyleNamePair() {New Syncfusion.Windows.Forms.Tools.StyleNamePair("Standard", TreeNodeAdvStyleInfo1)})
+        TreeNodeAdvStyleInfo2.EnsureDefaultOptionedChild = True
+        TreeNodeAdvStyleInfo2.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tvAreaNavigator.BaseStylePairs.AddRange(New Syncfusion.Windows.Forms.Tools.StyleNamePair() {New Syncfusion.Windows.Forms.Tools.StyleNamePair("Standard", TreeNodeAdvStyleInfo2)})
         Me.tvAreaNavigator.BeforeTouchSize = New System.Drawing.Size(174, 367)
         Me.tvAreaNavigator.Border3DStyle = System.Windows.Forms.Border3DStyle.Flat
         Me.tvAreaNavigator.BorderStyle = System.Windows.Forms.BorderStyle.None
@@ -396,77 +398,77 @@ Partial Class frmMain
         Me.tvAreaNavigator.Location = New System.Drawing.Point(0, 0)
         Me.tvAreaNavigator.MetroColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(165, Byte), Integer), CType(CType(220, Byte), Integer))
         Me.tvAreaNavigator.Name = "tvAreaNavigator"
-        TreeNodeAdv1.ChildStyle.EnsureDefaultOptionedChild = True
-        TreeNodeAdv1.EnsureDefaultOptionedChild = True
-        TreeNodeAdv1.Expanded = True
-        TreeNodeAdv1.MultiLine = True
-        TreeNodeAdv2.ChildStyle.EnsureDefaultOptionedChild = True
-        TreeNodeAdv2.EnsureDefaultOptionedChild = True
-        TreeNodeAdv2.MultiLine = True
-        TreeNodeAdv2.Optioned = True
-        TreeNodeAdv2.ShowLine = True
-        TreeNodeAdv2.Text = "Header"
-        TreeNodeAdv3.ChildStyle.EnsureDefaultOptionedChild = True
-        TreeNodeAdv3.EnsureDefaultOptionedChild = True
-        TreeNodeAdv3.Expanded = True
-        TreeNodeAdv3.MultiLine = True
-        TreeNodeAdv3.ShowLine = True
-        TreeNodeAdv3.Text = "Body"
-        TreeNodeAdv4.ChildStyle.EnsureDefaultOptionedChild = True
-        TreeNodeAdv4.EnsureDefaultOptionedChild = True
-        TreeNodeAdv4.MultiLine = True
-        TreeNodeAdv4.ShowLine = True
-        TreeNodeAdv4.Text = "Footer"
-        TreeNodeAdv1.Nodes.AddRange(New Syncfusion.Windows.Forms.Tools.TreeNodeAdv() {TreeNodeAdv2, TreeNodeAdv3, TreeNodeAdv4})
-        TreeNodeAdv1.ShowLine = True
-        TreeNodeAdv1.Text = "Roof"
-        TreeNodeAdv5.ChildStyle.EnsureDefaultOptionedChild = True
-        TreeNodeAdv5.EnsureDefaultOptionedChild = True
-        TreeNodeAdv5.Expanded = True
-        TreeNodeAdv5.MultiLine = True
-        TreeNodeAdv6.ChildStyle.EnsureDefaultOptionedChild = True
-        TreeNodeAdv6.EnsureDefaultOptionedChild = True
-        TreeNodeAdv6.MultiLine = True
-        TreeNodeAdv6.Optioned = True
-        TreeNodeAdv6.ShowLine = True
-        TreeNodeAdv6.Text = "Header"
-        TreeNodeAdv7.ChildStyle.EnsureDefaultOptionedChild = True
-        TreeNodeAdv7.EnsureDefaultOptionedChild = True
-        TreeNodeAdv7.Expanded = True
-        TreeNodeAdv7.MultiLine = True
-        TreeNodeAdv8.ChildStyle.EnsureDefaultOptionedChild = True
-        TreeNodeAdv8.EnsureDefaultOptionedChild = True
-        TreeNodeAdv8.MultiLine = True
-        TreeNodeAdv8.Optioned = True
-        TreeNodeAdv8.ShowLine = True
-        TreeNodeAdv8.Text = "Areas"
-        TreeNodeAdv9.ChildStyle.EnsureDefaultOptionedChild = True
-        TreeNodeAdv9.EnsureDefaultOptionedChild = True
-        TreeNodeAdv9.MultiLine = True
-        TreeNodeAdv9.ShowLine = True
-        TreeNodeAdv9.Text = "Garage/Carport"
-        TreeNodeAdv10.ChildStyle.EnsureDefaultOptionedChild = True
-        TreeNodeAdv10.EnsureDefaultOptionedChild = True
-        TreeNodeAdv10.MultiLine = True
-        TreeNodeAdv10.ShowLine = True
-        TreeNodeAdv10.Text = "Deck"
-        TreeNodeAdv11.ChildStyle.EnsureDefaultOptionedChild = True
-        TreeNodeAdv11.EnsureDefaultOptionedChild = True
-        TreeNodeAdv11.MultiLine = True
-        TreeNodeAdv11.ShowLine = True
-        TreeNodeAdv11.Text = "Porch"
-        TreeNodeAdv7.Nodes.AddRange(New Syncfusion.Windows.Forms.Tools.TreeNodeAdv() {TreeNodeAdv8, TreeNodeAdv9, TreeNodeAdv10, TreeNodeAdv11})
-        TreeNodeAdv7.ShowLine = True
-        TreeNodeAdv7.Text = "Sections"
-        TreeNodeAdv12.ChildStyle.EnsureDefaultOptionedChild = True
-        TreeNodeAdv12.EnsureDefaultOptionedChild = True
-        TreeNodeAdv12.MultiLine = True
-        TreeNodeAdv12.ShowLine = True
-        TreeNodeAdv12.Text = "Footer"
-        TreeNodeAdv5.Nodes.AddRange(New Syncfusion.Windows.Forms.Tools.TreeNodeAdv() {TreeNodeAdv6, TreeNodeAdv7, TreeNodeAdv12})
-        TreeNodeAdv5.ShowLine = True
-        TreeNodeAdv5.Text = "Exterior"
-        Me.tvAreaNavigator.Nodes.AddRange(New Syncfusion.Windows.Forms.Tools.TreeNodeAdv() {TreeNodeAdv1, TreeNodeAdv5})
+        TreeNodeAdv13.ChildStyle.EnsureDefaultOptionedChild = True
+        TreeNodeAdv13.EnsureDefaultOptionedChild = True
+        TreeNodeAdv13.Expanded = True
+        TreeNodeAdv13.MultiLine = True
+        TreeNodeAdv14.ChildStyle.EnsureDefaultOptionedChild = True
+        TreeNodeAdv14.EnsureDefaultOptionedChild = True
+        TreeNodeAdv14.MultiLine = True
+        TreeNodeAdv14.Optioned = True
+        TreeNodeAdv14.ShowLine = True
+        TreeNodeAdv14.Text = "Header"
+        TreeNodeAdv15.ChildStyle.EnsureDefaultOptionedChild = True
+        TreeNodeAdv15.EnsureDefaultOptionedChild = True
+        TreeNodeAdv15.Expanded = True
+        TreeNodeAdv15.MultiLine = True
+        TreeNodeAdv15.ShowLine = True
+        TreeNodeAdv15.Text = "Body"
+        TreeNodeAdv16.ChildStyle.EnsureDefaultOptionedChild = True
+        TreeNodeAdv16.EnsureDefaultOptionedChild = True
+        TreeNodeAdv16.MultiLine = True
+        TreeNodeAdv16.ShowLine = True
+        TreeNodeAdv16.Text = "Footer"
+        TreeNodeAdv13.Nodes.AddRange(New Syncfusion.Windows.Forms.Tools.TreeNodeAdv() {TreeNodeAdv14, TreeNodeAdv15, TreeNodeAdv16})
+        TreeNodeAdv13.ShowLine = True
+        TreeNodeAdv13.Text = "Roof"
+        TreeNodeAdv17.ChildStyle.EnsureDefaultOptionedChild = True
+        TreeNodeAdv17.EnsureDefaultOptionedChild = True
+        TreeNodeAdv17.Expanded = True
+        TreeNodeAdv17.MultiLine = True
+        TreeNodeAdv18.ChildStyle.EnsureDefaultOptionedChild = True
+        TreeNodeAdv18.EnsureDefaultOptionedChild = True
+        TreeNodeAdv18.MultiLine = True
+        TreeNodeAdv18.Optioned = True
+        TreeNodeAdv18.ShowLine = True
+        TreeNodeAdv18.Text = "Header"
+        TreeNodeAdv19.ChildStyle.EnsureDefaultOptionedChild = True
+        TreeNodeAdv19.EnsureDefaultOptionedChild = True
+        TreeNodeAdv19.Expanded = True
+        TreeNodeAdv19.MultiLine = True
+        TreeNodeAdv20.ChildStyle.EnsureDefaultOptionedChild = True
+        TreeNodeAdv20.EnsureDefaultOptionedChild = True
+        TreeNodeAdv20.MultiLine = True
+        TreeNodeAdv20.Optioned = True
+        TreeNodeAdv20.ShowLine = True
+        TreeNodeAdv20.Text = "Areas"
+        TreeNodeAdv21.ChildStyle.EnsureDefaultOptionedChild = True
+        TreeNodeAdv21.EnsureDefaultOptionedChild = True
+        TreeNodeAdv21.MultiLine = True
+        TreeNodeAdv21.ShowLine = True
+        TreeNodeAdv21.Text = "Garage/Carport"
+        TreeNodeAdv22.ChildStyle.EnsureDefaultOptionedChild = True
+        TreeNodeAdv22.EnsureDefaultOptionedChild = True
+        TreeNodeAdv22.MultiLine = True
+        TreeNodeAdv22.ShowLine = True
+        TreeNodeAdv22.Text = "Deck"
+        TreeNodeAdv23.ChildStyle.EnsureDefaultOptionedChild = True
+        TreeNodeAdv23.EnsureDefaultOptionedChild = True
+        TreeNodeAdv23.MultiLine = True
+        TreeNodeAdv23.ShowLine = True
+        TreeNodeAdv23.Text = "Porch"
+        TreeNodeAdv19.Nodes.AddRange(New Syncfusion.Windows.Forms.Tools.TreeNodeAdv() {TreeNodeAdv20, TreeNodeAdv21, TreeNodeAdv22, TreeNodeAdv23})
+        TreeNodeAdv19.ShowLine = True
+        TreeNodeAdv19.Text = "Sections"
+        TreeNodeAdv24.ChildStyle.EnsureDefaultOptionedChild = True
+        TreeNodeAdv24.EnsureDefaultOptionedChild = True
+        TreeNodeAdv24.MultiLine = True
+        TreeNodeAdv24.ShowLine = True
+        TreeNodeAdv24.Text = "Footer"
+        TreeNodeAdv17.Nodes.AddRange(New Syncfusion.Windows.Forms.Tools.TreeNodeAdv() {TreeNodeAdv18, TreeNodeAdv19, TreeNodeAdv24})
+        TreeNodeAdv17.ShowLine = True
+        TreeNodeAdv17.Text = "Exterior"
+        Me.tvAreaNavigator.Nodes.AddRange(New Syncfusion.Windows.Forms.Tools.TreeNodeAdv() {TreeNodeAdv13, TreeNodeAdv17})
         Me.tvAreaNavigator.SelectedNodeForeColor = System.Drawing.SystemColors.HighlightText
         Me.tvAreaNavigator.Size = New System.Drawing.Size(174, 367)
         Me.tvAreaNavigator.TabIndex = 0
@@ -614,20 +616,20 @@ Partial Class frmMain
         Me.dgFilmstrip.AccessibleName = "Table"
         Me.dgFilmstrip.AutoGenerateColumns = False
         Me.dgFilmstrip.BackColor = System.Drawing.Color.WhiteSmoke
-        GridImageColumn1.AllowEditing = False
-        GridImageColumn1.AllowGrouping = False
-        GridImageColumn1.AllowResizing = True
-        GridImageColumn1.AllowSorting = False
-        GridImageColumn1.CellStyle.BackColor = System.Drawing.Color.Black
-        GridImageColumn1.CellStyle.Font.Facename = "Segoe UI"
-        GridImageColumn1.CellStyle.TextMargins = New System.Windows.Forms.Padding(3, 6, 3, 6)
-        GridImageColumn1.HeaderStyle.Font.Facename = "Segoe UI"
-        GridImageColumn1.HeaderText = "Picture"
-        GridImageColumn1.MappingName = "Picture"
-        GridImageColumn1.MaximumWidth = 320.0R
-        GridImageColumn1.MinimumWidth = 80.0R
-        GridImageColumn1.Width = 160.0R
-        Me.dgFilmstrip.Columns.Add(GridImageColumn1)
+        GridImageColumn2.AllowEditing = False
+        GridImageColumn2.AllowGrouping = False
+        GridImageColumn2.AllowResizing = True
+        GridImageColumn2.AllowSorting = False
+        GridImageColumn2.CellStyle.BackColor = System.Drawing.Color.Black
+        GridImageColumn2.CellStyle.Font.Facename = "Segoe UI"
+        GridImageColumn2.CellStyle.TextMargins = New System.Windows.Forms.Padding(3, 6, 3, 6)
+        GridImageColumn2.HeaderStyle.Font.Facename = "Segoe UI"
+        GridImageColumn2.HeaderText = "Picture"
+        GridImageColumn2.MappingName = "Picture"
+        GridImageColumn2.MaximumWidth = 320.0R
+        GridImageColumn2.MinimumWidth = 80.0R
+        GridImageColumn2.Width = 160.0R
+        Me.dgFilmstrip.Columns.Add(GridImageColumn2)
         Me.dgFilmstrip.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgFilmstrip.Location = New System.Drawing.Point(0, 0)
         Me.dgFilmstrip.Name = "dgFilmstrip"
@@ -706,21 +708,21 @@ Partial Class frmMain
         Me.dgPeopleInfo.AllowEditing = False
         Me.dgPeopleInfo.AllowResizingColumns = True
         Me.dgPeopleInfo.AutoGenerateColumns = False
-        GridTextColumn1.AllowEditing = False
-        GridTextColumn1.AllowResizing = True
-        GridTextColumn1.HeaderText = "First"
-        GridTextColumn1.MappingName = "FirstName"
-        GridTextColumn2.AllowEditing = False
-        GridTextColumn2.AllowResizing = True
-        GridTextColumn2.HeaderText = "Last"
-        GridTextColumn2.MappingName = "LastName"
-        GridTextColumn3.AllowEditing = False
-        GridTextColumn3.AllowResizing = True
-        GridTextColumn3.HeaderText = "Company"
-        GridTextColumn3.MappingName = "Company"
-        Me.dgPeopleInfo.Columns.Add(GridTextColumn1)
-        Me.dgPeopleInfo.Columns.Add(GridTextColumn2)
-        Me.dgPeopleInfo.Columns.Add(GridTextColumn3)
+        GridTextColumn4.AllowEditing = False
+        GridTextColumn4.AllowResizing = True
+        GridTextColumn4.HeaderText = "First"
+        GridTextColumn4.MappingName = "FirstName"
+        GridTextColumn5.AllowEditing = False
+        GridTextColumn5.AllowResizing = True
+        GridTextColumn5.HeaderText = "Last"
+        GridTextColumn5.MappingName = "LastName"
+        GridTextColumn6.AllowEditing = False
+        GridTextColumn6.AllowResizing = True
+        GridTextColumn6.HeaderText = "Company"
+        GridTextColumn6.MappingName = "Company"
+        Me.dgPeopleInfo.Columns.Add(GridTextColumn4)
+        Me.dgPeopleInfo.Columns.Add(GridTextColumn5)
+        Me.dgPeopleInfo.Columns.Add(GridTextColumn6)
         Me.dgPeopleInfo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgPeopleInfo.Location = New System.Drawing.Point(0, 0)
         Me.dgPeopleInfo.Name = "dgPeopleInfo"
@@ -927,6 +929,18 @@ Partial Class frmMain
         Me.HtmluiControl1.TabIndex = 2
         Me.HtmluiControl1.Text = "HtmluiControl1"
         '
+        'SummariesToolStripMenuItem
+        '
+        Me.SummariesToolStripMenuItem.Name = "SummariesToolStripMenuItem"
+        Me.SummariesToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.SummariesToolStripMenuItem.Text = "Summaries"
+        '
+        'CatalogToolStripMenuItem
+        '
+        Me.CatalogToolStripMenuItem.Name = "CatalogToolStripMenuItem"
+        Me.CatalogToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.CatalogToolStripMenuItem.Text = "Catalog"
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1046,4 +1060,6 @@ Partial Class frmMain
     Friend WithEvents miMainTemplateConnectors As ToolStripMenuItem
     Friend WithEvents miMainTemplateSmartText As ToolStripMenuItem
     Friend WithEvents CommentsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents CatalogToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents SummariesToolStripMenuItem As ToolStripMenuItem
 End Class

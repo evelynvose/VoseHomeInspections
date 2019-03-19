@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class dlgComments
     Inherits Syncfusion.Windows.Forms.MetroForm
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class dlgComments
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim TreeNodeAdvStyleInfo1 As Syncfusion.Windows.Forms.Tools.TreeNodeAdvStyleInfo = New Syncfusion.Windows.Forms.Tools.TreeNodeAdvStyleInfo()
@@ -42,9 +42,13 @@ Partial Class dlgComments
         Me.sfdgComments = New Syncfusion.WinForms.DataGrid.SfDataGrid()
         Me.txtAdvanced = New Syncfusion.Windows.Forms.Tools.TextBoxExt()
         Me.txtWhereUsed = New Syncfusion.Windows.Forms.Tools.TextBoxExt()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.msImport = New Syncfusion.Windows.Forms.Tools.ContextMenuStripEx()
+        Me.tsCatalog = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tsComments = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tsSummarySections = New System.Windows.Forms.ToolStripMenuItem()
         Me.btnOK = New Syncfusion.Windows.Forms.ButtonAdv()
         Me.btnCancel = New Syncfusion.Windows.Forms.ButtonAdv()
-        Me.btnGear = New Syncfusion.Windows.Forms.ButtonAdv()
         CType(Me.scOkCancel, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.scOkCancel.Panel1.SuspendLayout()
         Me.scOkCancel.Panel2.SuspendLayout()
@@ -75,6 +79,8 @@ Partial Class dlgComments
         CType(Me.sfdgComments, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtAdvanced, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtWhereUsed, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.msImport.SuspendLayout()
         Me.SuspendLayout()
         '
         'scOkCancel
@@ -91,9 +97,9 @@ Partial Class dlgComments
         '
         'scOkCancel.Panel2
         '
+        Me.scOkCancel.Panel2.Controls.Add(Me.PictureBox1)
         Me.scOkCancel.Panel2.Controls.Add(Me.btnOK)
         Me.scOkCancel.Panel2.Controls.Add(Me.btnCancel)
-        Me.scOkCancel.Panel2.Controls.Add(Me.btnGear)
         Me.scOkCancel.Size = New System.Drawing.Size(740, 604)
         Me.scOkCancel.SplitterDistance = 550
         Me.scOkCancel.TabIndex = 0
@@ -325,6 +331,44 @@ Partial Class dlgComments
         Me.txtWhereUsed.Size = New System.Drawing.Size(550, 51)
         Me.txtWhereUsed.TabIndex = 0
         '
+        'PictureBox1
+        '
+        Me.PictureBox1.ContextMenuStrip = Me.msImport
+        Me.PictureBox1.Image = Global.SyncfusionWindowsFormsApplication1.My.Resources.Resources.gear1
+        Me.PictureBox1.Location = New System.Drawing.Point(678, 9)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(30, 30)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox1.TabIndex = 13
+        Me.PictureBox1.TabStop = False
+        '
+        'msImport
+        '
+        Me.msImport.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsCatalog, Me.tsComments, Me.tsSummarySections})
+        Me.msImport.MetroColor = System.Drawing.Color.FromArgb(CType(CType(204, Byte), Integer), CType(CType(236, Byte), Integer), CType(CType(249, Byte), Integer))
+        Me.msImport.Name = "ContextMenuStripEx1"
+        Me.msImport.Size = New System.Drawing.Size(173, 97)
+        Me.msImport.Style = Syncfusion.Windows.Forms.Tools.ContextMenuStripEx.ContextMenuStyle.[Default]
+        Me.msImport.Text = "Import"
+        '
+        'tsCatalog
+        '
+        Me.tsCatalog.Name = "tsCatalog"
+        Me.tsCatalog.Size = New System.Drawing.Size(172, 22)
+        Me.tsCatalog.Text = "Catalog"
+        '
+        'tsComments
+        '
+        Me.tsComments.Name = "tsComments"
+        Me.tsComments.Size = New System.Drawing.Size(172, 22)
+        Me.tsComments.Text = "Comments"
+        '
+        'tsSummarySections
+        '
+        Me.tsSummarySections.Name = "tsSummarySections"
+        Me.tsSummarySections.Size = New System.Drawing.Size(172, 22)
+        Me.tsSummarySections.Text = "Summary Sections"
+        '
         'btnOK
         '
         Me.btnOK.BeforeTouchSize = New System.Drawing.Size(75, 23)
@@ -344,16 +388,6 @@ Partial Class dlgComments
         Me.btnCancel.Size = New System.Drawing.Size(75, 23)
         Me.btnCancel.TabIndex = 11
         Me.btnCancel.Text = "Cancel"
-        '
-        'btnGear
-        '
-        Me.btnGear.BeforeTouchSize = New System.Drawing.Size(30, 30)
-        Me.btnGear.Image = Global.SyncfusionWindowsFormsApplication1.My.Resources.Resources.gear1
-        Me.btnGear.IsBackStageButton = False
-        Me.btnGear.Location = New System.Drawing.Point(692, 9)
-        Me.btnGear.Name = "btnGear"
-        Me.btnGear.Size = New System.Drawing.Size(30, 30)
-        Me.btnGear.TabIndex = 10
         '
         'dlgComments
         '
@@ -412,6 +446,8 @@ Partial Class dlgComments
         CType(Me.sfdgComments, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtAdvanced, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtWhereUsed, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.msImport.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
@@ -431,7 +467,11 @@ Partial Class dlgComments
     Friend WithEvents sfdgComments As Syncfusion.WinForms.DataGrid.SfDataGrid
     Friend WithEvents btnOK As Syncfusion.Windows.Forms.ButtonAdv
     Friend WithEvents btnCancel As Syncfusion.Windows.Forms.ButtonAdv
-    Friend WithEvents btnGear As Syncfusion.Windows.Forms.ButtonAdv
     Friend WithEvents lblAttachments As Syncfusion.Windows.Forms.Tools.AutoLabel
     Friend WithEvents txtAdvanced As Syncfusion.Windows.Forms.Tools.TextBoxExt
+    Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents msImport As Syncfusion.Windows.Forms.Tools.ContextMenuStripEx
+    Friend WithEvents tsCatalog As ToolStripMenuItem
+    Friend WithEvents tsComments As ToolStripMenuItem
+    Friend WithEvents tsSummarySections As ToolStripMenuItem
 End Class

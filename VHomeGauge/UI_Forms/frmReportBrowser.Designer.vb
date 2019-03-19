@@ -176,25 +176,21 @@ Partial Class frmReportBrowser
         '
         'btnOpenHG
         '
-        Me.btnOpenHG.Appearance = Syncfusion.Windows.Forms.ButtonAppearance.Metro
-        Me.btnOpenHG.BackColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(165, Byte), Integer), CType(CType(220, Byte), Integer))
+        Me.btnOpenHG.BackColor = System.Drawing.Color.White
         Me.btnOpenHG.BeforeTouchSize = New System.Drawing.Size(75, 23)
-        Me.btnOpenHG.ForeColor = System.Drawing.Color.White
         Me.btnOpenHG.IsBackStageButton = False
         Me.btnOpenHG.Location = New System.Drawing.Point(195, 15)
         Me.btnOpenHG.Name = "btnOpenHG"
         Me.btnOpenHG.Size = New System.Drawing.Size(75, 23)
         Me.btnOpenHG.TabIndex = 10
         Me.btnOpenHG.Text = "Open HG"
-        Me.btnOpenHG.UseVisualStyle = True
+        Me.btnOpenHG.UseVisualStyle = False
         '
         'btnGear
         '
-        Me.btnGear.Appearance = Syncfusion.Windows.Forms.ButtonAppearance.Metro
-        Me.btnGear.BackColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(165, Byte), Integer), CType(CType(220, Byte), Integer))
+        Me.btnGear.BackColor = System.Drawing.Color.White
         Me.btnGear.BeforeTouchSize = New System.Drawing.Size(34, 31)
         Me.btnGear.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnGear.ForeColor = System.Drawing.Color.White
         Me.btnGear.Image = Global.SyncfusionWindowsFormsApplication1.My.Resources.Resources.gear1
         Me.btnGear.IsBackStageButton = False
         Me.btnGear.KeepFocusRectangle = False
@@ -206,45 +202,39 @@ Partial Class frmReportBrowser
         '
         'bthRefreshDb
         '
-        Me.bthRefreshDb.Appearance = Syncfusion.Windows.Forms.ButtonAppearance.Metro
-        Me.bthRefreshDb.BackColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(165, Byte), Integer), CType(CType(220, Byte), Integer))
+        Me.bthRefreshDb.BackColor = System.Drawing.Color.White
         Me.bthRefreshDb.BeforeTouchSize = New System.Drawing.Size(116, 23)
-        Me.bthRefreshDb.ForeColor = System.Drawing.Color.White
         Me.bthRefreshDb.IsBackStageButton = False
         Me.bthRefreshDb.Location = New System.Drawing.Point(457, 15)
         Me.bthRefreshDb.Name = "bthRefreshDb"
         Me.bthRefreshDb.Size = New System.Drawing.Size(116, 23)
         Me.bthRefreshDb.TabIndex = 8
         Me.bthRefreshDb.Text = "Refresh The Grid"
-        Me.bthRefreshDb.UseVisualStyle = True
+        Me.bthRefreshDb.UseVisualStyle = False
         '
         'btnOpenDb
         '
-        Me.btnOpenDb.Appearance = Syncfusion.Windows.Forms.ButtonAppearance.Metro
-        Me.btnOpenDb.BackColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(165, Byte), Integer), CType(CType(220, Byte), Integer))
+        Me.btnOpenDb.BackColor = System.Drawing.Color.White
         Me.btnOpenDb.BeforeTouchSize = New System.Drawing.Size(75, 23)
-        Me.btnOpenDb.ForeColor = System.Drawing.Color.White
         Me.btnOpenDb.IsBackStageButton = False
         Me.btnOpenDb.Location = New System.Drawing.Point(114, 15)
         Me.btnOpenDb.Name = "btnOpenDb"
         Me.btnOpenDb.Size = New System.Drawing.Size(75, 23)
         Me.btnOpenDb.TabIndex = 7
         Me.btnOpenDb.Text = "Open dB"
-        Me.btnOpenDb.UseVisualStyle = True
+        Me.btnOpenDb.UseVisualStyle = False
         '
         'btnImport
         '
-        Me.btnImport.Appearance = Syncfusion.Windows.Forms.ButtonAppearance.Metro
-        Me.btnImport.BackColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(165, Byte), Integer), CType(CType(220, Byte), Integer))
+        Me.btnImport.BackColor = System.Drawing.Color.White
         Me.btnImport.BeforeTouchSize = New System.Drawing.Size(75, 23)
-        Me.btnImport.ForeColor = System.Drawing.Color.White
         Me.btnImport.IsBackStageButton = False
         Me.btnImport.Location = New System.Drawing.Point(32, 15)
         Me.btnImport.Name = "btnImport"
         Me.btnImport.Size = New System.Drawing.Size(75, 23)
         Me.btnImport.TabIndex = 6
         Me.btnImport.Text = "Import"
-        Me.btnImport.UseVisualStyle = True
+        Me.btnImport.UseVisualStyle = False
         '
         'frmReportBrowser
         '

@@ -430,6 +430,30 @@ Public Class frmMain
         '
     End Sub
     '
+    ' ***********************************************
+    ' *****     -SummariesToolStripMenuItem_Click(sedner, e)
+    ' ***********************************************
+    '
+    Private Sub SummariesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SummariesToolStripMenuItem.Click
+        Cursor = Cursors.WaitCursor
+        Dim theDialog As New dlgSummaries
+        theDialog.ShowDialog()
+        Cursor = Cursors.Default
+        '
+    End Sub
+    '
+    ' ***********************************************
+    ' *****     -CatalogToolStripMenuItem_Click(sedner, e)
+    ' ***********************************************
+    '
+    Private Sub CatalogToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CatalogToolStripMenuItem.Click
+        Cursor = Cursors.WaitCursor
+        Dim theDialog As New dlgComments
+        theDialog.ShowDialog()
+        Cursor = Cursors.Default
+        '
+    End Sub
+    '
 End Class
 
 

@@ -119,6 +119,19 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UI_Dialogs\dlgSummaries.Designer.vb">
+      <DependentUpon>dlgSummaries.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UI_Dialogs\dlgSummaries.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI_Dialogs\dlgCommentsImports.Designer.vb">
+      <DependentUpon>dlgCommentsImports.vb</DependentUpon>
+    </Compile>
+    <Compile Include="UI_Dialogs\dlgCommentsImports.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VGuid.vb" />
     <Compile Include="BO_Comment\RComment.vb" />
     <Compile Include="BO_Comment\RCommentADO.vb" />
     <Compile Include="BO_Comment\RCommentData.vb" />
@@ -293,6 +306,9 @@
     <EmbeddedResource Include="UI_Dialogs\dlgComments.resx">
       <DependentUpon>dlgComments.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI_Dialogs\dlgCommentsImports.resx">
+      <DependentUpon>dlgCommentsImports.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI_Dialogs\dlgMainFileProperties.resx">
       <DependentUpon>dlgMainFileProperties.vb</DependentUpon>
     </EmbeddedResource>
@@ -363,6 +379,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="BO_Catalog\" />
     <Folder Include="BO_Company\" />
     <Folder Include="My Project\DataSources\" />
   </ItemGroup>
