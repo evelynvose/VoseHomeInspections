@@ -119,6 +119,16 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BO_Catalog\CatalogMaster.vb" />
+    <Compile Include="BO_Catalog\CatalogMasterADO.vb" />
+    <Compile Include="BO_Catalog\CatalogMasterData.vb" />
+    <Compile Include="BO_Catalog\CatalogMasters.vb" />
+    <Compile Include="BO_Catalog\CatalogMastersADO.vb" />
+    <Compile Include="VRepCatalog.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VRepCatalog.xsd</DependentUpon>
+    </Compile>
     <Compile Include="UI_Dialogs\dlgSummaries.Designer.vb">
       <DependentUpon>dlgSummaries.vb</DependentUpon>
     </Compile>
@@ -345,6 +355,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="VRepCatalog.xsc">
+      <DependentUpon>VRepCatalog.xsd</DependentUpon>
+    </None>
+    <None Include="VRepCatalog.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>VRepCatalog.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="VRepCatalog.xss">
+      <DependentUpon>VRepCatalog.xsd</DependentUpon>
+    </None>
     <None Include="VRepSmartText.xsc">
       <DependentUpon>VRepSmartText.xsd</DependentUpon>
     </None>
@@ -379,7 +400,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="BO_Catalog\" />
     <Folder Include="BO_Company\" />
     <Folder Include="My Project\DataSources\" />
   </ItemGroup>

@@ -15,13 +15,24 @@ Public Class VGuid
     ' **********************************************
     ' 
     ' ***********************************************
-    ' *****     +New()
+    ' *****     +New(string)
     ' ***********************************************
     '
-    ' Force the class to be typed by providing only one constructor
+    ' Force the class to be typed by providing only typed constructors
     '
     Public Sub New(ByVal thePrefix As String)
         Prefix = thePrefix
+        m_Guid = Guid.Empty
+        '
+    End Sub
+    '
+    ' ***********************************************
+    ' *****     +New(string, Guid)
+    ' ***********************************************
+    '
+    Public Sub New(ByVal thePrefix As String, ByVal theGuid As Guid)
+        Prefix = thePrefix
+        m_Guid = theGuid
         '
     End Sub
     '
@@ -55,18 +66,8 @@ Public Class VGuid
             '
         End If
         '
-        Me.Guid = Guid.Empty
+        m_Guid = Guid.Empty
         Return False
-    End Function
-    ' 
-    ' ***********************************************
-    ' *****     +NewGuid():guid
-    ' ***********************************************
-    '
-    Public Function NewGuid() As VGuid
-        Me.Guid = Guid.NewGuid
-        Return Me
-        '
     End Function
     ' 
     ' ***********************************************
@@ -131,11 +132,27 @@ Public Class VGuid
     ' *****     +Equals(VGuid, VGuid):bool
     ' ***********************************************
     '
-    Public Function Empty() As VGuid
-        Me.Guid = Guid.Empty
-        Return Me
+    Public Shared Function Empty(ByVal theprefix As String) As VGuid
+        Return New VGuid(theprefix)
         '
     End Function
+    ' 
+    ' ***********************************************
+    ' *****     +Operator = (VGuid, VGuid):bool
+    ' ***********************************************
+    '
+    Public Shared Operator =(guid1 As VGuid, guid2 As VGuid) As Boolean
+        Return EqualityComparer(Of VGuid).Default.Equals(guid1, guid2)
+    End Operator
+    ' 
+    ' ***********************************************
+    ' *****     +Operator <> (VGuid, VGuid):bool
+    ' ***********************************************
+    '
+    Public Shared Operator <>(guid1 As VGuid, guid2 As VGuid) As Boolean
+        Return Not guid1 = guid2
+    End Operator
+
     '
     ' **********************************************
     ' ****
@@ -154,29 +171,28 @@ Public Class VGuid
     ' *****     +Guid(string):string
     ' ***********************************************
     '
-    Public Property Guid As Guid
+    Public ReadOnly Property Guid As Guid
         Get
             Return m_Guid
         End Get
-        Set(value As Guid)
-            m_Guid = value
-        End Set
+        'Set(value As Guid)
+        '    If IsNothing(value) Then value = Guid.Empty
+        '    m_Guid = value
+        'End Set
     End Property
-
+    '
+    ' ***********************************************
+    ' *****     +Prefix(string):string
+    ' ***********************************************
+    '
     Public Property Prefix As String
         Get
             Return m_Prefix
         End Get
         Set(value As String)
+            If value Is Nothing OrElse value = String.Empty Then value = ""
             m_Prefix = value
         End Set
     End Property
 
-    Public Shared Operator =(guid1 As VGuid, guid2 As VGuid) As Boolean
-        Return EqualityComparer(Of VGuid).Default.Equals(guid1, guid2)
-    End Operator
-
-    Public Shared Operator <>(guid1 As VGuid, guid2 As VGuid) As Boolean
-        Return Not guid1 = guid2
-    End Operator
 End Class
