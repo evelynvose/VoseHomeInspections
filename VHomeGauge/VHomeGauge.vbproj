@@ -119,11 +119,17 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BO_Catalog\CatalogLinkList.vb" />
     <Compile Include="BO_Catalog\CatalogMaster.vb" />
+    <Compile Include="BO_Catalog\CatalogLinkListADO.vb" />
     <Compile Include="BO_Catalog\CatalogMasterADO.vb" />
+    <Compile Include="BO_Catalog\CatalogLinkListData.vb" />
     <Compile Include="BO_Catalog\CatalogMasterData.vb" />
+    <Compile Include="BO_Catalog\CatalogLinkLists.vb" />
     <Compile Include="BO_Catalog\CatalogMasters.vb" />
+    <Compile Include="BO_Catalog\CatalogLinkListsADO.vb" />
     <Compile Include="BO_Catalog\CatalogMastersADO.vb" />
+    <Compile Include="HGI Importers\HGICatalogImport.vb" />
     <Compile Include="VRepCatalog.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -170,9 +176,9 @@
     <Compile Include="BO_Summary\RSummaryData.vb" />
     <Compile Include="BO_Summary\RSummarys.vb" />
     <Compile Include="BO_Summary\RSummarysADO.vb" />
-    <Compile Include="HGI Specific\HGISummaryImport.vb" />
-    <Compile Include="HGI Specific\HGICommentImport.vb" />
-    <Compile Include="HGI Specific\HGISmartTextImport.vb" />
+    <Compile Include="HGI Importers\HGISummaryImport.vb" />
+    <Compile Include="HGI Importers\HGICommentImport.vb" />
+    <Compile Include="HGI Importers\HGISmartTextImport.vb" />
     <Compile Include="UI_Dialogs\dlgComments.Designer.vb">
       <DependentUpon>dlgComments.vb</DependentUpon>
     </Compile>
@@ -184,7 +190,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>VRepSmartText.xsd</DependentUpon>
     </Compile>
-    <Compile Include="HGI Specific\HGIConnectorImport.vb" />
+    <Compile Include="HGI Importers\HGIConnectorImport.vb" />
     <Compile Include="UI_Dialogs\dlgMainFileProperties.Designer.vb">
       <DependentUpon>dlgMainFileProperties.vb</DependentUpon>
     </Compile>
@@ -209,7 +215,7 @@
     <Compile Include="BO_Role\RoleInfoData.vb" />
     <Compile Include="BO_Role\RoleInfoADO.vb" />
     <Compile Include="BO_Role\RoleInfoRepository.vb" />
-    <Compile Include="HGI Specific\HGIReportInfoRepository.vb" />
+    <Compile Include="HGI Importers\HGIReportInfoRepository.vb" />
     <Compile Include="Interfaces\IDoWorkWorker.vb" />
     <Compile Include="Interfaces\IDoWorkManager.vb" />
     <Compile Include="VDoWorkEventArgs.vb" />
@@ -220,7 +226,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="BO_Report\ReportInfo.vb" />
-    <Compile Include="HGI Specific\HGIReportProcessor.vb" />
+    <Compile Include="HGI Importers\HGIReportProcessor.vb" />
     <Compile Include="UI_Dialogs\dlgReportInDb.Designer.vb">
       <DependentUpon>dlgReportInDb.vb</DependentUpon>
     </Compile>

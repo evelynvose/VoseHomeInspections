@@ -36,6 +36,16 @@ Public Class VGuid
         '
     End Sub
     '
+    ' ***********************************************
+    ' *****     +New(string, string)
+    ' ***********************************************
+    '
+    Public Sub New(ByVal thePrefix As String, ByVal theHGIGuid As String)
+        Prefix = thePrefix
+        Guid.TryParse(Right(theHGIGuid, thePrefix.Length), m_Guid)
+        '
+    End Sub
+    '
     ' **********************************************
     ' ****
     ' ******    Methods

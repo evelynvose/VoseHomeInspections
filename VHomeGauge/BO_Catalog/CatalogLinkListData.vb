@@ -7,7 +7,7 @@
 ' 
 Imports SyncfusionWindowsFormsApplication1.VRepCatalog
 
-Public MustInherit Class CatalogMasterData
+Public MustInherit Class CatalogLinkListData
     Inherits VObject
     '
     ' **********************************************
@@ -35,11 +35,11 @@ Public MustInherit Class CatalogMasterData
     ' *****     #LoadDataFromRow(RCatalogsRow)
     ' ***********************************************
     '
-    Protected Sub LoadDataFromRow(ByVal row As CatalogMasterRow)
+    Protected Sub LoadDataFromRow(ByVal row As CatalogLinkListRow)
         With row
-            ID = New VGuid("CAT", .ID)
-            Name = .CatName
-            FK_Parent = New VGuid("CAT", .FK_Parent)
+            ID = New VGuid("C", .ID)
+            FK_Parent = New VGuid("C", .FK_Parent)
+            FK_Child = New VGuid("C", .FK_Parent)
             '
         End With
     End Sub
@@ -48,11 +48,11 @@ Public MustInherit Class CatalogMasterData
     ' *****     #LoadRowFromData(RCatalogsRow)
     ' ***********************************************
     '
-    Protected Sub LoadRowFromData(ByRef row As CatalogMasterRow)
+    Protected Sub LoadRowFromData(ByRef row As CatalogLinkListRow)
         With row
             .ID = ID.Guid
-            .CatName = Name
             .FK_Parent = FK_Parent.Guid
+            .FK_Child = FK_Child.Guid
             '
         End With
     End Sub
@@ -69,22 +69,8 @@ Public MustInherit Class CatalogMasterData
     '
     Private m_IsDirty As Boolean
     Private m_ID As VGuid
-    Private m_Name As String = ""
     Private m_FK_Parent As VGuid
-    '
-    ' ***********************************************
-    ' *****     +Name(string):string
-    ' ***********************************************
-    '
-    Public Property Name As String
-        Get
-            Return m_Name
-        End Get
-        Set(value As String)
-            m_Name = value
-            IsDirty = True
-        End Set
-    End Property
+    Private m_FK_Child As VGuid
     '
     ' ***********************************************
     ' *****     +FK_Parent(VGuid):VGuid
@@ -96,6 +82,20 @@ Public MustInherit Class CatalogMasterData
         End Get
         Set(value As VGuid)
             m_FK_Parent = value
+            IsDirty = True
+        End Set
+    End Property
+    '
+    ' ***********************************************
+    ' *****     +FK_Child(VGuid):VGuid
+    ' ***********************************************
+    '
+    Public Property FK_Child As VGuid
+        Get
+            Return m_FK_Child
+        End Get
+        Set(value As VGuid)
+            m_FK_Child = value
             IsDirty = True
         End Set
     End Property

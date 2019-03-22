@@ -8,8 +8,8 @@ Imports System.ComponentModel
 Imports SyncfusionWindowsFormsApplication1.VRepCatalog
 Imports SyncfusionWindowsFormsApplication1.VRepCatalogTableAdapters
 ' 
-Public MustInherit Class CatalogMasterADO
-    Inherits CatalogMasterData
+Public MustInherit Class CatalogLinkListADO
+    Inherits CatalogLinkListData
     Implements IEditableObject
     '
     ' **********************************************
@@ -50,8 +50,8 @@ Public MustInherit Class CatalogMasterADO
     '
     Protected Sub Load(ByVal theID As Guid)
         If IsNothing(theID) Then theID = Guid.Empty
-        Using ta As New CatalogMasterTableAdapter
-            Using dt As New CatalogMasterDataTable
+        Using ta As New CatalogLinkListTableAdapter
+            Using dt As New CatalogLinkListDataTable
                 Try
                     ta.FillByID(dt, theID)
                     If dt.Rows.Count > 0 Then
@@ -73,17 +73,43 @@ Public MustInherit Class CatalogMasterADO
     End Sub
     '
     ' ***********************************************
-    ' *****     +Find(guid):RCatalog
+    ' *****     +Find(guid):CatalogLinkList
     ' ***********************************************
     '
-    Public Shared Function Find(ByVal theID As Guid) As CatalogMaster
-        Using ta As New CatalogMasterTableAdapter
-            Using dt As New CatalogMasterDataTable
+    Public Shared Function Find(ByVal theID As Guid) As CatalogLinkList
+        Using ta As New CatalogLinkListTableAdapter
+            Using dt As New CatalogLinkListDataTable
                 Try
                     If IsNothing(theID) Then theID = Guid.NewGuid()
                     ta.FillByID(dt, theID)
                     If dt.Rows.Count > 0 Then
-                        Dim theObject As New CatalogMaster(CType(dt.Rows(0), CatalogMasterRow).ID)
+                        Dim theObject As New CatalogLinkList(CType(dt.Rows(0), CatalogLinkListRow).ID)
+                        Return theObject
+                        '
+                    End If
+                    '
+                Catch ex As Exception
+                    '
+                    Return Nothing
+                    '
+                End Try
+                '
+            End Using
+        End Using
+        Return Nothing
+    End Function
+    ' 
+    ' ***********************************************
+    ' *****     -Find(CatalogMaster, CatalogMaster):CatalogLinkList
+    ' ***********************************************
+    '
+    Public Shared Function Find(ByVal theParent As Guid, ByVal theChild As Guid) As CatalogLinkList
+        Using ta As New CatalogLinkListTableAdapter
+            Using dt As New CatalogLinkListDataTable
+                Try
+                    ta.FillByFK_ParentAndFK_Child(dt, theParent, theChild)
+                    If dt.Rows.Count > 0 Then
+                        Dim theObject As New CatalogLinkList(CType(dt.Rows(0), CatalogLinkListRow).ID)
                         Return theObject
                         '
                     End If
@@ -103,14 +129,14 @@ Public MustInherit Class CatalogMasterADO
     ' *****     -Find(string):RCatalog
     ' ***********************************************
     '
-    Public Shared Function Find(ByVal s As String) As CatalogMaster
-        Using ta As New CatalogMasterTableAdapter
-            Using dt As New CatalogMasterDataTable
+    Public Shared Function Find(ByVal theParent As CatalogMaster, ByVal theChild As CatalogMaster) As CatalogLinkList
+        If theChild Is Nothing OrElse theParent Is Nothing Then Return Nothing
+        Using ta As New CatalogLinkListTableAdapter
+            Using dt As New CatalogLinkListDataTable
                 Try
-                    If IsNothing(s) Then s = ""
-                    ta.FillByName(dt, s)
+                    ta.FillByFK_ParentAndFK_Child(dt, theParent.ID.Guid, theChild.ID.Guid)
                     If dt.Rows.Count > 0 Then
-                        Dim theObject As New CatalogMaster(CType(dt.Rows(0), CatalogMasterRow).ID)
+                        Dim theObject As New CatalogLinkList(CType(dt.Rows(0), CatalogLinkListRow).ID)
                         Return theObject
                         '
                     End If
@@ -143,29 +169,19 @@ Public MustInherit Class CatalogMasterADO
             '
         End If
         '
-        ' Rule 2 - Name and FK's can't be nothing
+        ' Rule 2 - FK's can't be nothing
         '
         Dim bRule_2_Met As Boolean = True
-        If IsNothing(Name) OrElse IsNothing(FK_Parent) Then
+        If FK_Parent Is Nothing OrElse FK_Parent Is Nothing Then
             sMessage &= vbCrLf
-            sMessage &= "One or more fields are not valid."
+            sMessage &= "One or both Parent/Child fields are not valid."
             bRule_2_Met = False
-            '
-        End If
-        '
-        ' Rule 3 - Name can't be "" or empty
-        '
-        Dim bRule_3_Met As Boolean = True
-        If Name IsNot Nothing AndAlso Name = "" OrElse String.IsNullOrEmpty(Name) Then
-            sMessage &= vbCrLf
-            sMessage &= "Name can't be empty or Null."
-            bRule_3_Met = False
             '
         End If
         '
         ' Test the flags
         '
-        If Not bRule_1_Met OrElse Not bRule_2_Met OrElse Not bRule_3_Met Then
+        If Not bRule_1_Met OrElse Not bRule_2_Met Then
             MsgBox(sMessage)
             Return False
             '
@@ -195,27 +211,27 @@ Public MustInherit Class CatalogMasterADO
         '
         ' Passed the rule check, so update the record
         '
-        Using ta = New CatalogMasterTableAdapter
-            Using dt = New CatalogMasterDataTable
-                Dim row As CatalogMasterRow
+        Using ta = New CatalogLinkListTableAdapter
+            Using dt = New CatalogLinkListDataTable
+                Dim row As CatalogLinkListRow
                 If Not IsNew() Then
-                    ta.FillByID(dt, ID)
+                    ta.FillByID(dt, ID.Guid)
                     If dt.Count = 0 Then
-                        row = dt.NewCatalogMasterRow
+                        row = dt.NewCatalogLinkListRow
                         '
                     Else
                         row = dt.Rows(0)
                         '
                     End If
                 Else ' is new Catalog
-                    row = dt.NewCatalogMasterRow
+                    row = dt.NewCatalogLinkListRow
                     '
                 End If
                 '
                 LoadRowFromData(row)
                 '
                 Try
-                    If dt.Count = 0 Then dt.AddCatalogMasterRow(row)
+                    If dt.Count = 0 Then dt.AddCatalogLinkListRow(row)
                     If IsDeleted Then row.Delete()
                     ta.Update(dt)
                     IsDirty = False
@@ -251,7 +267,7 @@ Public MustInherit Class CatalogMasterADO
         ' Build the command
         '
         Dim theCommand As New OleDb.OleDbCommand With {
-                .CommandText = "DELETE FROM CatalogMaster WHERE (ID = ?)",
+                .CommandText = "DELETE FROM CatalogLinkList WHERE (ID = ?)",
                 .Connection = New OleDb.OleDbConnection(My.Settings.ConnectionString)
             }
         '
@@ -269,8 +285,8 @@ Public MustInherit Class CatalogMasterADO
                 ' Set this object to its virgin state
                 '
                 ID = New VGuid("CAT")
-                Name = ""
                 FK_Parent = New VGuid("CAT")
+                FK_Child = New VGuid("CAT")
                 IsDeleted = False
                 IsNew = True
                 IsDirty = False
@@ -294,7 +310,7 @@ Public MustInherit Class CatalogMasterADO
     ' *****     -IEditableObject_BeginEdit(RCatalogsRow)
     ' ***********************************************
     '
-    Private m_CloneMe As CatalogMaster
+    Private m_CloneMe As CatalogLinkList
     '
     Private Sub IEditableObject_BeginEdit() Implements IEditableObject.BeginEdit
         '
@@ -329,8 +345,8 @@ Public MustInherit Class CatalogMasterADO
         If Not IsNothing(m_CloneMe) Then
             With m_CloneMe
                 ID = .ID
-                Name = .Name
                 FK_Parent = .FK_Parent
+                FK_Child = .FK_Child
                 IsDirty = .IsDirty
                 '
             End With
