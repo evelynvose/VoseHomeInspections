@@ -91,8 +91,8 @@ Public Class dlgComments
             '
             With thePB
                 .StartPosition = FormStartPosition.CenterParent
-                ' .SetDoWorkClass(New HGISummaryImport(New FileInfo(OpenFileDialog1.FileName)))
-                .Text = "Import Summary"
+                .SetDoWorkClass(New HGICatalogImport(New FileInfo(OpenFileDialog1.FileName)))
+                .Text = "Import Catalog"
                 .AnnouncementVisible = True
                 .RunningStatusVisible = True
                 .OKButtonVisible = True

@@ -22,7 +22,7 @@ Public Class VGuid
     '
     Public Sub New(ByVal thePrefix As String)
         Prefix = thePrefix
-        m_Guid = Guid.Empty
+        m_Guid = Guid.NewGuid
         '
     End Sub
     '
@@ -107,7 +107,9 @@ Public Class VGuid
     ' ***********************************************
     '
     Public Overloads Function Equals(theVGuid As VGuid) As Boolean
-        Return Equals(theVGuid)
+        Return theVGuid IsNot Nothing AndAlso
+               m_Guid.Equals(theVGuid.m_Guid) AndAlso
+               m_Prefix = theVGuid.m_Prefix
         '
     End Function
     ' 

@@ -8,7 +8,7 @@
 Imports System.IO
 Imports System.Xml
 '
-Public Class HGICatalogMasterImport
+Public Class HGICatalogImport
     Inherits VDoWork
     '
     ' **********************************************
@@ -88,10 +88,7 @@ Public Class HGICatalogMasterImport
             nodelist = Xmld.SelectNodes("/template/cat")
             If nodelist IsNot Nothing Then
                 For Each folder As XmlNode In nodelist
-                    If folder.Attributes IsNot Nothing Then
-                        ProcessCatalogItem(folder)
-                        '
-                    End If
+                    ProcessCatalogItem(folder)
                     '
                 Next
             End If
@@ -111,29 +108,32 @@ Public Class HGICatalogMasterImport
         '
         ' Check if the catalog item exists.  If no, create it. Set aside exiting or new to tag its  children
         '
-        Dim theCatalogMaster As CatalogMaster = CatalogMaster.Find(node.Attributes("catName").Value)
-        If theCatalogMaster Is Nothing Then ' its a new Catalog Item
-            theCatalogMaster = New CatalogMaster
-            With theCatalogMaster
-                .ID = New VGuid("CAT")
-                .Name = node.Attributes("catName").Value
-                .FK_Parent = .ID
-                .Update()
+        Dim theCatalogMaster As New CatalogMaster
+        If node.FirstChild.InnerText IsNot Nothing Then
+            theCatalogMaster = CatalogMaster.Find(node.FirstChild.InnerText)
+            If theCatalogMaster Is Nothing Then ' its a new Catalog Item
+                theCatalogMaster = New CatalogMaster
+                With theCatalogMaster
+                    .ID = New VGuid("CAT")
+                    .Name = node.FirstChild.InnerText
+                    .FK_Parent = .ID
+                    .Update()
+                    '
+                End With
                 '
-            End With
-            '
+            End If
         End If
         '
         ' Now add any comment IDs to the linked list.  
         ' Assumes that the comment is already imported, or will be imported by another import processor
         '
-        For Each a As XmlAttribute In node.Attributes
-            If a.Item("catCID") IsNot Nothing Then
+        For Each ComNode As XmlNode In node.ChildNodes
+            If ComNode.Item("catCID") IsNot Nothing Then
                 '
                 ' Is the link list pair already in the dB?  Add it if not.
                 '
                 Dim childGuid As Guid
-                Guid.TryParse(a.Item("catCID").Value, childGuid)
+                Guid.TryParse(ComNode.Item("catCID").InnerText.Replace("C-", ""), childGuid)
                 If CatalogLinkList.Find(theCatalogMaster.ID.Guid, childGuid) Is Nothing Then
                     Dim newCatalogLinkList As New CatalogLinkList
                     With newCatalogLinkList
@@ -149,11 +149,10 @@ Public Class HGICatalogMasterImport
         '
         ' Now process any child master catalog items.  
         '
-        For Each childNode As XmlNode In node.ChildNodes
-            If node.Item("cat") IsNot Nothing Then
-                ProcessCatalogItem(node)
+        For Each CatNode As XmlNode In node.ChildNodes
+            If CatNode.Item("cat") IsNot Nothing Then
+                ProcessCatalogItem(CatNode)
                 '
-
             End If
         Next
 
