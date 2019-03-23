@@ -88,7 +88,7 @@ Public Class HGICatalogImport
             nodelist = Xmld.SelectNodes("/template/cat")
             If nodelist IsNot Nothing Then
                 For Each folder As XmlNode In nodelist
-                    ProcessCatalogItem(folder)
+                    ProcessCatalogItem(folder, New VGuid(""))
                     '
                 Next
             End If
@@ -104,12 +104,16 @@ Public Class HGICatalogImport
     ' *****     -ProcessCatalogItem(xmlnode)
     ' ***********************************************
     '
-    Private Sub ProcessCatalogItem(ByVal node As XmlNode)
+    Private Sub ProcessCatalogItem(ByVal node As XmlNode, ByVal theParentID As VGuid)
         '
-        ' Check if the catalog item exists.  If no, create it. Set aside exiting or new to tag its  children
+        ' Error checking
+        '
+        If node.FirstChild.InnerText Is Nothing Then Return
+        '
+        ' Create the parent if it doesn't already exist
         '
         Dim theCatalogMaster As New CatalogMaster
-        If node.FirstChild.InnerText IsNot Nothing Then
+        Try
             theCatalogMaster = CatalogMaster.Find(node.FirstChild.InnerText)
             If theCatalogMaster Is Nothing Then ' its a new Catalog Item
                 theCatalogMaster = New CatalogMaster
@@ -118,44 +122,52 @@ Public Class HGICatalogImport
                     .Name = node.FirstChild.InnerText
                     .FK_Parent = .ID
                     .Update()
-                    '
+                    ' 
                 End With
                 '
             End If
-        End If
-        '
-        ' Now add any comment IDs to the linked list.  
-        ' Assumes that the comment is already imported, or will be imported by another import processor
-        '
-        For Each ComNode As XmlNode In node.ChildNodes
-            If ComNode.Item("catCID") IsNot Nothing Then
-                '
-                ' Is the link list pair already in the dB?  Add it if not.
-                '
-                Dim childGuid As Guid
-                Guid.TryParse(ComNode.Item("catCID").InnerText.Replace("C-", ""), childGuid)
-                If CatalogLinkList.Find(theCatalogMaster.ID.Guid, childGuid) Is Nothing Then
-                    Dim newCatalogLinkList As New CatalogLinkList
-                    With newCatalogLinkList
-                        .ID = New VGuid("C")
-                        .FK_Parent = theCatalogMaster.ID
-                        .FK_Child = New VGuid("CBool", childGuid)
-                        .Update()
-                        '
-                    End With
-                End If
-            End If
-        Next
-        '
-        ' Now process any child master catalog items.  
-        '
-        For Each CatNode As XmlNode In node.ChildNodes
-            If CatNode.Item("cat") IsNot Nothing Then
-                ProcessCatalogItem(CatNode)
-                '
-            End If
-        Next
+        Catch ex As Exception
+            MsgBox(ex)
 
+        End Try
+        '
+        ' Process the children
+        '
+        Try
+            For Each childNode As XmlNode In node.ChildNodes
+                Select Case childNode.Name
+                    Case "catCID"
+                        '
+                        ' Is the link list pair already in the dB?  Add it if not.
+                        '
+                        Dim childGuid As New VGuid("C", childNode.FirstChild.InnerText)
+                        If CatalogLinkList.Find(theCatalogMaster.ID.Guid, childGuid.Guid) Is Nothing Then
+                            Dim newCatalogLinkList As New CatalogLinkList
+                            With newCatalogLinkList
+                                .ID = New VGuid("L")
+                                If theParentID.IsEmpty Then
+                                    theParentID = theCatalogMaster.ID
+                                    '
+                                End If
+                                .FK_Parent = theParentID
+                                .FK_Child = childGuid
+                                .Update()
+                                '
+                            End With
+                        End If
+                                            '
+                    ' Now process any child master catalog items.  
+                    '
+                    Case "cat"
+                        ProcessCatalogItem(childNode, theCatalogMaster.ID)
+                        '
+                End Select
+            Next
+        Catch ex As Exception
+            MsgBox(ex)
+            '
+        End Try
+        '
     End Sub
     '
     ' **********************************************

@@ -129,6 +129,11 @@
     <Compile Include="BO_Catalog\CatalogMasters.vb" />
     <Compile Include="BO_Catalog\CatalogLinkListsADO.vb" />
     <Compile Include="BO_Catalog\CatalogMastersADO.vb" />
+    <Compile Include="VRepVirgin.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VRepVirgin.xsd</DependentUpon>
+    </Compile>
     <Compile Include="HGI Importers\HGICatalogImport.vb" />
     <Compile Include="VRepCatalog.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -361,6 +366,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="VRepVirgin.xsc">
+      <DependentUpon>VRepVirgin.xsd</DependentUpon>
+    </None>
+    <None Include="VRepVirgin.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>VRepVirgin.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="VRepVirgin.xss">
+      <DependentUpon>VRepVirgin.xsd</DependentUpon>
+    </None>
     <None Include="VRepCatalog.xsc">
       <DependentUpon>VRepCatalog.xsd</DependentUpon>
     </None>

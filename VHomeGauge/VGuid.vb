@@ -42,7 +42,9 @@ Public Class VGuid
     '
     Public Sub New(ByVal thePrefix As String, ByVal theHGIGuid As String)
         Prefix = thePrefix
-        Guid.TryParse(Right(theHGIGuid, thePrefix.Length), m_Guid)
+        Dim s As String
+        s = Mid(theHGIGuid, Prefix.Length + 2)
+        Guid.TryParse(s, m_Guid)
         '
     End Sub
     '
@@ -205,6 +207,17 @@ Public Class VGuid
             If value Is Nothing OrElse value = String.Empty Then value = ""
             m_Prefix = value
         End Set
+    End Property
+    '
+    ' ***********************************************
+    ' *****     +IsEmpty():bool
+    ' ***********************************************
+    '
+    Public ReadOnly Property IsEmpty As Boolean
+        Get
+            If m_Guid.Equals(Guid.Empty) Then Return True
+            Return False
+        End Get
     End Property
 
 End Class

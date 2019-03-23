@@ -25,10 +25,6 @@ Public Class dlgComments
     '
     Private Sub dlgSmartText_Load(sender As Object, e As EventArgs) Handles Me.Load
         '
-        ' Load the grid.
-        '
-        sfdgComments.DataSource = m_Comments.GetRepos
-        '
     End Sub
     '
     ' **********************************************
