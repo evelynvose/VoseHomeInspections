@@ -33,7 +33,7 @@ Partial Class dlgComments
         Me.txtCategories = New Syncfusion.Windows.Forms.Tools.TextBoxExt()
         Me.txtInstructions = New Syncfusion.Windows.Forms.Tools.TextBoxExt()
         Me.scTree = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
-        Me.tvCommentCategories = New Syncfusion.Windows.Forms.Tools.TreeViewAdv()
+        Me.tvCatalogTree = New Syncfusion.Windows.Forms.Tools.TreeViewAdv()
         Me.lblWhereUsed = New Syncfusion.Windows.Forms.Tools.AutoLabel()
         Me.scWhereUsed = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
         Me.lblAttachments = New Syncfusion.Windows.Forms.Tools.AutoLabel()
@@ -64,7 +64,7 @@ Partial Class dlgComments
         Me.scTree.Panel1.SuspendLayout()
         Me.scTree.Panel2.SuspendLayout()
         Me.scTree.SuspendLayout()
-        CType(Me.tvCommentCategories, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tvCatalogTree, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.scWhereUsed, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.scWhereUsed.Panel1.SuspendLayout()
         Me.scWhereUsed.Panel2.SuspendLayout()
@@ -175,7 +175,7 @@ Partial Class dlgComments
         '
         'scTree.Panel1
         '
-        Me.scTree.Panel1.Controls.Add(Me.tvCommentCategories)
+        Me.scTree.Panel1.Controls.Add(Me.tvCatalogTree)
         '
         'scTree.Panel2
         '
@@ -185,39 +185,39 @@ Partial Class dlgComments
         Me.scTree.SplitterDistance = 183
         Me.scTree.TabIndex = 0
         '
-        'tvCommentCategories
+        'tvCatalogTree
         '
         TreeNodeAdvStyleInfo1.EnsureDefaultOptionedChild = True
         TreeNodeAdvStyleInfo1.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tvCommentCategories.BaseStylePairs.AddRange(New Syncfusion.Windows.Forms.Tools.StyleNamePair() {New Syncfusion.Windows.Forms.Tools.StyleNamePair("Standard", TreeNodeAdvStyleInfo1)})
-        Me.tvCommentCategories.BeforeTouchSize = New System.Drawing.Size(183, 499)
-        Me.tvCommentCategories.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tvCatalogTree.BaseStylePairs.AddRange(New Syncfusion.Windows.Forms.Tools.StyleNamePair() {New Syncfusion.Windows.Forms.Tools.StyleNamePair("Standard", TreeNodeAdvStyleInfo1)})
+        Me.tvCatalogTree.BeforeTouchSize = New System.Drawing.Size(183, 499)
+        Me.tvCatalogTree.Dock = System.Windows.Forms.DockStyle.Fill
         '
         '
         '
-        Me.tvCommentCategories.HelpTextControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.tvCommentCategories.HelpTextControl.Location = New System.Drawing.Point(0, 0)
-        Me.tvCommentCategories.HelpTextControl.Name = "helpText"
-        Me.tvCommentCategories.HelpTextControl.Size = New System.Drawing.Size(49, 15)
-        Me.tvCommentCategories.HelpTextControl.TabIndex = 0
-        Me.tvCommentCategories.HelpTextControl.Text = "help text"
-        Me.tvCommentCategories.InactiveSelectedNodeForeColor = System.Drawing.SystemColors.ControlText
-        Me.tvCommentCategories.Location = New System.Drawing.Point(0, 0)
-        Me.tvCommentCategories.MetroColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(165, Byte), Integer), CType(CType(220, Byte), Integer))
-        Me.tvCommentCategories.Name = "tvCommentCategories"
-        Me.tvCommentCategories.SelectedNodeForeColor = System.Drawing.SystemColors.HighlightText
-        Me.tvCommentCategories.Size = New System.Drawing.Size(183, 499)
-        Me.tvCommentCategories.TabIndex = 0
+        Me.tvCatalogTree.HelpTextControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.tvCatalogTree.HelpTextControl.Location = New System.Drawing.Point(0, 0)
+        Me.tvCatalogTree.HelpTextControl.Name = "helpText"
+        Me.tvCatalogTree.HelpTextControl.Size = New System.Drawing.Size(49, 15)
+        Me.tvCatalogTree.HelpTextControl.TabIndex = 0
+        Me.tvCatalogTree.HelpTextControl.Text = "help text"
+        Me.tvCatalogTree.InactiveSelectedNodeForeColor = System.Drawing.SystemColors.ControlText
+        Me.tvCatalogTree.Location = New System.Drawing.Point(0, 0)
+        Me.tvCatalogTree.MetroColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(165, Byte), Integer), CType(CType(220, Byte), Integer))
+        Me.tvCatalogTree.Name = "tvCatalogTree"
+        Me.tvCatalogTree.SelectedNodeForeColor = System.Drawing.SystemColors.HighlightText
+        Me.tvCatalogTree.Size = New System.Drawing.Size(183, 499)
+        Me.tvCatalogTree.TabIndex = 0
         '
         '
         '
-        Me.tvCommentCategories.ToolTipControl.BackColor = System.Drawing.SystemColors.Info
-        Me.tvCommentCategories.ToolTipControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.tvCommentCategories.ToolTipControl.Location = New System.Drawing.Point(0, 0)
-        Me.tvCommentCategories.ToolTipControl.Name = "toolTip"
-        Me.tvCommentCategories.ToolTipControl.Size = New System.Drawing.Size(41, 15)
-        Me.tvCommentCategories.ToolTipControl.TabIndex = 1
-        Me.tvCommentCategories.ToolTipControl.Text = "toolTip"
+        Me.tvCatalogTree.ToolTipControl.BackColor = System.Drawing.SystemColors.Info
+        Me.tvCatalogTree.ToolTipControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.tvCatalogTree.ToolTipControl.Location = New System.Drawing.Point(0, 0)
+        Me.tvCatalogTree.ToolTipControl.Name = "toolTip"
+        Me.tvCatalogTree.ToolTipControl.Size = New System.Drawing.Size(41, 15)
+        Me.tvCatalogTree.ToolTipControl.TabIndex = 1
+        Me.tvCatalogTree.ToolTipControl.Text = "toolTip"
         '
         'lblWhereUsed
         '
@@ -428,7 +428,7 @@ Partial Class dlgComments
         Me.scTree.Panel2.PerformLayout()
         CType(Me.scTree, System.ComponentModel.ISupportInitialize).EndInit()
         Me.scTree.ResumeLayout(False)
-        CType(Me.tvCommentCategories, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tvCatalogTree, System.ComponentModel.ISupportInitialize).EndInit()
         Me.scWhereUsed.Panel1.ResumeLayout(False)
         Me.scWhereUsed.Panel1.PerformLayout()
         Me.scWhereUsed.Panel2.ResumeLayout(False)
@@ -458,7 +458,7 @@ Partial Class dlgComments
     Friend WithEvents txtCategories As Syncfusion.Windows.Forms.Tools.TextBoxExt
     Friend WithEvents txtInstructions As Syncfusion.Windows.Forms.Tools.TextBoxExt
     Friend WithEvents scTree As Syncfusion.Windows.Forms.Tools.SplitContainerAdv
-    Friend WithEvents tvCommentCategories As Syncfusion.Windows.Forms.Tools.TreeViewAdv
+    Friend WithEvents tvCatalogTree As Syncfusion.Windows.Forms.Tools.TreeViewAdv
     Friend WithEvents lblWhereUsed As Syncfusion.Windows.Forms.Tools.AutoLabel
     Friend WithEvents scWhereUsed As Syncfusion.Windows.Forms.Tools.SplitContainerAdv
     Friend WithEvents scAttachments As Syncfusion.Windows.Forms.Tools.SplitContainerAdv

@@ -18,33 +18,79 @@ Public Class VGuid
     ' *****     +New(string)
     ' ***********************************************
     '
-    ' Force the class to be typed by providing only typed constructors
-    '
-    Public Sub New(ByVal thePrefix As String)
-        Prefix = thePrefix
-        m_Guid = Guid.NewGuid
-        '
-    End Sub
+    'Public Sub New()
+    '    Initialize()
+    '    '
+    'End Sub
     '
     ' ***********************************************
     ' *****     +New(string, Guid)
     ' ***********************************************
     '
+    ' Use Case: We want tp create an HGI Guid from scratch
+    '
     Public Sub New(ByVal thePrefix As String, ByVal theGuid As Guid)
-        Prefix = thePrefix
+        Initialize()
+        '
+        ' Error checking: Legal preFix?
+        '
+        ' Clean the prefix of any "-". Note that this isn't perfect, but we have to expect the 
+        '     coder to attempt to use this class properly. Adding the trailing "-" is the most commonly
+        '     overlooked mistake.
+        '
+        m_IsValid = True ' preset the valid flag
+        '
+        thePrefix.Trim("-")
+        If Not My.Settings.HGIGuidPrefixes.Contains(thePrefix) Then
+            m_IsValid = False
+            MsgBox(New Exception("The prefix given is not in the my.settings collection!"))
+            '
+        Else
+            m_Prefix = thePrefix
+            '
+        End If
+        '
+        ' Save the Guid
+        '
         m_Guid = theGuid
         '
     End Sub
     '
     ' ***********************************************
-    ' *****     +New(string, string)
+    ' *****     +New(string)
     ' ***********************************************
     '
-    Public Sub New(ByVal thePrefix As String, ByVal theHGIGuid As String)
-        Prefix = thePrefix
-        Dim s As String
-        s = Mid(theHGIGuid, Prefix.Length + 2)
-        Guid.TryParse(s, m_Guid)
+    Public Sub New(ByVal theHGIGuid As String)
+        Initialize()
+        '
+        ' Error Checking: Nothing or incorrect length
+        '
+        If theHGIGuid Is Nothing Then Return
+        If theHGIGuid.Length < 36 Then Return
+        '
+        ' Error checking: Legal prefix?
+        '
+        m_IsValid = True ' preset the vsalid flag
+        '
+        m_Prefix = GetHGIPrefix(theHGIGuid)
+        If Not My.Settings.HGIGuidPrefixes.Contains(Prefix) Then
+            m_IsValid = False
+            MsgBox(New Exception("The given HGI Guid does not contain a prefix in the my.settings collection." & vbCrLf & theHGIGuid))
+            '
+        End If
+        '
+        ' Error checking: Legal Guid?
+        '
+        Dim tempGuid As Guid
+        Guid.TryParse(StripHGIPrefix(theHGIGuid), tempGuid)
+        If tempGuid.Equals(Guid.Empty) Then
+            m_IsValid = False
+            MsgBox(New Exception("The given HGI Guid is not in the correct format." & vbCrLf & theHGIGuid))
+            '
+        Else
+            m_Guid = tempGuid
+            '
+        End If
         '
     End Sub
     '
@@ -55,31 +101,94 @@ Public Class VGuid
     ' **********************************************
     ' 
     ' ***********************************************
+    ' *****     -Initialize()
+    ' ***********************************************
+    '  
+    Private Sub Initialize()
+        m_Guid = Guid.NewGuid
+        m_IsValid = False
+        '
+    End Sub
+    '
+    ' ***********************************************
+    ' *****     -StripHGIPrefix(string):string
+    ' ***********************************************
+    '
+    Private Function StripHGIPrefix(ByVal s As String) As String
+        If s Is Nothing Then Return ""
+        Try
+            Dim i As Integer = s.IndexOf("-", 0)
+            If i < 1 Then i = 1
+            If i < 4 Then
+                s = Right(s, s.Length - i)
+                '
+            End If
+            s = s.TrimStart("-")
+        Catch ex As Exception
+            MsgBox(New Exception("Invalid HGI Prefix strip." & vbCrLf & s))
+            '
+        End Try
+
+        Return s
+    End Function
+    '
+    ' ***********************************************
+    ' *****     -GetHGIPrefix(string):string
+    ' ***********************************************
+    '
+    Private Function GetHGIPrefix(ByVal s As String) As String
+        If s Is Nothing Then Return ""
+        Try
+            Dim i As Integer = s.IndexOf("-", 0)
+            If i < 1 Then i = 1
+            If i < 4 Then
+                s = Mid(s, 1, i)
+                '
+            End If
+        Catch ex As Exception
+            MsgBox(New Exception("Invalid HGI Prefix strip." & vbCrLf & s))
+            '
+        End Try
+
+        Return s
+    End Function
+    '
+    ' ***********************************************
     ' *****     +TryParse(string, Guid):bool
     ' ***********************************************
     '
     ' Input is preserved
     ' Guid, the result, will either be empty or filled
     '
-    Public Function TryParse(ByVal theInput As String, ByRef theResult As Guid) As Boolean
+    Public Function TryParse(ByVal theInput As String) As Boolean
         '
-        ' Test the input to see if it has a prefix attached. The prefix has to match this object's type.
+        ' Error checking: GIGO
+        '
+        If theInput Is Nothing Then Return False
+        '
+        ' Test the input to see if it has a prefix attached. The prefix has to be in the list.
         '      T) Remove the prefix and then parse the input. 
-        '      F) Try parsing the input anyway
+        '      F) Return
         '
-        Dim sTest As String = theInput
-        If Left(sTest, Prefix.Length()) = Prefix Then ' remove the prefix
-            sTest = theInput.Replace(Prefix, "")
+        Dim sTest As String = GetHGIPrefix(theInput)
+        If Not My.Settings.HGIGuidPrefixes.Contains(sTest) Then ' remove the prefix
+            m_IsValid = False
+            Return m_IsValid
+        End If
+        sTest = StripHGIPrefix(theInput)
+        '
+        ' Test the input to see if it is a valid Guid.
+        '      T) Strip the prefix and save the Guid. 
+        '      F) Return
+        '
+        m_IsValid = True ' preset the valid flag
+        Guid.TryParse(sTest, m_Guid)
+        If m_Guid.Equals(Guid.Empty) Then
+            m_IsValid = False
             '
         End If
-        If Guid.TryParse(sTest, Me.Guid) Then
-            theResult = Me.Guid
-            Return True
-            '
-        End If
         '
-        m_Guid = Guid.Empty
-        Return False
+        Return m_IsValid
     End Function
     ' 
     ' ***********************************************
@@ -99,8 +208,8 @@ Public Class VGuid
     Public Overrides Function Equals(obj As Object) As Boolean
         Dim theGuid = TryCast(obj, VGuid)
         Return theGuid IsNot Nothing AndAlso
-               m_Guid.Equals(theGuid.m_Guid) AndAlso
-               m_Prefix = theGuid.m_Prefix
+                m_Guid.Equals(theGuid.m_Guid) AndAlso
+                m_Prefix = theGuid.m_Prefix
         '
     End Function
     ' 
@@ -180,33 +289,26 @@ Public Class VGuid
     '
     Private m_Guid As Guid
     Private m_Prefix As String
+    Private m_IsValid As Boolean
     '
     ' ***********************************************
-    ' *****     +Guid(string):string
+    ' *****     +Guid():string
     ' ***********************************************
     '
     Public ReadOnly Property Guid As Guid
         Get
             Return m_Guid
         End Get
-        'Set(value As Guid)
-        '    If IsNothing(value) Then value = Guid.Empty
-        '    m_Guid = value
-        'End Set
     End Property
     '
     ' ***********************************************
-    ' *****     +Prefix(string):string
+    ' *****     +Prefix():string
     ' ***********************************************
     '
-    Public Property Prefix As String
+    Public ReadOnly Property Prefix As String
         Get
             Return m_Prefix
         End Get
-        Set(value As String)
-            If value Is Nothing OrElse value = String.Empty Then value = ""
-            m_Prefix = value
-        End Set
     End Property
     '
     ' ***********************************************
@@ -219,5 +321,14 @@ Public Class VGuid
             Return False
         End Get
     End Property
-
+    '
+    ' ***********************************************
+    ' *****     +IsValid():bool
+    ' ***********************************************
+    '
+    Public ReadOnly Property IsValid As Boolean
+        Get
+            Return m_IsValid
+        End Get
+    End Property
 End Class

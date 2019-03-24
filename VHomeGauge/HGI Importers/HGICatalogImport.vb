@@ -82,13 +82,27 @@ Public Class HGICatalogImport
             '
             Xmld.Load(TemplateFile.FullName)
             '
+            ' Find or create the top catalog item
+            '
+            Dim topCatalogItem As CatalogMaster = CatalogMaster.Find("Catalog")
+            If topCatalogItem Is Nothing Then
+                topCatalogItem = New CatalogMaster
+                With topCatalogItem
+                    .ID = New VGuid("CAT", Guid.NewGuid)
+                    .Name = "Catalog"
+                    .FK_Parent = New VGuid("CAT", Guid.NewGuid)
+                    .Update()
+                    '
+                End With
+            End If
+            '
             ' Loop through the cats, determine if exists in db, if not then insert it, then process its children.
             '
             Dim nodelist As XmlNodeList
             nodelist = Xmld.SelectNodes("/template/cat")
             If nodelist IsNot Nothing Then
                 For Each folder As XmlNode In nodelist
-                    ProcessCatalogItem(folder, New VGuid(""))
+                    ProcessCatalogItem(folder, topCatalogItem.ID)
                     '
                 Next
             End If
@@ -109,6 +123,8 @@ Public Class HGICatalogImport
         ' Error checking
         '
         If node.FirstChild.InnerText Is Nothing Then Return
+        RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, "Catalog: " & node.FirstChild.InnerText))
+
         '
         ' Create the parent if it doesn't already exist
         '
@@ -117,15 +133,16 @@ Public Class HGICatalogImport
             theCatalogMaster = CatalogMaster.Find(node.FirstChild.InnerText)
             If theCatalogMaster Is Nothing Then ' its a new Catalog Item
                 theCatalogMaster = New CatalogMaster
-                With theCatalogMaster
-                    .ID = New VGuid("CAT")
-                    .Name = node.FirstChild.InnerText
-                    .FK_Parent = .ID
-                    .Update()
-                    ' 
-                End With
+                theCatalogMaster.ID = New VGuid("CAT", Guid.NewGuid)
                 '
             End If
+            With theCatalogMaster
+                .Name = node.FirstChild.InnerText
+                .FK_Parent = theParentID
+                .Update()
+                ' 
+            End With
+
         Catch ex As Exception
             MsgBox(ex)
 
@@ -137,14 +154,15 @@ Public Class HGICatalogImport
             For Each childNode As XmlNode In node.ChildNodes
                 Select Case childNode.Name
                     Case "catCID"
+                        RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, "Link CID: " & node.FirstChild.InnerText))
                         '
                         ' Is the link list pair already in the dB?  Add it if not.
                         '
-                        Dim childGuid As New VGuid("C", childNode.FirstChild.InnerText)
+                        Dim childGuid As New VGuid(childNode.FirstChild.InnerText)
                         If CatalogLinkList.Find(theCatalogMaster.ID.Guid, childGuid.Guid) Is Nothing Then
                             Dim newCatalogLinkList As New CatalogLinkList
                             With newCatalogLinkList
-                                .ID = New VGuid("L")
+                                .ID = New VGuid("LL", Guid.NewGuid)
                                 If theParentID.IsEmpty Then
                                     theParentID = theCatalogMaster.ID
                                     '
@@ -159,6 +177,7 @@ Public Class HGICatalogImport
                     ' Now process any child master catalog items.  
                     '
                     Case "cat"
+                        RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, "Child: " & node.FirstChild.InnerText))
                         ProcessCatalogItem(childNode, theCatalogMaster.ID)
                         '
                 End Select

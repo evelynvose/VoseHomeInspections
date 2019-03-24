@@ -24,8 +24,9 @@ Public MustInherit Class CatalogMastersADO
     ' *****     +New()
     ' ***********************************************
     '
-    Protected Sub New()
+    Protected Sub New(ByVal parentcatalogmasteritem As CatalogMaster)
         Initialize()
+        Me.ParentCatalogItem = parentcatalogmasteritem
         '
     End Sub
     '
@@ -58,7 +59,7 @@ Public MustInherit Class CatalogMastersADO
         Using ta As New CatalogMasterTableAdapter
             Using dt As New CatalogMasterDataTable
                 Try
-                    ta.Fill(dt)
+                    ta.FillByFK_Parent(dt, ParentCatalogItem.ID.Guid)
                     For Each row As CatalogMasterRow In dt.Rows
                         Dim newObject As New CatalogMaster(row.ID)
                         m_Repository.Add(newObject)
@@ -135,11 +136,40 @@ Public MustInherit Class CatalogMastersADO
     ' *****     Encapsulated Members
     ' ***********************************************
     '
+    Private m_ParentCatalogItem As CatalogMaster
+    '
+    '
+    ' ***********************************************
+    ' *****     +Count():integer
+    ' ***********************************************
+    '
     Public ReadOnly Property Count As Integer
         Get
             If IsNothing(m_Repository) Then Return 0
             Return m_Repository.Count
             '
         End Get
+    End Property
+    '
+    ' ***********************************************
+    ' *****     Encapsulated Members
+    ' ***********************************************
+    '
+    Protected Property ParentCatalogItem As CatalogMaster
+        Get
+            If m_ParentCatalogItem Is Nothing Then
+                m_ParentCatalogItem = CatalogMaster.Find("Catalog")
+                '
+            End If
+            Return m_ParentCatalogItem
+            '
+        End Get
+        Set(value As CatalogMaster)
+            m_ParentCatalogItem = value
+            If value Is Nothing Then
+                m_ParentCatalogItem = CatalogMaster.Find("Catalog")
+                '
+            End If
+        End Set
     End Property
 End Class

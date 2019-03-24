@@ -136,17 +136,17 @@ Public MustInherit Class CatalogMasterADO
         '
         Dim sMessage As String = "Rule Check"
         Dim bRule_1_Met As Boolean = True
-        If IsNothing(ID) OrElse ID.Equals(VGuid.Empty("CAT")) Then
+        If Not ID.IsValid Then
             sMessage &= vbCrLf
             sMessage &= "PK is not valid."
             bRule_1_Met = False
             '
         End If
         '
-        ' Rule 2 - Name and FK's can't be nothing
+        ' Rule 2 - Name and FK's can't be invalid
         '
         Dim bRule_2_Met As Boolean = True
-        If IsNothing(Name) OrElse IsNothing(FK_Parent) Then
+        If Name Is Nothing OrElse Not FK_Parent.IsValid Then
             sMessage &= vbCrLf
             sMessage &= "One or more fields are not valid."
             bRule_2_Met = False
@@ -156,7 +156,7 @@ Public MustInherit Class CatalogMasterADO
         ' Rule 3 - Name can't be "" or empty
         '
         Dim bRule_3_Met As Boolean = True
-        If Name IsNot Nothing AndAlso Name = "" OrElse String.IsNullOrEmpty(Name) Then
+        If Name Is Nothing OrElse Name = "" OrElse String.IsNullOrEmpty(Name) Then
             sMessage &= vbCrLf
             sMessage &= "Name can't be empty or Null."
             bRule_3_Met = False

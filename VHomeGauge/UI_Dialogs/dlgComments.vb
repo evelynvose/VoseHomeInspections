@@ -25,6 +25,39 @@ Public Class dlgComments
     '
     Private Sub dlgSmartText_Load(sender As Object, e As EventArgs) Handles Me.Load
         '
+        ' Set up the tree view with the first level.
+        ' Expand the nodes for just the first level.
+        '
+        Dim topCatalogItem As CatalogMaster
+        topCatalogItem = CatalogMaster.Find("Catalog")
+        If topCatalogItem IsNot Nothing Then
+            Dim treenode As New TreeNodeAdv With {
+                .Name = topCatalogItem.Name,
+                .Tag = topCatalogItem
+            }
+            tvCatalogTree.Nodes.Add(treenode)
+            '
+        Else
+            tvCatalogTree.Nodes.Add("Place Holder")
+            '
+        End If
+        '
+        ' Add first level and expand
+        '
+        Dim topCatalogList As New CatalogMasters(Nothing)  ' Instantiating as Nothing loads the top node "Catalog"
+        For Each catalogItem As CatalogMaster In topCatalogList.GetRepos
+            Dim treeNode As New TreeNodeAdv(catalogItem.Name) With {
+                .Name = catalogItem.Name,
+                .Tag = catalogItem
+            }
+            tvCatalogTree.Nodes.Item(0).Nodes.Add(treeNode)
+            '
+        Next
+        '
+        ' Expand
+        '
+        tvCatalogTree.ExpandAll()
+        '
     End Sub
     '
     ' **********************************************
@@ -181,5 +214,8 @@ Public Class dlgComments
                 '
             End With
         End If
+    End Sub
+
+    Private Sub tvCatalogTree_BeforeExpand(sender As Object, e As TreeViewAdvCancelableNodeEventArgs) Handles tvCatalogTree.BeforeExpand
     End Sub
 End Class

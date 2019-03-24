@@ -21,7 +21,8 @@ Public Class CatalogMasters
     ' *****     +New()
     ' ***********************************************
     '
-    Public Sub New()
+    Public Sub New(ByVal parentcatalogitem As CatalogMaster)
+        MyBase.New(parentcatalogitem)
         ' Do nothing on purpose!
     End Sub
     '
