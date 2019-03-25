@@ -32,8 +32,10 @@ Public Class dlgComments
         topCatalogItem = CatalogMaster.Find("Catalog")
         If topCatalogItem IsNot Nothing Then
             Dim treenode As New TreeNodeAdv With {
-                .Name = topCatalogItem.Name,
-                .Tag = topCatalogItem
+                .Text = topCatalogItem.Name,
+                .Tag = topCatalogItem,
+                .ShowPlusMinus = True,
+                .Expanded = True
             }
             tvCatalogTree.Nodes.Add(treenode)
             '
@@ -47,17 +49,17 @@ Public Class dlgComments
         Dim topCatalogList As New CatalogMasters(Nothing)  ' Instantiating as Nothing loads the top node "Catalog"
         For Each catalogItem As CatalogMaster In topCatalogList.GetRepos
             Dim treeNode As New TreeNodeAdv(catalogItem.Name) With {
-                .Name = catalogItem.Name,
-                .Tag = catalogItem
+                .Text = catalogItem.Name,
+                .Tag = catalogItem,
+                .ShowPlusMinus = True,
+                .Expanded = False
             }
-            tvCatalogTree.Nodes.Item(0).Nodes.Add(treeNode)
+            Dim i As Integer = tvCatalogTree.Nodes.Item(0).Nodes.Add(treeNode)
+            tvCatalogTree.Nodes.Item(0).Nodes.Item(i).Nodes.Add(New TreeNodeAdv("..."))
             '
         Next
         '
-        ' Expand
-        '
-        tvCatalogTree.ExpandAll()
-        '
+        tvCatalogTree.Text = "Catalog"
     End Sub
     '
     ' **********************************************
@@ -217,5 +219,28 @@ Public Class dlgComments
     End Sub
 
     Private Sub tvCatalogTree_BeforeExpand(sender As Object, e As TreeViewAdvCancelableNodeEventArgs) Handles tvCatalogTree.BeforeExpand
+        If TryCast(e.Node.Nodes.Item(0).Tag, CatalogMaster) Is Nothing Then ' must be triple dots
+            '
+            ' Remove this node
+            '
+            e.Node.Nodes.Clear()
+            '
+            ' Create a collection of CatalogMaster items from the parent
+            '
+            Dim newCatalogMasters As New CatalogMasters(TryCast(e.Node.Tag, CatalogMaster))
+            For Each item As CatalogMaster In newCatalogMasters.GetRepos
+                Dim node As New TreeNodeAdv With {
+                    .Text = item.Name,
+                    .Tag = item,
+                    .ShowPlusMinus = True,
+                    .Expanded = False
+                }
+                '
+                Dim i As Integer = e.Node.Nodes.Add(node)
+                e.Node.Nodes.Item(i).Nodes.Add(New TreeNodeAdv("..."))
+                '
+            Next
+            '
+        End If
     End Sub
 End Class

@@ -56,6 +56,15 @@ Public MustInherit Class CatalogMasterData
             '
         End With
     End Sub
+    ' 
+    ' ***********************************************
+    ' *****     +ToString():string
+    ' ***********************************************
+    '
+    Public Overloads Function ToString() As String
+        Return Name
+        '
+    End Function
     '
     ' **********************************************
     ' ****
