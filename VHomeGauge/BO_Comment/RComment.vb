@@ -53,6 +53,15 @@ Public Class RComment
         ' Do nothing on purpose!
         '
     End Sub
+    ' 
+    ' ***********************************************
+    ' *****     +Initialize()
+    ' ***********************************************
+    '
+    Public Overrides Function ToString() As String
+        Return Name
+        '
+    End Function
     '
     ' **********************************************
     ' ****

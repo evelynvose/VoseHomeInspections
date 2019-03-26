@@ -217,30 +217,73 @@ Public Class dlgComments
             End With
         End If
     End Sub
-
+    '
+    ' ***********************************************
+    ' *****     -tvCatalogTree_BeforeExpand(object, TreeViewAdvCancelableNodeEventArgs)
+    ' ***********************************************
+    '
     Private Sub tvCatalogTree_BeforeExpand(sender As Object, e As TreeViewAdvCancelableNodeEventArgs) Handles tvCatalogTree.BeforeExpand
-        If TryCast(e.Node.Nodes.Item(0).Tag, CatalogMaster) Is Nothing Then ' must be triple dots
-            '
-            ' Remove this node
-            '
-            e.Node.Nodes.Clear()
-            '
-            ' Create a collection of CatalogMaster items from the parent
-            '
-            Dim newCatalogMasters As New CatalogMasters(TryCast(e.Node.Tag, CatalogMaster))
-            For Each item As CatalogMaster In newCatalogMasters.GetRepos
-                Dim node As New TreeNodeAdv With {
-                    .Text = item.Name,
-                    .Tag = item,
-                    .ShowPlusMinus = True,
-                    .Expanded = False
-                }
+        Cursor = Cursors.WaitCursor
+        Try
+            If TryCast(e.Node.Nodes.Item(0).Tag, CatalogMaster) Is Nothing Then ' must be triple dots                '
+                ' Remove this node
                 '
-                Dim i As Integer = e.Node.Nodes.Add(node)
-                e.Node.Nodes.Item(i).Nodes.Add(New TreeNodeAdv("..."))
+                e.Node.Nodes.Clear()
                 '
-            Next
+                ' Create a collection of CatalogMaster items from the parent
+                '
+                Dim newCatalogMasters As New CatalogMasters(TryCast(e.Node.Tag, CatalogMaster))
+                For Each item As CatalogMaster In newCatalogMasters.GetRepos
+                    Dim node As New TreeNodeAdv With {
+                        .Text = item.Name,
+                        .Tag = item,
+                        .ShowPlusMinus = True,
+                        .Expanded = False
+                    }
+                    '
+                    Dim i As Integer = e.Node.Nodes.Add(node)
+                    e.Node.Nodes.Item(i).Nodes.Add(New TreeNodeAdv("..."))
+                    '
+                Next
+                '
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message,, "Error")
             '
+        Finally
+            Cursor = Cursors.Default
+            '
+        End Try
+
+    End Sub
+    '
+    ' ***********************************************
+    ' *****     -tvCatalogTree_Click(object, TreeViewAdvCancelableNodeEventArgs)
+    ' ***********************************************
+    '
+    Private Sub tvCatalogTree_Click(sender As Object, e As EventArgs) Handles tvCatalogTree.Click
+        Dim node As TreeNodeAdv = tvCatalogTree.SelectedNode
+        If node Is Nothing Then Return
+        If node.Text = "Catalog" Then
+            sfdgComments.DataSource = Nothing
+            Return
         End If
+        Try
+            Cursor = Cursors.WaitCursor
+            Dim catalogItem As CatalogMaster
+            catalogItem = TryCast(node.Tag, CatalogMaster)
+            If catalogItem Is Nothing Then Return
+            Dim CommentRepos As New RComments
+            sfdgComments.DataSource = CommentRepos.GetRepos(catalogItem)
+
+        Catch ex As Exception
+            MsgBox(ex.Message,, "Error")
+            '
+        Finally
+            Cursor = Cursors.Default
+            '
+        End Try
+
+
     End Sub
 End Class

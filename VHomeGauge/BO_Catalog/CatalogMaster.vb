@@ -53,6 +53,15 @@ Public Class CatalogMaster
         ' Do nothing on purpose!
         '
     End Sub
+    ' 
+    ' ***********************************************
+    ' *****     +ToString():string
+    ' ***********************************************
+    '
+    Public Overloads Function ToString() As String
+        Return Name
+        '
+    End Function
     '
     ' **********************************************
     ' ****

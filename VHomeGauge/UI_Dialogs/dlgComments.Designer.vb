@@ -293,11 +293,16 @@ Partial Class dlgComments
         'sfdgComments
         '
         Me.sfdgComments.AccessibleName = "Table"
+        Me.sfdgComments.AllowFiltering = True
         Me.sfdgComments.AutoGenerateColumns = False
+        GridTextColumn1.AllowFiltering = True
+        GridTextColumn1.AllowResizing = True
         GridTextColumn1.HeaderText = "Name"
         GridTextColumn1.MappingName = "Name"
+        GridTextColumn2.AllowFiltering = True
         GridTextColumn2.HeaderText = "Text"
         GridTextColumn2.MappingName = "Text"
+        GridTextColumn3.AllowFiltering = True
         GridTextColumn3.HeaderText = "Summary"
         GridTextColumn3.MappingName = "Summary"
         Me.sfdgComments.Columns.Add(GridTextColumn1)

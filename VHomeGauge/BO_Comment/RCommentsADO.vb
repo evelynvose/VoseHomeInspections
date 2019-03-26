@@ -78,6 +78,37 @@ Public MustInherit Class RCommentsADO
     End Function
     ' 
     ' ***********************************************
+    ' *****     -GetRepos(CatalogMaster):IList
+    ' ***********************************************
+    '
+    Public Function GetRepos(ByVal CatalogItem As CatalogMaster) As IList(Of RComment)
+        '
+        ' Always generate a database refresh
+        '
+        Using ta As New VRepCatalogTableAdapters.CatalogLinkListTableAdapter
+            Using dt As New VRepCatalog.CatalogLinkListDataTable
+                Try
+                    ta.FillByFK_Parent(dt, CatalogItem.ID.Guid)
+                    For Each row As VRepCatalog.CatalogLinkListRow In dt.Rows
+                        Dim newObject As New RComment(row.FK_Child)
+                        Repository.Add(newObject)
+                        '
+                    Next
+                Catch ex As Exception
+                    '
+                    ' VObject hijacks MsgBox and sends the out put to UI and logs
+                    '
+                    MsgBox(ex)
+                    '
+                End Try
+                '
+            End Using
+        End Using
+        '
+        Return Repository
+    End Function
+    ' 
+    ' ***********************************************
     ' *****     +Find(guid):RCommentInfo
     ' ***********************************************
     '
