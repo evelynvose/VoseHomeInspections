@@ -23,7 +23,23 @@ Public Class dlgComments
     '
     Private m_Comments As New RComments
     '
+    Private Enum TVIcons
+        Folders = 0
+        ClosedFolder
+        OpenFolder
+        Comment
+        '
+    End Enum
+    '
     Private Sub dlgSmartText_Load(sender As Object, e As EventArgs) Handles Me.Load
+        '
+        ' The image list contains the icons for the tree
+        '   0 - Folders
+        '   1 - Closed Folder
+        '   2 - Open folder
+        '   3 - Notebook (comment/DDID)
+        '
+        tvCatalogTree.LeftImageList = tvImageList
         '
         ' Set up the tree view with the first level.
         ' Expand the nodes for just the first level.
@@ -35,7 +51,8 @@ Public Class dlgComments
                 .Text = topCatalogItem.Name,
                 .Tag = topCatalogItem,
                 .ShowPlusMinus = True,
-                .Expanded = True
+                .Expanded = True,
+                .LeftImageIndices = New Integer() {TVIcons.Folders}
             }
             tvCatalogTree.Nodes.Add(treenode)
             '
@@ -52,7 +69,8 @@ Public Class dlgComments
                 .Text = catalogItem.Name,
                 .Tag = catalogItem,
                 .ShowPlusMinus = True,
-                .Expanded = False
+                .Expanded = False,
+                .LeftImageIndices = New Integer() {TVIcons.ClosedFolder}
             }
             Dim i As Integer = tvCatalogTree.Nodes.Item(0).Nodes.Add(treeNode)
             tvCatalogTree.Nodes.Item(0).Nodes.Item(i).Nodes.Add(New TreeNodeAdv("..."))
@@ -223,30 +241,68 @@ Public Class dlgComments
     ' ***********************************************
     '
     Private Sub tvCatalogTree_BeforeExpand(sender As Object, e As TreeViewAdvCancelableNodeEventArgs) Handles tvCatalogTree.BeforeExpand
+        '
+        ' There are three conditions possible prior to expanding:
+        '   1) The one child is a token, in which case we remove the token, load from the dB, and expand.
+        '   2) The one child is a Catalog Item or RComment, in which case we just go ahead and expand (no dB load).
+        '   3) There are many children, so just expand (no dB load).
+        '
+        If e.Node.Nodes.Count = 0 Then  ' This should never happen!
+            e.Cancel = True
+            Return
+            '
+        End If
+        '
+        ' Case 3
+        '
+        If e.Node.Nodes.Count > 1 Then Return
+        '
+        ' Cases 1 and 2, Just one node so what is it?
+        '
+        If e.Node.Nodes.Item(0).Tag IsNot Nothing Then Return  ' Case 2
+        '
+        ' By process of elimination, the node has to be a token.
+        '
+        e.Node.Nodes.Clear()
+        '
+        ' Ok - if we made it here we can go ahead and load from the dB
+        '
         Cursor = Cursors.WaitCursor
         Try
-            If TryCast(e.Node.Nodes.Item(0).Tag, CatalogMaster) Is Nothing Then ' must be triple dots                '
-                ' Remove this node
-                '
-                e.Node.Nodes.Clear()
-                '
-                ' Create a collection of CatalogMaster items from the parent
-                '
-                Dim newCatalogMasters As New CatalogMasters(TryCast(e.Node.Tag, CatalogMaster))
-                For Each item As CatalogMaster In newCatalogMasters.GetRepos
-                    Dim node As New TreeNodeAdv With {
+            '
+            ' Create a collection of CatalogMaster items from the parent
+            '
+            Dim newCatalogMasters As New CatalogMasters(TryCast(e.Node.Tag, CatalogMaster))
+            For Each item As CatalogMaster In newCatalogMasters.GetRepos
+                Dim node As New TreeNodeAdv With {
                         .Text = item.Name,
                         .Tag = item,
                         .ShowPlusMinus = True,
-                        .Expanded = False
-                    }
-                    '
-                    Dim i As Integer = e.Node.Nodes.Add(node)
-                    e.Node.Nodes.Item(i).Nodes.Add(New TreeNodeAdv("..."))
-                    '
-                Next
+                        .Expanded = False,
+                        .LeftImageIndices = New Integer() {TVIcons.ClosedFolder}
+                }
                 '
-            End If
+                Dim i As Integer = e.Node.Nodes.Add(node)
+                e.Node.Nodes.Item(i).Nodes.Add(New TreeNodeAdv("..."))
+                '
+            Next
+            '
+            ' Create a collection of RComments items from the parent
+            '
+            Dim newComments As New RComments
+            For Each item As RComment In newComments.GetRepos(TryCast(e.Node.Tag, CatalogMaster))
+                Dim node As New TreeNodeAdv With {
+                        .Text = item.Name,
+                        .Tag = item,
+                        .ShowPlusMinus = True,
+                        .Expanded = False,
+                        .LeftImageIndices = New Integer() {TVIcons.Comment}
+                }
+                '
+                e.Node.Nodes.Add(node)
+                '
+            Next
+            '
         Catch ex As Exception
             MsgBox(ex.Message,, "Error")
             '
@@ -261,21 +317,50 @@ Public Class dlgComments
     ' *****     -tvCatalogTree_Click(object, TreeViewAdvCancelableNodeEventArgs)
     ' ***********************************************
     '
-    Private Sub tvCatalogTree_Click(sender As Object, e As EventArgs) Handles tvCatalogTree.Click
+    'Private Sub tvCatalogTree_Click(sender As Object, e As EventArgs) Handles tvCatalogTree.Click
+    '    '
+    '    '  Error checking and other conditions where we abort this method
+    '    '
+    '    Dim node As TreeNodeAdv = tvCatalogTree.SelectedNode
+    '    If node Is Nothing Then Return
+    '    If TypeOf node.Tag IsNot RComment Then Return
+    '    '
+    '    ' Load the comment object and set the text
+    '    '
+    '    Try
+    '        Cursor = Cursors.WaitCursor
+    '        Dim theComment As RComment
+    '        theComment = TryCast(node.Tag, RComment)
+    '        If theComment Is Nothing Then Return
+    '        rtCommentEditor.Text = theComment.Text
+    '        '
+    '    Catch ex As Exception
+    '        MsgBox(ex.Message,, "Error")
+    '        '
+    '    Finally
+    '        Cursor = Cursors.Default
+    '        '
+    '    End Try
+    '    '
+    'End Sub
+
+    Private Sub tvCatalogTree_AfterSelect(sender As Object, e As EventArgs) Handles tvCatalogTree.AfterSelect
+        '
+        '  Error checking and other conditions where we abort this method
+        '
         Dim node As TreeNodeAdv = tvCatalogTree.SelectedNode
         If node Is Nothing Then Return
-        If node.Text = "Catalog" Then
-            sfdgComments.DataSource = Nothing
-            Return
-        End If
+        If TypeOf node.Tag IsNot RComment Then Return
+        '
+        ' Load the comment object and set the text
+        '
         Try
             Cursor = Cursors.WaitCursor
-            Dim catalogItem As CatalogMaster
-            catalogItem = TryCast(node.Tag, CatalogMaster)
-            If catalogItem Is Nothing Then Return
-            Dim CommentRepos As New RComments
-            sfdgComments.DataSource = CommentRepos.GetRepos(catalogItem)
-
+            Dim theComment As RComment
+            theComment = TryCast(node.Tag, RComment)
+            If theComment Is Nothing Then Return
+            rtCommentEditor.Text = theComment.Text
+            '
         Catch ex As Exception
             MsgBox(ex.Message,, "Error")
             '
@@ -283,7 +368,9 @@ Public Class dlgComments
             Cursor = Cursors.Default
             '
         End Try
-
-
     End Sub
+
+
+
+    '
 End Class

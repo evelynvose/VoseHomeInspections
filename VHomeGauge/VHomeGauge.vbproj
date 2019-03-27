@@ -435,9 +435,13 @@
     <Content Include="Images\vosehi_vhg_175.jpeg" />
     <Content Include="Resources\client.png" />
     <Content Include="Images\rep.png" />
+    <Content Include="Resources\folder-horizontal-closed.png" />
+    <Content Include="Resources\folder-horizontal-open.png" />
+    <Content Include="Resources\folders.png" />
     <Content Include="Resources\gear.png" />
     <None Include="Resources\property.png" />
     <None Include="Resources\plus.png" />
+    <Content Include="Resources\report--pencil.png" />
     <Content Include="Resources\ReportPath.ico" />
     <None Include="Resources\scissors.png" />
     <Content Include="Resources\TemplatePath.ico" />

@@ -24,9 +24,7 @@ Partial Class dlgComments
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim TreeNodeAdvStyleInfo1 As Syncfusion.Windows.Forms.Tools.TreeNodeAdvStyleInfo = New Syncfusion.Windows.Forms.Tools.TreeNodeAdvStyleInfo()
-        Dim GridTextColumn1 As Syncfusion.WinForms.DataGrid.GridTextColumn = New Syncfusion.WinForms.DataGrid.GridTextColumn()
-        Dim GridTextColumn2 As Syncfusion.WinForms.DataGrid.GridTextColumn = New Syncfusion.WinForms.DataGrid.GridTextColumn()
-        Dim GridTextColumn3 As Syncfusion.WinForms.DataGrid.GridTextColumn = New Syncfusion.WinForms.DataGrid.GridTextColumn()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(dlgComments))
         Me.scOkCancel = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
         Me.scInstructions = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
         Me.txtComments = New Syncfusion.Windows.Forms.Tools.TextBoxExt()
@@ -39,7 +37,6 @@ Partial Class dlgComments
         Me.lblAttachments = New Syncfusion.Windows.Forms.Tools.AutoLabel()
         Me.scAttachments = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
         Me.scCommentGrid = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
-        Me.sfdgComments = New Syncfusion.WinForms.DataGrid.SfDataGrid()
         Me.txtAdvanced = New Syncfusion.Windows.Forms.Tools.TextBoxExt()
         Me.txtWhereUsed = New Syncfusion.Windows.Forms.Tools.TextBoxExt()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
@@ -49,6 +46,8 @@ Partial Class dlgComments
         Me.tsSummarySections = New System.Windows.Forms.ToolStripMenuItem()
         Me.btnOK = New Syncfusion.Windows.Forms.ButtonAdv()
         Me.btnCancel = New Syncfusion.Windows.Forms.ButtonAdv()
+        Me.rtCommentEditor = New System.Windows.Forms.RichTextBox()
+        Me.tvImageList = New Syncfusion.Windows.Forms.Tools.ImageListAdv(Me.components)
         CType(Me.scOkCancel, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.scOkCancel.Panel1.SuspendLayout()
         Me.scOkCancel.Panel2.SuspendLayout()
@@ -74,9 +73,8 @@ Partial Class dlgComments
         Me.scAttachments.Panel2.SuspendLayout()
         Me.scAttachments.SuspendLayout()
         CType(Me.scCommentGrid, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.scCommentGrid.Panel1.SuspendLayout()
+        Me.scCommentGrid.Panel2.SuspendLayout()
         Me.scCommentGrid.SuspendLayout()
-        CType(Me.sfdgComments, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtAdvanced, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.txtWhereUsed, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -100,7 +98,7 @@ Partial Class dlgComments
         Me.scOkCancel.Panel2.Controls.Add(Me.PictureBox1)
         Me.scOkCancel.Panel2.Controls.Add(Me.btnOK)
         Me.scOkCancel.Panel2.Controls.Add(Me.btnCancel)
-        Me.scOkCancel.Size = New System.Drawing.Size(740, 604)
+        Me.scOkCancel.Size = New System.Drawing.Size(990, 604)
         Me.scOkCancel.SplitterDistance = 550
         Me.scOkCancel.TabIndex = 0
         '
@@ -121,14 +119,14 @@ Partial Class dlgComments
         'scInstructions.Panel2
         '
         Me.scInstructions.Panel2.Controls.Add(Me.scTree)
-        Me.scInstructions.Size = New System.Drawing.Size(740, 550)
+        Me.scInstructions.Size = New System.Drawing.Size(990, 550)
         Me.scInstructions.SplitterDistance = 44
         Me.scInstructions.TabIndex = 0
         '
         'txtComments
         '
         Me.txtComments.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtComments.BeforeTouchSize = New System.Drawing.Size(720, 15)
+        Me.txtComments.BeforeTouchSize = New System.Drawing.Size(739, 50)
         Me.txtComments.Border3DStyle = System.Windows.Forms.Border3DStyle.Flat
         Me.txtComments.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtComments.Location = New System.Drawing.Point(218, 25)
@@ -142,7 +140,7 @@ Partial Class dlgComments
         'txtCategories
         '
         Me.txtCategories.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtCategories.BeforeTouchSize = New System.Drawing.Size(720, 15)
+        Me.txtCategories.BeforeTouchSize = New System.Drawing.Size(739, 50)
         Me.txtCategories.Border3DStyle = System.Windows.Forms.Border3DStyle.Flat
         Me.txtCategories.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtCategories.Location = New System.Drawing.Point(2, 25)
@@ -155,7 +153,7 @@ Partial Class dlgComments
         '
         'txtInstructions
         '
-        Me.txtInstructions.BeforeTouchSize = New System.Drawing.Size(720, 15)
+        Me.txtInstructions.BeforeTouchSize = New System.Drawing.Size(739, 50)
         Me.txtInstructions.Border3DStyle = System.Windows.Forms.Border3DStyle.Flat
         Me.txtInstructions.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtInstructions.Location = New System.Drawing.Point(4, 7)
@@ -181,8 +179,8 @@ Partial Class dlgComments
         '
         Me.scTree.Panel2.Controls.Add(Me.lblWhereUsed)
         Me.scTree.Panel2.Controls.Add(Me.scWhereUsed)
-        Me.scTree.Size = New System.Drawing.Size(740, 499)
-        Me.scTree.SplitterDistance = 183
+        Me.scTree.Size = New System.Drawing.Size(990, 499)
+        Me.scTree.SplitterDistance = 244
         Me.scTree.TabIndex = 0
         '
         'tvCatalogTree
@@ -190,7 +188,7 @@ Partial Class dlgComments
         TreeNodeAdvStyleInfo1.EnsureDefaultOptionedChild = True
         TreeNodeAdvStyleInfo1.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tvCatalogTree.BaseStylePairs.AddRange(New Syncfusion.Windows.Forms.Tools.StyleNamePair() {New Syncfusion.Windows.Forms.Tools.StyleNamePair("Standard", TreeNodeAdvStyleInfo1)})
-        Me.tvCatalogTree.BeforeTouchSize = New System.Drawing.Size(183, 499)
+        Me.tvCatalogTree.BeforeTouchSize = New System.Drawing.Size(244, 499)
         Me.tvCatalogTree.Dock = System.Windows.Forms.DockStyle.Fill
         '
         '
@@ -206,7 +204,7 @@ Partial Class dlgComments
         Me.tvCatalogTree.MetroColor = System.Drawing.Color.FromArgb(CType(CType(22, Byte), Integer), CType(CType(165, Byte), Integer), CType(CType(220, Byte), Integer))
         Me.tvCatalogTree.Name = "tvCatalogTree"
         Me.tvCatalogTree.SelectedNodeForeColor = System.Drawing.SystemColors.HighlightText
-        Me.tvCatalogTree.Size = New System.Drawing.Size(183, 499)
+        Me.tvCatalogTree.Size = New System.Drawing.Size(244, 499)
         Me.tvCatalogTree.TabIndex = 0
         '
         '
@@ -243,7 +241,7 @@ Partial Class dlgComments
         'scWhereUsed.Panel2
         '
         Me.scWhereUsed.Panel2.Controls.Add(Me.txtWhereUsed)
-        Me.scWhereUsed.Size = New System.Drawing.Size(550, 499)
+        Me.scWhereUsed.Size = New System.Drawing.Size(739, 499)
         Me.scWhereUsed.SplitterDistance = 423
         Me.scWhereUsed.SplitterWidth = 25
         Me.scWhereUsed.TabIndex = 0
@@ -271,7 +269,7 @@ Partial Class dlgComments
         'scAttachments.Panel2
         '
         Me.scAttachments.Panel2.Controls.Add(Me.txtAdvanced)
-        Me.scAttachments.Size = New System.Drawing.Size(550, 423)
+        Me.scAttachments.Size = New System.Drawing.Size(739, 423)
         Me.scAttachments.SplitterDistance = 348
         Me.scAttachments.SplitterWidth = 25
         Me.scAttachments.TabIndex = 0
@@ -282,58 +280,35 @@ Partial Class dlgComments
         Me.scCommentGrid.Dock = System.Windows.Forms.DockStyle.Fill
         Me.scCommentGrid.Location = New System.Drawing.Point(0, 0)
         Me.scCommentGrid.Name = "scCommentGrid"
+        Me.scCommentGrid.Orientation = System.Windows.Forms.Orientation.Vertical
         '
-        'scCommentGrid.Panel1
+        'scCommentGrid.Panel2
         '
-        Me.scCommentGrid.Panel1.Controls.Add(Me.sfdgComments)
-        Me.scCommentGrid.Size = New System.Drawing.Size(550, 348)
-        Me.scCommentGrid.SplitterDistance = 499
+        Me.scCommentGrid.Panel2.Controls.Add(Me.rtCommentEditor)
+        Me.scCommentGrid.Size = New System.Drawing.Size(739, 348)
+        Me.scCommentGrid.SplitterDistance = 29
         Me.scCommentGrid.TabIndex = 0
-        '
-        'sfdgComments
-        '
-        Me.sfdgComments.AccessibleName = "Table"
-        Me.sfdgComments.AllowFiltering = True
-        Me.sfdgComments.AutoGenerateColumns = False
-        GridTextColumn1.AllowFiltering = True
-        GridTextColumn1.AllowResizing = True
-        GridTextColumn1.HeaderText = "Name"
-        GridTextColumn1.MappingName = "Name"
-        GridTextColumn2.AllowFiltering = True
-        GridTextColumn2.HeaderText = "Text"
-        GridTextColumn2.MappingName = "Text"
-        GridTextColumn3.AllowFiltering = True
-        GridTextColumn3.HeaderText = "Summary"
-        GridTextColumn3.MappingName = "Summary"
-        Me.sfdgComments.Columns.Add(GridTextColumn1)
-        Me.sfdgComments.Columns.Add(GridTextColumn2)
-        Me.sfdgComments.Columns.Add(GridTextColumn3)
-        Me.sfdgComments.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.sfdgComments.Location = New System.Drawing.Point(0, 0)
-        Me.sfdgComments.Name = "sfdgComments"
-        Me.sfdgComments.Size = New System.Drawing.Size(499, 348)
-        Me.sfdgComments.TabIndex = 0
         '
         'txtAdvanced
         '
-        Me.txtAdvanced.BeforeTouchSize = New System.Drawing.Size(720, 15)
+        Me.txtAdvanced.BeforeTouchSize = New System.Drawing.Size(739, 50)
         Me.txtAdvanced.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtAdvanced.Location = New System.Drawing.Point(0, 0)
         Me.txtAdvanced.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
         Me.txtAdvanced.Multiline = True
         Me.txtAdvanced.Name = "txtAdvanced"
-        Me.txtAdvanced.Size = New System.Drawing.Size(550, 50)
+        Me.txtAdvanced.Size = New System.Drawing.Size(739, 50)
         Me.txtAdvanced.TabIndex = 0
         '
         'txtWhereUsed
         '
-        Me.txtWhereUsed.BeforeTouchSize = New System.Drawing.Size(720, 15)
+        Me.txtWhereUsed.BeforeTouchSize = New System.Drawing.Size(739, 50)
         Me.txtWhereUsed.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtWhereUsed.Location = New System.Drawing.Point(0, 0)
         Me.txtWhereUsed.Metrocolor = System.Drawing.Color.FromArgb(CType(CType(209, Byte), Integer), CType(CType(211, Byte), Integer), CType(CType(212, Byte), Integer))
         Me.txtWhereUsed.Multiline = True
         Me.txtWhereUsed.Name = "txtWhereUsed"
-        Me.txtWhereUsed.Size = New System.Drawing.Size(550, 51)
+        Me.txtWhereUsed.Size = New System.Drawing.Size(739, 51)
         Me.txtWhereUsed.TabIndex = 0
         '
         'PictureBox1
@@ -394,6 +369,19 @@ Partial Class dlgComments
         Me.btnCancel.TabIndex = 11
         Me.btnCancel.Text = "Cancel"
         '
+        'rtCommentEditor
+        '
+        Me.rtCommentEditor.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.rtCommentEditor.Location = New System.Drawing.Point(0, 0)
+        Me.rtCommentEditor.Name = "rtCommentEditor"
+        Me.rtCommentEditor.Size = New System.Drawing.Size(739, 312)
+        Me.rtCommentEditor.TabIndex = 0
+        Me.rtCommentEditor.Text = ""
+        '
+        'tvImageList
+        '
+        Me.tvImageList.Images.AddRange(New System.Drawing.Image() {CType(resources.GetObject("tvImageList.Images"), System.Drawing.Image), CType(resources.GetObject("tvImageList.Images1"), System.Drawing.Image), CType(resources.GetObject("tvImageList.Images2"), System.Drawing.Image), CType(resources.GetObject("tvImageList.Images3"), System.Drawing.Image)})
+        '
         'dlgComments
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -402,7 +390,7 @@ Partial Class dlgComments
         Me.CaptionButtonColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.CaptionButtonHoverColor = System.Drawing.Color.Red
         Me.CaptionFont = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ClientSize = New System.Drawing.Size(740, 604)
+        Me.ClientSize = New System.Drawing.Size(990, 604)
         Me.Controls.Add(Me.scOkCancel)
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
@@ -445,10 +433,9 @@ Partial Class dlgComments
         Me.scAttachments.Panel2.PerformLayout()
         CType(Me.scAttachments, System.ComponentModel.ISupportInitialize).EndInit()
         Me.scAttachments.ResumeLayout(False)
-        Me.scCommentGrid.Panel1.ResumeLayout(False)
+        Me.scCommentGrid.Panel2.ResumeLayout(False)
         CType(Me.scCommentGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.scCommentGrid.ResumeLayout(False)
-        CType(Me.sfdgComments, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtAdvanced, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.txtWhereUsed, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -469,7 +456,6 @@ Partial Class dlgComments
     Friend WithEvents scAttachments As Syncfusion.Windows.Forms.Tools.SplitContainerAdv
     Friend WithEvents txtWhereUsed As Syncfusion.Windows.Forms.Tools.TextBoxExt
     Friend WithEvents scCommentGrid As Syncfusion.Windows.Forms.Tools.SplitContainerAdv
-    Friend WithEvents sfdgComments As Syncfusion.WinForms.DataGrid.SfDataGrid
     Friend WithEvents btnOK As Syncfusion.Windows.Forms.ButtonAdv
     Friend WithEvents btnCancel As Syncfusion.Windows.Forms.ButtonAdv
     Friend WithEvents lblAttachments As Syncfusion.Windows.Forms.Tools.AutoLabel
@@ -479,4 +465,6 @@ Partial Class dlgComments
     Friend WithEvents tsCatalog As ToolStripMenuItem
     Friend WithEvents tsComments As ToolStripMenuItem
     Friend WithEvents tsSummarySections As ToolStripMenuItem
+    Friend WithEvents rtCommentEditor As RichTextBox
+    Friend WithEvents tvImageList As Syncfusion.Windows.Forms.Tools.ImageListAdv
 End Class
