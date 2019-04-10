@@ -11,7 +11,7 @@ Imports System.Windows
 '
 Public Class vRichTextBoxExt
     '
-    Private m_RichTextBox As SfRichTextBoxAdv
+    Private WithEvents m_RichTextBox As SfRichTextBoxAdv
     '
     ' **********************************************
     ' ****
@@ -31,9 +31,10 @@ Public Class vRichTextBoxExt
         ' Add any initialization after the InitializeComponent() call.
         m_RichTextBox = New SfRichTextBoxAdv
         cntlHost.Child = m_RichTextBox
-        Text = "" 'conGreekText
+        Text = ""
         Margin(New Windows.Thickness(5))
         PageSize(New Size(cntlHost.Width, cntlHost.Height))
+        RichTextBox.LayoutType = LayoutType.Continuous
         '
     End Sub
     '
@@ -107,6 +108,17 @@ Public Class vRichTextBoxExt
         '
     End Sub
     '
+    ' ***********************************************
+    ' *****     +cntlHost_SizeChanged(object, EventArgs)
+    ' ***********************************************
+    '
+    Public Event ContentChanged(ByVal sender As Object, e As EventArgs)
+    '
+    Private Sub m_RichTextBox_ContentChanged(obj As Object, args As ContentChangedEventArgs) Handles m_RichTextBox.ContentChanged
+        RaiseEvent ContentChanged(m_RichTextBox, New EventArgs)
+        '
+    End Sub
+    '
     ' **********************************************
     ' ****
     ' ******    Properties
@@ -134,9 +146,15 @@ Public Class vRichTextBoxExt
     '
     Public Overrides Property Text As String
         Get
-            Dim strm As New MemoryStream
-            RichTextBox.Save(strm, FormatType.Html)
-            Return strm.
+            Dim tempString As String
+            Using ms As New MemoryStream
+                RichTextBox.Save(ms, FormatType.Html)
+                ms.Position = 0
+                Dim sr As New StreamReader(ms)
+                tempString = sr.ReadToEnd
+                sr.Dispose()
+            End Using
+            Return tempString
         End Get
         Set(value As String)
             If value Is Nothing Then
@@ -150,7 +168,7 @@ Public Class vRichTextBoxExt
                     sw.WriteLine(value)
                     '
                 End Using
-                RichTextBox.Load(strFile) ' 
+                RichTextBox.Load(strFile)
                 '
             Else
                 Dim tba() As Byte = System.Text.Encoding.ASCII.GetBytes(value)

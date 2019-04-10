@@ -9,6 +9,7 @@ Imports Syncfusion.Windows.Forms
 Imports Syncfusion.Windows.Forms.Tools
 Imports Syncfusion.Windows.Controls.RichTextBoxAdv
 Imports System.IO
+Imports System.ComponentModel
 '
 ' This form handles the UI for the Smart Text interface.
 '
@@ -42,12 +43,46 @@ Public Class dlgComments
         '
         tvCatalogTree.LeftImageList = tvImageList
         '
+        LoadTheTree()
+        '
+        ' tvCatalogTree.Text = "Catalog"
+        '
+        btnCommentSave.Enabled = False
+        ' btnCommentSave.Image = dlgImageList.Images(0)
+        '
+    End Sub
+    '
+    ' **********************************************
+    ' ****
+    ' ******    Methods
+    ' ****
+    ' **********************************************
+    '
+    ' ***********************************************
+    ' *****     -LoadTheTree()
+    ' ***********************************************
+    '
+    Private Sub LoadTheTree()
+        Cursor = Cursors.WaitCursor
+        tvCatalogTree.Nodes.Clear()
+        '
         ' Set up the tree view with the first level.
         ' Expand the nodes for just the first level.
         '
-        Dim topCatalogItem As CatalogMaster
-        topCatalogItem = CatalogMaster.Find("Catalog")
-        If topCatalogItem IsNot Nothing Then
+        Try
+            Dim topCatalogItem As CatalogMaster
+            topCatalogItem = CatalogMaster.Find("Catalog")
+            If topCatalogItem Is Nothing Then
+                topCatalogItem = New CatalogMaster()
+                With topCatalogItem
+                    .ID = New VGuid("CAT", Guid.NewGuid())
+                    .Name = "Catalog"
+                    .FK_Parent = .ID
+                    .Message = "Catalog"
+                    .Update()
+                End With
+            End If
+            '
             Dim treenode As New TreeNodeAdv With {
                 .Text = topCatalogItem.Name,
                 .Tag = topCatalogItem,
@@ -57,30 +92,135 @@ Public Class dlgComments
             }
             tvCatalogTree.Nodes.Add(treenode)
             '
-        Else
-            tvCatalogTree.Nodes.Add("Place Holder")
+            ' Add first level and expand
             '
-        End If
-        '
-        ' Add first level and expand
-        '
-        Dim topCatalogList As New CatalogMasters(Nothing)  ' Instantiating as Nothing loads the top node "Catalog"
-        For Each catalogItem As CatalogMaster In topCatalogList.GetRepos
-            Dim treeNode As New TreeNodeAdv(catalogItem.Name) With {
-                .Text = catalogItem.Name,
-                .Tag = catalogItem,
-                .ShowPlusMinus = True,
-                .Expanded = False,
-                .LeftImageIndices = New Integer() {TVIcons.ClosedFolder}
-            }
-            Dim i As Integer = tvCatalogTree.Nodes.Item(0).Nodes.Add(treeNode)
-            tvCatalogTree.Nodes.Item(0).Nodes.Item(i).Nodes.Add(New TreeNodeAdv("..."))
+            Dim topCatalogList As New CatalogMasters(Nothing)  ' Instantiating as Nothing loads the top node "Catalog"
+            For Each catalogItem As CatalogMaster In topCatalogList.GetRepos
+                If catalogItem.Name <> topCatalogItem.Name Then
+                    treenode = New TreeNodeAdv(catalogItem.Name) With {
+                    .Text = catalogItem.Name,
+                    .Tag = catalogItem,
+                    .ShowPlusMinus = True,
+                    .Expanded = False,
+                    .LeftImageIndices = New Integer() {TVIcons.ClosedFolder}
+                    }
+                    Dim i As Integer = tvCatalogTree.Nodes.Item(0).Nodes.Add(treenode)
+                    tvCatalogTree.Nodes.Item(0).Nodes.Item(i).Nodes.Add(New TreeNodeAdv("..."))
+                    '
+                End If
+            Next
+        Catch ex As Exception
+            ' Do nothing
             '
-        Next
-        '
-        tvCatalogTree.Text = "Catalog"
+        Finally
+            Cursor = Cursors.Default
+            '
+        End Try
         '
     End Sub
+    '
+    ' ***********************************************
+    ' *****     -Import_Summary(FileInfo)
+    ' ***********************************************
+    '
+    Private Sub Import_Summary(ByVal theFile As FileInfo)
+        If theFile Is Nothing Then Return
+        '
+        Dim thePB As New dlgVProgressBar
+        '
+        ' Import Summary items first
+        '
+        With thePB
+            .StartPosition = FormStartPosition.CenterParent
+            .SetDoWorkClass(New HGISummaryImport(theFile))
+            .Text = "Import Summary"
+            .AnnouncementVisible = True
+            .RunningStatusVisible = True
+            .OKButtonVisible = True
+            .OKButtonText = "Cancel"
+            .LaunchDoWork()
+            .ShowDialog()
+            '
+        End With
+        '
+    End Sub
+    '
+    ' ***********************************************
+    ' *****     -Import_Comments(FileInfo)
+    ' ***********************************************
+    '
+    Private Sub Import_Comments(ByVal theFile As FileInfo)
+        If theFile Is Nothing Then Return
+        '
+        Dim thePB As New dlgVProgressBar
+        '
+        ' Import the comments
+        '
+        thePB = New dlgVProgressBar
+        With thePB
+            .StartPosition = FormStartPosition.CenterParent
+            .SetDoWorkClass(New HGICommentImport(theFile))
+            .Text = "Import Comments"
+            .AnnouncementVisible = True
+            .RunningStatusVisible = True
+            .OKButtonVisible = True
+            .OKButtonText = "Cancel"
+            .LaunchDoWork()
+            .ShowDialog()
+            '
+        End With
+        '
+    End Sub
+    '
+    ' ***********************************************
+    ' *****     -Import_CatalogTitles(FileInfo)
+    ' ***********************************************
+    '
+    Private Sub Import_CatalogTitles(ByVal theFile As FileInfo)
+        If theFile Is Nothing Then Return
+        '
+        ' Set up the worker thread and launch the progress bar
+        '
+
+        Dim thePB As New dlgVProgressBar
+        ' 
+        ' Import Summary items first
+        '
+        With thePB
+            .StartPosition = FormStartPosition.CenterParent
+            .SetDoWorkClass(New HGICatalogImport(theFile))
+            .Text = "Import Catalog"
+            .AnnouncementVisible = True
+            .RunningStatusVisible = True
+            .OKButtonVisible = True
+            .OKButtonText = "Cancel"
+            .LaunchDoWork()
+            .ShowDialog()
+            '
+        End With
+
+    End Sub
+    '
+    ' ***********************************************
+    ' *****     -Import_CatalogTitles()
+    ' ***********************************************
+    '
+    Private Function GetTemplateFile() As FileInfo
+        Dim OpenFileDialog1 = New OpenFileDialog With {
+            .CheckFileExists = True,
+            .CheckPathExists = True,
+            .DefaultExt = "ht5",
+            .FileName = "",
+            .Filter = "Template Files (*.ht5)|*.ht5|All Files (*.*)|*.*",
+            .Multiselect = False
+        }
+        '
+        If OpenFileDialog1.ShowDialog = DialogResult.OK Then
+            Return New FileInfo(OpenFileDialog1.FileName)
+        End If
+        '
+        Return Nothing
+    End Function
     '
     ' **********************************************
     ' ****
@@ -101,7 +241,7 @@ Public Class dlgComments
     ' *****     -btnCancel_Click(object, EventArgs)
     ' ***********************************************
     '
-    Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
+    Private Sub btnCancel_Click(sender As Object, e As EventArgs)
         Close()
         '
     End Sub
@@ -122,37 +262,14 @@ Public Class dlgComments
     '
     Private Sub tsCatalog_Click(sender As Object, e As EventArgs) Handles tsCatalog.Click
         '
-        ' Get the template file
+        ' Ask the user if s/he wants to save the m_MessageWIP?
         '
-        Dim OpenFileDialog1 = New OpenFileDialog With {
-       .CheckFileExists = True,
-       .CheckPathExists = True,
-       .DefaultExt = "ht5",
-       .FileName = "",
-       .Filter = "Template Files (*.ht5)|*.ht5|All Files (*.*)|*.*",
-       .Multiselect = False
-        }
+        btnCommentSave_Click(Nothing, Nothing)
         '
-        ' Set up the worker thread and launch the progress bar
+        Import_CatalogTitles(GetTemplateFile())
         '
-        If OpenFileDialog1.ShowDialog = DialogResult.OK Then
-            Dim thePB As New dlgVProgressBar
-            '
-            ' Import Summary items first
-            '
-            With thePB
-                .StartPosition = FormStartPosition.CenterParent
-                .SetDoWorkClass(New HGICatalogImport(New FileInfo(OpenFileDialog1.FileName)))
-                .Text = "Import Catalog"
-                .AnnouncementVisible = True
-                .RunningStatusVisible = True
-                .OKButtonVisible = True
-                .OKButtonText = "Cancel"
-                .LaunchDoWork()
-                .ShowDialog()
-                '
-            End With
-        End If
+        LoadTheTree()
+        '
     End Sub
     '
     ' ***********************************************
@@ -161,42 +278,16 @@ Public Class dlgComments
     '
     Private Sub tsComments_Click(sender As Object, e As EventArgs) Handles tsComments.Click
         '
+        ' Ask the user if s/he wants to save the m_MessageWIP?
+        '
+        btnCommentSave_Click(Nothing, Nothing)
+        '
         ' It is important to import the Summary Sections befor the comments
         '
         If MsgBox("Did you import the Summary Sections?", MsgBoxStyle.YesNo, "Comment Import") = MsgBoxResult.No Then Return
         '
-        ' Get template file
+        Import_Comments(GetTemplateFile())
         '
-        Dim OpenFileDialog1 = New OpenFileDialog With {
-       .CheckFileExists = True,
-       .CheckPathExists = True,
-       .DefaultExt = "ht5",
-       .FileName = "",
-       .Filter = "Template Files (*.ht5)|*.ht5|All Files (*.*)|*.*",
-       .Multiselect = False
-        }
-        '
-        ' Set up the worker thread and launch the progress bar
-        '        
-        If OpenFileDialog1.ShowDialog = DialogResult.OK Then
-            Dim thePB As New dlgVProgressBar
-            '
-            ' Import the comments
-            '
-            thePB = New dlgVProgressBar
-            With thePB
-                .StartPosition = FormStartPosition.CenterParent
-                .SetDoWorkClass(New HGICommentImport(New FileInfo(OpenFileDialog1.FileName)))
-                .Text = "Import Comments"
-                .AnnouncementVisible = True
-                .RunningStatusVisible = True
-                .OKButtonVisible = True
-                .OKButtonText = "Cancel"
-                .LaunchDoWork()
-                .ShowDialog()
-                '
-            End With
-        End If
     End Sub
     '
     ' ***********************************************
@@ -205,37 +296,32 @@ Public Class dlgComments
     '
     Private Sub tsSummarySections_Click(sender As Object, e As EventArgs) Handles tsSummarySections.Click
         '
-        ' Get the template file
+        ' Ask the user if s/he wants to save the m_MessageWIP?
         '
-        Dim OpenFileDialog1 = New OpenFileDialog With {
-       .CheckFileExists = True,
-       .CheckPathExists = True,
-       .DefaultExt = "ht5",
-       .FileName = "",
-       .Filter = "Template Files (*.ht5)|*.ht5|All Files (*.*)|*.*",
-       .Multiselect = False
-        }
+        btnCommentSave_Click(Nothing, Nothing)
         '
-        ' Set up the worker thread and launch the progress bar
+        Import_Summary(GetTemplateFile())
         '
-        If OpenFileDialog1.ShowDialog = DialogResult.OK Then
-            Dim thePB As New dlgVProgressBar
-            '
-            ' Import Summary items first
-            '
-            With thePB
-                .StartPosition = FormStartPosition.CenterParent
-                .SetDoWorkClass(New HGISummaryImport(New FileInfo(OpenFileDialog1.FileName)))
-                .Text = "Import Summary"
-                .AnnouncementVisible = True
-                .RunningStatusVisible = True
-                .OKButtonVisible = True
-                .OKButtonText = "Cancel"
-                .LaunchDoWork()
-                .ShowDialog()
-                '
-            End With
-        End If
+    End Sub
+    '
+    ' ***********************************************
+    ' *****     -tsImportAll_Click(object, EventArgs)
+    ' ***********************************************
+    '
+    Private Sub tsImportAll_Click(sender As Object, e As EventArgs) Handles tsImportAll.Click
+        '
+        ' Ask the user if s/he wants to save the m_MessageWIP?
+        '
+        btnCommentSave_Click(Nothing, Nothing)
+        '
+        ' Import a spreadsheet in order of importance
+        Dim thefile As FileInfo = GetTemplateFile()
+        Import_Summary(thefile)
+        Import_Comments(thefile)
+        Import_CatalogTitles(thefile)
+        '
+        LoadTheTree()
+        '
     End Sub
     '
     ' ***********************************************
@@ -316,35 +402,8 @@ Public Class dlgComments
     End Sub
     '
     ' ***********************************************
-    ' *****     -tvCatalogTree_Click(object, TreeViewAdvCancelableNodeEventArgs)
+    ' *****     -tvCatalogTree_AfterSelect(object, EventArgs)
     ' ***********************************************
-    '
-    'Private Sub tvCatalogTree_Click(sender As Object, e As EventArgs) Handles tvCatalogTree.Click
-    '    '
-    '    '  Error checking and other conditions where we abort this method
-    '    '
-    '    Dim node As TreeNodeAdv = tvCatalogTree.SelectedNode
-    '    If node Is Nothing Then Return
-    '    If TypeOf node.Tag IsNot RComment Then Return
-    '    '
-    '    ' Load the comment object and set the text
-    '    '
-    '    Try
-    '        Cursor = Cursors.WaitCursor
-    '        Dim theComment As RComment
-    '        theComment = TryCast(node.Tag, RComment)
-    '        If theComment Is Nothing Then Return
-    '        rtCommentEditor.Text = theComment.Text
-    '        '
-    '    Catch ex As Exception
-    '        MsgBox(ex.Message,, "Error")
-    '        '
-    '    Finally
-    '        Cursor = Cursors.Default
-    '        '
-    '    End Try
-    '    '
-    'End Sub
     '
     Private m_CommentWIP As RComment
     '
@@ -356,12 +415,21 @@ Public Class dlgComments
         If node Is Nothing Then Return
         If TypeOf node.Tag IsNot RComment Then Return
         '
+        ' If the m_CommentWIP object is instantiated and Dirty, given User a chance to update the object!
+        '
+        If m_CommentWIP IsNot Nothing AndAlso m_CommentWIP.Dirty Then
+            btnCommentSave_Click(Nothing, Nothing)
+            '
+        End If
+        '
         ' Load the comment object and set the text
         '
+        Cursor = Cursors.WaitCursor
         Try
-            Cursor = Cursors.WaitCursor
+            btnCommentSave.Enabled = False
+            m_CommentWIP = Nothing
             m_CommentWIP = TryCast(node.Tag, RComment)
-            If m_CommentWIP Is Nothing Then Return
+            If m_CommentWIP Is Nothing Then Exit Sub
             '
             VRichTextBoxExt1.Text = m_CommentWIP.Text
             VRichTextBoxExt1.Title = m_CommentWIP.Name
@@ -374,23 +442,82 @@ Public Class dlgComments
             '
         End Try
     End Sub
-
+    '
+    ' ***********************************************
+    ' *****     -btnCommentSave_Click(object, EventArgs)
+    ' ***********************************************
+    '
+    ' Make changes to this method cautiously as there are many methods in this class that
+    ' are dependent on its behavior!
+    '
+    Private Sub btnCommentSave_Click(sender As Object, e As EventArgs) Handles btnCommentSave.Click
+        If m_CommentWIP Is Nothing Then Return
+        If Not m_CommentWIP.Dirty Then Return
+        '
+        If MsgBox("Do you want to save?", MsgBoxStyle.YesNo, "") = MsgBoxResult.No Then Return
+        '
+        ' Update and report back
+        '
+        Dim sMessage As String = "Sucessfully saved!"
+        Cursor = Cursors.WaitCursor
+        Try
+            m_CommentWIP.Update()
+            If m_CommentWIP.Dirty Then
+                sMessage = "Oops! Something went wrong. Not saved."
+                '
+            End If          '
+        Catch ex As Exception
+            sMessage = ex.Message
+            '
+        End Try
+        '
+        Cursor = Cursors.Default
+        btnCommentSave.Enabled = m_CommentWIP.Dirty
+        MsgBox(sMessage, MsgBoxStyle.OkOnly, "")
+        '
+    End Sub
+    '
+    ' ***********************************************
+    ' *****     -VRichTextBoxExt1_ContentChanged(object, EventArgs)
+    ' ***********************************************
+    '
+    Private Sub VRichTextBoxExt1_ContentChanged(sender As Object, e As EventArgs) Handles VRichTextBoxExt1.ContentChanged
+        If m_CommentWIP Is Nothing Then Return
+        '
+        ' Capture the changes (if any)
+        '
+        m_CommentWIP.Name = VRichTextBoxExt1.Title
+        m_CommentWIP.Text = VRichTextBoxExt1.Text
+        btnCommentSave.Enabled = m_CommentWIP.Dirty
+        '
+    End Sub
+    '
+    ' ***********************************************
+    ' *****     -TestToolStripMenuItem_Click(object, EventArgs)
+    ' ***********************************************
+    '
     Private Sub TestToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TestToolStripMenuItem.Click
+        '
+        ' Ask the user if s/he wants to save the m_MessageWIP?
+        '
+        btnCommentSave_Click(Nothing, Nothing)
         '
         ' Setting the text to Nothing will cause the VRichTextBox to display Greek text
         '
         VRichTextBoxExt1.Text = Nothing
         '
     End Sub
-
-    Private Sub SfButton1_Click(sender As Object, e As EventArgs) Handles SfButton1.Click
-        If m_CommentWIP Is Nothing Then Return
-        m_CommentWIP.Name = VRichTextBoxExt1.Title
-        m_CommentWIP.Text = VRichTextBoxExt1.Text
+    ' 
+    ' ***********************************************
+    ' *****     -dlgComments_Closing(object, EventArgs)
+    ' ***********************************************
+    '
+    Private Sub dlgComments_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        '
+        ' Check the m_MessageWIP object and see if the user wants it saved.
+        '
+        btnCommentSave_Click(Nothing, Nothing)
         '
     End Sub
-
-
-
     '
 End Class

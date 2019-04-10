@@ -28,6 +28,7 @@ Partial Class vRichTextBoxExt
         'cntlHost
         '
         Me.cntlHost.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.cntlHost.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cntlHost.Location = New System.Drawing.Point(0, 0)
         Me.cntlHost.Margin = New System.Windows.Forms.Padding(0)
         Me.cntlHost.Name = "cntlHost"

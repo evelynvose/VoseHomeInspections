@@ -112,6 +112,7 @@ Public Class HGICatalogImport
         Finally
             ' Do nothing
         End Try
+        '
     End Sub
     ' 
     ' ***********************************************
@@ -123,8 +124,7 @@ Public Class HGICatalogImport
         ' Error checking
         '
         If node.FirstChild.InnerText Is Nothing Then Return
-        RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, "Catalog: " & node.FirstChild.InnerText))
-
+        RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, "Title: " & node.FirstChild.InnerText))
         '
         ' Create the parent if it doesn't already exist
         '
@@ -142,10 +142,10 @@ Public Class HGICatalogImport
                 .Update()
                 ' 
             End With
-
+            '
         Catch ex As Exception
             MsgBox(ex)
-
+            '
         End Try
         '
         ' Process the children
@@ -153,7 +153,7 @@ Public Class HGICatalogImport
         Try
             For Each childNode As XmlNode In node.ChildNodes
                 Select Case childNode.Name
-                    Case "catCID"
+                    Case "catCID"   ' Comment Link
                         RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, "Link CID: " & node.FirstChild.InnerText))
                         '
                         ' Is the link list pair already in the dB?  Add it if not.
@@ -167,18 +167,19 @@ Public Class HGICatalogImport
                                     theParentID = theCatalogMaster.ID
                                     '
                                 End If
-                                .FK_Parent = theParentID
+                                .FK_Parent = theCatalogMaster.ID ' theParentID
                                 .FK_Child = childGuid
                                 .Update()
                                 '
                             End With
                         End If
-                                            '
-                    ' Now process any child master catalog items.  
-                    '
-                    Case "cat"
-                        RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, "Child: " & node.FirstChild.InnerText))
+                        '
+                    Case "cat" ' Now process any child master catalog items.  
+                        RaiseDoWorkEvent(Me, New VDoWorkEventArgs(VDoWorkEventArgTypes.Informational, "Child Title: " & node.FirstChild.InnerText))
                         ProcessCatalogItem(childNode, theCatalogMaster.ID)
+                        '
+                    Case "catName"
+                        ' Do nothing
                         '
                 End Select
             Next

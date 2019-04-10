@@ -404,4 +404,14 @@ Public MustInherit Class RCommentADO
         End Set
     End Property
     '
+    '
+    ' ***********************************************
+    ' *****     +Dirty():bool
+    ' ***********************************************
+    '
+    Public ReadOnly Property Dirty() As Boolean
+        Get
+            Return IsDirty()
+        End Get
+    End Property
 End Class
