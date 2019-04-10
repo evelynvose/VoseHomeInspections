@@ -7,19 +7,13 @@
 '
 Imports Syncfusion.Windows.Forms
 Imports Syncfusion.Windows.Forms.Tools
-Imports Syncfusion.WinForms.DataGrid.Events
+Imports Syncfusion.Windows.Controls.RichTextBoxAdv
 Imports System.IO
 '
 ' This form handles the UI for the Smart Text interface.
 '
 Public Class dlgComments
     Inherits MetroForm
-    '
-    ' **********************************************
-    ' ****
-    ' ******    LOAD
-    ' ****
-    ' **********************************************
     '
     Private m_Comments As New RComments
     '
@@ -30,6 +24,13 @@ Public Class dlgComments
         Comment
         '
     End Enum
+    '
+    '
+    ' **********************************************
+    ' ****
+    ' ******    LOAD
+    ' ****
+    ' **********************************************
     '
     Private Sub dlgSmartText_Load(sender As Object, e As EventArgs) Handles Me.Load
         '
@@ -78,6 +79,7 @@ Public Class dlgComments
         Next
         '
         tvCatalogTree.Text = "Catalog"
+        '
     End Sub
     '
     ' **********************************************
@@ -343,7 +345,9 @@ Public Class dlgComments
     '    End Try
     '    '
     'End Sub
-
+    '
+    Private m_CommentWIP As RComment
+    '
     Private Sub tvCatalogTree_AfterSelect(sender As Object, e As EventArgs) Handles tvCatalogTree.AfterSelect
         '
         '  Error checking and other conditions where we abort this method
@@ -356,11 +360,12 @@ Public Class dlgComments
         '
         Try
             Cursor = Cursors.WaitCursor
-            Dim theComment As RComment
-            theComment = TryCast(node.Tag, RComment)
-            If theComment Is Nothing Then Return
-            rtCommentEditor.Text = theComment.Text
+            m_CommentWIP = TryCast(node.Tag, RComment)
+            If m_CommentWIP Is Nothing Then Return
             '
+            VRichTextBoxExt1.Text = m_CommentWIP.Text
+            VRichTextBoxExt1.Title = m_CommentWIP.Name
+
         Catch ex As Exception
             MsgBox(ex.Message,, "Error")
             '
@@ -368,6 +373,21 @@ Public Class dlgComments
             Cursor = Cursors.Default
             '
         End Try
+    End Sub
+
+    Private Sub TestToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TestToolStripMenuItem.Click
+        '
+        ' Setting the text to Nothing will cause the VRichTextBox to display Greek text
+        '
+        VRichTextBoxExt1.Text = Nothing
+        '
+    End Sub
+
+    Private Sub SfButton1_Click(sender As Object, e As EventArgs) Handles SfButton1.Click
+        If m_CommentWIP Is Nothing Then Return
+        m_CommentWIP.Name = VRichTextBoxExt1.Title
+        m_CommentWIP.Text = VRichTextBoxExt1.Text
+        '
     End Sub
 
 

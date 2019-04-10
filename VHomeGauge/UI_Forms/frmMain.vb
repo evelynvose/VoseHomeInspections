@@ -183,6 +183,11 @@ Public Class frmMain
         My.Settings.ConnectionString = con.ConnectionString
         '
     End Sub
+
+    Public Sub AddMDI(ByRef childForm As Form)
+        scTabs.Panel1.Controls.Add(childForm)
+
+    End Sub
     '
     ' **********************************************
     ' ****
@@ -425,7 +430,11 @@ Public Class frmMain
     Private Sub CommentsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CommentsToolStripMenuItem.Click
         Cursor = Cursors.WaitCursor
         Dim theDialog As New dlgComments
-        theDialog.ShowDialog()
+        ' Show this form in the main window
+        AddMDI(theDialog)
+        theDialog.Dock = DockStyle.Fill
+        theDialog.Show()
+        ' theDialog.ShowDialog()
         Cursor = Cursors.Default
         '
     End Sub
