@@ -39,7 +39,7 @@ Namespace My.Resources
         Friend ReadOnly Property ResourceManager() As Global.System.Resources.ResourceManager
             Get
                 If Object.ReferenceEquals(resourceMan, Nothing) Then
-                    Dim temp As Global.System.Resources.ResourceManager = New Global.System.Resources.ResourceManager("SyncfusionWindowsFormsApplication1.Resources", GetType(Resources).Assembly)
+                    Dim temp As Global.System.Resources.ResourceManager = New Global.System.Resources.ResourceManager("VHIHomeGaugeApplication.Resources", GetType(Resources).Assembly)
                     resourceMan = temp
                 End If
                 Return resourceMan
@@ -58,16 +58,6 @@ Namespace My.Resources
             Set
                 resourceCulture = value
             End Set
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property _property() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("property", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
         End Property
         
         '''<summary>
@@ -166,6 +156,16 @@ Namespace My.Resources
         Friend ReadOnly Property vosehi_vhg_175() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("vosehi_vhg_175", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property vproperty() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("vproperty", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

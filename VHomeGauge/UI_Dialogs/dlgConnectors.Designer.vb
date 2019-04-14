@@ -149,7 +149,7 @@ Partial Class dlgConnectors
         'btnGear
         '
         Me.btnGear.BeforeTouchSize = New System.Drawing.Size(33, 33)
-        Me.btnGear.Image = Global.SyncfusionWindowsFormsApplication1.My.Resources.Resources.gear1
+        Me.btnGear.Image = Global.VHIHomeGaugeApplication.My.Resources.Resources.gear1
         Me.btnGear.IsBackStageButton = False
         Me.btnGear.Location = New System.Drawing.Point(214, 16)
         Me.btnGear.Name = "btnGear"

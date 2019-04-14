@@ -191,7 +191,7 @@ Partial Class frmReportBrowser
         Me.btnGear.BackColor = System.Drawing.Color.White
         Me.btnGear.BeforeTouchSize = New System.Drawing.Size(34, 31)
         Me.btnGear.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnGear.Image = Global.SyncfusionWindowsFormsApplication1.My.Resources.Resources.gear1
+        Me.btnGear.Image = Global.VHIHomeGaugeApplication.My.Resources.Resources.gear1
         Me.btnGear.IsBackStageButton = False
         Me.btnGear.KeepFocusRectangle = False
         Me.btnGear.Location = New System.Drawing.Point(638, 11)

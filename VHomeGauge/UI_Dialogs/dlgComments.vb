@@ -7,9 +7,10 @@
 '
 Imports Syncfusion.Windows.Forms
 Imports Syncfusion.Windows.Forms.Tools
-Imports Syncfusion.Windows.Controls.RichTextBoxAdv
 Imports System.IO
 Imports System.ComponentModel
+Imports VHIXUserControls
+Imports Syncfusion.Windows.Controls.RichTextBoxAdv
 '
 ' This form handles the UI for the Smart Text interface.
 '
@@ -17,6 +18,7 @@ Public Class dlgComments
     Inherits MetroForm
     '
     Private m_Comments As New RComments
+    Private WithEvents m_Editor As VEditor
     '
     Private Enum TVIcons
         Folders = 0
@@ -49,6 +51,10 @@ Public Class dlgComments
         '
         btnCommentSave.Enabled = False
         ' btnCommentSave.Image = dlgImageList.Images(0)
+        '
+        m_Editor = EditorHost.Child
+        m_Editor.Height = EditorHost.Height
+        m_Editor.Width = EditorHost.Width
         '
     End Sub
     '
@@ -431,8 +437,13 @@ Public Class dlgComments
             m_CommentWIP = TryCast(node.Tag, RComment)
             If m_CommentWIP Is Nothing Then Exit Sub
             '
-            VRichTextBoxExt1.Text = m_CommentWIP.Text
-            VRichTextBoxExt1.Title = m_CommentWIP.Name
+            With m_Editor
+                .Text = m_CommentWIP.Text
+                .Title = m_CommentWIP.Name
+                .PageLayout = LayoutType.Continuous
+                .PageWidth = scTree.Panel1.Width
+                '
+            End With
 
         Catch ex As Exception
             MsgBox(ex.Message,, "Error")
@@ -481,16 +492,17 @@ Public Class dlgComments
     ' *****     -VRichTextBoxExt1_ContentChanged(object, EventArgs)
     ' ***********************************************
     '
-    Private Sub VRichTextBoxExt1_ContentChanged(sender As Object, e As EventArgs) Handles VRichTextBoxExt1.ContentChanged
+    Private Sub VEditor1_ContentChanged(sender As Object, e As EventArgs) Handles m_Editor.ContentChanged
         If m_CommentWIP Is Nothing Then Return
         '
         ' Capture the changes (if any)
         '
-        m_CommentWIP.Name = VRichTextBoxExt1.Title
-        m_CommentWIP.Text = VRichTextBoxExt1.Text
+        m_CommentWIP.Name = m_Editor.Title
+        m_CommentWIP.Text = m_Editor.Text
         btnCommentSave.Enabled = m_CommentWIP.Dirty
         '
     End Sub
+
     '
     ' ***********************************************
     ' *****     -TestToolStripMenuItem_Click(object, EventArgs)
@@ -504,7 +516,7 @@ Public Class dlgComments
         '
         ' Setting the text to Nothing will cause the VRichTextBox to display Greek text
         '
-        VRichTextBoxExt1.Text = Nothing
+        m_Editor.Text = Nothing
         '
     End Sub
     ' 

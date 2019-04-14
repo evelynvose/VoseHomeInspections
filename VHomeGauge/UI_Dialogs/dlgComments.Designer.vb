@@ -35,7 +35,8 @@ Partial Class dlgComments
         Me.txtInstructions = New Syncfusion.Windows.Forms.Tools.TextBoxExt()
         Me.scTree = New Syncfusion.Windows.Forms.Tools.SplitContainerAdv()
         Me.tvCatalogTree = New Syncfusion.Windows.Forms.Tools.TreeViewAdv()
-        Me.VRichTextBoxExt1 = New WindowsControlLibrary1.vRichTextBoxExt()
+        Me.EditorHost = New System.Windows.Forms.Integration.ElementHost()
+        Me.VEditor1 = New VHIXUserControls.VEditor()
         Me.btnCommentSave = New Syncfusion.WinForms.Controls.SfButton()
         Me.dlgImageList = New System.Windows.Forms.ImageList(Me.components)
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
@@ -47,6 +48,7 @@ Partial Class dlgComments
         Me.TestToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.btnOK = New Syncfusion.Windows.Forms.ButtonAdv()
         Me.tvImageList = New Syncfusion.Windows.Forms.Tools.ImageListAdv(Me.components)
+        Me.EventLog1 = New System.Diagnostics.EventLog()
         CType(Me.scOkCancel, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.scOkCancel.Panel1.SuspendLayout()
         Me.scOkCancel.Panel2.SuspendLayout()
@@ -64,6 +66,7 @@ Partial Class dlgComments
         CType(Me.tvCatalogTree, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.msImport.SuspendLayout()
+        CType(Me.EventLog1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'scOkCancel
@@ -157,7 +160,7 @@ Partial Class dlgComments
         '
         'scTree.Panel2
         '
-        Me.scTree.Panel2.Controls.Add(Me.VRichTextBoxExt1)
+        Me.scTree.Panel2.Controls.Add(Me.EditorHost)
         Me.scTree.Size = New System.Drawing.Size(990, 499)
         Me.scTree.SplitterDistance = 244
         Me.scTree.TabIndex = 0
@@ -241,15 +244,14 @@ Partial Class dlgComments
         Me.tvCatalogTree.ToolTipControl.TabIndex = 1
         Me.tvCatalogTree.ToolTipControl.Text = "toolTip"
         '
-        'VRichTextBoxExt1
+        'EditorHost
         '
-        Me.VRichTextBoxExt1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.VRichTextBoxExt1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.VRichTextBoxExt1.Location = New System.Drawing.Point(0, 0)
-        Me.VRichTextBoxExt1.Name = "VRichTextBoxExt1"
-        Me.VRichTextBoxExt1.Size = New System.Drawing.Size(739, 499)
-        Me.VRichTextBoxExt1.TabIndex = 2
-        Me.VRichTextBoxExt1.Title = ""
+        Me.EditorHost.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.EditorHost.Location = New System.Drawing.Point(0, 0)
+        Me.EditorHost.Name = "EditorHost"
+        Me.EditorHost.Size = New System.Drawing.Size(739, 499)
+        Me.EditorHost.TabIndex = 0
+        Me.EditorHost.Child = Me.VEditor1
         '
         'btnCommentSave
         '
@@ -277,7 +279,7 @@ Partial Class dlgComments
         Me.PictureBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.PictureBox1.ContextMenuStrip = Me.msImport
-        Me.PictureBox1.Image = Global.SyncfusionWindowsFormsApplication1.My.Resources.Resources.gear1
+        Me.PictureBox1.Image = Global.VHIHomeGaugeApplication.My.Resources.Resources.gear1
         Me.PictureBox1.Location = New System.Drawing.Point(921, 14)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(24, 24)
@@ -340,6 +342,10 @@ Partial Class dlgComments
         '
         Me.tvImageList.Images.AddRange(New System.Drawing.Image() {CType(resources.GetObject("tvImageList.Images"), System.Drawing.Image), CType(resources.GetObject("tvImageList.Images1"), System.Drawing.Image), CType(resources.GetObject("tvImageList.Images2"), System.Drawing.Image), CType(resources.GetObject("tvImageList.Images3"), System.Drawing.Image)})
         '
+        'EventLog1
+        '
+        Me.EventLog1.SynchronizingObject = Me
+        '
         'dlgComments
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -380,6 +386,7 @@ Partial Class dlgComments
         CType(Me.tvCatalogTree, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.msImport.ResumeLayout(False)
+        CType(Me.EventLog1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -401,5 +408,7 @@ Partial Class dlgComments
     Friend WithEvents btnCommentSave As Syncfusion.WinForms.Controls.SfButton
     Friend WithEvents tsImportAll As ToolStripMenuItem
     Friend WithEvents dlgImageList As ImageList
-    Friend WithEvents VRichTextBoxExt1 As WindowsControlLibrary1.vRichTextBoxExt
+    Friend WithEvents EditorHost As Integration.ElementHost
+    Friend WithEvents EventLog1 As EventLog
+    Friend VEditor1 As VHIXUserControls.VEditor
 End Class

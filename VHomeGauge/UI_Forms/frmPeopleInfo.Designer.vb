@@ -271,7 +271,7 @@ Partial Class frmPeopleInfo
         'radAgent
         '
         Me.radAgent.BeforeTouchSize = New System.Drawing.Size(54, 21)
-        Me.radAgent.CheckedImage = Global.SyncfusionWindowsFormsApplication1.My.Resources.Resources.agent_selected
+        Me.radAgent.CheckedImage = Global.VHIHomeGaugeApplication.My.Resources.Resources.agent_selected
         Me.radAgent.ImageCheckBox = True
         Me.radAgent.Location = New System.Drawing.Point(21, 50)
         Me.radAgent.MetroColor = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(89, Byte), Integer), CType(CType(91, Byte), Integer))
@@ -281,12 +281,12 @@ Partial Class frmPeopleInfo
         Me.radAgent.TabIndex = 1
         Me.radAgent.Text = "Agent"
         Me.radAgent.ThemesEnabled = True
-        Me.radAgent.UncheckedImage = Global.SyncfusionWindowsFormsApplication1.My.Resources.Resources.agent
+        Me.radAgent.UncheckedImage = Global.VHIHomeGaugeApplication.My.Resources.Resources.agent
         '
         'radClient
         '
         Me.radClient.BeforeTouchSize = New System.Drawing.Size(54, 21)
-        Me.radClient.CheckedImage = Global.SyncfusionWindowsFormsApplication1.My.Resources.Resources.customer_selected
+        Me.radClient.CheckedImage = Global.VHIHomeGaugeApplication.My.Resources.Resources.customer_selected
         Me.radClient.ImageCheckBox = True
         Me.radClient.Location = New System.Drawing.Point(21, 22)
         Me.radClient.MetroColor = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(89, Byte), Integer), CType(CType(91, Byte), Integer))
@@ -296,7 +296,7 @@ Partial Class frmPeopleInfo
         Me.radClient.TabIndex = 0
         Me.radClient.Text = "Client"
         Me.radClient.ThemesEnabled = True
-        Me.radClient.UncheckedImage = Global.SyncfusionWindowsFormsApplication1.My.Resources.Resources.customer
+        Me.radClient.UncheckedImage = Global.VHIHomeGaugeApplication.My.Resources.Resources.customer
         '
         'tabHGUserName
         '

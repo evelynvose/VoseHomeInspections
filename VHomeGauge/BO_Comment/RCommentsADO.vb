@@ -8,8 +8,8 @@
 ' This is a report database controller class. It provides a highly typed interface
 ' to the database.
 '
-Imports SyncfusionWindowsFormsApplication1.vreportsDataSet
-Imports SyncfusionWindowsFormsApplication1.vreportsDataSetTableAdapters
+Imports VHIHomeGaugeApplication.vreportsDataSet
+Imports VHIHomeGaugeApplication.vreportsDataSetTableAdapters
 '
 Public MustInherit Class RCommentsADO
     Inherits VObject    ' everybody inherits VObject

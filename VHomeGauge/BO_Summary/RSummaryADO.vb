@@ -5,8 +5,8 @@
 ' ****
 ' **********************************************
 ' 
-Imports SyncfusionWindowsFormsApplication1.vreportsDataSet
-Imports SyncfusionWindowsFormsApplication1.vreportsDataSetTableAdapters
+Imports VHIHomeGaugeApplication.vreportsDataSet
+Imports VHIHomeGaugeApplication.vreportsDataSetTableAdapters
 Imports System.ComponentModel
 '
 Public MustInherit Class RSummaryADO

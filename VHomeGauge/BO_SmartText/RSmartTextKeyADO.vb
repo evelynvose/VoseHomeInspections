@@ -5,8 +5,8 @@
 ' ****
 ' **********************************************
 ' 
-Imports SyncfusionWindowsFormsApplication1.VRepSmartTextDataSet
-Imports SyncfusionWindowsFormsApplication1.VRepSmartTextDataSetTableAdapters
+Imports VHIHomeGaugeApplication.VRepSmartTextDataSet
+Imports VHIHomeGaugeApplication.VRepSmartTextDataSetTableAdapters
 Imports System.ComponentModel
 '
 Public MustInherit Class RSmartTextKeyADO

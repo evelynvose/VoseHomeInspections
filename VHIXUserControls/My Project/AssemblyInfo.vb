@@ -11,10 +11,10 @@ Imports System.Windows
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("WPFRichTextBox")>
+<Assembly: AssemblyTitle("VHIRichTextBoxExt")>
 <Assembly: AssemblyDescription("")>
 <Assembly: AssemblyCompany("")>
-<Assembly: AssemblyProduct("WPFRichTextBox")>
+<Assembly: AssemblyProduct("VHIRichTextBoxExt")>
 <Assembly: AssemblyCopyright("Copyright @  2019")>
 <Assembly: AssemblyTrademark("")> 
 <Assembly: ComVisible(false)>
@@ -42,7 +42,7 @@ Imports System.Windows
 
 
 'The following GUID is for the ID of the typelib if this project is exposed to COM
-<Assembly: Guid("82702b2b-0368-4729-ba44-25097f36933f")> 
+<Assembly: Guid("6856f2d5-8e8a-4581-9651-d1650cf0c7c1")> 
 
 ' Version information for an assembly consists of the following four values:
 '

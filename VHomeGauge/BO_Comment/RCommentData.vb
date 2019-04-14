@@ -6,7 +6,7 @@
 ' ****
 ' **********************************************
 ' 
-Imports SyncfusionWindowsFormsApplication1.vreportsDataSet
+Imports VHIHomeGaugeApplication.vreportsDataSet
 '
 Public MustInherit Class RCommentData
     Inherits VObject

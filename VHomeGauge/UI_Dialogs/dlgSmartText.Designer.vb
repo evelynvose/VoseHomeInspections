@@ -311,7 +311,7 @@ Partial Class dlgSmartText
         'btnGear
         '
         Me.btnGear.BeforeTouchSize = New System.Drawing.Size(30, 30)
-        Me.btnGear.Image = Global.SyncfusionWindowsFormsApplication1.My.Resources.Resources.gear1
+        Me.btnGear.Image = Global.VHIHomeGaugeApplication.My.Resources.Resources.gear1
         Me.btnGear.IsBackStageButton = False
         Me.btnGear.Location = New System.Drawing.Point(717, 7)
         Me.btnGear.MetroColor = System.Drawing.SystemColors.ActiveCaption

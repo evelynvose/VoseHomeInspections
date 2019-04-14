@@ -9,7 +9,7 @@ Imports System.IO
 Imports Syncfusion.Windows.Controls.RichTextBoxAdv
 Imports System.Windows
 '
-Public Class vRichTextBoxExt
+Public Class VRichTextBoxExt
     '
     Private WithEvents m_RichTextBox As SfRichTextBoxAdv
     '

@@ -8,8 +8,8 @@
 ' This is a report database controller class. It provides a highly typed interface
 ' to the database.
 '
-Imports SyncfusionWindowsFormsApplication1.VRepSmartTextDataSet
-Imports SyncfusionWindowsFormsApplication1.VRepSmartTextDataSetTableAdapters
+Imports VHIHomeGaugeApplication.VRepSmartTextDataSet
+Imports VHIHomeGaugeApplication.VRepSmartTextDataSetTableAdapters
 '
 Public MustInherit Class RSmartTextValuesADO
     Inherits VObject    ' everybody inherits VObject

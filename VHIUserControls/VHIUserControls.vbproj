@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{D7DBF908-C672-4D1F-919A-668A5D752EE9}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>WindowsControlLibrary1</RootNamespace>
-    <AssemblyName>WindowsControlLibrary1</AssemblyName>
+    <RootNamespace>VHIUserControls</RootNamespace>
+    <AssemblyName>VHIUserControls</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -19,7 +19,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>WindowsControlLibrary1.xml</DocumentationFile>
+    <DocumentationFile>VHIUserControls.xml</DocumentationFile>
     <DefineConstants>_MYFORMS=True</DefineConstants>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
@@ -29,7 +29,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>WindowsControlLibrary1.xml</DocumentationFile>
+    <DocumentationFile>VHIUserControls.xml</DocumentationFile>
     <DefineConstants>_MYFORMS=True</DefineConstants>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
@@ -87,11 +87,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
     </Compile>
-    <Compile Include="vRichTextBoxExt.vb">
+    <Compile Include="VRichTextBoxExt.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="vRichTextBoxExt.Designer.vb">
-      <DependentUpon>vRichTextBoxExt.vb</DependentUpon>
+    <Compile Include="VRichTextBoxExt.Designer.vb">
+      <DependentUpon>VRichTextBoxExt.vb</DependentUpon>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Resources.Designer.vb">
@@ -112,8 +112,8 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="vRichTextBoxExt.resx">
-      <DependentUpon>vRichTextBoxExt.vb</DependentUpon>
+    <EmbeddedResource Include="VRichTextBoxExt.resx">
+      <DependentUpon>VRichTextBoxExt.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

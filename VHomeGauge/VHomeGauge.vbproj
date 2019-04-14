@@ -6,12 +6,12 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{CD4D39D4-7162-4EB5-BB28-D5E10FB4483B}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>SyncfusionWindowsFormsApplication1.My.MyApplication</StartupObject>
-    <RootNamespace>SyncfusionWindowsFormsApplication1</RootNamespace>
-    <AssemblyName>SyncfusionWindowsFormsApplication1</AssemblyName>
+    <StartupObject>VHIHomeGaugeApplication.My.MyApplication</StartupObject>
+    <RootNamespace>VHIHomeGaugeApplication</RootNamespace>
+    <AssemblyName>VHIHomeGaugeApplication</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
-    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <PublishUrl>publish\</PublishUrl>
@@ -29,15 +29,16 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>SyncfusionWindowsFormsApplication1.xml</DocumentationFile>
+    <DocumentationFile>VHIHomeGaugeApplication.xml</DocumentationFile>
     <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</NoWarn>
     <WarningsAsErrors>
     </WarningsAsErrors>
@@ -49,7 +50,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>SyncfusionWindowsFormsApplication1.xml</DocumentationFile>
+    <DocumentationFile>VHIHomeGaugeApplication.xml</DocumentationFile>
     <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</NoWarn>
     <WarningsAsErrors>
     </WarningsAsErrors>
@@ -58,13 +59,16 @@
     <OptionExplicit>On</OptionExplicit>
   </PropertyGroup>
   <PropertyGroup>
-    <OptionCompare>Binary</OptionCompare>
+    <OptionCompare>Text</OptionCompare>
   </PropertyGroup>
   <PropertyGroup>
     <OptionStrict>Off</OptionStrict>
   </PropertyGroup>
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>vosehi_icon_32.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
@@ -425,7 +429,6 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <None Include="packages.config" />
     <None Include="VReports.xsc">
       <DependentUpon>VReports.xsd</DependentUpon>
     </None>
@@ -462,6 +465,8 @@
     <Content Include="Resources\ReportPath.ico" />
     <None Include="Resources\scissors.png" />
     <Content Include="Resources\TemplatePath.ico" />
+    <Content Include="UI_Dialogs\VHIXUserControls.dll" />
+    <Content Include="vosehi_icon_32.ico" />
     <Content Include="VReports.accdb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -485,9 +490,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="WindowsControlLibrary1\VHIRichTextBoxAdv.vbproj">
-      <Project>{D7DBF908-C672-4D1F-919A-668A5D752EE9}</Project>
-      <Name>VHIRichTextBoxAdv</Name>
+    <ProjectReference Include="..\VHIXUserControls\VHIXUserControls.vbproj">
+      <Project>{38AB2548-FEBA-487A-AD42-27582C2DFCCD}</Project>
+      <Name>VHIXUserControls</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

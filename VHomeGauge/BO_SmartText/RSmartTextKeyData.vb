@@ -6,7 +6,7 @@
 ' ****
 ' **********************************************
 ' 
-Imports SyncfusionWindowsFormsApplication1.VRepSmartTextDataSet
+Imports VHIHomeGaugeApplication.VRepSmartTextDataSet
 '
 Public MustInherit Class RSmartTextKeyData
     Inherits VObject

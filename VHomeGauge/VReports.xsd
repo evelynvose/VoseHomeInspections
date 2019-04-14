@@ -4,7 +4,7 @@
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
       <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" GeneratorFunctionsComponentClassName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" UserFunctionsComponentName="QueriesTableAdapter" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
         <Connections>
-          <Connection AppSettingsObjectName="MySettings" AppSettingsPropertyName="vreportsConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="vreportsConnectionString (MySettings)" PropertyReference="ApplicationSettings.SyncfusionWindowsFormsApplication1.My.MySettings.GlobalReference.Default.vreportsConnectionString" Provider="System.Data.OleDb" />
+          <Connection AppSettingsObjectName="MySettings" AppSettingsPropertyName="vreportsConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="vreportsConnectionString (MySettings)" PropertyReference="ApplicationSettings.VHIHomeGaugeApplication.My.MySettings.GlobalReference.Default.vreportsConnectionString" Provider="System.Data.OleDb" />
         </Connections>
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="PhoneTableAdapter" GeneratorDataComponentClassName="PhoneTableAdapter" Name="Phone" UserDataComponentName="PhoneTableAdapter">
@@ -1087,7 +1087,7 @@ FROM            Comments</CommandText>
   <xs:element name="vreportsDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="vreportsDataSet" msprop:Generator_UserDSName="vreportsDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="Phone" msprop:Generator_TableClassName="PhoneDataTable" msprop:Generator_TableVarName="tablePhone" msprop:Generator_TablePropName="Phone" msprop:Generator_RowDeletingName="PhoneRowDeleting" msprop:Generator_RowChangingName="PhoneRowChanging" msprop:Generator_RowEvHandlerName="PhoneRowChangeEventHandler" msprop:Generator_RowDeletedName="PhoneRowDeleted" msprop:Generator_UserTableName="Phone" msprop:Generator_RowChangedName="PhoneRowChanged" msprop:Generator_RowEvArgName="PhoneRowChangeEvent" msprop:Generator_RowClassName="PhoneRow">
+        <xs:element name="Phone" msprop:Generator_TableClassName="PhoneDataTable" msprop:Generator_TableVarName="tablePhone" msprop:Generator_RowChangedName="PhoneRowChanged" msprop:Generator_TablePropName="Phone" msprop:Generator_RowDeletingName="PhoneRowDeleting" msprop:Generator_RowChangingName="PhoneRowChanging" msprop:Generator_RowEvHandlerName="PhoneRowChangeEventHandler" msprop:Generator_RowDeletedName="PhoneRowDeleted" msprop:Generator_RowClassName="PhoneRow" msprop:Generator_UserTableName="Phone" msprop:Generator_RowEvArgName="PhoneRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:string" />
@@ -1104,7 +1104,7 @@ FROM            Comments</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="EmailAddress" msprop:Generator_TableClassName="EmailAddressDataTable" msprop:Generator_TableVarName="tableEmailAddress" msprop:Generator_RowChangedName="EmailAddressRowChanged" msprop:Generator_TablePropName="EmailAddress" msprop:Generator_RowDeletingName="EmailAddressRowDeleting" msprop:Generator_RowChangingName="EmailAddressRowChanging" msprop:Generator_RowEvHandlerName="EmailAddressRowChangeEventHandler" msprop:Generator_RowDeletedName="EmailAddressRowDeleted" msprop:Generator_RowClassName="EmailAddressRow" msprop:Generator_UserTableName="EmailAddress" msprop:Generator_RowEvArgName="EmailAddressRowChangeEvent">
+        <xs:element name="EmailAddress" msprop:Generator_TableClassName="EmailAddressDataTable" msprop:Generator_TableVarName="tableEmailAddress" msprop:Generator_TablePropName="EmailAddress" msprop:Generator_RowDeletingName="EmailAddressRowDeleting" msprop:Generator_RowChangingName="EmailAddressRowChanging" msprop:Generator_RowEvHandlerName="EmailAddressRowChangeEventHandler" msprop:Generator_RowDeletedName="EmailAddressRowDeleted" msprop:Generator_UserTableName="EmailAddress" msprop:Generator_RowChangedName="EmailAddressRowChanged" msprop:Generator_RowEvArgName="EmailAddressRowChangeEvent" msprop:Generator_RowClassName="EmailAddressRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:string" />
@@ -1120,7 +1120,7 @@ FROM            Comments</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Address" msprop:Generator_TableClassName="AddressDataTable" msprop:Generator_TableVarName="tableAddress" msprop:Generator_TablePropName="Address" msprop:Generator_RowDeletingName="AddressRowDeleting" msprop:Generator_RowChangingName="AddressRowChanging" msprop:Generator_RowEvHandlerName="AddressRowChangeEventHandler" msprop:Generator_RowDeletedName="AddressRowDeleted" msprop:Generator_UserTableName="Address" msprop:Generator_RowChangedName="AddressRowChanged" msprop:Generator_RowEvArgName="AddressRowChangeEvent" msprop:Generator_RowClassName="AddressRow">
+        <xs:element name="Address" msprop:Generator_TableClassName="AddressDataTable" msprop:Generator_TableVarName="tableAddress" msprop:Generator_RowChangedName="AddressRowChanged" msprop:Generator_TablePropName="Address" msprop:Generator_RowDeletingName="AddressRowDeleting" msprop:Generator_RowChangingName="AddressRowChanging" msprop:Generator_RowEvHandlerName="AddressRowChangeEventHandler" msprop:Generator_RowDeletedName="AddressRowDeleted" msprop:Generator_RowClassName="AddressRow" msprop:Generator_UserTableName="Address" msprop:Generator_RowEvArgName="AddressRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:string" />
@@ -1174,7 +1174,7 @@ FROM            Comments</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Person" msprop:Generator_TableClassName="PersonDataTable" msprop:Generator_TableVarName="tablePerson" msprop:Generator_TablePropName="Person" msprop:Generator_RowDeletingName="PersonRowDeleting" msprop:Generator_RowChangingName="PersonRowChanging" msprop:Generator_RowEvHandlerName="PersonRowChangeEventHandler" msprop:Generator_RowDeletedName="PersonRowDeleted" msprop:Generator_UserTableName="Person" msprop:Generator_RowChangedName="PersonRowChanged" msprop:Generator_RowEvArgName="PersonRowChangeEvent" msprop:Generator_RowClassName="PersonRow">
+        <xs:element name="Person" msprop:Generator_TableClassName="PersonDataTable" msprop:Generator_TableVarName="tablePerson" msprop:Generator_RowChangedName="PersonRowChanged" msprop:Generator_TablePropName="Person" msprop:Generator_RowDeletingName="PersonRowDeleting" msprop:Generator_RowChangingName="PersonRowChanging" msprop:Generator_RowEvHandlerName="PersonRowChangeEventHandler" msprop:Generator_RowDeletedName="PersonRowDeleted" msprop:Generator_RowClassName="PersonRow" msprop:Generator_UserTableName="Person" msprop:Generator_RowEvArgName="PersonRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:string" />
@@ -1197,7 +1197,7 @@ FROM            Comments</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="ReportMaster" msprop:Generator_TableClassName="ReportMasterDataTable" msprop:Generator_TableVarName="tableReportMaster" msprop:Generator_RowChangedName="ReportMasterRowChanged" msprop:Generator_TablePropName="ReportMaster" msprop:Generator_RowDeletingName="ReportMasterRowDeleting" msprop:Generator_RowChangingName="ReportMasterRowChanging" msprop:Generator_RowEvHandlerName="ReportMasterRowChangeEventHandler" msprop:Generator_RowDeletedName="ReportMasterRowDeleted" msprop:Generator_RowClassName="ReportMasterRow" msprop:Generator_UserTableName="ReportMaster" msprop:Generator_RowEvArgName="ReportMasterRowChangeEvent">
+        <xs:element name="ReportMaster" msprop:Generator_TableClassName="ReportMasterDataTable" msprop:Generator_TableVarName="tableReportMaster" msprop:Generator_TablePropName="ReportMaster" msprop:Generator_RowDeletingName="ReportMasterRowDeleting" msprop:Generator_RowChangingName="ReportMasterRowChanging" msprop:Generator_RowEvHandlerName="ReportMasterRowChangeEventHandler" msprop:Generator_RowDeletedName="ReportMasterRowDeleted" msprop:Generator_UserTableName="ReportMaster" msprop:Generator_RowChangedName="ReportMasterRowChanged" msprop:Generator_RowEvArgName="ReportMasterRowChangeEvent" msprop:Generator_RowClassName="ReportMasterRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:string" />
@@ -1230,7 +1230,7 @@ FROM            Comments</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Company" msprop:Generator_TableClassName="CompanyDataTable" msprop:Generator_TableVarName="tableCompany" msprop:Generator_RowChangedName="CompanyRowChanged" msprop:Generator_TablePropName="Company" msprop:Generator_RowDeletingName="CompanyRowDeleting" msprop:Generator_RowChangingName="CompanyRowChanging" msprop:Generator_RowEvHandlerName="CompanyRowChangeEventHandler" msprop:Generator_RowDeletedName="CompanyRowDeleted" msprop:Generator_RowClassName="CompanyRow" msprop:Generator_UserTableName="Company" msprop:Generator_RowEvArgName="CompanyRowChangeEvent">
+        <xs:element name="Company" msprop:Generator_TableClassName="CompanyDataTable" msprop:Generator_TableVarName="tableCompany" msprop:Generator_TablePropName="Company" msprop:Generator_RowDeletingName="CompanyRowDeleting" msprop:Generator_RowChangingName="CompanyRowChanging" msprop:Generator_RowEvHandlerName="CompanyRowChangeEventHandler" msprop:Generator_RowDeletedName="CompanyRowDeleted" msprop:Generator_UserTableName="Company" msprop:Generator_RowChangedName="CompanyRowChanged" msprop:Generator_RowEvArgName="CompanyRowChangeEvent" msprop:Generator_RowClassName="CompanyRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:string" />
@@ -1252,7 +1252,7 @@ FROM            Comments</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="RoleInfo" msprop:Generator_TableClassName="RoleInfoDataTable" msprop:Generator_TableVarName="tableRoleInfo" msprop:Generator_TablePropName="RoleInfo" msprop:Generator_RowDeletingName="RoleInfoRowDeleting" msprop:Generator_RowChangingName="RoleInfoRowChanging" msprop:Generator_RowEvHandlerName="RoleInfoRowChangeEventHandler" msprop:Generator_RowDeletedName="RoleInfoRowDeleted" msprop:Generator_UserTableName="RoleInfo" msprop:Generator_RowChangedName="RoleInfoRowChanged" msprop:Generator_RowEvArgName="RoleInfoRowChangeEvent" msprop:Generator_RowClassName="RoleInfoRow">
+        <xs:element name="RoleInfo" msprop:Generator_TableClassName="RoleInfoDataTable" msprop:Generator_TableVarName="tableRoleInfo" msprop:Generator_RowChangedName="RoleInfoRowChanged" msprop:Generator_TablePropName="RoleInfo" msprop:Generator_RowDeletingName="RoleInfoRowDeleting" msprop:Generator_RowChangingName="RoleInfoRowChanging" msprop:Generator_RowEvHandlerName="RoleInfoRowChangeEventHandler" msprop:Generator_RowDeletedName="RoleInfoRowDeleted" msprop:Generator_RowClassName="RoleInfoRow" msprop:Generator_UserTableName="RoleInfo" msprop:Generator_RowEvArgName="RoleInfoRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:int" />
@@ -1262,7 +1262,7 @@ FROM            Comments</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="RoleLut" msprop:Generator_TableClassName="RoleLutDataTable" msprop:Generator_TableVarName="tableRoleLut" msprop:Generator_TablePropName="RoleLut" msprop:Generator_RowDeletingName="RoleLutRowDeleting" msprop:Generator_RowChangingName="RoleLutRowChanging" msprop:Generator_RowEvHandlerName="RoleLutRowChangeEventHandler" msprop:Generator_RowDeletedName="RoleLutRowDeleted" msprop:Generator_UserTableName="RoleLut" msprop:Generator_RowChangedName="RoleLutRowChanged" msprop:Generator_RowEvArgName="RoleLutRowChangeEvent" msprop:Generator_RowClassName="RoleLutRow">
+        <xs:element name="RoleLut" msprop:Generator_TableClassName="RoleLutDataTable" msprop:Generator_TableVarName="tableRoleLut" msprop:Generator_RowChangedName="RoleLutRowChanged" msprop:Generator_TablePropName="RoleLut" msprop:Generator_RowDeletingName="RoleLutRowDeleting" msprop:Generator_RowChangingName="RoleLutRowChanging" msprop:Generator_RowEvHandlerName="RoleLutRowChangeEventHandler" msprop:Generator_RowDeletedName="RoleLutRowDeleted" msprop:Generator_RowClassName="RoleLutRow" msprop:Generator_UserTableName="RoleLut" msprop:Generator_RowEvArgName="RoleLutRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:int" />
@@ -1283,7 +1283,7 @@ FROM            Comments</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="RConnectors" msprop:Generator_TableClassName="RConnectorsDataTable" msprop:Generator_TableVarName="tableRConnectors" msprop:Generator_TablePropName="RConnectors" msprop:Generator_RowDeletingName="RConnectorsRowDeleting" msprop:Generator_RowChangingName="RConnectorsRowChanging" msprop:Generator_RowEvHandlerName="RConnectorsRowChangeEventHandler" msprop:Generator_RowDeletedName="RConnectorsRowDeleted" msprop:Generator_UserTableName="RConnectors" msprop:Generator_RowChangedName="RConnectorsRowChanged" msprop:Generator_RowEvArgName="RConnectorsRowChangeEvent" msprop:Generator_RowClassName="RConnectorsRow">
+        <xs:element name="RConnectors" msprop:Generator_TableClassName="RConnectorsDataTable" msprop:Generator_TableVarName="tableRConnectors" msprop:Generator_RowChangedName="RConnectorsRowChanged" msprop:Generator_TablePropName="RConnectors" msprop:Generator_RowDeletingName="RConnectorsRowDeleting" msprop:Generator_RowChangingName="RConnectorsRowChanging" msprop:Generator_RowEvHandlerName="RConnectorsRowChangeEventHandler" msprop:Generator_RowDeletedName="RConnectorsRowDeleted" msprop:Generator_RowClassName="RConnectorsRow" msprop:Generator_UserTableName="RConnectors" msprop:Generator_RowEvArgName="RConnectorsRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:string" />
@@ -1311,7 +1311,7 @@ FROM            Comments</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Comments" msprop:Generator_TableClassName="CommentsDataTable" msprop:Generator_TableVarName="tableComments" msprop:Generator_TablePropName="Comments" msprop:Generator_RowDeletingName="CommentsRowDeleting" msprop:Generator_RowChangingName="CommentsRowChanging" msprop:Generator_RowEvHandlerName="CommentsRowChangeEventHandler" msprop:Generator_RowDeletedName="CommentsRowDeleted" msprop:Generator_UserTableName="Comments" msprop:Generator_RowChangedName="CommentsRowChanged" msprop:Generator_RowEvArgName="CommentsRowChangeEvent" msprop:Generator_RowClassName="CommentsRow">
+        <xs:element name="Comments" msprop:Generator_TableClassName="CommentsDataTable" msprop:Generator_TableVarName="tableComments" msprop:Generator_RowChangedName="CommentsRowChanged" msprop:Generator_TablePropName="Comments" msprop:Generator_RowDeletingName="CommentsRowDeleting" msprop:Generator_RowChangingName="CommentsRowChanging" msprop:Generator_RowEvHandlerName="CommentsRowChangeEventHandler" msprop:Generator_RowDeletedName="CommentsRowDeleted" msprop:Generator_RowClassName="CommentsRow" msprop:Generator_UserTableName="Comments" msprop:Generator_RowEvArgName="CommentsRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:string" />
@@ -1335,7 +1335,7 @@ FROM            Comments</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Summary" msprop:Generator_TableClassName="SummaryDataTable" msprop:Generator_TableVarName="tableSummary" msprop:Generator_RowChangedName="SummaryRowChanged" msprop:Generator_TablePropName="Summary" msprop:Generator_RowDeletingName="SummaryRowDeleting" msprop:Generator_RowChangingName="SummaryRowChanging" msprop:Generator_RowEvHandlerName="SummaryRowChangeEventHandler" msprop:Generator_RowDeletedName="SummaryRowDeleted" msprop:Generator_RowClassName="SummaryRow" msprop:Generator_UserTableName="Summary" msprop:Generator_RowEvArgName="SummaryRowChangeEvent">
+        <xs:element name="Summary" msprop:Generator_TableClassName="SummaryDataTable" msprop:Generator_TableVarName="tableSummary" msprop:Generator_TablePropName="Summary" msprop:Generator_RowDeletingName="SummaryRowDeleting" msprop:Generator_RowChangingName="SummaryRowChanging" msprop:Generator_RowEvHandlerName="SummaryRowChangeEventHandler" msprop:Generator_RowDeletedName="SummaryRowDeleted" msprop:Generator_UserTableName="Summary" msprop:Generator_RowChangedName="SummaryRowChanged" msprop:Generator_RowEvArgName="SummaryRowChangeEvent" msprop:Generator_RowClassName="SummaryRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:string" />

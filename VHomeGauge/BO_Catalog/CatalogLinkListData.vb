@@ -5,7 +5,7 @@
 ' ****
 ' **********************************************
 ' 
-Imports SyncfusionWindowsFormsApplication1.VRepCatalog
+Imports VHIHomeGaugeApplication.VRepCatalog
 
 Public MustInherit Class CatalogLinkListData
     Inherits VObject

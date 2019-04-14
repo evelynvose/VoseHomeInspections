@@ -1292,7 +1292,7 @@ Namespace VRepCatalogTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Private Sub InitConnection()
             Me._connection = New Global.System.Data.OleDb.OleDbConnection()
-            Me._connection.ConnectionString = Global.SyncfusionWindowsFormsApplication1.My.MySettings.Default.vreportsConnectionString
+            Me._connection.ConnectionString = Global.VHIHomeGaugeApplication.My.MySettings.Default.vreportsConnectionString
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -1732,7 +1732,7 @@ Namespace VRepCatalogTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")>  _
         Private Sub InitConnection()
             Me._connection = New Global.System.Data.OleDb.OleDbConnection()
-            Me._connection.ConnectionString = Global.SyncfusionWindowsFormsApplication1.My.MySettings.Default.vreportsConnectionString
+            Me._connection.ConnectionString = Global.VHIHomeGaugeApplication.My.MySettings.Default.vreportsConnectionString
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _

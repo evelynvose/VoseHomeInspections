@@ -4,7 +4,7 @@
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
       <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
         <Connections>
-          <Connection AppSettingsObjectName="MySettings" AppSettingsPropertyName="vreportsConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="vreportsConnectionString (MySettings)" PropertyReference="ApplicationSettings.SyncfusionWindowsFormsApplication1.My.MySettings.GlobalReference.Default.vreportsConnectionString" Provider="System.Data.OleDb" />
+          <Connection AppSettingsObjectName="MySettings" AppSettingsPropertyName="vreportsConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="vreportsConnectionString (MySettings)" PropertyReference="ApplicationSettings.VHIHomeGaugeApplication.My.MySettings.GlobalReference.Default.vreportsConnectionString" Provider="System.Data.OleDb" />
         </Connections>
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="SmartTextKeysTableAdapter" GeneratorDataComponentClassName="SmartTextKeysTableAdapter" Name="SmartTextKeys" UserDataComponentName="SmartTextKeysTableAdapter">
@@ -185,7 +185,7 @@
   <xs:element name="VRepSmartTextDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="VRepSmartTextDataSet" msprop:Generator_UserDSName="VRepSmartTextDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="SmartTextKeys" msprop:Generator_TableClassName="SmartTextKeysDataTable" msprop:Generator_TableVarName="tableSmartTextKeys" msprop:Generator_TablePropName="SmartTextKeys" msprop:Generator_RowDeletingName="SmartTextKeysRowDeleting" msprop:Generator_RowChangingName="SmartTextKeysRowChanging" msprop:Generator_RowEvHandlerName="SmartTextKeysRowChangeEventHandler" msprop:Generator_RowDeletedName="SmartTextKeysRowDeleted" msprop:Generator_UserTableName="SmartTextKeys" msprop:Generator_RowChangedName="SmartTextKeysRowChanged" msprop:Generator_RowEvArgName="SmartTextKeysRowChangeEvent" msprop:Generator_RowClassName="SmartTextKeysRow">
+        <xs:element name="SmartTextKeys" msprop:Generator_TableClassName="SmartTextKeysDataTable" msprop:Generator_TableVarName="tableSmartTextKeys" msprop:Generator_RowChangedName="SmartTextKeysRowChanged" msprop:Generator_TablePropName="SmartTextKeys" msprop:Generator_RowDeletingName="SmartTextKeysRowDeleting" msprop:Generator_RowChangingName="SmartTextKeysRowChanging" msprop:Generator_RowEvHandlerName="SmartTextKeysRowChangeEventHandler" msprop:Generator_RowDeletedName="SmartTextKeysRowDeleted" msprop:Generator_RowClassName="SmartTextKeysRow" msprop:Generator_UserTableName="SmartTextKeys" msprop:Generator_RowEvArgName="SmartTextKeysRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:string" />
@@ -200,7 +200,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="SmartTextValues" msprop:Generator_TableClassName="SmartTextValuesDataTable" msprop:Generator_TableVarName="tableSmartTextValues" msprop:Generator_TablePropName="SmartTextValues" msprop:Generator_RowDeletingName="SmartTextValuesRowDeleting" msprop:Generator_RowChangingName="SmartTextValuesRowChanging" msprop:Generator_RowEvHandlerName="SmartTextValuesRowChangeEventHandler" msprop:Generator_RowDeletedName="SmartTextValuesRowDeleted" msprop:Generator_UserTableName="SmartTextValues" msprop:Generator_RowChangedName="SmartTextValuesRowChanged" msprop:Generator_RowEvArgName="SmartTextValuesRowChangeEvent" msprop:Generator_RowClassName="SmartTextValuesRow">
+        <xs:element name="SmartTextValues" msprop:Generator_TableClassName="SmartTextValuesDataTable" msprop:Generator_TableVarName="tableSmartTextValues" msprop:Generator_RowChangedName="SmartTextValuesRowChanged" msprop:Generator_TablePropName="SmartTextValues" msprop:Generator_RowDeletingName="SmartTextValuesRowDeleting" msprop:Generator_RowChangingName="SmartTextValuesRowChanging" msprop:Generator_RowEvHandlerName="SmartTextValuesRowChangeEventHandler" msprop:Generator_RowDeletedName="SmartTextValuesRowDeleted" msprop:Generator_RowClassName="SmartTextValuesRow" msprop:Generator_UserTableName="SmartTextValues" msprop:Generator_RowEvArgName="SmartTextValuesRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="ID" msdata:DataType="System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" msprop:Generator_ColumnVarNameInTable="columnID" msprop:Generator_ColumnPropNameInRow="ID" msprop:Generator_ColumnPropNameInTable="IDColumn" msprop:Generator_UserColumnName="ID" type="xs:string" />
@@ -226,7 +226,7 @@
       <xs:selector xpath=".//mstns:SmartTextValues" />
       <xs:field xpath="mstns:ID" />
     </xs:unique>
-    <xs:keyref name="FK_SmartTextKeys_SmartTextValues" refer="Constraint1" msprop:rel_Generator_UserChildTable="SmartTextValues" msprop:rel_Generator_ChildPropName="GetSmartTextValuesRows" msprop:rel_Generator_UserRelationName="FK_SmartTextKeys_SmartTextValues" msprop:rel_Generator_RelationVarName="relationFK_SmartTextKeys_SmartTextValues" msprop:rel_Generator_UserParentTable="SmartTextKeys" msprop:rel_Generator_ParentPropName="SmartTextKeysRow" msdata:UpdateRule="None">
+    <xs:keyref name="FK_SmartTextKeys_SmartTextValues" refer="Constraint1" msprop:rel_Generator_UserChildTable="SmartTextValues" msprop:rel_Generator_ChildPropName="GetSmartTextValuesRows" msprop:rel_Generator_UserRelationName="FK_SmartTextKeys_SmartTextValues" msprop:rel_Generator_ParentPropName="SmartTextKeysRow" msprop:rel_Generator_RelationVarName="relationFK_SmartTextKeys_SmartTextValues" msprop:rel_Generator_UserParentTable="SmartTextKeys" msdata:UpdateRule="None">
       <xs:selector xpath=".//mstns:SmartTextValues" />
       <xs:field xpath="mstns:FK_Key" />
     </xs:keyref>

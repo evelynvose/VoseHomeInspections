@@ -231,7 +231,7 @@ Partial Class frmMain
         '
         'miMainFileProperties
         '
-        Me.miMainFileProperties.Image = Global.SyncfusionWindowsFormsApplication1.My.Resources.Resources._property
+        Me.miMainFileProperties.Image = Global.VHIHomeGaugeApplication.My.Resources.Resources.vproperty
         Me.miMainFileProperties.Name = "miMainFileProperties"
         Me.miMainFileProperties.Size = New System.Drawing.Size(127, 22)
         Me.miMainFileProperties.Text = "Properties"
@@ -681,7 +681,7 @@ Partial Class frmMain
         Me.btnContactsAgent.BeforeTouchSize = New System.Drawing.Size(27, 27)
         Me.btnContactsAgent.FlatAppearance.BorderSize = 0
         Me.btnContactsAgent.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnContactsAgent.Image = Global.SyncfusionWindowsFormsApplication1.My.Resources.Resources.agent
+        Me.btnContactsAgent.Image = Global.VHIHomeGaugeApplication.My.Resources.Resources.agent
         Me.btnContactsAgent.IsBackStageButton = False
         Me.btnContactsAgent.Location = New System.Drawing.Point(37, 3)
         Me.btnContactsAgent.Name = "btnContactsAgent"
@@ -695,7 +695,7 @@ Partial Class frmMain
         Me.btnContactsClient.BeforeTouchSize = New System.Drawing.Size(27, 27)
         Me.btnContactsClient.FlatAppearance.BorderSize = 0
         Me.btnContactsClient.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnContactsClient.Image = Global.SyncfusionWindowsFormsApplication1.My.Resources.Resources.customer
+        Me.btnContactsClient.Image = Global.VHIHomeGaugeApplication.My.Resources.Resources.customer
         Me.btnContactsClient.IsBackStageButton = False
         Me.btnContactsClient.Location = New System.Drawing.Point(4, 4)
         Me.btnContactsClient.Name = "btnContactsClient"

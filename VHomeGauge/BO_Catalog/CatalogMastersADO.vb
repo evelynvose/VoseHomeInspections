@@ -5,8 +5,8 @@
 ' ****
 ' **********************************************
 '
-Imports SyncfusionWindowsFormsApplication1.VRepCatalog
-Imports SyncfusionWindowsFormsApplication1.VRepCatalogTableAdapters
+Imports VHIHomeGaugeApplication.VRepCatalog
+Imports VHIHomeGaugeApplication.VRepCatalogTableAdapters
 '
 ' This is a report database controller class. It provides a highly typed interface
 ' to the database.

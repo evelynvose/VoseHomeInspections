@@ -7,9 +7,5 @@
              xmlns:syncfusion="http://schemas.syncfusion.com/wpf" x:Class="UserControl1"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-
-        <syncfusion:SfRichTextBoxAdv HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="440" Width="800"/>
-
-    </Grid>
+    <Grid/>
 </UserControl>
