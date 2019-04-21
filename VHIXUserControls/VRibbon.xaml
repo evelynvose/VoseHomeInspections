@@ -16,10 +16,17 @@
             <syncfusion:Ribbon.QuickAccessToolBar>
                 <syncfusion:QuickAccessToolBar syncfusion:WindowChrome.IsHitTestVisibleInChrome="True"/>
             </syncfusion:Ribbon.QuickAccessToolBar>
-            <syncfusion:RibbonTab Background="Transparent" Caption="New RibbonTab1" FocusVisualStyle="{x:Null}" Focusable="False" MinWidth="23">
-                <syncfusion:RibbonBar Focusable="False" Header="New RibbonBar1"/>
+            <syncfusion:RibbonTab Background="Transparent" Caption="File" FocusVisualStyle="{x:Null}" Focusable="False" MinWidth="23">
+                <syncfusion:RibbonBar Focusable="False" Header="Database"/>
+                <syncfusion:RibbonBar Focusable="False" Header="Home Gauge"/>
+                <syncfusion:RibbonBar Focusable="False" Header="File System"/>
             </syncfusion:RibbonTab>
-            <syncfusion:RibbonTab Background="Transparent" Caption="New RibbonTab2" FocusVisualStyle="{x:Null}" Focusable="False" MinWidth="23"/>
+            <syncfusion:RibbonTab Background="Transparent" Caption="Home" FocusVisualStyle="{x:Null}" Focusable="False" MinWidth="23">
+                <syncfusion:RibbonBar Focusable="False" Header="Clipboard"/>
+                <syncfusion:RibbonBar Focusable="False" Header="Font"/>
+                <syncfusion:RibbonBar Focusable="False" Header="Paragraph"/>
+                <syncfusion:RibbonBar Focusable="False" Header="Editing"/>
+            </syncfusion:RibbonTab>
         </syncfusion:Ribbon>
 
     </Grid>
