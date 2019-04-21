@@ -228,7 +228,11 @@ Public Class VEditor
             '
         End Set
     End Property
-
+    ' 
+    ' ***********************************************
+    ' *****     +PageWidth(Double):Double
+    ' ***********************************************
+    '
     Public Property PageWidth As Double
         Get
             Return m_PageSize.Width
@@ -238,6 +242,12 @@ Public Class VEditor
         End Set
     End Property
     '
+    ' **********************************************
+    ' ****
+    ' ******    Constants
+    ' ****
+    ' **********************************************
+    ' 
     Private Const conGreekText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
     Private Const conWidthAdjustment = -100
     '
