@@ -21,14 +21,14 @@ Public Class VEditor
     ' ***********************************************
     '
     Public Sub New()
-
+        '
         ' This call is required by the designer.
+        '
         InitializeComponent()
-
+        '
         ' Add any initialization after the InitializeComponent() call.
-        ' Text = ""
-        ' EditorMargin(New Windows.Thickness(5))
-        EditorExt.LayoutType = LayoutType.Continuous
+        '
+        InitializeMe()
         '
     End Sub
     '
@@ -37,6 +37,23 @@ Public Class VEditor
     ' ******    Methods
     ' ****
     ' **********************************************
+    ' 
+    ' ***********************************************
+    ' *****     -InitializeMe()
+    ' ***********************************************
+    '
+    Private Sub InitializeMe()
+        '
+        ' Put a document into the editor, set the margins and flow.
+        ' Calling the Text method and using "" at least creates the document.
+        ' For debugging, set Text to nothing and it will insert a paragraph of Greek text.
+        '
+        Text = ""
+        Text = Nothing ' used for debugging
+        EditorMargin(New Windows.Thickness(5))
+        EditorExt.LayoutType = LayoutType.Continuous
+        '
+    End Sub
     '    
     ' ***********************************************
     ' *****     +Margin(Thickness)

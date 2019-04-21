@@ -12,8 +12,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <syncfusion:SfRichTextRibbon Grid.Row="0" x:Name="EditorMenu" DataContext="SFRichTextBoxAdv" Width="Auto" Margin="0,25,0,0" />
-        <syncfusion:SfRichTextBoxAdv Grid.Row="1" x:Name="EditorExt" Width="Auto" />
+        <local:VRibbon Grid.Row="0" x:Name="EditorMenu" DataContext="SFRichTextBoxAdv" Width="Auto" Margin="0,25,0,0" />
+        <syncfusion:SfRichTextBoxAdv Grid.Row="1" x:Name="EditorExt" Width="Auto" Height="Auto" />
     </Grid>
 
 </UserControl>
